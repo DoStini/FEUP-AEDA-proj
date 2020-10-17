@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+.idea
+cmake-build-debug
+docs
+libs
+.gitignore
+.gitmodules
+LICENSE
+README.md
+

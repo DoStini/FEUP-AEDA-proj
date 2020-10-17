@@ -54,19 +54,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "D:\Software\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "D:\Software\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\Documents\University\AEDA\FEUP-AEDA-proj
+CMAKE_SOURCE_DIR = C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -95,14 +95,14 @@ clean: CMakeFiles/Doxygen.dir/clean
 CMakeFiles/FEUP_AEDA_proj.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\FEUP_AEDA_proj.dir\build.make CMakeFiles/FEUP_AEDA_proj.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\FEUP_AEDA_proj.dir\build.make CMakeFiles/FEUP_AEDA_proj.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles --progress-num=2,3,4,5,6,7,8 "Built target FEUP_AEDA_proj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles --progress-num=2,3,4,5,6,7,8 "Built target FEUP_AEDA_proj"
 .PHONY : CMakeFiles/FEUP_AEDA_proj.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/FEUP_AEDA_proj.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/FEUP_AEDA_proj.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/FEUP_AEDA_proj.dir/rule
 
 # Convenience name for target.
@@ -122,14 +122,14 @@ CMakeFiles/FEUP_AEDA_proj.dir/clean:
 CMakeFiles/Doxygen.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Doxygen.dir\build.make CMakeFiles/Doxygen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Doxygen.dir\build.make CMakeFiles/Doxygen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles --progress-num=1 "Built target Doxygen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles --progress-num=1 "Built target Doxygen"
 .PHONY : CMakeFiles/Doxygen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Doxygen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/Doxygen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/Doxygen.dir/rule
 
 # Convenience name for target.

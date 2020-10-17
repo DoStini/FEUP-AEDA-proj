@@ -8,7 +8,6 @@ include_directories(src/Exceptions src/Streams src/Users src/Utils)
 add_executable(FEUP_AEDA_proj main.cpp src/Users/User.cpp src/Users/User.h src/Streams/Stream.cpp src/Streams/Stream.h src/Manager.cpp src/Manager.h src/Utils/Date.cpp src/Utils/Date.h src/Exceptions/RestrictedAgeException.cpp src/Exceptions/RestrictedAgeException.h)
 
 
-
 # Doxygen Build
 find_package(Doxygen)
 if(DOXYGEN_FOUND)

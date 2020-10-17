@@ -9,6 +9,7 @@ CMakeFiles/FEUP_AEDA_proj.dir/src/Exceptions/RestrictedAgeException.cpp.obj: ../
 CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.obj: ../src/Manager.cpp
 CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.obj: ../src/Manager.h
 
+CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.obj: ../src/Utils/Date.h
 CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.obj: ../src/Streams/Stream.cpp
 CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.obj: ../src/Streams/Stream.h
 

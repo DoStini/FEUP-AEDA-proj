@@ -1,4 +1,4 @@
-# Install script for directory: D:/Documents/University/AEDA/FEUP-AEDA-proj
+# Install script for directory: C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Documents/University/AEDA/FEUP-AEDA-proj/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
