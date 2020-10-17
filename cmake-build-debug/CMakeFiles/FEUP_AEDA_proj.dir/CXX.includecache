@@ -8,51 +8,15 @@
 
 ../src/Utils/Date.h
 
-D:/Documents/University/AEDA/FEUP-AEDA-proj/main.cpp
-iostream
--
-
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Exceptions/RestrictedAgeException.cpp
-RestrictedAgeException.h
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Exceptions/RestrictedAgeException.h
-
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Exceptions/RestrictedAgeException.h
-exception
--
-string
--
-ostream
--
-
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Manager.cpp
-Manager.h
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Manager.h
-
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Manager.h
-
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Streams/Stream.cpp
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/Stream.cpp
 Stream.h
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Streams/Stream.h
-
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Streams/Stream.h
-
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Users/User.cpp
-User.h
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Users/User.h
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/Stream.h
 utility
 -
 
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Users/User.h
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/Stream.h
 string
 -
 Date.h
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Users/Date.h
-
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Utils/Date.cpp
-Date.h
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Utils/Date.h
-ctime
--
-
-D:/Documents/University/AEDA/FEUP-AEDA-proj/src/Utils/Date.h
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/Date.h
 

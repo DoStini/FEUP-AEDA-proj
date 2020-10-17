@@ -53,19 +53,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "D:\Software\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "D:\Software\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\Documents\University\AEDA\FEUP-AEDA-proj
+CMAKE_SOURCE_DIR = C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/FEUP_AEDA_proj.dir/depend.make
@@ -79,86 +79,86 @@ include CMakeFiles/FEUP_AEDA_proj.dir/flags.make
 CMakeFiles/FEUP_AEDA_proj.dir/main.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/flags.make
 CMakeFiles/FEUP_AEDA_proj.dir/main.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/includes_CXX.rsp
 CMakeFiles/FEUP_AEDA_proj.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/main.cpp.obj"
-	D:\Development\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\main.cpp.obj -c D:\Documents\University\AEDA\FEUP-AEDA-proj\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/main.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\main.cpp.obj -c C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\main.cpp
 
 CMakeFiles/FEUP_AEDA_proj.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FEUP_AEDA_proj.dir/main.cpp.i"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Documents\University\AEDA\FEUP-AEDA-proj\main.cpp > CMakeFiles\FEUP_AEDA_proj.dir\main.cpp.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\main.cpp > CMakeFiles\FEUP_AEDA_proj.dir\main.cpp.i
 
 CMakeFiles/FEUP_AEDA_proj.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FEUP_AEDA_proj.dir/main.cpp.s"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\University\AEDA\FEUP-AEDA-proj\main.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\main.cpp.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\main.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\main.cpp.s
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Users/User.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/flags.make
 CMakeFiles/FEUP_AEDA_proj.dir/src/Users/User.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/includes_CXX.rsp
 CMakeFiles/FEUP_AEDA_proj.dir/src/Users/User.cpp.obj: ../src/Users/User.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/src/Users/User.cpp.obj"
-	D:\Development\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\src\Users\User.cpp.obj -c D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Users\User.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/src/Users/User.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\src\Users\User.cpp.obj -c C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Users\User.cpp
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Users/User.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FEUP_AEDA_proj.dir/src/Users/User.cpp.i"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Users\User.cpp > CMakeFiles\FEUP_AEDA_proj.dir\src\Users\User.cpp.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Users\User.cpp > CMakeFiles\FEUP_AEDA_proj.dir\src\Users\User.cpp.i
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Users/User.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FEUP_AEDA_proj.dir/src/Users/User.cpp.s"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Users\User.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\src\Users\User.cpp.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Users\User.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\src\Users\User.cpp.s
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/flags.make
 CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/includes_CXX.rsp
 CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.obj: ../src/Streams/Stream.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.obj"
-	D:\Development\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\src\Streams\Stream.cpp.obj -c D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Streams\Stream.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\src\Streams\Stream.cpp.obj -c C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Streams\Stream.cpp
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.i"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Streams\Stream.cpp > CMakeFiles\FEUP_AEDA_proj.dir\src\Streams\Stream.cpp.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Streams\Stream.cpp > CMakeFiles\FEUP_AEDA_proj.dir\src\Streams\Stream.cpp.i
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FEUP_AEDA_proj.dir/src/Streams/Stream.cpp.s"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Streams\Stream.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\src\Streams\Stream.cpp.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Streams\Stream.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\src\Streams\Stream.cpp.s
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/flags.make
 CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/includes_CXX.rsp
 CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.obj: ../src/Manager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.obj"
-	D:\Development\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\src\Manager.cpp.obj -c D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Manager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\src\Manager.cpp.obj -c C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Manager.cpp
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.i"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Manager.cpp > CMakeFiles\FEUP_AEDA_proj.dir\src\Manager.cpp.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Manager.cpp > CMakeFiles\FEUP_AEDA_proj.dir\src\Manager.cpp.i
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FEUP_AEDA_proj.dir/src/Manager.cpp.s"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Manager.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\src\Manager.cpp.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Manager.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\src\Manager.cpp.s
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Utils/Date.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/flags.make
 CMakeFiles/FEUP_AEDA_proj.dir/src/Utils/Date.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/includes_CXX.rsp
 CMakeFiles/FEUP_AEDA_proj.dir/src/Utils/Date.cpp.obj: ../src/Utils/Date.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/src/Utils/Date.cpp.obj"
-	D:\Development\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\src\Utils\Date.cpp.obj -c D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Utils\Date.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/src/Utils/Date.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\src\Utils\Date.cpp.obj -c C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Utils\Date.cpp
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Utils/Date.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FEUP_AEDA_proj.dir/src/Utils/Date.cpp.i"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Utils\Date.cpp > CMakeFiles\FEUP_AEDA_proj.dir\src\Utils\Date.cpp.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Utils\Date.cpp > CMakeFiles\FEUP_AEDA_proj.dir\src\Utils\Date.cpp.i
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Utils/Date.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FEUP_AEDA_proj.dir/src/Utils/Date.cpp.s"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Utils\Date.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\src\Utils\Date.cpp.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Utils\Date.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\src\Utils\Date.cpp.s
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Exceptions/RestrictedAgeException.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/flags.make
 CMakeFiles/FEUP_AEDA_proj.dir/src/Exceptions/RestrictedAgeException.cpp.obj: CMakeFiles/FEUP_AEDA_proj.dir/includes_CXX.rsp
 CMakeFiles/FEUP_AEDA_proj.dir/src/Exceptions/RestrictedAgeException.cpp.obj: ../src/Exceptions/RestrictedAgeException.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/src/Exceptions/RestrictedAgeException.cpp.obj"
-	D:\Development\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\src\Exceptions\RestrictedAgeException.cpp.obj -c D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Exceptions\RestrictedAgeException.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/FEUP_AEDA_proj.dir/src/Exceptions/RestrictedAgeException.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FEUP_AEDA_proj.dir\src\Exceptions\RestrictedAgeException.cpp.obj -c C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Exceptions\RestrictedAgeException.cpp
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Exceptions/RestrictedAgeException.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FEUP_AEDA_proj.dir/src/Exceptions/RestrictedAgeException.cpp.i"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Exceptions\RestrictedAgeException.cpp > CMakeFiles\FEUP_AEDA_proj.dir\src\Exceptions\RestrictedAgeException.cpp.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Exceptions\RestrictedAgeException.cpp > CMakeFiles\FEUP_AEDA_proj.dir\src\Exceptions\RestrictedAgeException.cpp.i
 
 CMakeFiles/FEUP_AEDA_proj.dir/src/Exceptions/RestrictedAgeException.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FEUP_AEDA_proj.dir/src/Exceptions/RestrictedAgeException.cpp.s"
-	D:\Development\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\University\AEDA\FEUP-AEDA-proj\src\Exceptions\RestrictedAgeException.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\src\Exceptions\RestrictedAgeException.cpp.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\src\Exceptions\RestrictedAgeException.cpp -o CMakeFiles\FEUP_AEDA_proj.dir\src\Exceptions\RestrictedAgeException.cpp.s
 
 # Object files for target FEUP_AEDA_proj
 FEUP_AEDA_proj_OBJECTS = \
@@ -182,7 +182,7 @@ FEUP_AEDA_proj.exe: CMakeFiles/FEUP_AEDA_proj.dir/build.make
 FEUP_AEDA_proj.exe: CMakeFiles/FEUP_AEDA_proj.dir/linklibs.rsp
 FEUP_AEDA_proj.exe: CMakeFiles/FEUP_AEDA_proj.dir/objects1.rsp
 FEUP_AEDA_proj.exe: CMakeFiles/FEUP_AEDA_proj.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable FEUP_AEDA_proj.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable FEUP_AEDA_proj.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\FEUP_AEDA_proj.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -195,6 +195,6 @@ CMakeFiles/FEUP_AEDA_proj.dir/clean:
 .PHONY : CMakeFiles/FEUP_AEDA_proj.dir/clean
 
 CMakeFiles/FEUP_AEDA_proj.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\Documents\University\AEDA\FEUP-AEDA-proj D:\Documents\University\AEDA\FEUP-AEDA-proj D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug D:\Documents\University\AEDA\FEUP-AEDA-proj\cmake-build-debug\CMakeFiles\FEUP_AEDA_proj.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1 C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1 C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug C:\Users\adbp\Documents\GitHub\FEUP-AEDA-proj1\cmake-build-debug\CMakeFiles\FEUP_AEDA_proj.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/FEUP_AEDA_proj.dir/depend
 
