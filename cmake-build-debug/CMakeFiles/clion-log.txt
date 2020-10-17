@@ -1,0 +1,6 @@
+"D:\Software\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\Documents\University\AEDA\FEUP-AEDA-proj
+-- Found Doxygen: D:/Development/doxygen/bin/doxygen.exe (found version "1.8.20 (f246dd2f1c58eea39ea3f50c108019e4d4137bd5)") found components: doxygen missing components: dot
+Doxygen build started
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/Documents/University/AEDA/FEUP-AEDA-proj/cmake-build-debug
