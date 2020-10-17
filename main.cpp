@@ -1,10 +1,8 @@
 #include <iostream>
 
-/**
- *
- * @return
- */
+#include "Stream.h"
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    Stream porrada("Mortal combat porrada", "EN", 14);
+
 }

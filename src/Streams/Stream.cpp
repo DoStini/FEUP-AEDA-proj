@@ -13,3 +13,16 @@ Stream::Stream(std::string title, std::string language, unsigned int minAge) :
     viewersNumber = 0;
     liveStream = true;
 }
+
+void Stream::addViewer(int n) {
+    viewersNumber += n;
+}
+
+unsigned int Stream::getNumViewers() const {
+    return viewersNumber;
+}
+
+unsigned int Stream::closeStream() {
+    liveStream = false;
+    return viewersNumber;
+}

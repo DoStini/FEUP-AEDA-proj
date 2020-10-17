@@ -18,6 +18,24 @@ public:
      * @param minAge - Minimal age of the stream , 13 by default
      */
     Stream(std::string title, std::string language, unsigned minAge = 13);
+    /**
+     * Add viewers to the stream
+     *
+     * @param n
+     */
+    void addViewer(int n = 1);
+    /**
+     * Give the number of viewers in the stream
+     *
+     * @return - number of viewers
+     */
+    unsigned getNumViewers() const;
+    /**
+     * Function used to end stream
+     *
+     * @return - corrent number of viewers
+     */
+    unsigned closeStream();
 
 private:
     std::string title;
