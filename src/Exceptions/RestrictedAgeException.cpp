@@ -19,7 +19,7 @@ const char *RestrictedAgeException::what() const throw() {
  * @return Output stream reference
  */
 std::ostream &operator<<(std::ostream &os, const RestrictedAgeException &exception) {
-    os << exception.name << ", " << exception.age << " is younger than the minimum age "
-       << exception.minAge << "years old.";
+    os << exception.name << ", " << exception.age << "years old, is younger than the minimum age "
+       << exception.minAge << " years old.";
     return os;
 }

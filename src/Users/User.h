@@ -7,6 +7,9 @@
 
 #include <string>
 #include "Date.h"
+#include "RestrictedAgeException.h"
+#include "Stream.h"
+
 
 /**
  * User master class
@@ -31,7 +34,21 @@ public:
      * @param joinedPlatDate - Date when user joined Streamz
      */
     User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
-private:
+
+    /// @return Name
+    const std::string &getName() const;
+    /// @return Nickname
+    const std::string &getNickName() const;
+    /// @return Age
+    unsigned int getAge() const;
+    /// @return BirthDate
+    const Date &getBirthDate() const;
+    /// @return Date which user joined StreamZ
+    const Date &getJoinedPlatformDate() const;
+
+    virtual std::string getInfo() const = 0;
+
+protected:
     std::string name;
     std::string nickName;
     unsigned age;
