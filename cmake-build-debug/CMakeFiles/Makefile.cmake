@@ -7,15 +7,18 @@ set(CMAKE_DEPENDS_GENERATOR "MinGW Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
+  "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeCInformation.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeCXXInformation.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeCommonLanguageInclude.cmake"
+  "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeDependentOption.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeExtraGeneratorDetermineCompilerMacrosAndIncludeDirs.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeFindCodeBlocks.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeGenericSystem.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeInitializeConfigs.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeLanguageInformation.cmake"
+  "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakePackageConfigHelpers.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeRCInformation.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeSystemSpecificInformation.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/CMakeSystemSpecificInitialize.cmake"
@@ -26,6 +29,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/FindDoxygen.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/FindPackageHandleStandardArgs.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/FindPackageMessage.cmake"
+  "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/FindPythonInterp.cmake"
+  "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/GNUInstallDirs.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/Internal/CMakeCheckCompilerFlag.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/Platform/Windows-GNU-C-ABI.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/Platform/Windows-GNU-C.cmake"
@@ -36,12 +41,22 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/Platform/Windows.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/Platform/WindowsPaths.cmake"
   "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/ProcessorCount.cmake"
+  "C:/Program Files/JetBrains/CLion 2020.2.3/bin/cmake/win/share/cmake-3.17/Modules/WriteBasicConfigVersionFile.cmake"
   "../CMakeLists.txt"
   "CMakeFiles/3.17.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.17.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.17.3/CMakeRCCompiler.cmake"
   "CMakeFiles/3.17.3/CMakeSystem.cmake"
   "../docs/Doxyfile"
+  "../libs/googletest/CMakeLists.txt"
+  "../libs/googletest/googlemock/CMakeLists.txt"
+  "../libs/googletest/googlemock/cmake/gmock.pc.in"
+  "../libs/googletest/googlemock/cmake/gmock_main.pc.in"
+  "../libs/googletest/googletest/CMakeLists.txt"
+  "../libs/googletest/googletest/cmake/Config.cmake.in"
+  "../libs/googletest/googletest/cmake/gtest.pc.in"
+  "../libs/googletest/googletest/cmake/gtest_main.pc.in"
+  "../libs/googletest/googletest/cmake/internal_utils.cmake"
   )
 
 # The corresponding makefile is:
@@ -54,10 +69,17 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "Doxyfile"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libs/googletest/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libs/googletest/googlemock/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libs/googletest/googletest/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/FEUP_AEDA_proj.dir/DependInfo.cmake"
   "CMakeFiles/Doxygen.dir/DependInfo.cmake"
+  "libs/googletest/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake"
+  "libs/googletest/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake"
+  "libs/googletest/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
+  "libs/googletest/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
   )

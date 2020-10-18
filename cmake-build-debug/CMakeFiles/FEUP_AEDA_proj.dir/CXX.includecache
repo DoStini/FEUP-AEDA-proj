@@ -6,17 +6,37 @@
 
 #IncludeRegexTransform: 
 
-../src/Utils/Date.h
-
-C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/Stream.cpp
-Stream.h
-C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/Stream.h
-utility
+../src/Users/User.h
+string
 -
+Date.h
+../src/Users/Date.h
+
+../src/Utils/Date.h
 
 C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/Stream.h
 string
 -
+vector
+-
 Date.h
 C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/Date.h
+User.h
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/User.h
+
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/privateStream.cpp
+privateStream.h
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/privateStream.h
+
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/privateStream.h
+Stream.h
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/Stream.h
+
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/publicStream.cpp
+publicStream.h
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/publicStream.h
+
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/publicStream.h
+Stream.h
+C:/Users/adbp/Documents/GitHub/FEUP-AEDA-proj1/src/Streams/Stream.h
 

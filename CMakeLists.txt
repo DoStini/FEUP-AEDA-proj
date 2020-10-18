@@ -3,10 +3,14 @@ project(FEUP_AEDA_proj)
 
 set(CMAKE_CXX_STANDARD 14)
 
+add_subdirectory(libs/googletest)
 include_directories(src/Exceptions src/Streams src/Users src/Utils)
+include_directories(libs/googletest/googletest/include)
+include_directories(libs/googletest/googlemock/include)
 
-add_executable(FEUP_AEDA_proj main.cpp src/Users/User.cpp src/Users/User.h src/Streams/Stream.cpp src/Streams/Stream.h src/Manager.cpp src/Manager.h src/Utils/Date.cpp src/Utils/Date.h src/Exceptions/RestrictedAgeException.cpp src/Exceptions/RestrictedAgeException.h)
+add_executable(FEUP_AEDA_proj main.cpp src/Users/User.cpp src/Users/User.h src/Streams/Stream.cpp src/Streams/Stream.h src/Manager.cpp src/Manager.h src/Utils/Date.cpp src/Utils/Date.h src/Exceptions/RestrictedAgeException.cpp src/Exceptions/RestrictedAgeException.h src/Streams/publicStream.cpp src/Streams/publicStream.h src/Streams/privateStream.cpp src/Streams/privateStream.h)
 
+target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
 
 # Doxygen Build
 find_package(Doxygen)
