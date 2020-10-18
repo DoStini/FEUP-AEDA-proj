@@ -18,6 +18,9 @@ public:
      * @param y - Year
      */
     explicit Date(int d = -1, int m = -1, int y = -1);
+
+    bool operator<(const Date &rhs) const;
+
     /// Set date to the current system date
     void setSystemDate();
     /// @return The day of the month stored

@@ -6,6 +6,8 @@
 #define FEUP_AEDA_PROJ_USER_H
 
 #include <string>
+#include <vector>
+#include <algorithm>
 #include "Date.h"
 #include "RestrictedAgeException.h"
 #include "Stream.h"
@@ -45,7 +47,7 @@ public:
     const Date &getBirthDate() const;
     /// @return Date which user joined StreamZ
     const Date &getJoinedPlatformDate() const;
-
+    /// @return info about the user
     virtual std::string getInfo() const = 0;
 
 protected:
