@@ -41,17 +41,22 @@ public:
     void unFollowStreamer(Streamer * streamer);
     /**
      * Join a stream
-     *
+     * Might throw AlreadyInStreamException
      * @param stream - Desired stream
      */
     void joinStream(Stream * stream);
-    /**
-     * Leave the current stream.
-     *
-     */
+    /// Leave the current stream. Might throw a NotInStreamException
     void leaveStream();
+    /// Like the current stream
+    void giveFeedBack();
+    /**
+     * Leave a comment on the (private) stream currently watching
+     * @param comment - The comment
+     */
+    void giveFeedBack(std::string comment);
 
 private:
+    /// Minimum age to be able to create a viewer account
     static const unsigned minimumAge = 12;
     /// Stream currently watching
     Stream * currWatching = nullptr;

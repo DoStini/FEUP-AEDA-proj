@@ -48,3 +48,12 @@ void Viewer::leaveStream() {
     if (currWatching == nullptr) throw NotInStreamException(name);
     currWatching = nullptr;
 }
+
+void Viewer::giveFeedBack() {
+    // Stream.like()
+}
+
+void Viewer::giveFeedBack(std::string comment) {
+    // Dynamic cast to verify type of stream
+    // Throw Exception
+}
