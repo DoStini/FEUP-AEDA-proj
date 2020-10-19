@@ -5,22 +5,28 @@
 #include "Date.h"
 
 Date::Date(const std::string &date) {
-    std::ios_base::iostate err = std::ios_base::goodbit;
-    std::istringstream dateStream(date);
+    std::stringstream dateStream(date);
+    const char* formats[3] = {"%Y/%m/%d", "%Y-%m-%d", "%Y%t%m%t%d"};
 
-    std::use_facet<std::time_get<char>>(
-            dateStream.getloc()).get_date({dateStream}, {}, dateStream, err, &dateStruct);
+    for(short int i = 0; i < 3; i++) {
+        setToZero();
+        dateStream >> std::get_time(&dateStruct, formats[i]);
 
-    dateStream.setstate(err);
-    if(!dateStream.good()) {
-        throw BadDateFormat(date);
+        if(!dateStream.fail()) return;
     }
+
+    throw BadDateFormat(date);
 }
 
 Date::Date(int year, int month, int day) {
-    dateStruct.tm_year = year;
-    dateStruct.tm_mon = month;
+    setToZero();
+    dateStruct.tm_year = year - 1900;
+    dateStruct.tm_mon = month - 1;
     dateStruct.tm_mday = day;
+}
+
+Date::Date() {
+    setSystemDate();
 }
 
 int Date::getDay() const {
@@ -28,14 +34,18 @@ int Date::getDay() const {
 }
 
 int Date::getMonth() const {
-    return dateStruct.tm_mon;
+    return dateStruct.tm_mon + 1;
 }
 
 int Date::getYear() const {
-    return dateStruct.tm_year;
+    return dateStruct.tm_year + 1900;
 }
 
 void Date::setSystemDate() {
     time_t now = time(0);
     dateStruct = *localtime(&now);
+}
+
+void Date::setToZero() {
+    dateStruct = {};
 }

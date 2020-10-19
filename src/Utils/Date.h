@@ -8,13 +8,14 @@
 #include <string>
 #include <ctime>
 #include <iomanip>
+#include <iostream>
 #include <locale>
 #include <ios>
 #include <sstream>
 #include "date/BadDateFormat.h"
 
 /**
- * Date class
+ * Class that stores a date in a simple, straightforward way.
  * @author Nuno Alves
  */
 class Date {
@@ -27,15 +28,21 @@ public:
      */
     explicit Date(const std::string &date);
     /**
-     * Constructor for Date. If empty, sets an invalid date -1/-1/-1
+     * Constructor for Date. If empty, sets the date to the current system date.
      *
      * @param year - Year
      * @param month - Month
      * @param day - Day of the month
      */
-    explicit Date(int year = -1, int month = -1, int day = -1);
+    explicit Date(int year, int month, int day);
+    /**
+     * Constructor for Date. Sets date values to system date.
+     */
+    explicit Date();
     /// Set date to the current system date
     void setSystemDate();
+    /// Sets all date values to zero.
+    void setToZero();
     /// @return The day of the month stored
     int getDay() const;
     /// @return The month stored
@@ -43,7 +50,7 @@ public:
     /// @return The year stored
     int getYear() const;
 private:
-    tm dateStruct;
+    std::tm dateStruct;
 };
 
 
