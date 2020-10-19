@@ -8,10 +8,13 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "Date.h"
-#include "RestrictedAgeException.h"
-#include "Stream.h"
+#include <sstream>
 
+#include "Date.h"
+// TODO WHY IS THIS
+#include "users/RestrictedAgeException.h"
+#include "users/FollowStreamerException.h"
+#include "Stream.h"
 
 /**
  * User master class

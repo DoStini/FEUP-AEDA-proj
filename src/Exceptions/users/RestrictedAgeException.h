@@ -14,7 +14,7 @@
  */
 class RestrictedAgeException : public std::exception{
 public:
-    RestrictedAgeException(const std::string &name, int age, int minAge);
+    RestrictedAgeException(std::string name, int age, int minAge);
     /**
      * Brief info about exception
      * @return

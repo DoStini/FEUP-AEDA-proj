@@ -9,7 +9,7 @@ User::User( std::string name, std::string nickName, const Date &birthDate) :
             name(std::move(name)), nickName(std::move(nickName)),birthDate(birthDate) {
     Date currDate; currDate.setSystemDate();
     joinedPlatformDate = currDate;
-    age = 2;
+    age = 19;
     // Calculate user age, first need to overload Date - Date
 }
 

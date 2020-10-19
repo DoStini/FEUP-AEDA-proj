@@ -4,7 +4,6 @@
 
 #include "Viewer.h"
 
-#include <utility>
 
 Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
                 User(name, std::move(nickName), birthDate) {
@@ -14,16 +13,16 @@ Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
 }
 
 std::string Viewer::getInfo() const {
-    return "Hey there, viewer!";
+    std::stringstream ss; ss << "Viewer: " << name << ". Nickname: " << nickName << ". Age: " << age << ".";
+    return ss.str();
 }
 
-bool Viewer::followStreamer(Streamer *streamer) {
+void Viewer::followStreamer(Streamer *streamer) {
 
     if (std::find_if(followingStreamers.begin(), followingStreamers.end(), [streamer](Streamer * curr){
         return *streamer == *curr;
-    }) != followingStreamers.end()) return false; // Already following
+    }) != followingStreamers.end()) throw FollowStreamerException(true, streamer->getNickName(), nickName); // Already following
 
     followingStreamers.push_back(streamer);
 
-    return true;
 }

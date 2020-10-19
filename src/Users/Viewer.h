@@ -6,8 +6,9 @@
 #define FEUP_AEDA_PROJ_VIEWER_H
 
 #include "User.h"
-#include "Stream.h"
 #include "Streamer.h"
+#include "Stream.h"
+
 
 /**
  * Viewer class
@@ -17,6 +18,7 @@ class Viewer : public User{
 public:
     /**
      * Constructor when creating a new user
+     * Throws a RestrictedAgeException if the user is not allowed to create an account
      * @param name - Name of the user
      * @param nickName - Nickename
      * @param birthDate - Date of Birth
@@ -30,14 +32,24 @@ public:
     /**
      * Follow streamer
      * @param streamer - The desired streamer
-     * @return Boolean value indicating if it's possible to follow the streamer or not
      */
-    bool followStreamer(Streamer * streamer);
+    void followStreamer(Streamer * streamer);
+    /**
+     * Join a stream
+     *
+     * @param stream - Desired stream
+     */
+    void joinStream(Stream * stream);
+    /**
+     * Leave the current stream.
+     *
+     */
+    void leaveStream();
 
 private:
     static const unsigned minimumAge = 12;
     /// Stream currently watching
-    Stream * currWatching;
+    Stream * currWatching = nullptr;
     /// List of streamers the viewer follows
     std::vector<Streamer *> followingStreamers;
 
