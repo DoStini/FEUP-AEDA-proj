@@ -26,3 +26,12 @@ void Viewer::followStreamer(Streamer *streamer) {
     followingStreamers.push_back(streamer);
 
 }
+
+void Viewer::unFollowStreamer(Streamer *streamer) {
+    auto it = std::find_if(followingStreamers.begin(), followingStreamers.end(), [streamer](Streamer * curr){
+        return *streamer == *curr;
+    });
+    if (it == followingStreamers.end()) throw FollowStreamerException(false, streamer->getNickName(), nickName); // Wasn't following
+
+    followingStreamers.erase(it);
+}

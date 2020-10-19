@@ -35,6 +35,11 @@ public:
      */
     void followStreamer(Streamer * streamer);
     /**
+     * Unfollow a streamer
+     * @param streamer - Desired streamer
+     */
+    void unFollowStreamer(Streamer * streamer);
+    /**
      * Join a stream
      *
      * @param stream - Desired stream

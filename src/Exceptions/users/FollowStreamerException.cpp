@@ -13,7 +13,7 @@ const char *FollowStreamerException::what() const noexcept {
 }
 
 std::ostream &operator<<(std::ostream &os, const FollowStreamerException &exception) {
-    os << "The operation wasn't executed because " << exception.user << (exception.following ? " was " : " wasn't") << " following " << exception.streamer << ".";
+    os << "The operation wasn't executed because " << exception.user << (exception.following ? " was already" : " wasn't") << " following " << exception.streamer << ".";
     return os;
 }
 
