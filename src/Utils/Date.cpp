@@ -3,28 +3,39 @@
 //
 
 #include "Date.h"
-#include <ctime>
 
-Date::Date(int d, int m, int y) : day(d), month(m), year(y){}
+Date::Date(const std::string &date) {
+    std::ios_base::iostate err = std::ios_base::goodbit;
+    std::istringstream dateStream(date);
+
+    std::use_facet<std::time_get<char>>(
+            dateStream.getloc()).get_date({dateStream}, {}, dateStream, err, &dateStruct);
+
+    dateStream.setstate(err);
+    if(!dateStream.good()) {
+        throw BadDateFormat(date);
+    }
+}
+
+Date::Date(int year, int month, int day) {
+    dateStruct.tm_year = year;
+    dateStruct.tm_mon = month;
+    dateStruct.tm_mday = day;
+}
 
 int Date::getDay() const {
-    return day;
+    return dateStruct.tm_mday;
 }
 
 int Date::getMonth() const {
-    return month;
+    return dateStruct.tm_mon;
 }
 
 int Date::getYear() const {
-    return year;
+    return dateStruct.tm_year;
 }
 
 void Date::setSystemDate() {
-
     time_t now = time(0);
-    tm * currDate = localtime(&now);
-    year = currDate->tm_year + 1900;
-    month = currDate->tm_mon + 1;
-    day = currDate->tm_mday;
-
+    dateStruct = *localtime(&now);
 }
