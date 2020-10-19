@@ -50,6 +50,16 @@ int Date::getYear() const {
     return dateStruct.tm_year + 1900;
 }
 
+int Date::getYearDifference(Date &otherDate) {
+    int yearDiff = abs(dateStruct.tm_year - otherDate.dateStruct.tm_year);
+
+    if(dateStruct.tm_mon >= otherDate.dateStruct.tm_mon && dateStruct.tm_mday >= otherDate.dateStruct.tm_mday) {
+        return yearDiff;
+    }
+
+    return yearDiff - 1;
+}
+
 void Date::setSystemDate() {
     time_t now = time(nullptr);
     dateStruct = *localtime(&now);

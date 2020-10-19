@@ -54,6 +54,38 @@ TEST(test, createDate){
     EXPECT_THROW(Date(2010,13,23), InvalidDate);
 }
 
+TEST(test, yearDiff){
+    Date d1 = Date("2000/02/25");
+    Date d2 = Date("2020/02/25");
+    int diff = d1.getYearDifference(d2);
+    EXPECT_EQ(diff, 20);
+
+    Date d3 = Date("2001/02/25");
+    diff = d1.getYearDifference(d3);
+    EXPECT_EQ(diff, 1);
+
+    Date d8 = Date("2001/03/01");
+    Date d9 = Date("2004/03/01");
+    diff = d9.getYearDifference(d8);
+    EXPECT_EQ(diff, 3);
+
+    Date d7 = Date("2002/02/25");
+    diff = d3.getYearDifference(d7);
+    EXPECT_EQ(diff, 1);
+
+    Date d4 = Date("2020/02/24");
+    diff = d1.getYearDifference(d4);
+    EXPECT_EQ(diff, 19);
+
+    Date d5 = Date("2600/02/24");
+    diff = d1.getYearDifference(d5);
+    EXPECT_EQ(diff, 599);
+
+    Date d6 = Date("2600/02/25");
+    diff = d1.getYearDifference(d6);
+    EXPECT_EQ(diff, 600);
+}
+
 
 int main() {
     testing::InitGoogleTest();

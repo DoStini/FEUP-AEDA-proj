@@ -12,6 +12,8 @@
 #include <locale>
 #include <ios>
 #include <sstream>
+#include <algorithm>
+#include <cmath>
 #include "date/BadDateFormat.h"
 #include "date/InvalidDate.h"
 
@@ -48,6 +50,12 @@ public:
     int getMonth() const;
     /// @return The year stored
     int getYear() const;
+    /**
+     * Gets the absolute difference of years between two dates.
+     * @param otherDate - the other date to be compared
+     * @return returns an int32 of the difference in years.
+     */
+    int getYearDifference(Date &otherDate);
 private:
     std::tm dateStruct;
     /// Sets all date values to zero.
