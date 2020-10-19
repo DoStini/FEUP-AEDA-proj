@@ -13,6 +13,7 @@
 #include <ios>
 #include <sstream>
 #include "date/BadDateFormat.h"
+#include "date/InvalidDate.h"
 
 /**
  * Class that stores a date in a simple, straightforward way.
@@ -41,8 +42,6 @@ public:
     explicit Date();
     /// Set date to the current system date
     void setSystemDate();
-    /// Sets all date values to zero.
-    void setToZero();
     /// @return The day of the month stored
     int getDay() const;
     /// @return The month stored
@@ -51,6 +50,13 @@ public:
     int getYear() const;
 private:
     std::tm dateStruct;
+    /// Sets all date values to zero.
+    void setToZero();
+    /**
+     * Checks if a date is valid
+     * @return returns true if valid, false if invalid
+     */
+    bool checkValidDate();
 };
 
 

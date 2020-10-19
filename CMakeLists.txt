@@ -9,7 +9,7 @@ add_subdirectory(libs/googletest)
 include_directories(libs/googletest/googletest/include)
 include_directories(libs/googletest/googlemock/include)
 
-add_executable(FEUP_AEDA_proj main.cpp src/Users/User.cpp src/Users/User.h src/Streams/Stream.cpp src/Streams/Stream.h src/Manager.cpp src/Manager.h src/Utils/Date.cpp src/Utils/Date.h src/Exceptions/RestrictedAgeException.cpp src/Exceptions/RestrictedAgeException.h src/Exceptions/date/BadDateFormat.cpp src/Exceptions/date/BadDateFormat.h)
+add_executable(FEUP_AEDA_proj main.cpp src/Users/User.cpp src/Users/User.h src/Streams/Stream.cpp src/Streams/Stream.h src/Manager.cpp src/Manager.h src/Utils/Date.cpp src/Utils/Date.h src/Exceptions/RestrictedAgeException.cpp src/Exceptions/RestrictedAgeException.h src/Exceptions/date/BadDateFormat.cpp src/Exceptions/date/BadDateFormat.h src/Exceptions/date/InvalidDate.cpp src/Exceptions/date/InvalidDate.h)
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
 
