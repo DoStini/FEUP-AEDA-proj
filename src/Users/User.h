@@ -11,9 +11,10 @@
 #include <sstream>
 
 #include "Date.h"
-// TODO WHY IS THIS
-#include "users/RestrictedAgeException.h"
-#include "users/FollowStreamerException.h"
+#include "RestrictedAgeException.h"
+#include "FollowStreamerException.h"
+#include "AlreadyInStreamException.h"
+#include "NotInStreamException.h"
 #include "Stream.h"
 
 /**

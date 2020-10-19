@@ -30,7 +30,7 @@ public:
      */
     std::string getInfo() const;
     /**
-     * Follow streamer
+     * Follow a streamer
      * @param streamer - The desired streamer
      */
     void followStreamer(Streamer * streamer);

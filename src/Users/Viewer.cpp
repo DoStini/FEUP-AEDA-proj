@@ -35,3 +35,16 @@ void Viewer::unFollowStreamer(Streamer *streamer) {
 
     followingStreamers.erase(it);
 }
+
+void Viewer::joinStream(Stream *stream) {
+    // TODO When stream is ready
+    if (currWatching != nullptr) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
+    // Stream.verifyUser throw Exception
+    // Stream.addUser
+    currWatching = stream;
+}
+
+void Viewer::leaveStream() {
+    if (currWatching == nullptr) throw NotInStreamException(name);
+    currWatching = nullptr;
+}
