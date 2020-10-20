@@ -38,7 +38,7 @@ void Viewer::unFollowStreamer(Streamer *streamer) {
 
 void Viewer::joinStream(Stream *stream) {
     // TODO When stream is ready
-    if (currWatching != nullptr) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
+    if (watching()) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
     // Stream.verifyUser throw Exception
     // Stream.minimumAge throw RequiredAgeException
     // Stream.addUser
@@ -46,15 +46,21 @@ void Viewer::joinStream(Stream *stream) {
 }
 
 void Viewer::leaveStream() {
-    if (currWatching == nullptr) throw NotInStreamException(name);
+    if (!watching()) throw NotInStreamException(name);
     currWatching = nullptr;
 }
 
 void Viewer::giveFeedBack() {
+    if(!watching()) throw NotInStreamException(name);
     // Stream.like()
 }
 
 void Viewer::giveFeedBack(std::string comment) {
+    if(!watching()) throw NotInStreamException(name);
     // Dynamic cast to verify type of stream
     // Throw Exception
+}
+
+bool Viewer::watching() {
+    return currWatching != nullptr;
 }

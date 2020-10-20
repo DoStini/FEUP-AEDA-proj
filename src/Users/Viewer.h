@@ -29,6 +29,8 @@ public:
      * @return String containing info about the viewer
      */
     std::string getInfo() const;
+    /// @return boolean indicating if the user is watching some stream or not
+    bool watching();
     /**
      * Follow a streamer
      * @param streamer - The desired streamer
