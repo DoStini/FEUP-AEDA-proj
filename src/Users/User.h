@@ -41,6 +41,8 @@ public:
      */
     User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
 
+    bool changePassword(std::string newPassword);
+
     /// @return Name
     const std::string &getName() const;
     /// @return Nickname
@@ -53,10 +55,15 @@ public:
     const Date &getJoinedPlatformDate() const;
     /// @return info about the user
     virtual std::string getInfo() const = 0;
+    /// @return password of the user
+    const std::string &getPassword() const;
 
 protected:
     std::string name;
+    /// Used to login and other id related stuff
     std::string nickName;
+    /// Used to login
+    std::string password;
     unsigned age;
     Date birthDate;
     /// Date when user joined Streamz

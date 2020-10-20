@@ -38,3 +38,15 @@ const Date &User::getBirthDate() const {
 const Date &User::getJoinedPlatformDate() const {
     return joinedPlatformDate;
 }
+
+const std::string &User::getPassword() const {
+    return password;
+}
+
+bool User::changePassword(std::string newPassword) {
+    if(newPassword == password || newPassword.empty()){
+        return false; // Later throw an exception
+    }
+    password = newPassword;
+    return true;
+}

@@ -9,7 +9,9 @@
 #include <string>
 #include <ostream>
 
-
+/**
+ * Object to be thrown when a user does something that requires to be in a stream
+ */
 class NotInStreamException : public std::exception {
 public:
     /**
