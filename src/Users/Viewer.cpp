@@ -40,6 +40,7 @@ void Viewer::joinStream(Stream *stream) {
     // TODO When stream is ready
     if (currWatching != nullptr) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
     // Stream.verifyUser throw Exception
+    // Stream.minimumAge throw RequiredAgeException
     // Stream.addUser
     currWatching = stream;
 }
