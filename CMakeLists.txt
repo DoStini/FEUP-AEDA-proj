@@ -34,7 +34,6 @@ add_executable(FEUP_AEDA_proj
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
 
-
 # Doxygen Build
 find_package(Doxygen)
 if(DOXYGEN_FOUND)

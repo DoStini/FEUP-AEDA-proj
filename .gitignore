@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+cmake-build-debug/*
 
 cmake-build-debug/*
 
@@ -32,3 +33,13 @@ cmake-build-debug/*
 *.exe
 *.out
 *.app
+
+.idea
+cmake-build-debug
+docs
+libs
+.gitignore
+.gitmodules
+LICENSE
+README.md
+
