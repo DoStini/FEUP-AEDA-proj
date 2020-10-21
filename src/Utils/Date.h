@@ -55,7 +55,19 @@ public:
      * @param otherDate - the other date to be compared
      * @return returns an int32 of the difference in years.
      */
-    int getYearDifference(Date &otherDate);
+    int getYearDifference(const Date &otherDate) const;
+
+    /**
+     * Gets the tm struct.
+     *
+     * @return returns the tm struct dateStruct.
+     */
+    std::tm getTimeStruct() const;
+
+    friend bool operator < (const Date &lhs, const Date &rhs);
+    friend bool operator > (const Date &lhs, const Date &rhs);
+    friend bool operator <= (const Date &lhs, const Date &rhs);
+    friend bool operator >= (const Date &lhs, const Date &rhs);
 private:
     std::tm dateStruct;
     /// Sets all date values to zero.

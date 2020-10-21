@@ -38,6 +38,10 @@ Date::Date() {
     setSystemDate();
 }
 
+std::tm Date::getTimeStruct() const {
+    return dateStruct;
+}
+
 int Date::getDay() const {
     return dateStruct.tm_mday;
 }
@@ -50,10 +54,21 @@ int Date::getYear() const {
     return dateStruct.tm_year + 1900;
 }
 
-int Date::getYearDifference(Date &otherDate) {
-    int yearDiff = abs(dateStruct.tm_year - otherDate.dateStruct.tm_year);
+int Date::getYearDifference(const Date &otherDate) const {
+    const Date * maxDate = nullptr, *minDate = nullptr;
 
-    if(dateStruct.tm_mon >= otherDate.dateStruct.tm_mon && dateStruct.tm_mday >= otherDate.dateStruct.tm_mday) {
+    if((*this) < otherDate) {
+        maxDate = &otherDate;
+        minDate = this;
+    } else {
+        maxDate = this;
+        minDate = &otherDate;
+    }
+
+    int yearDiff = maxDate->dateStruct.tm_year - minDate->dateStruct.tm_year;
+
+    if(maxDate->dateStruct.tm_mon >= minDate->dateStruct.tm_mon &&
+       maxDate->dateStruct.tm_mday >= minDate->dateStruct.tm_mday) {
         return yearDiff;
     }
 
@@ -79,3 +94,14 @@ bool Date::checkValidDate() {
 void Date::setToZero() {
     dateStruct = {};
 }
+
+inline bool operator <(const Date & lhs,const Date &rhs) {
+    std::tm tmLhs = lhs.getTimeStruct(); std::tm tmRhs = rhs.getTimeStruct();
+    time_t tLhs = mktime(&tmLhs), tRhs = mktime(&tmRhs);
+
+    return difftime(tLhs, tRhs) < 0;
+}
+
+inline bool operator > (const Date &lhs, const Date &rhs) { return rhs < lhs; };
+inline bool operator <= (const Date &lhs, const Date &rhs) { return !(lhs > rhs);};
+inline bool operator >= (const Date &lhs, const Date &rhs) { return !(rhs > lhs);};
