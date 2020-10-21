@@ -3,13 +3,46 @@ project(FEUP_AEDA_proj)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(src/Exceptions src/Streams src/Users src/Utils)
-
 add_subdirectory(libs/googletest)
+
+add_executable(FEUP_AEDA_proj main.cpp src/Users/User.cpp src/Users/User.h src/Streams/Stream.cpp src/Streams/Stream.h src/Manager.cpp src/Manager.h src/Utils/Date.cpp src/Utils/Date.h src/Exceptions/RestrictedAgeException.cpp src/Exceptions/RestrictedAgeException.h)
 include_directories(libs/googletest/googletest/include)
 include_directories(libs/googletest/googlemock/include)
 
-add_executable(FEUP_AEDA_proj main.cpp src/Users/User.cpp src/Users/User.h src/Streams/Stream.cpp src/Streams/Stream.h src/Manager.cpp src/Manager.h src/Utils/Date.cpp src/Utils/Date.h src/Exceptions/RestrictedAgeException.cpp src/Exceptions/RestrictedAgeException.h src/Exceptions/date/BadDateFormat.cpp src/Exceptions/date/BadDateFormat.h src/Exceptions/date/InvalidDate.cpp src/Exceptions/date/InvalidDate.h)
+
+include_directories(src/Exceptions/streams src/Exceptions/users src/Streams src/Users src/Utils src/Date src/Exceptions/Date)
+
+
+add_executable(FEUP_AEDA_proj
+        main.cpp
+        src/Users/User.cpp
+        src/Users/User.h
+        src/Streams/Stream.cpp
+        src/Streams/Stream.h
+        src/Manager.cpp
+        src/Manager.h
+        src/Utils/Date.cpp
+        src/Utils/Date.h
+        src/Exceptions/users/RestrictedAgeException.cpp
+        src/Exceptions/users/RestrictedAgeException.h
+        src/Users/Viewer.cpp
+        src/Users/Viewer.h
+        src/Users/Streamer.cpp
+        src/Users/Streamer.h
+        src/Streams/Stream.h
+        src/Streams/Stream.cpp
+        src/Streams/PrivateStream.h
+        src/Streams/PrivateStream.cpp
+        src/Streams/PublicStream.h
+        src/Streams/PublicStream.cpp
+        src/Exceptions/streams/AlreadyInStreamException.cpp
+        src/Exceptions/streams/AlreadyInStreamException.h
+        src/Exceptions/streams/NotInStreamException.cpp
+        src/Exceptions/streams/NotInStreamException.h
+        src/Exceptions/users/FollowStreamerException.cpp
+        src/Exceptions/users/FollowStreamerException.h
+        src/Utils/utils.h src/Exceptions/streams/RestrictedStreamException.cpp src/Exceptions/streams/RestrictedStreamException.h
+        src/Utils/Date.cpp src/Utils/Date.h src/Exceptions/date/BadDateFormat.cpp src/Exceptions/date/BadDateFormat.h src/Exceptions/date/InvalidDate.cpp src/Exceptions/date/InvalidDate.h)
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
 
