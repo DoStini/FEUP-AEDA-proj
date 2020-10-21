@@ -8,6 +8,7 @@
 #include "User.h"
 #include "Streamer.h"
 #include "Stream.h"
+#include "PrivateStream.h"
 
 
 /**

@@ -7,11 +7,10 @@
 
 #include "Stream.h"
 
-class publicStream : public Stream {
-private:
-
+class PublicStream : public Stream {
 public:
-
+    PublicStream(std::string title, std::string language, unsigned minAge = 13);
+    std::string getInfo() const override;
 };
 
 

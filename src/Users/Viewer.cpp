@@ -37,11 +37,15 @@ void Viewer::unFollowStreamer(Streamer *streamer) {
 }
 
 void Viewer::joinStream(Stream *stream) {
-    // TODO When stream is ready
     if (watching()) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
-    // Stream.verifyUser throw Exception
-    // Stream.minimumAge throw RequiredAgeException
-    // Stream.addUser
+    // TODO Is < or <= ???
+    if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
+
+    auto * psPtr = dynamic_cast<PrivateStream *>(stream);
+    if (psPtr != nullptr && !psPtr->isValidUser(this)) throw RestrictedStreamException(stream->getTitle(), nickName);
+
+    stream->addViewer(this);
+
     currWatching = stream;
 }
 

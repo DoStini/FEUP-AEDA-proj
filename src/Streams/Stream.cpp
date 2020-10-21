@@ -6,7 +6,7 @@
 #include <utility>
 
 Stream::Stream(std::string title, std::string language, unsigned int minAge) :
-            title(std::move(title)), streamLanguage(std::move(language)), minAge(std::move(minAge)) {
+            title(std::move(title)), streamLanguage(std::move(language)), minAge(minAge) {
     Date currDate; currDate.setSystemDate();
     beginDate = currDate;
     liveStream = true;
@@ -34,7 +34,7 @@ void Stream::giveLike() {
     nLikes++;
 }
 
-void Stream::giveDislikes() {
+void Stream::giveDislike() {
     nDislikes++;
 }
 
@@ -49,4 +49,9 @@ void Stream::removeDislike() {
 bool Stream::operator<(Stream *compStream) {
     return (minAge < compStream->getMinAge());
 }
+
+const std::string &Stream::getTitle() const {
+    return title;
+}
+
 

@@ -15,6 +15,7 @@
 #include "FollowStreamerException.h"
 #include "AlreadyInStreamException.h"
 #include "NotInStreamException.h"
+#include "RestrictedStreamException.h"
 #include "Stream.h"
 
 /**

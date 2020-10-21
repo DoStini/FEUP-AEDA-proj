@@ -6,6 +6,7 @@
 #define FEUP_AEDA_PROJ_PRIVATESTREAM_H
 
 #include "Stream.h"
+class User;
 
 // struct used to save commentes in the stream
 struct Comment{
@@ -13,8 +14,15 @@ struct Comment{
     User * user;
 };
 
-class privateStream : public Stream {
+class PrivateStream : public Stream {
 public:
+    PrivateStream(std::string title, std::string language, unsigned minAge = 13);
+    std::string getInfo() const override;
+    /**
+     * Function to add a user to a whitelisted stream
+     * @param user - User to be added
+     */
+    void addValidUser(User * user);
     /**
      * Checks if the user is in the vector of valid users
      *
@@ -22,10 +30,12 @@ public:
      * @return - true if it is, otherwise false
      */
     bool isValidUser(User * user);
+    /// @return Number of whitelisted viewers
+    int getWhitelistSize() const;
 
 private:
     std::vector<Comment> comments;
-    std::vector<User *> validUsers;
+    std::vector<User *> whitelist;
 };
 
 

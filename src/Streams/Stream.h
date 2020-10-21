@@ -7,14 +7,15 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "Date.h"
-#include "User.h"
-
+class User;
 
 
 class Stream {
 public:
+
     /**
      * Constructor when creating a new stream
      *
@@ -23,11 +24,14 @@ public:
      * @param minAge - Minimal age of the stream , 13 by default
      */
     Stream(std::string title, std::string language, unsigned minAge = 13);
+    const std::string &getTitle() const;
+
+    virtual std::string getInfo() const = 0;
     /**
      * Add viewers to the stream
      * @param viewer - pointer to viewer
      */
-    void addViewer(User * viewer); // must receive viewer and chek is age!!!
+    void addViewer(User * viewer);
     /**
      * Give the number of viewers in the stream
      *
@@ -53,7 +57,7 @@ public:
     /**
      * add dislike to the stream
      */
-    void giveDislikes();
+    void giveDislike();
     /**
      * remove like from the stream
      */
@@ -68,6 +72,7 @@ public:
      * @param compStream - stream to compare
      * @return - stream that is being compared
      */
+    // Change this operator later
     bool operator<(Stream * compStream);
 
 private:

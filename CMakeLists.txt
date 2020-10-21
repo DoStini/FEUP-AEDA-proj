@@ -27,11 +27,19 @@ add_executable(FEUP_AEDA_proj
         src/Users/Viewer.h
         src/Users/Streamer.cpp
         src/Users/Streamer.h
+        src/Streams/Stream.h
+        src/Streams/Stream.cpp
+        src/Streams/PrivateStream.h
+        src/Streams/PrivateStream.cpp
+        src/Streams/PublicStream.h
+        src/Streams/PublicStream.cpp
         src/Exceptions/streams/AlreadyInStreamException.cpp
         src/Exceptions/streams/AlreadyInStreamException.h
-        src/Exceptions/streams/NotInStreamException.cpp src/Exceptions/streams/NotInStreamException.h
+        src/Exceptions/streams/NotInStreamException.cpp
+        src/Exceptions/streams/NotInStreamException.h
         src/Exceptions/users/FollowStreamerException.cpp
-        src/Exceptions/users/FollowStreamerException.h)
+        src/Exceptions/users/FollowStreamerException.h
+        src/Utils/utils.h src/Exceptions/streams/RestrictedStreamException.cpp src/Exceptions/streams/RestrictedStreamException.h)
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
 
