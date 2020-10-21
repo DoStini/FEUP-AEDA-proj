@@ -80,7 +80,7 @@ void Date::setSystemDate() {
     dateStruct = *localtime(&now);
 }
 
-bool Date::checkValidDate() {
+bool Date::checkValidDate() const{
     std::tm copy = dateStruct;
 
     time_t result = mktime(&copy);

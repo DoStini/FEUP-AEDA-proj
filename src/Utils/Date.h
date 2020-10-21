@@ -76,7 +76,7 @@ private:
      * Checks if a date is valid
      * @return returns true if valid, false if invalid
      */
-    bool checkValidDate();
+    bool checkValidDate() const;
 };
 
 
