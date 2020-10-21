@@ -31,8 +31,8 @@ TEST(test, publicStream) {
     ASSERT_EQ(s1.getTitle(), "Nice stream");
     ASSERT_EQ(s1.getMinAge(), 13);
     ASSERT_EQ(s1.getNumViewers(), 0);
-    Viewer v1("Andre Moreira", "gordoMan", Date(9,3,1999));
-    Viewer v2("Andre Moreira", "gordox2", Date(9,3,1999));
+    Viewer v1("Andre Moreira", "gordoMan", Date(1999,3,9));
+    Viewer v2("Andre Moreira", "gordox2", Date(1999,3,9));
     s1.addViewer((User *) &v1);
     ASSERT_EQ(s1.getNumViewers(), 1);
     s1.addViewer((User *) &v2);
@@ -46,8 +46,8 @@ TEST(test, user_private_stream) {
     ASSERT_EQ(s1.getTitle(), "Nice stream");
     ASSERT_EQ(s1.getMinAge(), 13);
     ASSERT_EQ(s1.getNumViewers(), 0);
-    Viewer v1("Andre Moreira", "gordoMan", Date(9,3,1999));
-    Viewer v2("Andre Moreira", "gordox2", Date(9,3,1999));
+    Viewer v1("Andre Moreira", "gordoMan", Date(1999, 3, 9));
+    Viewer v2("Andre Moreira", "gordox2", Date(1999, 3, 9));
 
     EXPECT_THROW(v1.joinStream(&s1), RestrictedStreamException);
     EXPECT_THROW(v2.joinStream(&s1), RestrictedStreamException);

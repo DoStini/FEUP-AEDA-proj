@@ -14,8 +14,8 @@
 #include <sstream>
 #include <algorithm>
 #include <cmath>
-#include "date/BadDateFormat.h"
-#include "date/InvalidDate.h"
+#include "BadDateFormat.h"
+#include "InvalidDate.h"
 
 /**
  * Class that stores a date in a simple, straightforward way.
