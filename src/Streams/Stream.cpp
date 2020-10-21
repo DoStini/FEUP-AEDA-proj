@@ -3,7 +3,6 @@
 //
 
 #include "Stream.h"
-
 #include <utility>
 
 Stream::Stream(std::string title, std::string language, unsigned int minAge) :

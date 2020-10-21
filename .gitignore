@@ -8,6 +8,8 @@
 *.obj
 cmake-build-debug/*
 
+cmake-build-debug/*
+
 # Precompiled Headers
 *.gch
 *.pch
