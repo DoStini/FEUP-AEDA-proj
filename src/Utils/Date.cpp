@@ -28,3 +28,11 @@ void Date::setSystemDate() {
     day = currDate->tm_mday;
 
 }
+
+bool Date::operator<(const Date &rhs) const {
+    if (day < rhs.day)
+        return true;
+    if (month < rhs.month)
+        return true;
+    return year < rhs.year;
+}

@@ -3,7 +3,6 @@
 //
 
 #include "Stream.h"
-
 #include <utility>
 
 Stream::Stream(std::string title, std::string language, unsigned int minAge) :
@@ -50,3 +49,4 @@ void Stream::removeDislike() {
 bool Stream::operator<(Stream *compStream) {
     return (minAge < compStream->getMinAge());
 }
+
