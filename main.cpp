@@ -23,13 +23,12 @@ TEST(test, createViewer){
 }
 
 
-/**
- *
- * @return
- */
+TEST(test, c_InserirAresta) {
+    Stream porrada("Mortal combat porrada", "EN", 14);
+
+}
+
 int main() {
     testing::InitGoogleTest();
     return RUN_ALL_TESTS();
-
-
 }

@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(libs/googletest)
 
+
 include_directories(libs/googletest/googletest libs/googletest/googlemock)
 
 include_directories(src/Exceptions/streams src/Exceptions/users src/Streams src/Users src/Utils)
