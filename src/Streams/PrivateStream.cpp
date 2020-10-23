@@ -8,6 +8,8 @@
 
 #include "User.h"
 
+PrivateStream::PrivateStream(std::string title, std::string language, unsigned int minAge) : Stream(std::move(title),std::move(language),
+                                                                                                    minAge) {}
 
 bool PrivateStream::isValidUser(User *user) {
     std::string nick = user->getNickName();
@@ -28,15 +30,11 @@ void PrivateStream::addValidUser(User * user) {
     // TODO CREATE DUPLICATE EXCEPTION TO USE AS FOLLOW STREAMER EXCEPTION AS WELL
 
     whitelist.push_back(user);
-
 }
 
 int PrivateStream::getWhitelistSize() const {
     return whitelist.size();
 }
-
-PrivateStream::PrivateStream(std::string title, std::string language, unsigned int minAge) : Stream(std::move(title), std::move(language),
-                                                                                                    minAge) {}
 
 std::string PrivateStream::getInfo() const {
     return "Some private stream";
