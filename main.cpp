@@ -7,11 +7,11 @@
 #include "PublicStream.h"
 using testing::Eq;
 
-TEST(test, createViewer){
-    /*
-    EXPECT_THROW(Viewer("Andre Moreira", "gordoMan", Date(9,3,2007)), RestrictedAgeException);
+TEST(test, createUsers){
+
+    EXPECT_THROW(Viewer("Andre Moreira", "gordoMan", Date(2009,3,9)), RestrictedAgeException);
     try{
-        Viewer v1("Andre Moreira", "gordoMan", Date(9,3,2001));
+        Viewer v1("Andre Moreira", "gordoMan", Date(2009,3,9));
     } catch (std::exception &ex) {
         std::cout << ex.what() << std::endl;
 
@@ -19,10 +19,14 @@ TEST(test, createViewer){
             auto *e = dynamic_cast<RestrictedAgeException *>(&ex);
             std::cout << *e << std::endl;
         }
-        else if (strcmp(ex.what(), "Invalid date") != 0){
+    }
 
-        }
-    }*/
+    EXPECT_THROW(Streamer("Andre Moreira", "gordoxgames", Date(2006,1,1)), RestrictedAgeException);
+
+    Streamer sir("classy man", "classy-sir", Date(2001,1,1));
+    std::cout << "JCL JOINED: " << sir.getJoinedPlatformDate().getStringDateTime() << std::endl;
+    EXPECT_EQ(sir.getBirthDate().getStringDate(), "01/01/2001");
+    EXPECT_EQ(sir.getName(), "classy man");
 }
 
 
@@ -147,14 +151,14 @@ TEST(test, hourMinute) {
     Date d1 = Date();
     std::cout << d1.getMinute() << std::endl;
     std::cout << d1.getHour() << std::endl;
-    std::cout << d1.getStringTime() << std::endl;
+    std::cout << d1.getStringDateTime() << std::endl;
     std::cout << d1.getStringDate() << std::endl;
 
     Date d3 = Date("2010/04/23 23:00");
     EXPECT_EQ(d3.getHour(), 23);
 
     Date d2 = Date(2001, 02, 25, 12, 3);
-    EXPECT_EQ(d2.getStringTime(), "25/02/2001 12:03");
+    EXPECT_EQ(d2.getStringDateTime(), "25/02/2001 12:03");
 
     Date d4 = Date("2001/05/03 02:02");
     EXPECT_EQ(d4.getYear(), 2001);
@@ -162,7 +166,7 @@ TEST(test, hourMinute) {
     EXPECT_EQ(d4.getDay(), 3);
     EXPECT_EQ(d4.getHour(), 2);
     EXPECT_EQ(d4.getMinute(), 2);
-    EXPECT_EQ(d4.getStringTime(), "03/05/2001 02:02");
+    EXPECT_EQ(d4.getStringDateTime(), "03/05/2001 02:02");
 
     //EXPECT_THROW(Date("2010/04/23 25:00"), BadDateFormat);
 }
