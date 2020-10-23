@@ -16,6 +16,7 @@
 #include <cmath>
 #include "BadDateFormat.h"
 #include "InvalidDate.h"
+#include <cstdio>
 
 /**
  * Class that stores a date in a simple, straightforward way.
@@ -36,8 +37,10 @@ public:
      * @param year - Year
      * @param month - Month
      * @param day - Day of the month
+     * @param hour - Hour
+     * @param minute - Minute
      */
-    explicit Date(int year, int month, int day);
+    explicit Date(int year, int month, int day, int hour = 0, int minute = 0);
     /**
      * Constructor for Date. Sets date values to system date.
      */
@@ -50,6 +53,14 @@ public:
     int getMonth() const;
     /// @return The year stored
     int getYear() const;
+    /// @return The year stored
+    int getMinute() const;
+    /// @return The hour stored
+    int getHour() const;
+    /// @return A string representing the date with the format "DD/MM/YYYY"
+    std::string getStringDate() const;
+    /// @return A string representing the date with the format "DD/MM/YYYY HH:MM"
+    std::string getStringTime() const;
     /**
      * Gets the absolute difference of years between two dates.
      * @param otherDate - the other date to be compared
@@ -73,10 +84,14 @@ private:
     /// Sets all date values to zero.
     void setToZero();
     /**
-     * Checks if a date is valid
+     * Checks if the date is valid.
      * @return returns true if valid, false if invalid
      */
-    bool checkValidDate() const;
+    bool checkValidDate();
+    /**
+     * Fixes missing information in the dateStruct
+     */
+    void fixDate();
 };
 
 

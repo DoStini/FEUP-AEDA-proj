@@ -71,24 +71,20 @@ TEST(test, user_private_stream) {
 
 
 TEST(test, createDateString){
-    std::cout << "TEST 1" << std::endl;
     Date d1 = Date("2001/05/23");
     EXPECT_EQ(d1.getYear(), 2001);
     EXPECT_EQ(d1.getMonth(), 5);
     EXPECT_EQ(d1.getDay(), 23);
 
-    std::cout << "TEST 2" << std::endl;
     EXPECT_THROW(Date("1899/05/23"), InvalidDate);
     EXPECT_THROW(Date("2019/02/29"), InvalidDate);
     EXPECT_THROW(Date("2019/02/29"), InvalidDate);
 
-    std::cout << "TEST 3" << std::endl;
     Date d3 = Date();
     std::cout << d3.getYear() << "/";
     std::cout << d3.getMonth() << "/";
     std::cout << d3.getDay() << std::endl;
 
-    std::cout << "TEST 4" << std::endl;
     EXPECT_THROW(Date("2010/13/23"), BadDateFormat);
     EXPECT_THROW(Date("2010t12t23"), BadDateFormat);
     Date d4 = Date("2010 12 23");
@@ -98,24 +94,20 @@ TEST(test, createDateString){
 }
 
 TEST(test, createDate){
-    std::cout << "TEST 1" << std::endl;
     Date d1 = Date(2001, 5, 23);
     EXPECT_EQ(d1.getYear(), 2001);
     EXPECT_EQ(d1.getMonth(), 5);
     EXPECT_EQ(d1.getDay(), 23);
 
-    std::cout << "TEST 2" << std::endl;
     EXPECT_THROW(Date(1899, 05, 23), InvalidDate);
     EXPECT_THROW(Date(2019,02,29), InvalidDate);
     EXPECT_THROW(Date(2019,02,29), InvalidDate);
 
-    std::cout << "TEST 3" << std::endl;
     Date d3 = Date();
     std::cout << d3.getYear() << "/";
     std::cout << d3.getMonth() << "/";
     std::cout << d3.getDay() << std::endl;
 
-    std::cout << "TEST 4" << std::endl;
     EXPECT_THROW(Date(2010,13,23), InvalidDate);
 }
 
@@ -149,6 +141,22 @@ TEST(test, yearDiff){
     Date d6 = Date("2600/02/25");
     diff = d1.getYearDifference(d6);
     EXPECT_EQ(diff, 600);
+}
+
+TEST(test, hourMinute) {
+    Date d1 = Date();
+    std::cout << d1.getMinute() << std::endl;
+    std::cout << d1.getHour() << std::endl;
+    std::cout << d1.getStringTime() << std::endl;
+    std::cout << d1.getStringDate() << std::endl;
+
+    Date d3 = Date("2010/04/23 23:00");
+    EXPECT_EQ(d3.getHour(), 23);
+
+    Date d2 = Date(2001, 02, 25, 12, 3);
+    EXPECT_EQ(d2.getStringTime(), "25/02/2001 12:03");
+
+    //EXPECT_THROW(Date("2010/04/23 25:00"), BadDateFormat);
 }
 
 
