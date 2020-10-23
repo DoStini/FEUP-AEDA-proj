@@ -156,6 +156,14 @@ TEST(test, hourMinute) {
     Date d2 = Date(2001, 02, 25, 12, 3);
     EXPECT_EQ(d2.getStringTime(), "25/02/2001 12:03");
 
+    Date d4 = Date("2001/05/03 02:02");
+    EXPECT_EQ(d4.getYear(), 2001);
+    EXPECT_EQ(d4.getMonth(), 5);
+    EXPECT_EQ(d4.getDay(), 3);
+    EXPECT_EQ(d4.getHour(), 2);
+    EXPECT_EQ(d4.getMinute(), 2);
+    EXPECT_EQ(d4.getStringTime(), "03/05/2001 02:02");
+
     //EXPECT_THROW(Date("2010/04/23 25:00"), BadDateFormat);
 }
 
