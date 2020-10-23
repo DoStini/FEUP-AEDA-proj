@@ -16,7 +16,14 @@ struct Comment{
 
 class PrivateStream : public Stream {
 public:
-    PrivateStream(std::string title, std::string language, unsigned minAge = 13);
+    /**
+     * Constructor to private stream
+     *
+     * @param title - Title of the stream
+     * @param language - Stream language
+     * @param minAge - Minimal age of the stream , 12 by default
+     */
+    PrivateStream(std::string title, std::string language, unsigned minAge = 12);
     std::string getInfo() const override;
     /**
      * Function to add a user to a whitelisted stream

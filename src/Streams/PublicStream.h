@@ -9,7 +9,14 @@
 
 class PublicStream : public Stream {
 public:
-    PublicStream(std::string title, std::string language, unsigned minAge = 13);
+    /**
+     * Constructor to Public Stream
+     *
+     * @param title - Title of the stream
+     * @param language - Stream language
+     * @param minAge - Minimal age of the stream , 12 by default
+     */
+    PublicStream(std::string title, std::string language, unsigned minAge = 12);
     std::string getInfo() const override;
 };
 

@@ -8,27 +8,39 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <map>
 
 #include "Date.h"
-class User;
 
+class User;
+class Viewer;
+
+enum feedback{
+    like,
+    dislike,
+    none
+};
 
 class Stream {
 public:
-
     /**
      * Constructor when creating a new stream
      *
      * @param title - Title of the stream
      * @param language - Stream language
-     * @param minAge - Minimal age of the stream , 13 by default
+     * @param minAge - Minimal age of the stream , 12 by default
      */
-    Stream(std::string title, std::string language, unsigned minAge = 13);
+    Stream(std::string title, std::string language, unsigned minAge = 12);
+    /**
+     * Give the title of the stream
+     *
+     * @return
+     */
     const std::string &getTitle() const;
-
     virtual std::string getInfo() const = 0;
     /**
      * Add viewers to the stream
+     *
      * @param viewer - pointer to viewer
      */
     void addViewer(User * viewer);
@@ -52,20 +64,28 @@ public:
     unsigned closeStream();
     /**
      * add like to the stream
+     *
+     * @param viewer - viewer that give like
      */
-    void giveLike();
+    void giveLike(User * viewer);
     /**
      * add dislike to the stream
+     *
+     * @param viewer - viewer that give dislike
      */
-    void giveDislike();
+    void giveDislike(User * viewer);
     /**
      * remove like from the stream
+     *
+     * @param viewer - viewer that remove like
      */
-    void removeLike();
+    void removeLike(User * viewer);
     /**
      * remove dislike from the stream
+     *
+     * @param viewer - viewer that remove dislike
      */
-    void removeDislike();
+    void removeDislike(User * viewer);
     /**
      * Compare stream with there minAge
      *
@@ -82,8 +102,7 @@ private:
     unsigned minAge;
     std::vector<User *> streamViewers;
     bool liveStream;
-    unsigned nLikes;
-    unsigned nDislikes;
+    std::map<std::string,feedback> likeSystem; // TODO IMPLEMENT IN THE GIVE LIKES COMMAND
 };
 
 

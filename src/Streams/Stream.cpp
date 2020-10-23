@@ -4,6 +4,7 @@
 
 #include "Stream.h"
 #include <utility>
+#include "Viewer.h"
 
 Stream::Stream(std::string title, std::string language, unsigned int minAge) :
             title(std::move(title)), streamLanguage(std::move(language)), minAge(minAge) {
@@ -25,25 +26,30 @@ unsigned int Stream::getMinAge() const {
 }
 
 unsigned int Stream::closeStream() {
-    // go through all the viewers and leave the stream
+    unsigned nViewers = streamViewers.size();
+    for (unsigned i = 0; i < streamViewers.size() ; i++) {
+        Viewer * viewer;
+        viewer = (Viewer *) streamViewers.at(i);
+        viewer->leaveStream();
+    }
     liveStream = false;
-    return streamViewers.size();
+    return nViewers;
 }
 
-void Stream::giveLike() {
-    nLikes++;
+void Stream::giveLike(User * viewer) {
+
 }
 
-void Stream::giveDislike() {
-    nDislikes++;
+void Stream::giveDislike(User * viewer) {
+
 }
 
-void Stream::removeLike() {
-    nLikes--;
+void Stream::removeLike(User * viewer) {
+
 }
 
-void Stream::removeDislike() {
-    nDislikes--;
+void Stream::removeDislike(User * viewer) {
+
 }
 
 bool Stream::operator<(Stream *compStream) {
