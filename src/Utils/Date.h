@@ -62,7 +62,7 @@ public:
     /// @return A string representing the date with the format "DD/MM/YYYY HH:MM"
     std::string getStringTime() const;
     /**
-     * Gets the absolute difference of years between two dates.
+     * Gets the difference of years between two dates.
      * @param otherDate - the other date to be compared
      * @return returns an int32 of the difference in years.
      */

@@ -7,7 +7,7 @@
 Date::Date(const std::string &date) {
     dateStruct = {0};
     std::stringstream dateStream(date);
-    const char* formats[5] = {"%Y/%m/%d %H:%M\0", "%Y/%m/%d %H:%M\0", "%Y/%m/%d\0", "%Y-%m-%d\0", "%Y %m %d\0"};
+    const char* formats[5] = {"%Y/%m/%d %H:%M\0", "%Y/%m/%d %H\0", "%Y/%m/%d\0", "%Y-%m-%d\0", "%Y %m %d\0"};
 
     for(short i = 0 ; i < 5; i++) {
         setToZero();
@@ -86,20 +86,14 @@ std::string Date::getStringTime() const {
 }
 
 int Date::getYearDifference(const Date &otherDate) const {
-    const Date * maxDate = nullptr, *minDate = nullptr;
-
-    if((*this) < otherDate) {
-        maxDate = &otherDate;
-        minDate = this;
-    } else {
-        maxDate = this;
-        minDate = &otherDate;
-    }
+    const Date * maxDate = this,* minDate = &otherDate;
 
     int yearDiff = maxDate->dateStruct.tm_year - minDate->dateStruct.tm_year;
 
     if(maxDate->dateStruct.tm_mon >= minDate->dateStruct.tm_mon &&
-       maxDate->dateStruct.tm_mday >= minDate->dateStruct.tm_mday) {
+       maxDate->dateStruct.tm_mday >= minDate->dateStruct.tm_mday &&
+       maxDate->dateStruct.tm_hour >= minDate->dateStruct.tm_hour &&
+       maxDate->dateStruct.tm_min >= minDate->dateStruct.tm_min) {
         return yearDiff;
     }
 
@@ -123,7 +117,8 @@ bool Date::checkValidDate() {
     }
     if(result < 0) return false;
     else if(copy.tm_year != dateStruct.tm_year || copy.tm_mday != dateStruct.tm_mday ||
-            copy.tm_mon != dateStruct.tm_mon)
+            copy.tm_mon != dateStruct.tm_mon || copy.tm_hour != dateStruct.tm_hour ||
+            copy.tm_min != dateStruct.tm_min)
         return false;
 
     return true;
@@ -131,7 +126,6 @@ bool Date::checkValidDate() {
 
 void Date::setToZero() {
     dateStruct = {0};
-    dateStruct.tm_isdst = 0;
 }
 
 inline bool operator <(const Date & lhs,const Date &rhs) {
