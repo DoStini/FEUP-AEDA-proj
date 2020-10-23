@@ -5,16 +5,19 @@
 #include "Date.h"
 
 Date::Date(const std::string &date) {
-    dateStruct = {};
+    dateStruct = {0};
     std::stringstream dateStream(date);
-    const char* formats[3] = {"%Y/%m/%d", "%Y-%m-%d", "%Y %m %d"};
+    const char* formats[5] = {"%Y/%m/%d %H:%M\0", "%Y/%m/%d %H:%M\0", "%Y/%m/%d\0", "%Y-%m-%d\0", "%Y %m %d\0"};
 
-    for(short i = 0 ; i < 3; i++) {
+    for(short i = 0 ; i < 5; i++) {
         setToZero();
         dateStream >> std::get_time(&dateStruct, formats[i]);
 
         if(!dateStream.fail()) {
-            if(checkValidDate()) return;
+            if(checkValidDate()) {
+                fixDate();
+                return;
+            }
 
             throw InvalidDate();
         }
@@ -25,13 +28,17 @@ Date::Date(const std::string &date) {
     throw BadDateFormat(date);
 }
 
-Date::Date(int year, int month, int day) {
+Date::Date(int year, int month, int day, int hour, int minute) {
     setToZero();
     dateStruct.tm_year = year - 1900;
     dateStruct.tm_mon = month - 1;
     dateStruct.tm_mday = day;
+    dateStruct.tm_hour = hour;
+    dateStruct.tm_min = minute;
 
     if(!checkValidDate()) throw InvalidDate();
+
+    fixDate();
 }
 
 Date::Date() {
@@ -52,6 +59,30 @@ int Date::getMonth() const {
 
 int Date::getYear() const {
     return dateStruct.tm_year + 1900;
+}
+
+int Date::getHour() const {
+    return dateStruct.tm_hour;
+}
+
+int Date::getMinute() const {
+    return dateStruct.tm_min;
+}
+
+std::string Date::getStringDate() const {
+    char buffer[12];
+
+    strftime(buffer, 12, "%d/%m/%Y", &dateStruct);
+
+    return std::string(buffer);
+}
+
+std::string Date::getStringTime() const {
+    char buffer[18];
+
+    strftime(buffer, 18, "%d/%m/%Y %H:%M", &dateStruct);
+
+    return std::string(buffer);
 }
 
 int Date::getYearDifference(const Date &otherDate) const {
@@ -80,19 +111,27 @@ void Date::setSystemDate() {
     dateStruct = *localtime(&now);
 }
 
-bool Date::checkValidDate() const{
+bool Date::checkValidDate() {
     std::tm copy = dateStruct;
 
     time_t result = mktime(&copy);
+    if(copy.tm_isdst) {
+        dateStruct.tm_isdst = 1;
+
+        copy = dateStruct;
+        time_t result = mktime(&copy);
+    }
     if(result < 0) return false;
-    else if(copy.tm_year != dateStruct.tm_year || copy.tm_mday != dateStruct.tm_mday || copy.tm_mon != dateStruct.tm_mon)
+    else if(copy.tm_year != dateStruct.tm_year || copy.tm_mday != dateStruct.tm_mday ||
+            copy.tm_mon != dateStruct.tm_mon)
         return false;
 
     return true;
 }
 
 void Date::setToZero() {
-    dateStruct = {};
+    dateStruct = {0};
+    dateStruct.tm_isdst = 0;
 }
 
 inline bool operator <(const Date & lhs,const Date &rhs) {
@@ -104,4 +143,8 @@ inline bool operator <(const Date & lhs,const Date &rhs) {
 
 inline bool operator > (const Date &lhs, const Date &rhs) { return rhs < lhs; };
 inline bool operator <= (const Date &lhs, const Date &rhs) { return !(lhs > rhs);};
-inline bool operator >= (const Date &lhs, const Date &rhs) { return !(rhs > lhs);};
+inline bool operator >= (const Date &lhs, const Date &rhs) { return !(rhs > lhs);}
+
+void Date::fixDate() {
+    mktime(&dateStruct);
+};
