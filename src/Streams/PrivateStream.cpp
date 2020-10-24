@@ -10,6 +10,9 @@
 
 PrivateStream::PrivateStream(std::string title, std::string language, unsigned int minAge) : Stream(std::move(title),std::move(language),
                                                                                                     minAge) {}
+unsigned PrivateStream::getNumberComments() {
+    return comments.size();
+}
 
 bool PrivateStream::isValidUser(User *user) {
     std::string nick = user->getNickName();
@@ -39,3 +42,9 @@ int PrivateStream::getWhitelistSize() const {
 std::string PrivateStream::getInfo() const {
     return "Some private stream";
 }
+
+void PrivateStream::addComment(std::string text, User *viewer) {
+    Comment comment(text,viewer->getName());
+    comments.push_back(comment);
+}
+

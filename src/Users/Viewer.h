@@ -9,6 +9,7 @@
 #include "Streamer.h"
 #include "Stream.h"
 #include "PrivateStream.h"
+#include "NotPrivateStreamException.h"
 
 
 /**
@@ -51,7 +52,7 @@ public:
     /// Leave the current stream. Might throw a NotInStreamException
     void leaveStream();
     /// Like the current stream
-    void giveFeedBack();
+    void giveFeedBack(feedback fbValue);
     /**
      * Leave a comment on the (private) stream currently watching
      * @param comment - The comment

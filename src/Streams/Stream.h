@@ -9,6 +9,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <utility>
 
 #include "Date.h"
 
@@ -36,14 +37,26 @@ public:
      *
      * @return
      */
-    const std::string &getTitle() const;
+
     virtual std::string getInfo() const = 0;
+
+    const std::string &getTitle() const;
+    /// give number of likes of the stream
+    int getLikes() const;
+    /// give number of dislikes of the stream
+    const int getDislikes() const;
     /**
      * Add viewers to the stream
      *
      * @param viewer - pointer to viewer
      */
     void addViewer(User * viewer);
+    /**
+     * Remove viewer from the stream
+     *
+     * @param viewer - viewer pointer
+     */
+    void removeViewer(User * viewer);
     /**
      * Give the number of viewers in the stream
      *
@@ -75,17 +88,11 @@ public:
      */
     void giveDislike(User * viewer);
     /**
-     * remove like from the stream
+     * remove feedback from the stream
      *
-     * @param viewer - viewer that remove like
+     * @param viewer - viewer that remove feedback
      */
-    void removeLike(User * viewer);
-    /**
-     * remove dislike from the stream
-     *
-     * @param viewer - viewer that remove dislike
-     */
-    void removeDislike(User * viewer);
+    void removeFeedBack(User * viewer);
     /**
      * Compare stream with there minAge
      *
@@ -102,7 +109,8 @@ private:
     unsigned minAge;
     std::vector<User *> streamViewers;
     bool liveStream;
-    std::map<std::string,feedback> likeSystem; // TODO IMPLEMENT IN THE GIVE LIKES COMMAND
+    std::map<std::string,feedback> likeSystem;
+    std::pair<unsigned,unsigned> nLikes_Dislikes;
 };
 
 

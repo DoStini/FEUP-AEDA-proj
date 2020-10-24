@@ -8,10 +8,11 @@
 #include "Stream.h"
 class User;
 
-// struct used to save commentes in the stream
+// struct used to save comments in the stream
 struct Comment{
     std::string comment;
-    User * user;
+    std::string viewerName;
+    Comment(std::string text, std::string name): comment(text),viewerName(name){}
 };
 
 class PrivateStream : public Stream {
@@ -24,7 +25,15 @@ public:
      * @param minAge - Minimal age of the stream , 12 by default
      */
     PrivateStream(std::string title, std::string language, unsigned minAge = 12);
+
     std::string getInfo() const override;
+
+    /**
+     * Number of comments of the stream
+     *
+     * @return - number of comments
+     */
+    unsigned getNumberComments();
     /**
      * Function to add a user to a whitelisted stream
      * @param user - User to be added
@@ -39,6 +48,13 @@ public:
     bool isValidUser(User * user);
     /// @return Number of whitelisted viewers
     int getWhitelistSize() const;
+    /**
+     * save a comment in the stream
+     *
+     * @param text - text that the user write
+     * @param viewer - viewer that make the comment
+     */
+    void addComment(std::string text, User * viewer);
 
 private:
     std::vector<Comment> comments;

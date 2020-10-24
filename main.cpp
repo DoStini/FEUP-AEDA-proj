@@ -29,7 +29,7 @@ TEST(test, createViewer){
 TEST(test, publicStream) {
     PublicStream s1("Nice stream", "PT");
     ASSERT_EQ(s1.getTitle(), "Nice stream");
-    ASSERT_EQ(s1.getMinAge(), 13);
+    ASSERT_EQ(s1.getMinAge(), 12);
     ASSERT_EQ(s1.getNumViewers(), 0);
     Viewer v1("Andre Moreira", "gordoMan", Date(1999,3,9));
     Viewer v2("Andre Moreira", "gordox2", Date(1999,3,9));
@@ -44,7 +44,7 @@ TEST(test, user_private_stream) {
     PublicStream sp("Nice open source stream", "PT");
     PrivateStream s1("Nice stream", "PT");
     ASSERT_EQ(s1.getTitle(), "Nice stream");
-    ASSERT_EQ(s1.getMinAge(), 13);
+    ASSERT_EQ(s1.getMinAge(), 12);
     ASSERT_EQ(s1.getNumViewers(), 0);
     Viewer v1("Andre Moreira", "gordoMan", Date(1999, 3, 9));
     Viewer v2("Andre Moreira", "gordox2", Date(1999, 3, 9));
@@ -66,8 +66,6 @@ TEST(test, user_private_stream) {
     EXPECT_THROW(v1.joinStream(&sp), AlreadyInStreamException);
 
 }
-
-
 
 
 TEST(test, createDateString){
@@ -165,6 +163,58 @@ TEST(test, hourMinute) {
     EXPECT_EQ(d4.getStringTime(), "03/05/2001 02:02");
 
     //EXPECT_THROW(Date("2010/04/23 25:00"), BadDateFormat);
+}
+
+TEST(test, likeSystem){
+    PublicStream s1("lolzadaAllDay","PT_PT",12);
+    Viewer v1("Rui","xXBoasXx",Date(2000,1,1));
+    Viewer v2("Jorge","---___---",Date(2000,1,1));
+
+    EXPECT_THROW(v1.giveFeedBack(like), NotInStreamException);
+
+    v1.joinStream(&s1);
+    v1.giveFeedBack(like);
+    EXPECT_EQ(s1.getLikes(),1);
+    EXPECT_EQ(s1.getDislikes(),0);
+
+    v1.giveFeedBack(like);
+    EXPECT_EQ(s1.getLikes(),1);
+    EXPECT_EQ(s1.getDislikes(),0);
+
+    v2.joinStream(&s1);
+    v2.giveFeedBack(like);
+    EXPECT_EQ(s1.getLikes(),2);
+    EXPECT_EQ(s1.getDislikes(),0);
+
+    v2.giveFeedBack(dislike);
+    EXPECT_EQ(s1.getLikes(),1);
+    EXPECT_EQ(s1.getDislikes(),1);
+
+    v2.leaveStream();
+    EXPECT_EQ(s1.getLikes(),1);
+    EXPECT_EQ(s1.getDislikes(),1);
+    EXPECT_THROW(v2.giveFeedBack(like), NotInStreamException);
+
+    v1.giveFeedBack(none);
+    EXPECT_EQ(s1.getLikes(),0);
+    EXPECT_EQ(s1.getDislikes(),1);
+}
+
+TEST(test, commentSystem) {
+    PublicStream s1("lolzadaAllDay", "PT_PT", 12);
+    PrivateStream s2("pum pum tiros e porrada", "EN", 20);
+    Viewer v1("Rui", "xXBoasXx", Date(2000, 1, 1));
+    Viewer v2("Jorge", "---___---", Date(1980, 1, 1));
+
+    v1.joinStream(&s1);
+    EXPECT_THROW(v1.giveFeedBack("muito boa stream"),NotPrivateStreamException);
+
+    s2.addValidUser(&v2);
+    v2.joinStream(&s2);
+    v2.giveFeedBack(like);
+    EXPECT_EQ(s2.getLikes(),1);
+    EXPECT_EQ(s2.getDislikes(),0);
+
 }
 
 

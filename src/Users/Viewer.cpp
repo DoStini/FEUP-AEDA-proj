@@ -51,18 +51,27 @@ void Viewer::joinStream(Stream *stream) {
 
 void Viewer::leaveStream() {
     if (!watching()) throw NotInStreamException(name);
+    currWatching->removeViewer(this);
     currWatching = nullptr;
 }
 
-void Viewer::giveFeedBack() {
+void Viewer::giveFeedBack(feedback fbValue) {
     if(!watching()) throw NotInStreamException(name);
-    // Stream.like()
+    if (fbValue == like)
+        currWatching->giveLike(this);
+    else if (fbValue == dislike)
+        currWatching->giveDislike(this);
+    else if (fbValue == none)
+        currWatching->removeFeedBack(this);
 }
 
 void Viewer::giveFeedBack(std::string comment) {
     if(!watching()) throw NotInStreamException(name);
-    // Dynamic cast to verify type of stream
-    // Throw Exception
+    if (!dynamic_cast<PrivateStream *>(currWatching))
+        throw NotPrivateStreamException(currWatching->getTitle());
+
+    auto * stream = (PrivateStream *) currWatching;
+    stream->addComment(comment,this);
 }
 
 bool Viewer::watching() {
