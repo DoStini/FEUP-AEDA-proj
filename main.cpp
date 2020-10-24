@@ -33,7 +33,7 @@ TEST(test, createUsers){
 TEST(test, publicStream) {
     PublicStream s1("Nice stream", "PT");
     ASSERT_EQ(s1.getTitle(), "Nice stream");
-    ASSERT_EQ(s1.getMinAge(), 13);
+    ASSERT_EQ(s1.getMinAge(), 12);
     ASSERT_EQ(s1.getNumViewers(), 0);
     Viewer v1("Andre Moreira", "gordoMan", Date(1999,3,9));
     Viewer v2("Andre Moreira", "gordox2", Date(1999,3,9));
@@ -48,7 +48,7 @@ TEST(test, user_private_stream) {
     PublicStream sp("Nice open source stream", "PT");
     PrivateStream s1("Nice stream", "PT");
     ASSERT_EQ(s1.getTitle(), "Nice stream");
-    ASSERT_EQ(s1.getMinAge(), 13);
+    ASSERT_EQ(s1.getMinAge(), 12);
     ASSERT_EQ(s1.getNumViewers(), 0);
     Viewer v1("Andre Moreira", "gordoMan", Date(1999, 3, 9));
     Viewer v2("Andre Moreira", "gordox2", Date(1999, 3, 9));

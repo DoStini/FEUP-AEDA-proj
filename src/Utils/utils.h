@@ -5,6 +5,9 @@
 #ifndef FEUP_AEDA_PROJ_UTILS_H
 #define FEUP_AEDA_PROJ_UTILS_H
 
+#define VIEWER_MIN_AGE 12
+#define STREAMER_MIN_AGE 15
+
 
 enum language{
     PT_PT,

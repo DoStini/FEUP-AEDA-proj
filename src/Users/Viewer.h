@@ -60,7 +60,7 @@ public:
 
 private:
     /// Minimum age to be able to create a viewer account
-    static const unsigned minimumAge = 12;
+    static const unsigned minimumAge = VIEWER_MIN_AGE;
     /// Stream currently watching
     Stream * currWatching = nullptr;
     /// List of streamers the viewer follows

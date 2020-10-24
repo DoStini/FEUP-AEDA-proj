@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <sstream>
 
+#include "utils.h"
 #include "Date.h"
 #include "RestrictedAgeException.h"
 #include "FollowStreamerException.h"
