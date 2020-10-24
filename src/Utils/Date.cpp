@@ -77,7 +77,7 @@ std::string Date::getStringDate() const {
     return std::string(buffer);
 }
 
-std::string Date::getStringTime() const {
+std::string Date::getStringDateTime() const {
     char buffer[18];
 
     strftime(buffer, 18, "%d/%m/%Y %H:%M", &dateStruct);

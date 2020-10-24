@@ -26,7 +26,7 @@ public:
     std::string getInfo() const override;
     bool operator == (const Streamer & str);
 private:
-    static const unsigned minimumAge = 15;
+    static const unsigned minimumAge = STREAMER_MIN_AGE;
 };
 
 

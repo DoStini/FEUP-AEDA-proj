@@ -60,7 +60,7 @@ public:
     /// @return A string representing the date with the format "DD/MM/YYYY"
     std::string getStringDate() const;
     /// @return A string representing the date with the format "DD/MM/YYYY HH:MM"
-    std::string getStringTime() const;
+    std::string getStringDateTime() const;
     /**
      * Gets the difference of years between two dates.
      * @param otherDate - the other date to be compared
