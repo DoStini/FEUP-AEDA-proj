@@ -219,6 +219,9 @@ TEST(test, commentSystem) {
     EXPECT_EQ(s2.getLikes(),1);
     EXPECT_EQ(s2.getDislikes(),0);
 
+    v2.giveFeedBack("meu deus topzana!!!!!!!!!!!!!!! <3 ");
+    EXPECT_EQ(s2.getNumberComments(),1);
+
 }
 
 
