@@ -17,7 +17,7 @@ Stream::Stream(std::string title, std::string language, unsigned int minAge) :
 
 void Stream::addViewer(User * viewer) {
     streamViewers.push_back(viewer);
-    likeSystem[viewer->getName()] = none;
+    //likeSystem[viewer->getName()] = none;
 }
 
 void Stream::removeViewer(User *viewer) {
@@ -48,41 +48,6 @@ unsigned int Stream::closeStream() {
     }
     liveStream = false;
     return nViewers;
-}
-
-void Stream::giveLike(User * viewer) {
-    std::string name = viewer->getName();
-    if(likeSystem[name] == none) {
-        likeSystem[name] = like;
-        nLikes_Dislikes.first++;
-    }
-    else if(likeSystem[name] == dislike){
-        likeSystem[name] = like;
-        nLikes_Dislikes.first++;
-        nLikes_Dislikes.second--;
-    }
-}
-
-void Stream::giveDislike(User * viewer) {
-    std::string name = viewer->getName();
-    if(likeSystem[name] == none) {
-        likeSystem[name] = dislike;
-        nLikes_Dislikes.second++;
-    }
-    else if(likeSystem[name] == like){
-        likeSystem[name] = dislike;
-        nLikes_Dislikes.first--;
-        nLikes_Dislikes.second++;
-    }
-}
-
-void Stream::removeFeedBack(User *viewer) {
-    std::string name = viewer->getName();
-    if (likeSystem[name] == like)
-        nLikes_Dislikes.first--;
-    else if (likeSystem[name] == dislike)
-        nLikes_Dislikes.second--;
-    likeSystem[name] = none;
 }
 
 bool Stream::operator<(Stream *compStream) {

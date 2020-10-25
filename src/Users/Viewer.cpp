@@ -57,12 +57,14 @@ void Viewer::leaveStream() {
 
 void Viewer::giveFeedBack(feedback fbValue) {
     if(!watching()) throw NotInStreamException(name);
+    /*
     if (fbValue == like)
         currWatching->giveLike(this);
     else if (fbValue == dislike)
         currWatching->giveDislike(this);
     else if (fbValue == none)
         currWatching->removeFeedBack(this);
+        */
 }
 
 void Viewer::giveFeedBack(std::string comment) {

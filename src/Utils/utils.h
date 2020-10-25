@@ -21,10 +21,12 @@ enum language{
     HINDI,
 };
 
-enum interest{
+enum genres{
     gaming,
     technology,
-    music
+    music,
+    cooking,
+    meetGreet,
 };
 
 

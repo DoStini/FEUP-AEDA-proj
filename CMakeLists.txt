@@ -48,7 +48,7 @@ add_executable(FEUP_AEDA_proj
         src/Exceptions/date/InvalidDate.cpp
         src/Exceptions/date/InvalidDate.h
         src/Exceptions/streams/NotPrivateStreamException.cpp
-        src/Exceptions/streams/NotPrivateStreamException.h)
+        src/Exceptions/streams/NotPrivateStreamException.h src/Streams/LiveStream.cpp src/Streams/LiveStream.h)
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
 

@@ -169,7 +169,7 @@ TEST(test, hourMinute) {
     //EXPECT_THROW(Date("2010/04/23 25:00"), BadDateFormat);
 }
 
-TEST(test, likeSystem){
+/*TEST(test, likeSystem){
     PublicStream s1("lolzadaAllDay","PT_PT",12);
     Viewer v1("Rui","xXBoasXx",Date(2000,1,1));
     Viewer v2("Jorge","---___---",Date(2000,1,1));
@@ -202,9 +202,9 @@ TEST(test, likeSystem){
     v1.giveFeedBack(none);
     EXPECT_EQ(s1.getLikes(),0);
     EXPECT_EQ(s1.getDislikes(),1);
-}
+}*/
 
-TEST(test, commentSystem) {
+/*TEST(test, commentSystem) {
     PublicStream s1("lolzadaAllDay", "PT_PT", 12);
     PrivateStream s2("pum pum tiros e porrada", "EN", 20);
     Viewer v1("Rui", "xXBoasXx", Date(2000, 1, 1));
@@ -224,7 +224,7 @@ TEST(test, commentSystem) {
     std::cout << s1.getInfo() << std::endl;
     std::cout << s2.getInfo();
 
-}
+}*/
 
 
 int main() {

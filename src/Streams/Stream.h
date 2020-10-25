@@ -18,11 +18,6 @@
 class User;
 class Viewer;
 
-enum feedback{
-    like,
-    dislike,
-    none
-};
 
 class Stream {
 public:
@@ -81,24 +76,6 @@ public:
      */
     unsigned closeStream();
     /**
-     * add like to the stream
-     *
-     * @param viewer - viewer that give like
-     */
-    void giveLike(User * viewer);
-    /**
-     * add dislike to the stream
-     *
-     * @param viewer - viewer that give dislike
-     */
-    void giveDislike(User * viewer);
-    /**
-     * remove feedback from the stream
-     *
-     * @param viewer - viewer that remove feedback
-     */
-    void removeFeedBack(User * viewer);
-    /**
      * Compare stream with there minAge
      *
      * @param compStream - stream to compare
@@ -106,20 +83,19 @@ public:
      */
     // Change this operator later
     bool operator<(Stream * compStream);
+    const std::string &getStreamLanguage() const;
 
 private:
     std::string title;
     Date beginDate;
-public:
-    const std::string &getStreamLanguage() const;
-
-private:
     std::string streamLanguage;
-    unsigned minAge;
-    std::vector<User *> streamViewers;
-    bool liveStream;
-    std::map<std::string,feedback> likeSystem;
-    std::pair<unsigned,unsigned> nLikes_Dislikes;
+    genres genre;
+    unsigned long long int streamId;
+    static unsigned long long int lastId;
+    unsigned minAge; // to remove
+    std::vector<User *> streamViewers; // to remove
+    bool liveStream; // to remove
+    std::pair<unsigned,unsigned> nLikes_Dislikes; // to remove;
 };
 
 
