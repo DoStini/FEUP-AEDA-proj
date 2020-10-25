@@ -93,4 +93,8 @@ const std::string &Stream::getTitle() const {
     return title;
 }
 
+const std::string &Stream::getStreamLanguage() const {
+    return streamLanguage;
+}
+
 

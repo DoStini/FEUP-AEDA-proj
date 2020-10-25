@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <map>
 #include <utility>
+#include <sstream>
 
 #include "utils.h"
 #include "Date.h"
@@ -38,10 +39,13 @@ public:
      *
      * @return
      */
-
-    virtual std::string getInfo() const = 0;
-
     const std::string &getTitle() const;
+    /**
+     * Give us basic stream title, number of viewers, language and necessary age to join
+     *
+     * @return - string with all the info
+     */
+    virtual std::string getInfo() const = 0;
     /// give number of likes of the stream
     int getLikes() const;
     /// give number of dislikes of the stream
@@ -106,6 +110,10 @@ public:
 private:
     std::string title;
     Date beginDate;
+public:
+    const std::string &getStreamLanguage() const;
+
+private:
     std::string streamLanguage;
     unsigned minAge;
     std::vector<User *> streamViewers;

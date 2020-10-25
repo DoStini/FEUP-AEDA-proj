@@ -40,7 +40,10 @@ int PrivateStream::getWhitelistSize() const {
 }
 
 std::string PrivateStream::getInfo() const {
-    return "Some private stream";
+    std::ostringstream ssInfo;
+    ssInfo <<"Private->  " << this->getTitle() << "       Viewers:" << this->getNumViewers() <<
+           "     Language:"<< this->getStreamLanguage() << "     Necessary age:" << this->getMinAge();
+    return ssInfo.str();
 }
 
 void PrivateStream::addComment(std::string text, User *viewer) {

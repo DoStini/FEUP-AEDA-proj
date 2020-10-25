@@ -11,5 +11,8 @@ PublicStream::PublicStream(std::string title, std::string language, unsigned min
 
 
 std::string PublicStream::getInfo() const {
-    return "Some public stream";
+    std::ostringstream ssInfo;
+    ssInfo <<"Public->  " << this->getTitle() << "       Viewers:" << this->getNumViewers() <<
+                     "     Language:"<< this->getStreamLanguage() << "     Necessary age:" << this->getMinAge();
+    return ssInfo.str();
 }

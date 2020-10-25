@@ -38,8 +38,17 @@ add_executable(FEUP_AEDA_proj
         src/Exceptions/streams/NotInStreamException.h
         src/Exceptions/users/FollowStreamerException.cpp
         src/Exceptions/users/FollowStreamerException.h
-        src/Utils/utils.h src/Exceptions/streams/RestrictedStreamException.cpp src/Exceptions/streams/RestrictedStreamException.h
-        src/Utils/Date.cpp src/Utils/Date.h src/Exceptions/date/BadDateFormat.cpp src/Exceptions/date/BadDateFormat.h src/Exceptions/date/InvalidDate.cpp src/Exceptions/date/InvalidDate.h src/Exceptions/streams/NotPrivateStreamException.cpp src/Exceptions/streams/NotPrivateStreamException.h)
+        src/Utils/utils.h
+        src/Exceptions/streams/RestrictedStreamException.cpp
+        src/Exceptions/streams/RestrictedStreamException.h
+        src/Utils/Date.cpp
+        src/Utils/Date.h
+        src/Exceptions/date/BadDateFormat.cpp
+        src/Exceptions/date/BadDateFormat.h
+        src/Exceptions/date/InvalidDate.cpp
+        src/Exceptions/date/InvalidDate.h
+        src/Exceptions/streams/NotPrivateStreamException.cpp
+        src/Exceptions/streams/NotPrivateStreamException.h)
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
 

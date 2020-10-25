@@ -221,6 +221,8 @@ TEST(test, commentSystem) {
 
     v2.giveFeedBack("meu deus topzana!!!!!!!!!!!!!!! <3 ");
     EXPECT_EQ(s2.getNumberComments(),1);
+    std::cout << s1.getInfo() << std::endl;
+    std::cout << s2.getInfo();
 
 }
 
