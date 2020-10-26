@@ -28,7 +28,7 @@ public:
      * @param language - Stream language
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    Stream(std::string title, std::string language/*, unsigned minAge = VIEWER_MIN_AGE*/);
+    Stream(std::string title, std::string language/*,genres genre /*REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);
     /**
      * Give the title of the stream
      *
@@ -41,6 +41,12 @@ public:
      * @return - string with all the info
      */
     virtual std::string getInfo() const = 0;
+    /**
+     * Give us the stream language
+     *
+     * @return - stream language
+     */
+    const std::string &getStreamLanguage() const;
     /**
      * Add viewers to the stream
      *
@@ -78,9 +84,7 @@ public:
      * @return - stream that is being compared
      */
     // Change this operator later
-
     bool operator<(Stream * compStream);
-    const std::string &getStreamLanguage() const;
 
 private:
     std::string title;

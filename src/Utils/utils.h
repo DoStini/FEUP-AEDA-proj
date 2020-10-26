@@ -10,7 +10,7 @@
 
 
 enum language{
-    PT_PT ,
+    PT_PT,
     PT_BR,
     ENG,
     SPA,

@@ -13,7 +13,7 @@ Stream::Stream(std::string title, std::string language /*genres genre*/ ) :
     Date currDate; currDate.setSystemDate();
     beginDate = currDate;
     streamId = lastId;
-    lastId++;
+    lastId++;  // TODO WHEN CREATING FINISHED STREAM LASTID ALSO GETS INCREMENTED
 }
 
 void Stream::addViewer(User * viewer) {
