@@ -6,7 +6,7 @@
 
 #include <utility>
 
-PublicStream::PublicStream(std::string title, std::string language, unsigned minAge) : Stream(std::move(title), std::move(language), minAge) {}
+PublicStream::PublicStream(std::string title, std::string language, unsigned minAge) : LiveStream(std::move(title), std::move(language), minAge) {}
 
 
 

@@ -6,13 +6,14 @@
 #include <utility>
 #include "Viewer.h"
 
-Stream::Stream(std::string title, std::string language, unsigned int minAge) :
-            title(std::move(title)), streamLanguage(std::move(language)), minAge(minAge) {
+unsigned long long int Stream::lastId = 0;
+
+Stream::Stream(std::string title, std::string language /*genres genre*/ ) :
+            title(std::move(title)), streamLanguage(std::move(language)){
     Date currDate; currDate.setSystemDate();
     beginDate = currDate;
-    liveStream = true;
-    nLikes_Dislikes.first = 0;
-    nLikes_Dislikes.second = 0;
+    streamId = lastId;
+    lastId++;
 }
 
 void Stream::addViewer(User * viewer) {
@@ -32,23 +33,16 @@ unsigned int Stream::getMinAge() const {
     return minAge;
 }
 
-int Stream::getLikes() const {
-    return nLikes_Dislikes.first;
-}
-
-const int Stream::getDislikes() const {
-    return nLikes_Dislikes.second;
-}
-
 unsigned int Stream::closeStream() {
     unsigned nViewers = streamViewers.size();
     for (unsigned i = 0; i < streamViewers.size() ; i++) {
         Viewer * viewer = (Viewer *) streamViewers.at(i);
         viewer->leaveStream();
     }
-    liveStream = false;
     return nViewers;
 }
+
+
 
 bool Stream::operator<(Stream *compStream) {
     return (minAge < compStream->getMinAge());

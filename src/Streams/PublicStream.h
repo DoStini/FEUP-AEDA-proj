@@ -5,9 +5,9 @@
 #ifndef FEUP_AEDA_PROJ_PUBLICSTREAM_H
 #define FEUP_AEDA_PROJ_PUBLICSTREAM_H
 
-#include "Stream.h"
+#include "LiveStream.h"
 
-class PublicStream : public Stream {
+class PublicStream : public LiveStream {
 public:
     /**
      * Constructor to Public Stream

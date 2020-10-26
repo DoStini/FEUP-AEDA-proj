@@ -5,7 +5,7 @@
 #ifndef FEUP_AEDA_PROJ_PRIVATESTREAM_H
 #define FEUP_AEDA_PROJ_PRIVATESTREAM_H
 
-#include "Stream.h"
+#include "LiveStream.h"
 class User;
 
 // struct used to save comments in the stream
@@ -15,7 +15,7 @@ struct Comment{
     Comment(std::string text, std::string name): comment(text),viewerName(name){}
 };
 
-class PrivateStream : public Stream {
+class PrivateStream : public LiveStream {
 public:
     /**
      * Constructor to private stream

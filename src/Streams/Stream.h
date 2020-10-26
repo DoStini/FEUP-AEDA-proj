@@ -28,7 +28,7 @@ public:
      * @param language - Stream language
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    Stream(std::string title, std::string language, unsigned minAge = VIEWER_MIN_AGE);
+    Stream(std::string title, std::string language/*, unsigned minAge = VIEWER_MIN_AGE*/);
     /**
      * Give the title of the stream
      *
@@ -41,40 +41,36 @@ public:
      * @return - string with all the info
      */
     virtual std::string getInfo() const = 0;
-    /// give number of likes of the stream
-    int getLikes() const;
-    /// give number of dislikes of the stream
-    const int getDislikes() const;
     /**
      * Add viewers to the stream
      *
      * @param viewer - pointer to viewer
      */
-    void addViewer(User * viewer);
+    void addViewer(User * viewer); // TO REMOVE
     /**
      * Remove viewer from the stream
      *
      * @param viewer - viewer pointer
      */
-    void removeViewer(User * viewer);
+    void removeViewer(User * viewer); // TO REMOVE
     /**
      * Give the number of viewers in the stream
      *
      * @return - number of viewers
      */
-    unsigned getNumViewers() const;
+    unsigned getNumViewers() const; // TO REMOVE
     /**
      * Give us the stream min age
      *
      * @return - stream min age
      */
-    unsigned getMinAge() const;
+    unsigned getMinAge() const; // TO REMOVE
     /**
      * Function used to end stream
      *
      * @return - corrent number of viewers
      */
-    unsigned closeStream();
+    unsigned closeStream(); // TO REMOVE
     /**
      * Compare stream with there minAge
      *
@@ -82,6 +78,7 @@ public:
      * @return - stream that is being compared
      */
     // Change this operator later
+
     bool operator<(Stream * compStream);
     const std::string &getStreamLanguage() const;
 
@@ -91,11 +88,10 @@ private:
     std::string streamLanguage;
     genres genre;
     unsigned long long int streamId;
-    static unsigned long long int lastId;
+    static unsigned long long int lastId ;
     unsigned minAge; // to remove
     std::vector<User *> streamViewers; // to remove
-    bool liveStream; // to remove
-    std::pair<unsigned,unsigned> nLikes_Dislikes; // to remove;
+
 };
 
 

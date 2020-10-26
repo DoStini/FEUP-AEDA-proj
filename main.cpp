@@ -30,7 +30,7 @@ TEST(test, createUsers){
 }
 
 
-TEST(test, publicStream) {
+/*TEST(test, publicStream) {
     PublicStream s1("Nice stream", "PT");
     ASSERT_EQ(s1.getTitle(), "Nice stream");
     ASSERT_EQ(s1.getMinAge(), 12);
@@ -42,9 +42,9 @@ TEST(test, publicStream) {
     s1.addViewer((User *) &v2);
     ASSERT_EQ(s1.getNumViewers(), 2);
 
-}
+}*/
 
-TEST(test, user_private_stream) {
+/*TEST(test, user_private_stream) {
     PublicStream sp("Nice open source stream", "PT");
     PrivateStream s1("Nice stream", "PT");
     ASSERT_EQ(s1.getTitle(), "Nice stream");
@@ -69,7 +69,7 @@ TEST(test, user_private_stream) {
 
     EXPECT_THROW(v1.joinStream(&sp), AlreadyInStreamException);
 
-}
+}*/
 
 
 TEST(test, createDateString){
