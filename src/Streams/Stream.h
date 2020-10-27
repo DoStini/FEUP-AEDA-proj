@@ -28,7 +28,7 @@ public:
      * @param language - Stream language
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    Stream(std::string title, std::string language/*,genres genre /*REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);
+    Stream(std::string title, std::string language,genres genre /*REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);
     /**
      * Give the title of the stream
      *
@@ -47,6 +47,12 @@ public:
      * @return - stream language
      */
     const std::string &getStreamLanguage() const;
+    /**
+     * add id to the stream
+     *
+     * @param streamId - lastID value
+     */
+    void setStreamId(unsigned long long int streamId);
     /**
      * Add viewers to the stream
      *
@@ -92,7 +98,6 @@ private:
     std::string streamLanguage;
     genres genre;
     unsigned long long int streamId;
-    static unsigned long long int lastId ;
     unsigned minAge; // to remove
     std::vector<User *> streamViewers; // to remove
 

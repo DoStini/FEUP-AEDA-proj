@@ -6,14 +6,10 @@
 #include <utility>
 #include "Viewer.h"
 
-unsigned long long int Stream::lastId = 0;
-
-Stream::Stream(std::string title, std::string language /*genres genre*/ ) :
+Stream::Stream(std::string title, std::string language, genres genre ) :
             title(std::move(title)), streamLanguage(std::move(language)){
     Date currDate; currDate.setSystemDate();
     beginDate = currDate;
-    streamId = lastId;
-    lastId++;  // TODO WHEN CREATING FINISHED STREAM LASTID ALSO GETS INCREMENTED
 }
 
 void Stream::addViewer(User * viewer) {
@@ -54,6 +50,10 @@ const std::string &Stream::getTitle() const {
 
 const std::string &Stream::getStreamLanguage() const {
     return streamLanguage;
+}
+
+void Stream::setStreamId(unsigned long long int streamId) {
+    this->streamId = streamId;
 }
 
 

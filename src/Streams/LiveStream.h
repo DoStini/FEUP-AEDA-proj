@@ -18,7 +18,7 @@ enum feedback{
 
 class LiveStream : public Stream {
 public:
-    LiveStream(std::string title, std::string language, /*genres genre,*/unsigned minAge = VIEWER_MIN_AGE);
+    LiveStream(std::string title, std::string language, genres genre,unsigned minAge = VIEWER_MIN_AGE);
     /**
     * Add viewers to the stream
     *
@@ -77,6 +77,7 @@ private:
     std::map<std::string,feedback> likeSystem;
     std::pair<unsigned,unsigned> nLikes_Dislikes;
     std::string streamerNick;
+    static unsigned long long int lastId ;
 };
 
 

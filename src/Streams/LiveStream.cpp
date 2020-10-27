@@ -4,7 +4,12 @@
 
 #include "LiveStream.h"
 
-LiveStream::LiveStream(std::string title, std::string language, unsigned int minAge):Stream(title,language/*,genre*/),minAge(minAge) {
+unsigned long long int LiveStream::lastId = 0;
+
+LiveStream::LiveStream(std::string title, std::string language, genres genre, unsigned int minAge):
+                                Stream(title,language,genre),minAge(minAge) {
+    this->setStreamId(lastId);
+    lastId++;
     nLikes_Dislikes.first = 0;
     nLikes_Dislikes.second = 0;
 }

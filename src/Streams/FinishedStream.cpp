@@ -4,8 +4,9 @@
 
 #include "FinishedStream.h"
 
-FinishedStream::FinishedStream(std::string title, std::string language, int numViewers, std::string streamerName)
-                                :Stream(title,language), numViewers(numViewers), streamerName(streamerName) {
+
+FinishedStream::FinishedStream(std::string title, std::string language, genres genre, int numViewers, std::string streamerName)
+                                :Stream(title,language,genre), numViewers(numViewers), streamerName(streamerName) {
 
 }
 

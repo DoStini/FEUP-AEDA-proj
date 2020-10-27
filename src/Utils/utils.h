@@ -10,7 +10,7 @@
 
 
 enum language{
-    PT_PT,
+    PT_PT = 1,
     PT_BR,
     ENG,
     SPA,
@@ -22,7 +22,7 @@ enum language{
 };
 
 enum genres{
-    gaming,
+    gaming = 1,
     technology,
     music,
     cooking,
