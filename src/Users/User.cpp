@@ -9,7 +9,6 @@ User::User( std::string name, std::string nickName, const Date &birthDate) :
             name(std::move(name)), nickName(std::move(nickName)),birthDate(birthDate) {
     Date currDate; currDate.setSystemDate();
     joinedPlatformDate = currDate;
-    age = currDate.getYearDifference(birthDate);
 }
 
 
@@ -22,7 +21,9 @@ const std::string &User::getNickName() const {
 }
 
 unsigned int User::getAge() const {
-    return age;
+    Date currDate = Date();
+
+    return currDate.getYearDifference(birthDate);
 }
 
 const Date &User::getBirthDate() const {

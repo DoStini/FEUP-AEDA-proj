@@ -7,6 +7,8 @@
 
 Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
                 User(name, std::move(nickName), birthDate) {
+    unsigned age = getAge();
+
     if(age <= minimumAge)
         throw RestrictedAgeException(name, age, minimumAge);
 
@@ -38,6 +40,8 @@ void Viewer::unFollowStreamer(Streamer *streamer) {
 void Viewer::joinStream(Stream *stream) {
     if (watching()) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
     // TODO Is < or <= ???
+    unsigned age = getAge();
+
     if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
 
     auto * psPtr = dynamic_cast<PrivateStream *>(stream);

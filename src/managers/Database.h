@@ -16,7 +16,7 @@ private:
     std::map<std::string, User *> users;
     std::map<long long int, Stream *> streams;
 public:
-    Database = default;
+    Database() = default;
     std::map<std::string, User *> & getUsers(){return users;};
     std::map<long long int, Stream *> & getStreams() {return streams;};
 };

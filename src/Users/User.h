@@ -70,7 +70,6 @@ protected:
     std::string nickName;
     /// Used to login
     std::string password;
-    unsigned age;
     Date birthDate;
     /// Date when user joined Streamz
     Date joinedPlatformDate;

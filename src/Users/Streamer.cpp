@@ -6,6 +6,8 @@
 
 Streamer::Streamer(std::string name, std::string nickName, const Date &birthDate) :
         User(name, std::move(nickName), birthDate) {
+    unsigned age = getAge();
+
     if(age <= minimumAge)
         throw RestrictedAgeException(name, age, minimumAge);
 
