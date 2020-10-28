@@ -12,8 +12,9 @@
 #include "SearchManager.h"
 #include "UserManager.h"
 #include "LeaderBoard.h"
+#include "utils.h"
+#include "Admin.h"
 
-#define ID long long int
 
 
 
@@ -27,6 +28,8 @@ public:
     void init();
     void shutdown();
     void run();
+    void login();
+    void registerUser();
 
     void backupData(std::string fileName);
     void readFromFile(std::string fileName);

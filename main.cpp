@@ -5,6 +5,8 @@
 #include "Date.h"
 #include "PrivateStream.h"
 #include "PublicStream.h"
+#include "StreamZ.h"
+
 using testing::Eq;
 
 TEST(test, createUsers){
@@ -225,6 +227,12 @@ TEST(test, hourMinute) {
     std::cout << s2.getInfo();
 
 }*/
+
+TEST(test, run) {
+    StreamZ manager = StreamZ();
+
+    manager.run();
+}
 
 
 int main() {
