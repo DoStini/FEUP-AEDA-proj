@@ -81,6 +81,7 @@ void StreamZ::run() {
         print(LINE_BREAK);
 
         if(option == 1) login();
+        else if(option == 2) registerUser();
 
         print(LINE_BREAK);
     }
@@ -116,9 +117,7 @@ void StreamZ::login() {
 
     print("Password: ", '\0');
 
-    while(!checkInput(password)) {
-        print("Invalid Input! Please try again: " , '\0');
-    }
+    getString(password);
 
     if(realPassword != password) {
         print();
@@ -135,12 +134,12 @@ void StreamZ::login() {
             // Instantiate Account
             return;
         }
-    } else if(type = streamer) {
+    } else if(type == streamer) {
         if(Streamer * userStreamer = dynamic_cast<Streamer *>(user)) {
             // Instantiate Account
             return;
         }
-    } else if(type = admin) {
+    } else if(type == admin) {
         if(Admin * userStreamer = dynamic_cast<Admin *>(user)) {
             // Instantiate Account
             return;
@@ -153,4 +152,71 @@ void StreamZ::login() {
 
 Database &StreamZ::getDatabase() {
     return dataBase;
+}
+
+void StreamZ::registerUser() {
+    uint16_t type;
+    std::string userName;
+    std::string nickName;
+    std::string password;
+    std::string date;
+    Date dateObj;
+
+    print("What type of user are you?");
+    print("1. Viewer");
+    print("2. Streamer");
+
+    print();
+    print("Choose an option: ", '\0');
+
+    while (!checkInput(type) || type < 1 || type > 2) {
+        print("Invalid Option! Please try again: " , '\0');
+    }
+
+    userType uType = (userType) (type - 1);
+
+    print("What will be your nick name? (used to login) ", '\0');
+
+    while (!checkInput(nickName)) {
+        print("Invalid Input! Please try again: " , '\0');
+    }
+
+    print("What will be your user name? (used to display) ", '\0');
+
+    getString(userName);
+
+    print("What will be your password? ", '\0');
+
+    getString(password);
+
+    print("What is the date you were born? (used to calculate your age)");
+    print("(Format: YYYY/MM/DD or YYYY-MM-DD or YYYY MM DD) ", '\0');
+
+    do {
+        try {
+            getString(date);
+            dateObj = Date(date);
+
+            break;
+        } catch (BadDateFormat &ex) {
+            print("Date was in a wrong format. Please try again: ", '\0');
+        } catch (InvalidDate &ex) {
+            print("Date is not valid! Please try again: ", '\0');
+        }
+    } while(true);
+
+    try {
+        if(uType == viewer) {
+            userManager->createViewer(userName, nickName, dateObj);
+        } else if(uType == streamer) {
+            userManager->createStreamer(userName, nickName, dateObj);
+        }
+
+        print("Success!!");
+    } catch (RestrictedAgeException &ex) {
+        print("You are not old enough to create an account: ");
+        std::cout << ex;
+
+        waitForKey();
+    }
 }

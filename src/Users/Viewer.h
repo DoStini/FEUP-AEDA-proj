@@ -25,6 +25,8 @@ public:
      * @param name - Name of the user
      * @param nickName - Nickename
      * @param birthDate - Date of Birth
+     *
+     * @throws RestrictedAgeException if the user is not allowed to create an account
      */
     Viewer(std::string name, std::string nickName, const Date &birthDate);
     /**

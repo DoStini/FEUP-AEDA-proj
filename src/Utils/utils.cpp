@@ -13,3 +13,13 @@ void print(char end) {
     std::cout << end;
 }
 
+std::string stringToLower(std::string string) {
+    std::transform(string.begin(), string.end(), string.begin(), [](unsigned char c) {return std::tolower(c);});
+
+    return string;
+}
+
+void getString(std::string &string) {
+    std::getline(std::cin, string);
+}
+

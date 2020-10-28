@@ -14,6 +14,7 @@ typedef long long int ID;
 #include <iostream>
 #include <limits>
 #include<string>
+#include <algorithm>
 
 
 
@@ -80,6 +81,10 @@ enum genre{
 };
 
 void waitForKey();
+
+void getString(std::string &string);
+
+std::string stringToLower(std::string string);
 
 
 #endif //FEUP_AEDA_PROJ_UTILS_H

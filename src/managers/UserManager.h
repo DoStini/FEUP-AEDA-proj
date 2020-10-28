@@ -6,6 +6,7 @@
 #define FEUP_AEDA_PROJ_USERMANAGER_H
 
 #include <string>
+#include "Date.h"
 
 
 class StreamZ;
@@ -27,11 +28,11 @@ public:
      */
     bool userExists(std::string nickName);
     /// Creates a viewer
-    void createViewer();
+    void createViewer(std::string userName, std::string nickName, Date date);
     /// Creates a streamer
-    void createStreamer();
+    void createStreamer(std::string userName, std::string nickName, Date date);
     /// Creates an admin
-    void createAdmin();
+    void createAdmin(std::string userName, std::string nickName, Date date);
     /// Removes a user
     void removeUser(std::string nickName);
 private:
