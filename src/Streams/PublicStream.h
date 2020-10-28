@@ -18,7 +18,7 @@ public:
      */
     PublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned minAge);
     ///@return - stream type = public type
-    streamType getStreamType() const;
+    streamType getStreamType() const override;
     std::string getInfo() const override;
 };
 

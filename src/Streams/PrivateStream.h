@@ -30,7 +30,7 @@ public:
     ///@return - number of comments that the stream have
     unsigned getNumberComments();
     ///@return - stream type = private type
-    streamType getStreamType() const;
+    streamType getStreamType() const override;
     /**
      * Function to add a user to a whitelisted stream
      * @param user - User to be added

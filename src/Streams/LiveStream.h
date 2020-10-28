@@ -44,7 +44,7 @@ public:
     ///@return - Stream min age
     unsigned getMinAge() const;
     ///@return - return type of the stream
-    virtual streamType getStreamType() const = 0;
+    streamType getStreamType() const override = 0;
     /**
     * Function used to end stream
     *

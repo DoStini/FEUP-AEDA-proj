@@ -22,7 +22,7 @@ public:
      *
      * @return - finished type
      */
-    streamType getStreamType() const;
+    streamType getStreamType() const override;
     std::string getInfo() const override = 0;
 
 private:
