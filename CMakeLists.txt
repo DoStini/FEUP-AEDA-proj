@@ -7,7 +7,14 @@ add_subdirectory(libs/googletest)
 include_directories(libs/googletest/googletest/include)
 include_directories(libs/googletest/googlemock/include)
 
-include_directories(src/Exceptions/streams src/Exceptions/users src/Streams src/Users src/Utils src/Date src/Exceptions/date)
+include_directories(src/Exceptions/streams
+        src/Exceptions/users
+        src/Streams
+        src/Users
+        src/Utils
+        src/Date
+        src/Exceptions/date
+        src/managers)
 
 
 add_executable(FEUP_AEDA_proj
@@ -48,7 +55,7 @@ add_executable(FEUP_AEDA_proj
         src/Exceptions/date/InvalidDate.cpp
         src/Exceptions/date/InvalidDate.h
         src/Exceptions/streams/NotPrivateStreamException.cpp
-        src/Exceptions/streams/NotPrivateStreamException.h src/Streams/LiveStream.cpp src/Streams/LiveStream.h src/Streams/FinishedStream.cpp src/Streams/FinishedStream.h src/managers/StreamZ.cpp src/managers/StreamZ.h src/managers/Database.h src/managers/SortingManager.cpp src/managers/SortingManager.h src/managers/SearchManager.cpp src/managers/SearchManager.h src/managers/UserManager.cpp src/managers/UserManager.h src/managers/LeaderBoard.cpp src/managers/LeaderBoard.h)
+        src/Exceptions/streams/NotPrivateStreamException.h src/Streams/LiveStream.cpp src/Streams/LiveStream.h src/Streams/FinishedStream.cpp src/Streams/FinishedStream.h src/managers/StreamZ.cpp src/managers/StreamZ.h src/managers/Database.h src/managers/SortingManager.cpp src/managers/SortingManager.h src/managers/SearchManager.cpp src/managers/SearchManager.h src/managers/UserManager.cpp src/managers/UserManager.h src/managers/LeaderBoard.cpp src/managers/LeaderBoard.h src/Exceptions/users/DoesNotExist.h)
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
 

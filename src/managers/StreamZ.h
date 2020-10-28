@@ -13,6 +13,10 @@
 #include "UserManager.h"
 #include "LeaderBoard.h"
 
+#include "User.h"
+#include "Viewer.h"
+#include "Streamer.h"
+
 #define ID long long int
 
 
@@ -34,6 +38,7 @@ public:
     SortingManager * getSortM();
     SearchManager * getSearchM();
     UserManager * getUserM();
+    Database & getDatabase();
 };
 
 
