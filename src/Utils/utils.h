@@ -8,6 +8,11 @@
 #define VIEWER_MIN_AGE 12
 #define STREAMER_MIN_AGE 15
 
+enum streamType{
+    publicType = 1,
+    privateType,
+    finishedType,
+};
 
 enum languages{
     PT_PT = 1,

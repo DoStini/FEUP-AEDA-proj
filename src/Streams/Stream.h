@@ -66,6 +66,7 @@ public:
      * @return - string with all the info
      */
     virtual std::string getInfo() const = 0;
+    virtual streamType getStreamType() const = 0;
     /**
      * add id to the stream
      *
