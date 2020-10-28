@@ -36,7 +36,7 @@ void Viewer::unFollowStreamer(Streamer *streamer) {
     followingStreamers.erase(it);
 }
 
-void Viewer::joinStream(Stream *stream) {
+void Viewer::joinStream(LiveStream *stream) {
     if (watching()) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
     // TODO Is < or <= ???
     if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());

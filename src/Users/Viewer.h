@@ -49,7 +49,7 @@ public:
      * Might throw AlreadyInStreamException
      * @param stream - Desired stream
      */
-    void joinStream(Stream * stream);
+    void joinStream(LiveStream *stream);
     /// Leave the current stream. Might throw a NotInStreamException
     void leaveStream();
     /// Like the current stream
@@ -64,10 +64,9 @@ private:
     /// Minimum age to be able to create a viewer account
     static const unsigned minimumAge = VIEWER_MIN_AGE;
     /// Stream currently watching
-    Stream * currWatching = nullptr;
+    LiveStream * currWatching = nullptr;
     /// List of streamers the viewer follows
     std::vector<Streamer *> followingStreamers;
-
 };
 
 

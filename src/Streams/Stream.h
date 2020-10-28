@@ -28,13 +28,38 @@ public:
      * @param language - Stream language
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    Stream(std::string title, std::string language,genres genre /*REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);
+    Stream(std::string title, languages language,genres genre /*REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);
     /**
      * Give the title of the stream
      *
      * @return
      */
     const std::string &getTitle() const;
+
+    /**
+     * Give us the stream language
+     *
+     * @return - stream language
+     */
+    const languages &getStreamLanguage() const;
+    /**
+     * Get date when the stream begin
+     *
+     * @return - date when the stream begin
+     */
+    const Date &getBeginDate() const;
+    /**
+     * Get genre of the stream
+     *
+     * @return - value of the genre of the stream in the enum
+     */
+    genres getGenre() const;
+    /**
+     * Get stream id
+     *
+     * @return - value that represent the stream id
+     */
+    unsigned long long int getStreamId() const;
     /**
      * Give us basic stream title, number of viewers, language and necessary age to join
      *
@@ -42,64 +67,18 @@ public:
      */
     virtual std::string getInfo() const = 0;
     /**
-     * Give us the stream language
-     *
-     * @return - stream language
-     */
-    const std::string &getStreamLanguage() const;
-    /**
      * add id to the stream
      *
      * @param streamId - lastID value
      */
     void setStreamId(unsigned long long int streamId);
-    /**
-     * Add viewers to the stream
-     *
-     * @param viewer - pointer to viewer
-     */
-    void addViewer(User * viewer); // TO REMOVE
-    /**
-     * Remove viewer from the stream
-     *
-     * @param viewer - viewer pointer
-     */
-    void removeViewer(User * viewer); // TO REMOVE
-    /**
-     * Give the number of viewers in the stream
-     *
-     * @return - number of viewers
-     */
-    unsigned getNumViewers() const; // TO REMOVE
-    /**
-     * Give us the stream min age
-     *
-     * @return - stream min age
-     */
-    unsigned getMinAge() const; // TO REMOVE
-    /**
-     * Function used to end stream
-     *
-     * @return - corrent number of viewers
-     */
-    unsigned closeStream(); // TO REMOVE
-    /**
-     * Compare stream with there minAge
-     *
-     * @param compStream - stream to compare
-     * @return - stream that is being compared
-     */
-    // Change this operator later
-    bool operator<(Stream * compStream);
 
 private:
     std::string title;
     Date beginDate;
-    std::string streamLanguage;
+    languages streamLanguage;
     genres genre;
     unsigned long long int streamId;
-    unsigned minAge; // to remove
-    std::vector<User *> streamViewers; // to remove
 
 };
 

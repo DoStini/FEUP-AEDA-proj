@@ -18,7 +18,15 @@ enum feedback{
 
 class LiveStream : public Stream {
 public:
-    LiveStream(std::string title, std::string language, genres genre,unsigned minAge = VIEWER_MIN_AGE);
+    /**
+     * Constructor of a LiveStream
+     *
+     * @param title - title of the stream
+     * @param language - language of the stream
+     * @param genre - genre of the stream
+     * @param minAge - min age of the stream
+     */
+    LiveStream(std::string title, languages language, genres genre,unsigned minAge = VIEWER_MIN_AGE);
     /**
     * Add viewers to the stream
     *
@@ -71,6 +79,14 @@ public:
     * @param viewer - viewer that remove feedback
     */
     void removeFeedBack(User * viewer);
+    /**
+    * Compare stream with there minAge
+    *
+    * @param compStream - stream to compare
+    * @return - stream that is being compared
+    */
+    // Change this operator later
+    bool operator<(LiveStream * compStream);
 private:
     unsigned minAge;
     std::vector<std::string> streamViewers;

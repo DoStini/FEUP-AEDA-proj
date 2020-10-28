@@ -9,7 +9,7 @@
 #define STREAMER_MIN_AGE 15
 
 
-enum language{
+enum languages{
     PT_PT = 1,
     PT_BR,
     ENG,
