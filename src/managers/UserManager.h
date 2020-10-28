@@ -8,10 +8,34 @@
 #include <string>
 
 
+class StreamZ;
+
+/**
+ * Class to manage users, like creating and removing viewers
+ */
 class UserManager {
 public:
-    bool userExists(std::string nickName) const;
-
+    /**
+     * Constructor. StreamZ needs to be used by the class to access the database and other methods
+     * @param streamZ - Main class pointer
+     */
+    UserManager(StreamZ *streamZ);
+    /**
+     * Function to check if a user exists or not
+     * @param nickName - Nickname of the user
+     * @return user exists or not
+     */
+    bool userExists(std::string nickName);
+    /// Creates a viewer
+    void createViewer();
+    /// Creates a streamer
+    void createStreamer();
+    /// Creates an admin
+    void createAdmin();
+    /// Removes a user
+    void removeUser(std::string nickName);
+private:
+    StreamZ * streamZ;
 };
 
 

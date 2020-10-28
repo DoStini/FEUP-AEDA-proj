@@ -4,6 +4,8 @@
 
 #include "UserManager.h"
 
-bool UserManager::userExists(std::string nickName) const {
-    return true;
+UserManager::UserManager(StreamZ *streamZ) : streamZ(streamZ) {}
+
+bool UserManager::userExists(std::string nickName) {
+    return false;
 }

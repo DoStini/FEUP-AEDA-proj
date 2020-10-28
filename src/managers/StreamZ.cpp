@@ -2,15 +2,18 @@
 // Created by andremoreira9 on 26/10/20.
 //
 
+#include <PublicStream.h>
 #include "StreamZ.h"
 #include "utils.h"
+
+
 
 void StreamZ::init() {
 
     //readFromFile();
 
-    sortingManager = new SortingManager;
-    searchManager = new SearchManager;
+    sortingManager = new SortingManager(this);
+    searchManager = new SearchManager(this);
     userManager = new UserManager;
     leaderboard = new LeaderBoard;
     dataBase = Database();
@@ -147,4 +150,6 @@ void StreamZ::login() {
 }
 
 
-
+Database &StreamZ::getDatabase() {
+    return dataBase;
+}

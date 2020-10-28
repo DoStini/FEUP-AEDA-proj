@@ -3,3 +3,5 @@
 //
 
 #include "SortingManager.h"
+
+SortingManager::SortingManager(StreamZ *streamZ) : streamZ(streamZ) {}

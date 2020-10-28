@@ -4,10 +4,26 @@
 
 
 #include "SearchManager.h"
+#include "StreamZ.h"
 
-User *SearchManager::user(std::string userNick) const {
-    Viewer * retur = new Viewer("Nuno", "nuno", Date("2001/02/25"));
-    retur->changePassword("123");
-
-    return retur;
+User *SearchManager::getUser(std::string userNick) {
+    User * val;
+    try{
+        val = streamZ->getDatabase().getUsers().at(userNick);
+    } catch (const std::exception &e) {
+        throw DoesNotExist<std::string>(userNick);
+    }
+    return val;
 }
+
+Stream *SearchManager::getStream(long long int streamID) {
+    Stream * val;
+    try{
+        val = streamZ->getDatabase().getStreams().at(streamID);
+    } catch (const std::exception &e) {
+        throw DoesNotExist<ID>(streamID);
+    }
+    return val;
+}
+
+SearchManager::SearchManager(StreamZ *streamZ) : streamZ(streamZ) {}

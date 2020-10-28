@@ -6,8 +6,14 @@
 #define FEUP_AEDA_PROJ_LEADERBOARD_H
 
 
-class LeaderBoard {
+#include <Stream.h>
 
+class LeaderBoard {
+public:
+    LeaderBoard() = default;
+    std::vector<Stream *> top10StreamViews();
+    std::vector<Stream *> top10StreamLikes();
+    std::vector<User *> top10oldestUsers();
 };
 
 
