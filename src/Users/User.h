@@ -19,6 +19,10 @@
 #include "RestrictedStreamException.h"
 #include "Stream.h"
 
+enum userType {
+    viewer, streamer, admin
+};
+
 /**
  * User master class
  */
@@ -55,8 +59,8 @@ public:
     const Date &getBirthDate() const;
     /// @return Date which user joined StreamZ
     const Date &getJoinedPlatformDate() const;
-    /// @return info about the user
-    virtual std::string getInfo() const = 0;
+    /// @return userType info about the user
+    virtual userType getInfo() const = 0;
     /// @return password of the user
     const std::string &getPassword() const;
 

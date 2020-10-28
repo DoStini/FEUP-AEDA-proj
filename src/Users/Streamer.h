@@ -23,7 +23,7 @@ public:
     * @param birthDate - Date of Birth
     */
     Streamer(std::string name, std::string nickName, const Date &birthDate);
-    std::string getInfo() const override;
+    userType getInfo() const override;
     bool operator == (const Streamer & str);
 private:
     static const unsigned minimumAge = STREAMER_MIN_AGE;
