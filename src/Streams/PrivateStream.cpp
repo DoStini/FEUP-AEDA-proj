@@ -8,8 +8,8 @@
 
 #include "User.h"
 
-PrivateStream::PrivateStream(std::string title, languages language, genres genre, unsigned int minAge)
-                                        : LiveStream(std::move(title), std::move(language), genre, minAge) {}
+PrivateStream::PrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge)
+                                        : LiveStream(std::move(title), streamLanguage, streamGenre, minAge) {}
 unsigned PrivateStream::getNumberComments() {
     return comments.size();
 }

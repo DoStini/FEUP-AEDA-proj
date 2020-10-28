@@ -7,8 +7,8 @@
 #include <utility>
 
 
-FinishedStream::FinishedStream(std::string title, languages language, genres genre, int numViewers, std::string streamerName)
-                                : Stream(std::move(title),std::move(language),genre), numViewers(numViewers), streamerName(std::move(streamerName)) {
+FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerName)
+                                : Stream(std::move(title),language,streamGenre), numViewers(numViewers), streamerName(std::move(streamerName)) {
 
 }
 

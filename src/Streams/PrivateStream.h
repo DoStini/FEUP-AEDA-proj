@@ -24,7 +24,7 @@ public:
      * @param language - Stream language
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    PrivateStream(std::string title, languages language, genres genre, unsigned minAge);
+    PrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned minAge);
 
     std::string getInfo() const override;
     ///@return - number of comments that the stream have

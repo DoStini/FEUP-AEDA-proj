@@ -33,7 +33,7 @@ enum language{
 };
 
 
-enum genres{
+enum genre{
     gaming,
     technology,
     music,

@@ -29,15 +29,15 @@ public:
      * @genre genre - genre of the stream
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    Stream(std::string title, languages language,genres genre /*REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);
+    Stream(std::string title, language language, genre genre /*REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);
     ///@return - Title of the stream
     const std::string &getTitle() const;
     ///@return - stream language
-    const languages &getStreamLanguage() const;
+    const language &getStreamLanguage() const;
     ///@return - date when the stream begin
     const Date &getBeginDate() const;
     ///@return - stream genre
-    genres getGenre() const;
+    genre getGenre() const;
     ///@return - value that represent the stream id
     unsigned long long int getStreamId() const;
     /**
@@ -58,8 +58,8 @@ public:
 private:
     std::string title;
     Date beginDate;
-    languages streamLanguage;
-    genres genre;
+    language streamLanguage;
+    genre streamGenre;
     unsigned long long int streamId;
 
 };
