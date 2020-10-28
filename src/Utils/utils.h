@@ -20,8 +20,8 @@ enum userType{
     admin,
 };
 
-enum languages{
-    PT_PT = 1,
+enum language{
+    PT_PT,
     PT_BR,
     ENG,
     SPA,
@@ -32,15 +32,16 @@ enum languages{
     HINDI,
 };
 
+
 enum genres{
-    gaming = 1,
+    gaming,
     technology,
     music,
     cooking,
     meetGreet,
 };
 
-
+typedef unsigned long long int ID;
 
 
 #endif //FEUP_AEDA_PROJ_UTILS_H
