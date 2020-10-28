@@ -26,6 +26,7 @@ public:
      *
      * @param title - Title of the stream
      * @param language - Stream language
+     * @genre genre - genre of the stream
      * @param minAge - Minimal age of the stream , 12 by default
      */
     Stream(std::string title, languages language,genres genre /*REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);

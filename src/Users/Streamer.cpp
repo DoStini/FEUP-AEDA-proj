@@ -11,10 +11,6 @@ Streamer::Streamer(std::string name, std::string nickName, const Date &birthDate
 
 }
 
-std::string Streamer::getInfo() const {
-    return "Streamer!";
-}
-
 userType Streamer::getUserType() const {
     return stream;
 }

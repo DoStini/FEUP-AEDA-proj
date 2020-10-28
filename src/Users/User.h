@@ -53,8 +53,6 @@ public:
     const Date &getBirthDate() const;
     /// @return Date which user joined StreamZ
     const Date &getJoinedPlatformDate() const;
-    /// @return info about the user
-    virtual std::string getInfo() const = 0;
     /// @return password of the user
     const std::string &getPassword() const;
     ///@return - give us the user type

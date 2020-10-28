@@ -12,11 +12,6 @@ Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
 
 }
 
-std::string Viewer::getInfo() const {
-    std::stringstream ss; ss << "Viewer: " << name << ". Nickname: " << nickName << ". Age: " << age << ".";
-    return ss.str();
-}
-
 userType Viewer::getUserType() const {
     return viewer;
 }
