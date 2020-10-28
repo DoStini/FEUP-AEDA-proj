@@ -90,7 +90,7 @@ private:
     std::string title;
     Date beginDate;
     std::string streamLanguage;
-    genres genre;
+    genre genre;
     unsigned long long int streamId;
     static unsigned long long int lastId ;
     unsigned minAge; // to remove

@@ -32,8 +32,17 @@ class StreamZ {
 public:
     void init();
     void shutdown();
+    /**
+     * Runs the program and prompts the user to login/register/exit the program.
+     */
     void run();
+    /**
+     * Asks the user to login and insert the correct credentials.
+     */
     void login();
+    /**
+     * Asks the user to register.
+     */
     void registerUser();
 
     void backupData(std::string fileName);

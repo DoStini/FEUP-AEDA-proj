@@ -14,7 +14,7 @@ void StreamZ::init() {
 
     sortingManager = new SortingManager(this);
     searchManager = new SearchManager(this);
-    userManager = new UserManager;
+    userManager = new UserManager(this);
     leaderboard = new LeaderBoard;
     dataBase = Database();
 }
@@ -78,6 +78,8 @@ void StreamZ::run() {
             print("Invalid Option! Please try again: " , '\0');
         }
 
+        print(LINE_BREAK);
+
         if(option == 1) login();
 
 
@@ -108,7 +110,7 @@ void StreamZ::login() {
         }
     }
 
-    User * user = searchManager->user(name);
+    User * user = searchManager->getUser(name);
     userType type = user->getInfo();
 
     std::string realPassword = user->getPassword();
