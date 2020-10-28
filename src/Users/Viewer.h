@@ -32,6 +32,8 @@ public:
      * @return String containing info about the viewer
      */
     std::string getInfo() const;
+    ///@return - user type = viewer
+    userType getUserType() const;
     /// @return boolean indicating if the user is watching some stream or not
     bool watching();
     /**

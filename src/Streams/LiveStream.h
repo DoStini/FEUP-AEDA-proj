@@ -39,27 +39,21 @@ public:
     * @param viewer - viewer pointer
     */
     void removeViewer(User * viewer);
-    /**
-    * Give the number of viewers in the stream
-    *
-    * @return - number of viewers
-    */
+    ///@return - number of viewers in the stream
     unsigned getNumViewers() const;
-    /**
-    * Give us the stream min age
-    *
-    * @return - stream min age
-    */
+    ///@return - Stream min age
     unsigned getMinAge() const;
+    ///@return - return type of the stream
+    virtual streamType getStreamType() const = 0;
     /**
     * Function used to end stream
     *
     * @return - corrent number of viewers
     */
     unsigned closeStream();
-    /// give number of likes of the stream
+    ///@return - number of likes of the stream
     int getLikes() const;
-    /// give number of dislikes of the stream
+    ///@return - give number of dislikes of the stream
     int getDislikes() const;
     /**
     * add like to the stream

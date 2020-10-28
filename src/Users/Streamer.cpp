@@ -11,12 +11,14 @@ Streamer::Streamer(std::string name, std::string nickName, const Date &birthDate
 
 }
 
-bool Streamer::operator==(const Streamer &str) {
-    return nickName == str.nickName;
-}
-
 std::string Streamer::getInfo() const {
     return "Streamer!";
 }
 
+userType Streamer::getUserType() const {
+    return stream;
+}
 
+bool Streamer::operator==(const Streamer &str) {
+    return nickName == str.nickName;
+}

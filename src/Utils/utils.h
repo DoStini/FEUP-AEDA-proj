@@ -14,6 +14,12 @@ enum streamType{
     finishedType,
 };
 
+enum userType{
+    viewer = 1,
+    stream,
+    admin,
+};
+
 enum languages{
     PT_PT = 1,
     PT_BR,

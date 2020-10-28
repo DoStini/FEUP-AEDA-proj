@@ -43,8 +43,6 @@ public:
      */
     User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
 
-    bool changePassword(std::string newPassword);
-
     /// @return Name
     const std::string &getName() const;
     /// @return Nickname
@@ -59,6 +57,9 @@ public:
     virtual std::string getInfo() const = 0;
     /// @return password of the user
     const std::string &getPassword() const;
+    ///@return - give us the user type
+    virtual userType getUserType() const = 0;
+    bool changePassword(std::string newPassword);
 
 protected:
     std::string name;

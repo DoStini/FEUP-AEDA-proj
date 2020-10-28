@@ -17,6 +17,10 @@ std::string Viewer::getInfo() const {
     return ss.str();
 }
 
+userType Viewer::getUserType() const {
+    return viewer;
+}
+
 void Viewer::followStreamer(Streamer *streamer) {
 
     if (std::find_if(followingStreamers.begin(), followingStreamers.end(), [streamer](Streamer * curr){

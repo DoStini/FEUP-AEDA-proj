@@ -29,36 +29,15 @@ public:
      * @param minAge - Minimal age of the stream , 12 by default
      */
     Stream(std::string title, languages language,genres genre /*REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);
-    /**
-     * Give the title of the stream
-     *
-     * @return
-     */
+    ///@return - Title of the stream
     const std::string &getTitle() const;
-
-    /**
-     * Give us the stream language
-     *
-     * @return - stream language
-     */
+    ///@return - stream language
     const languages &getStreamLanguage() const;
-    /**
-     * Get date when the stream begin
-     *
-     * @return - date when the stream begin
-     */
+    ///@return - date when the stream begin
     const Date &getBeginDate() const;
-    /**
-     * Get genre of the stream
-     *
-     * @return - value of the genre of the stream in the enum
-     */
+    ///@return - stream genre
     genres getGenre() const;
-    /**
-     * Get stream id
-     *
-     * @return - value that represent the stream id
-     */
+    ///@return - value that represent the stream id
     unsigned long long int getStreamId() const;
     /**
      * Give us basic stream title, number of viewers, language and necessary age to join
@@ -66,9 +45,10 @@ public:
      * @return - string with all the info
      */
     virtual std::string getInfo() const = 0;
+    /// @return - type of the stream
     virtual streamType getStreamType() const = 0;
     /**
-     * add id to the stream
+     * Set stream id to the given value
      *
      * @param streamId - lastID value
      */

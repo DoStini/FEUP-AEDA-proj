@@ -27,13 +27,10 @@ public:
     PrivateStream(std::string title, languages language, genres genre, unsigned minAge);
 
     std::string getInfo() const override;
-
-    /**
-     * Number of comments of the stream
-     *
-     * @return - number of comments
-     */
+    ///@return - number of comments that the stream have
     unsigned getNumberComments();
+    ///@return - stream type = private type
+    streamType getStreamType() const;
     /**
      * Function to add a user to a whitelisted stream
      * @param user - User to be added

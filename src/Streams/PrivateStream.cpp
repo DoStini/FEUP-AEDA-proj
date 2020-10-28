@@ -14,6 +14,10 @@ unsigned PrivateStream::getNumberComments() {
     return comments.size();
 }
 
+streamType PrivateStream::getStreamType() const {
+    return privateType;
+}
+
 bool PrivateStream::isValidUser(User *user) {
     std::string nick = user->getNickName();
     return std::find_if(

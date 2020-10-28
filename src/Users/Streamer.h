@@ -19,11 +19,13 @@ public:
     * Constructor when creating a new user
     * Throws a RestrictedAgeException if the user is not allowed to create an account
     * @param name - Name of the user
-    * @param nickName - Nickename
+    * @param nickName - Nickname
     * @param birthDate - Date of Birth
     */
     Streamer(std::string name, std::string nickName, const Date &birthDate);
     std::string getInfo() const override;
+    ///@return - user type = streamer
+    userType getUserType() const;
     bool operator == (const Streamer & str);
 private:
     static const unsigned minimumAge = STREAMER_MIN_AGE;

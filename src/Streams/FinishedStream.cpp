@@ -15,3 +15,7 @@ FinishedStream::FinishedStream(std::string title, languages language, genres gen
 std::string FinishedStream::getInfo() const {
     return "Finished stream";
 }
+
+streamType FinishedStream::getStreamType() const {
+    return finishedType;
+}
