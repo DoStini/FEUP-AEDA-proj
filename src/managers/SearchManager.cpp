@@ -15,7 +15,7 @@ User *SearchManager::getUser(std::string userNick) {
     return val;
 }
 
-Stream *SearchManager::getStream(long long int streamID) {
+Stream *SearchManager::getStream(ID streamID) {
     Stream * val;
     try{
         val = streamZ->getDatabase().getStreams().at(streamID);
@@ -25,4 +25,6 @@ Stream *SearchManager::getStream(long long int streamID) {
     return val;
 }
 
+
 SearchManager::SearchManager(StreamZ *streamZ) : streamZ(streamZ) {}
+

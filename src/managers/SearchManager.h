@@ -29,7 +29,7 @@ public:
     /// @return Corresponding user to the nickname
     User * getUser(std::string userNick);
     /// @return Corresponding stream to the streamID
-    Stream * getStream(long long int streamID);
+    Stream * getStream(ID streamID);
     /// @returns Vector of all the users
     std::vector<User *> listUsers();
 

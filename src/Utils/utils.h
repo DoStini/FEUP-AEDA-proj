@@ -30,7 +30,7 @@ enum genre{
     meetGreet,
 };
 
-
+typedef unsigned long long int ID;
 
 
 #endif //FEUP_AEDA_PROJ_UTILS_H

@@ -3,3 +3,5 @@
 //
 
 #include "LeaderBoard.h"
+
+LeaderBoard::LeaderBoard(StreamZ *streamZ) : streamZ(streamZ) {}

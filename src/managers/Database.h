@@ -11,14 +11,19 @@ class Stream;
 #include <string>
 #include <map>
 
+/**
+ * Class to store the data from the application
+ */
 class Database {
 private:
     std::map<std::string, User *> users;
-    std::map<long long int, Stream *> streams;
+    std::map<ID, Stream *> streams;
 public:
     Database() = default;
+    /// @return A reference to the map containing the users
     std::map<std::string, User *> & getUsers(){return users;};
-    std::map<long long int, Stream *> & getStreams() {return streams;};
+    /// @return A reference to the map containing the users
+    std::map<ID, Stream *> & getStreams() {return streams;};
 };
 
 

@@ -13,8 +13,8 @@ void StreamZ::init() {
 
     sortingManager = new SortingManager(this);
     searchManager = new SearchManager(this);
-    userManager = new UserManager;
-    leaderboard = new LeaderBoard;
+    userManager = new UserManager(this);
+    leaderboard = new LeaderBoard(this);
     dataBase = Database();
 }
 

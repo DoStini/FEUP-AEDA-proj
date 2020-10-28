@@ -8,12 +8,18 @@
 
 #include <Stream.h>
 
+class StreamZ;
+
 class LeaderBoard {
 public:
-    LeaderBoard() = default;
+    LeaderBoard(StreamZ *streamZ);
+
     std::vector<Stream *> top10StreamViews();
     std::vector<Stream *> top10StreamLikes();
     std::vector<User *> top10oldestUsers();
+
+private:
+    StreamZ * streamZ;
 };
 
 

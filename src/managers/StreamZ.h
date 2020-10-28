@@ -17,8 +17,6 @@
 #include "Viewer.h"
 #include "Streamer.h"
 
-#define ID long long int
-
 
 
 class StreamZ {
