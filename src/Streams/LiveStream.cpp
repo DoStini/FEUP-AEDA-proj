@@ -4,7 +4,14 @@
 
 #include "LiveStream.h"
 
-LiveStream::LiveStream(std::string title, std::string language, unsigned int minAge):Stream(title,language/*,genre*/),minAge(minAge) {
+#include <utility>
+
+unsigned long long int LiveStream::lastId = 0;
+
+LiveStream::LiveStream(std::string title, languages language, genres genre, unsigned int minAge):
+                                Stream(std::move(title),std::move(language),genre),minAge(minAge) {
+    this->setStreamId(lastId);
+    lastId++;
     nLikes_Dislikes.first = 0;
     nLikes_Dislikes.second = 0;
 }
@@ -74,4 +81,8 @@ void LiveStream::removeFeedBack(User *viewer) {
     else if (likeSystem[name] == dislike)
         nLikes_Dislikes.second--;
     likeSystem[name] = none;
+}
+
+bool LiveStream::operator<(LiveStream *compStream) {
+    return (minAge < compStream->getMinAge());
 }

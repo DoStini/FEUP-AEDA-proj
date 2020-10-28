@@ -6,7 +6,8 @@
 
 #include <utility>
 
-PublicStream::PublicStream(std::string title, std::string language, unsigned minAge) : LiveStream(std::move(title), std::move(language), minAge) {}
+PublicStream::PublicStream(std::string title, languages language, genres genre, unsigned minAge) :
+                        LiveStream(std::move(title), std::move(language), genre, minAge) {}
 
 
 
@@ -15,4 +16,8 @@ std::string PublicStream::getInfo() const {
     ssInfo <<"Public->  " << this->getTitle() << "       Viewers:" << this->getNumViewers() <<
                      "     Language:"<< this->getStreamLanguage() << "     Necessary age:" << this->getMinAge();
     return ssInfo.str();
+}
+
+streamType PublicStream::getStreamType() const {
+    return publicType;
 }
