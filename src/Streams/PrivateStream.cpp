@@ -8,10 +8,14 @@
 
 #include "User.h"
 
-PrivateStream::PrivateStream(std::string title, std::string language, unsigned int minAge) : LiveStream(std::move(title),std::move(language),
-                                                                                                    minAge) {}
+PrivateStream::PrivateStream(std::string title, languages language, genres genre, unsigned int minAge)
+                                        : LiveStream(std::move(title), std::move(language), genre, minAge) {}
 unsigned PrivateStream::getNumberComments() {
     return comments.size();
+}
+
+streamType PrivateStream::getStreamType() const {
+    return privateType;
 }
 
 bool PrivateStream::isValidUser(User *user) {
@@ -31,7 +35,6 @@ void PrivateStream::addValidUser(User * user) {
             [nick](User * usr){return usr->getNickName() == nick;}
         ) != whitelist.end()) throw std::string("Duplicate Exception");
     // TODO CREATE DUPLICATE EXCEPTION TO USE AS FOLLOW STREAMER EXCEPTION AS WELL
-
     whitelist.push_back(user);
 }
 

@@ -53,7 +53,28 @@ add_executable(FEUP_AEDA_proj
         src/Exceptions/date/InvalidDate.cpp
         src/Exceptions/date/InvalidDate.h
         src/Exceptions/streams/NotPrivateStreamException.cpp
-        src/Exceptions/streams/NotPrivateStreamException.h src/Streams/LiveStream.cpp src/Streams/LiveStream.h src/Streams/FinishedStream.cpp src/Streams/FinishedStream.h src/managers/StreamZ.cpp src/managers/StreamZ.h src/managers/Database.h src/managers/SortingManager.cpp src/managers/SortingManager.h src/managers/SearchManager.cpp src/managers/SearchManager.h src/managers/UserManager.cpp src/managers/UserManager.h src/managers/LeaderBoard.cpp src/managers/LeaderBoard.h src/Exceptions/users/DoesNotExist.h src/managers/AdminOps.cpp src/managers/AdminOps.h)
+        src/Exceptions/streams/NotPrivateStreamException.h 
+        src/Streams/LiveStream.cpp 
+        src/Streams/LiveStream.h 
+        src/Streams/FinishedStream.cpp 
+        src/Streams/FinishedStream.h 
+        src/managers/StreamZ.cpp 
+        src/managers/StreamZ.h 
+        src/managers/Database.h 
+        src/managers/SortingManager.cpp 
+        src/managers/SortingManager.h 
+        src/managers/SearchManager.cpp 
+        src/managers/SearchManager.h 
+        src/managers/UserManager.cpp 
+        src/managers/UserManager.h
+        src/managers/LeaderBoard.cpp 
+        src/managers/LeaderBoard.h 
+        src/Exceptions/users/DoesNotExist.h 
+        src/managers/AdminOps.cpp 
+        src/managers/AdminOps.h)     
+        src/Users/Admin.cpp 
+        src/Users/Admin.h)
+
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
 

@@ -24,16 +24,13 @@ public:
      * @param language - Stream language
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    PrivateStream(std::string title, std::string language, unsigned minAge = 12);
+    PrivateStream(std::string title, languages language, genres genre, unsigned minAge);
 
     std::string getInfo() const override;
-
-    /**
-     * Number of comments of the stream
-     *
-     * @return - number of comments
-     */
+    ///@return - number of comments that the stream have
     unsigned getNumberComments();
+    ///@return - stream type = private type
+    streamType getStreamType() const;
     /**
      * Function to add a user to a whitelisted stream
      * @param user - User to be added

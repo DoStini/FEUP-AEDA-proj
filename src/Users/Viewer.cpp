@@ -12,9 +12,8 @@ Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
 
 }
 
-std::string Viewer::getInfo() const {
-    std::stringstream ss; ss << "Viewer: " << name << ". Nickname: " << nickName << ". Age: " << age << ".";
-    return ss.str();
+userType Viewer::getUserType() const {
+    return viewer;
 }
 
 void Viewer::followStreamer(Streamer *streamer) {
@@ -36,7 +35,7 @@ void Viewer::unFollowStreamer(Streamer *streamer) {
     followingStreamers.erase(it);
 }
 
-void Viewer::joinStream(Stream *stream) {
+void Viewer::joinStream(LiveStream *stream) {
     if (watching()) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
     // TODO Is < or <= ???
     if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());

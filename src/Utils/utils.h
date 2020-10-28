@@ -8,7 +8,17 @@
 #define VIEWER_MIN_AGE 12
 #define STREAMER_MIN_AGE 15
 
+enum streamType{
+    publicType = 1,
+    privateType,
+    finishedType,
+};
 
+enum userType{
+    viewer = 1,
+    stream,
+    admin,
+};
 
 enum language{
     PT_PT,
@@ -22,7 +32,8 @@ enum language{
     HINDI,
 };
 
-enum genre{
+
+enum genres{
     gaming,
     technology,
     music,

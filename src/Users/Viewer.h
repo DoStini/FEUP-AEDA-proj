@@ -27,11 +27,8 @@ public:
      * @param birthDate - Date of Birth
      */
     Viewer(std::string name, std::string nickName, const Date &birthDate);
-    /**
-     * Info about the viewer
-     * @return String containing info about the viewer
-     */
-    std::string getInfo() const;
+    ///@return - user type = viewer
+    userType getUserType() const;
     /// @return boolean indicating if the user is watching some stream or not
     bool watching();
     /**
@@ -49,7 +46,7 @@ public:
      * Might throw AlreadyInStreamException
      * @param stream - Desired stream
      */
-    void joinStream(Stream * stream);
+    void joinStream(LiveStream *stream);
     /// Leave the current stream. Might throw a NotInStreamException
     void leaveStream();
     /// Like the current stream
@@ -64,10 +61,11 @@ private:
     /// Minimum age to be able to create a viewer account
     static const unsigned minimumAge = VIEWER_MIN_AGE;
     /// Stream currently watching
-    Stream * currWatching = nullptr;
+    LiveStream * currWatching = nullptr;
     /// List of streamers the viewer follows
     std::vector<Streamer *> followingStreamers;
-
+    /// Vector of streams that user have seen
+    std::vector<unsigned long long int> streamHistory;
 };
 
 
