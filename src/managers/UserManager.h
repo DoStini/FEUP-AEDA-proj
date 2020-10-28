@@ -5,9 +5,15 @@
 #ifndef FEUP_AEDA_PROJ_USERMANAGER_H
 #define FEUP_AEDA_PROJ_USERMANAGER_H
 
+class StreamZ;
+
 
 class UserManager {
+public:
+    UserManager(StreamZ *streamZ);
 
+private:
+    StreamZ * streamZ;
 };
 
 

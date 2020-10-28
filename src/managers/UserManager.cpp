@@ -3,3 +3,5 @@
 //
 
 #include "UserManager.h"
+
+UserManager::UserManager(StreamZ *streamZ) : streamZ(streamZ) {}

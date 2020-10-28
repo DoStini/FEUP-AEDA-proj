@@ -11,7 +11,7 @@ void StreamZ::init() {
 
     //readFromFile();
 
-    sortingManager = new SortingManager;
+    sortingManager = new SortingManager(this);
     searchManager = new SearchManager(this);
     userManager = new UserManager;
     leaderboard = new LeaderBoard;
