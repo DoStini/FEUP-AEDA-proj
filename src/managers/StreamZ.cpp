@@ -82,7 +82,6 @@ void StreamZ::run() {
 
         if(option == 1) login();
 
-
         print(LINE_BREAK);
     }
 
@@ -106,7 +105,7 @@ void StreamZ::login() {
         isUser = userManager->userExists(name);
 
         if(!isUser) {
-            print("User does not exist! Please try again: ", '\0');
+            print("User does not exist! Please try again.");
         }
     }
 
