@@ -22,7 +22,7 @@ enum language{
     HINDI,
 };
 
-enum genres{
+enum genre{
     gaming,
     technology,
     music,
