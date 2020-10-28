@@ -16,9 +16,9 @@ class StreamZ;
 class UserManager {
 public:
     /**
-    * Constructor. StreamZ needs to use to access the database and other methods
-    * @param streamZ - Main class pointer
-    */
+     * Constructor. StreamZ needs to be used by the class to access the database and other methods
+     * @param streamZ - Main class pointer
+     */
     UserManager(StreamZ *streamZ);
     /**
      * Function to check if a user exists or not

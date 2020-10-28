@@ -21,7 +21,7 @@ class LiveStream;
 class SearchManager {
 public:
     /**
-     * Constructor. StreamZ needs to use to access the database and other methods
+     * Constructor. StreamZ needs to be used by the class to access the database and other methods
      * @param streamZ - Main class pointer
      */
     SearchManager(StreamZ *streamZ);
