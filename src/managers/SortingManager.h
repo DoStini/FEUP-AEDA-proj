@@ -6,7 +6,7 @@
 #define FEUP_AEDA_PROJ_SORTINGMANAGER_H
 
 #include <vector>
-
+#include "Date.h"
 class StreamZ;
 class LiveStream;
 class User;
@@ -22,32 +22,33 @@ public:
     */
     SortingManager(StreamZ *streamZ);
 
-    /// @return Returns the current stored Livestreams sorted by views
-    std::vector<LiveStream *> sortStreamByViews();
     /**
-     * @param streams - vector of livestreams
-     * @return Returns the desired vector of livestreams sorted by views
+     * @param streams - Vector of livestreams - leave empty to sort the most recent data or send a filtered vector
+     * @param reversed - Defaults to highest views to lower
+     * @return Returns by reference the desired vector of livestreams sorted by views
      */
-    std::vector<LiveStream *> sortStreamByViews(std::vector<LiveStream *> streams);
+    void sortStreamByViews(std::vector<LiveStream *> & streams, bool reversed = false);
 
-    /// @return Returns the current stored Livestreams sorted by views
-    std::vector<LiveStream *> sortStreamByLikes();
     /**
-     * @param streams - vector of livestreams
-     * @return Returns the desired vector of livestreams sorted by views
+     * @param streams - Vector of livestreams - leave empty to sort the most recent data or send a filtered vector
+     * @param reversed - Defaults to highest likes to lower
+     * @return Returns by reference the desired vector of livestreams sorted by likes
      */
-    std::vector<LiveStream *> sortStreamByLikes(std::vector<LiveStream *> streams);
+    void sortStreamByLikes(std::vector<LiveStream *> & streams, bool reversed = false);
 
-    /// @return Returns the current stored Livestreams sorted by Date
-    std::vector<LiveStream *> sortStreamByDate();
     /**
-     * @param streams - vector of livestreams
-     * @return Returns the desired vector of livestreams sorted by Date
+     * @param streams - Vector of livestreams - leave empty to sort the most recent data or send a filtered vector
+     * @param reversed - Defaults oldest stream to most recent
+     * @return Returns by reference the desired vector of livestreams sorted by date
      */
-    std::vector<LiveStream *> sortStreamByDate(std::vector<LiveStream *> streams);
+    void sortStreamByDate(std::vector<LiveStream *> & streams, bool reversed = false);
 
-    /// @return Returns the current stored Livestreams sorted by views
-    std::vector<User *> sortUserDate();
+    /**
+     * @param users - Vector of users - leave empty to sort the most recent data or send a filtered vector
+     * @param reversed - Defaults oldest user on the platform to most recent
+     * @return Returns by reference the desired vector of livestreams sorted by date
+     */
+    void sortUserDatePlatform(std::vector<User *> & users, bool reversed = false);
 
 private:
     StreamZ * streamZ;

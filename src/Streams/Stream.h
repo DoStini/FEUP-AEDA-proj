@@ -39,7 +39,7 @@ public:
     ///@return - stream genre
     genre getGenre() const;
     ///@return - value that represent the stream id
-    unsigned long long int getStreamId() const;
+    ID getStreamId() const;
     /**
      * Give us basic stream title, number of viewers, language and necessary age to join
      *
@@ -53,14 +53,14 @@ public:
      *
      * @param streamId - lastID value
      */
-    void setStreamId(unsigned long long int streamId);
+    void setStreamId(ID streamId);
 
 private:
     std::string title;
     Date beginDate;
     language streamLanguage;
     genre streamGenre;
-    unsigned long long int streamId;
+    ID streamId;
 
 };
 

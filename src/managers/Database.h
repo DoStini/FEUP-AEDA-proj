@@ -10,6 +10,7 @@ class Stream;
 
 #include <string>
 #include <unordered_map>
+#include "utils.h"
 
 /**
  * Class to store the data from the application

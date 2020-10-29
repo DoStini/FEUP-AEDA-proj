@@ -32,7 +32,7 @@ unsigned long long int Stream::getStreamId() const {
     return streamId;
 }
 
-void Stream::setStreamId(unsigned long long int streamId) {
+void Stream::setStreamId(ID streamId) {
     this->streamId = streamId;
 }
 
