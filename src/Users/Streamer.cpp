@@ -17,7 +17,7 @@ bool Streamer::operator==(const Streamer &str) {
     return nickName == str.nickName;
 }
 
-userType Streamer::getInfo() const {
+UserType Streamer::getInfo() const {
     return streamer;
 }
 

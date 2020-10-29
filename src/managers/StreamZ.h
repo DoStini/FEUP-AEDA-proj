@@ -19,6 +19,11 @@
 #include "Viewer.h"
 #include "Streamer.h"
 
+#include "Account.h"
+#include "ViewerAcc.h"
+#include "StreamerAcc.h"
+#include "AdminAcc.h"
+
 #define ID long long int
 
 

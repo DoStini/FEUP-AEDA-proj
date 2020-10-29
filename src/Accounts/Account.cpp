@@ -3,3 +3,8 @@
 //
 
 #include "Account.h"
+
+Account::Account(User *user, StreamZ *streamZ) {
+    this->user = user;
+    this->streamZ = streamZ;
+}

@@ -111,7 +111,7 @@ void StreamZ::login() {
     }
 
     User * user = searchManager->getUser(name);
-    userType type = user->getInfo();
+    UserType type = user->getInfo();
 
     std::string realPassword = user->getPassword();
 
@@ -128,25 +128,38 @@ void StreamZ::login() {
 
         return;
     }
+    Account * account = nullptr;
 
-    if(type == viewer) {
-        if(Viewer * userViewer = dynamic_cast<Viewer*>(user)) {
-            // Instantiate Account
-            return;
+    try {
+        if(type == viewer) {
+            account = new ViewerAcc(user, this);
+        } else if(type == streamer) {
+            account = new StreamerAcc(user, this);
+        } else if(type == admin) {
+            account = new AdminAcc(user, this);
         }
-    } else if(type == streamer) {
-        if(Streamer * userStreamer = dynamic_cast<Streamer *>(user)) {
-            // Instantiate Account
-            return;
-        }
-    } else if(type == admin) {
-        if(Admin * userStreamer = dynamic_cast<Admin *>(user)) {
-            // Instantiate Account
-            return;
-        }
+
+        print("Success logging in!");
+
+        waitForKey();
+
+    } catch (WrongUserTypeException &ex) {
+        print("Error logging in.");
+
+        waitForKey();
+
+        print();
+        print(LINE_BREAK);
+        print();
+
+        return;
     }
+    print();
+    print(LINE_BREAK);
+    print();
 
-    print("Error logging in.");
+    account->run();
+    delete account;
 }
 
 
@@ -173,7 +186,7 @@ void StreamZ::registerUser() {
         print("Invalid Option! Please try again: " , '\0');
     }
 
-    userType uType = (userType) (type - 1);
+    UserType uType = (UserType) (type - 1);
 
     print("What will be your nick name? (used to login) ", '\0');
 

@@ -4,6 +4,6 @@
 
 #include "Admin.h"
 
-userType Admin::getInfo() const {
+UserType Admin::getInfo() const {
     return admin;
 }

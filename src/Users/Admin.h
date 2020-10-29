@@ -19,9 +19,9 @@ public:
     Admin(std::string name, std::string nickName, const Date &birthDate);
     /**
      * Info about the Admin
-     * @return userType containing info about the admin
+     * @return UserType containing info about the admin
      */
-    userType getInfo() const override;
+    UserType getInfo() const override;
 };
 
 

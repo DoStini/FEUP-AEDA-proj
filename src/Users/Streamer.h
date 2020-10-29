@@ -23,7 +23,7 @@ public:
     * @throws RestrictedAgeException if the user is not allowed to create an account
     */
     Streamer(std::string name, std::string nickName, const Date &birthDate);
-    userType getInfo() const override;
+    UserType getInfo() const override;
     bool operator == (const Streamer & str);
 private:
     static const unsigned minimumAge = STREAMER_MIN_AGE;

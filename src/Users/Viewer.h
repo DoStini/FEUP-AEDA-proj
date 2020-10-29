@@ -31,9 +31,9 @@ public:
     Viewer(std::string name, std::string nickName, const Date &birthDate);
     /**
      * Info about the viewer
-     * @return userType containing info about the viewer
+     * @return UserType containing info about the viewer
      */
-    userType getInfo() const override;
+    UserType getInfo() const override;
     /// @return boolean indicating if the user is watching some stream or not
     bool watching();
     /**

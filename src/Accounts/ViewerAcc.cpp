@@ -3,3 +3,16 @@
 //
 
 #include "ViewerAcc.h"
+#include "Viewer.h"
+
+ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
+    if(Viewer * viewer = dynamic_cast<Viewer*>(user)) {
+        this->viewer = viewer;
+    } else {
+        throw WrongUserTypeException(UserType::viewer);
+    }
+}
+
+void ViewerAcc::run() {
+
+}
