@@ -12,7 +12,3 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
         throw WrongUserTypeException(UserType::admin);
     }
 }
-
-void AdminAcc::run() {
-
-}

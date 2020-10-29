@@ -13,6 +13,3 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
     }
 }
 
-void StreamerAcc::run() {
-
-}

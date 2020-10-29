@@ -25,11 +25,6 @@ public:
     AdminAcc(User * user, StreamZ * streamZ);
 
     /**
-     * Lists all admin options.
-     */
-    void run() override;
-
-    /**
      * Lists the number of streams.
      */
     void numStreams();

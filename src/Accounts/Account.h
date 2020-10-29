@@ -37,9 +37,9 @@ public:
     virtual ~Account() = default;
 
     /**
-     * Abstract function to be overwritten to display account specific options
+     * function that displays account specific options
      */
-    virtual void run() = 0;
+    void run();
 
     /**
      * Prompts the user to change their names.

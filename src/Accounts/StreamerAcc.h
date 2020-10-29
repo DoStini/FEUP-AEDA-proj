@@ -26,11 +26,6 @@ public:
     StreamerAcc(User * user, StreamZ * streamZ);
 
     /**
-     * Lists streamer options
-     */
-    void run() override;
-
-    /**
      * Prompts the streamer to start a stream.
      */
     void startStream();

@@ -27,10 +27,6 @@ public:
     ViewerAcc(User * user, StreamZ * streamZ);
     ~ViewerAcc() = default;
     /**
-     * Displays viewer options.
-     */
-    void run() override;
-    /**
      * Prompts the viewer to join a stream.
      */
     void joinStream();
