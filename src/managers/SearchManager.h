@@ -25,7 +25,17 @@ public:
      * @param streamZ - Main class pointer
      */
     SearchManager(StreamZ *streamZ);
-
+    /**
+     * @param nick - Nickname of the user
+     * @return If a user with that nickname exists
+     */
+    bool userExists(std::string nick);
+    /**
+     * @param streamID - The id of the stream
+     * @return If a stream with that ID exists
+     */
+    bool streamExists(ID streamID);
+    bool adminExists();
     /// @return Corresponding user to the nickname
     User * getUser(std::string userNick);
     /// @return Corresponding stream to the streamID

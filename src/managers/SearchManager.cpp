@@ -115,5 +115,25 @@ void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &stream
     }
 }
 
+bool SearchManager::userExists(std::string nick) {
+    std::unordered_map<std::string, User *> map = streamZ->getDatabase().getUsers();
+    return map.find(nick) != map.end();
+}
+
+bool SearchManager::streamExists(ID streamID) {
+    std::unordered_map<ID, Stream *> map = streamZ->getDatabase().getStreams();
+    return map.find(streamID) != map.end();
+}
+
+bool SearchManager::adminExists() {
+    std::unordered_map<std::string, User *> userDB = streamZ->getDatabase().getUsers();
+
+    return std::find_if(userDB.begin(),
+                        userDB.end(),
+                        [](const std::pair<std::string, User *> &pair) {
+                            return pair.second->getUserType() == admin;
+                        }) != userDB.end();
+}
+
 
 

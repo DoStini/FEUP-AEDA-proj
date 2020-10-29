@@ -73,7 +73,7 @@ add_executable(FEUP_AEDA_proj
         src/managers/AdminOps.cpp 
         src/managers/AdminOps.h
         src/Users/Admin.cpp 
-        src/Users/Admin.h)
+        src/Users/Admin.h src/Exceptions/users/AlreadyExists.h)
 
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
