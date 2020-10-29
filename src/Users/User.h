@@ -19,6 +19,9 @@
 #include "RestrictedStreamException.h"
 #include "Stream.h"
 
+
+class StreamZ;
+
 /**
  * User master class
  */
@@ -57,9 +60,15 @@ public:
     const std::string &getPassword() const;
     ///@return - give us the user type
     virtual userType getUserType() const = 0;
-    bool changePassword(std::string newPassword);
+    ///@param streamZ - pointer to streamZ
+    void setStreamZ(StreamZ *streamZ);
+
+    bool changePassword(const std::string& newPassword);
 
 protected:
+    /// General class that have all the info
+    StreamZ * streamZ = nullptr;
+    /// User name
     std::string name;
     /// Used to login and other id related stuff
     std::string nickName;

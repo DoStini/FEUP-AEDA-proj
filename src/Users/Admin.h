@@ -9,7 +9,7 @@
 
 class Admin : public User{
     ///@return - user type = streamer
-    userType getUserType() const;
+    userType getUserType() const override;
 };
 
 

@@ -8,7 +8,7 @@
 #include "StreamZ.h"
 
 using testing::Eq;
-
+/*
 TEST(test, createUsers){
 
     EXPECT_THROW(Viewer("Andre Moreira", "gordoMan", Date(2009,3,9)), RestrictedAgeException);
@@ -32,7 +32,7 @@ TEST(test, createUsers){
 }
 
 
-/*TEST(test, publicStream) {
+TEST(test, publicStream) {
     PublicStream s1("Nice stream", "PT");
     ASSERT_EQ(s1.getTitle(), "Nice stream");
     ASSERT_EQ(s1.getMinAge(), 12);

@@ -3,11 +3,10 @@
 //
 
 #include "Stream.h"
-#include <utility>
-#include "Viewer.h"
+#include "StreamZ.h"
 
 Stream::Stream(std::string title, language language, genre genre ) :
-            title(std::move(title)), streamLanguage(language){
+            title(std::move(title)), streamLanguage(language),streamGenre(genre){
     Date currDate; currDate.setSystemDate();
     beginDate = currDate;
 }
@@ -29,11 +28,11 @@ genre Stream::getGenre() const {
 }
 
 unsigned long long int Stream::getStreamId() const {
-    return streamId;
+    return streamID;
 }
 
-void Stream::setStreamId(unsigned long long int streamId) {
-    this->streamId = streamId;
+void Stream::setStreamZ(StreamZ *streamZ) {
+    Stream::streamZ = streamZ;
 }
 
 

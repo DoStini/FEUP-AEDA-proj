@@ -16,7 +16,7 @@
 #include "Date.h"
 
 class User;
-class Viewer;
+class StreamZ;
 
 
 class Stream {
@@ -29,7 +29,7 @@ public:
      * @genre genre - genre of the stream
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    Stream(std::string title, language language, genre genre /*REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);
+    Stream(std::string title, language language, genre genre);
     ///@return - Title of the stream
     const std::string &getTitle() const;
     ///@return - stream language
@@ -40,27 +40,25 @@ public:
     genre getGenre() const;
     ///@return - value that represent the stream id
     unsigned long long int getStreamId() const;
-    /**
-     * Give us basic stream title, number of viewers, language and necessary age to join
-     *
-     * @return - string with all the info
-     */
-    virtual std::string getInfo() const = 0;
     /// @return - type of the stream
     virtual streamType getStreamType() const = 0;
-    /**
-     * Set stream id to the given value
-     *
-     * @param streamId - lastID value
-     */
-    void setStreamId(unsigned long long int streamId);
+    ///@param streamZ - pointer to the streamZ master class
+    void setStreamZ(StreamZ *streamZ);
 
+protected:
+    /// General class that have all the info
+    StreamZ * streamZ = nullptr;
+    ///ID of the stream
+    unsigned long long int streamID;
 private:
+    ///Stream title
     std::string title;
+    ///Stream begin date
     Date beginDate;
+    ///Stream language
     language streamLanguage;
+    ///Stream genre
     genre streamGenre;
-    unsigned long long int streamId;
 
 };
 

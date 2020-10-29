@@ -8,8 +8,8 @@
 
 #include "User.h"
 
-PrivateStream::PrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge)
-                                        : LiveStream(std::move(title), streamLanguage, streamGenre, minAge) {}
+PrivateStream::PrivateStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned int minAge)
+                                        : LiveStream(std::move(title), streamLanguage, streamGenre,streamerNick, minAge) {}
 unsigned PrivateStream::getNumberComments() {
     return comments.size();
 }
@@ -40,13 +40,6 @@ void PrivateStream::addValidUser(User * user) {
 
 int PrivateStream::getWhitelistSize() const {
     return whitelist.size();
-}
-
-std::string PrivateStream::getInfo() const {
-    std::ostringstream ssInfo;
-    ssInfo <<"Private->  " << this->getTitle() << "       Viewers:" << this->getNumViewers() <<
-           "     Language:"<< this->getStreamLanguage() << "     Necessary age:" << this->getMinAge();
-    return ssInfo.str();
 }
 
 void PrivateStream::addComment(std::string text, User *viewer) {

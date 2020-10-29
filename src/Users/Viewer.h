@@ -7,8 +7,6 @@
 
 #include "User.h"
 #include "Streamer.h"
-#include "Stream.h"
-#include "LiveStream.h"
 #include "PrivateStream.h"
 #include "NotPrivateStreamException.h"
 
@@ -23,32 +21,34 @@ public:
      * Constructor when creating a new user
      * Throws a RestrictedAgeException if the user is not allowed to create an account
      * @param name - Name of the user
-     * @param nickName - Nickename
+     * @param nickName - Nickname
      * @param birthDate - Date of Birth
      */
     Viewer(std::string name, std::string nickName, const Date &birthDate);
     ///@return - user type = viewer
-    userType getUserType() const;
+    userType getUserType() const override;
     /// @return boolean indicating if the user is watching some stream or not
-    bool watching();
+    bool watching() const;
     /**
      * Follow a streamer
      * @param streamer - The desired streamer
      */
-    void followStreamer(Streamer * streamer);
+    void followStreamer(const std::string& streamer);
     /**
      * Unfollow a streamer
      * @param streamer - Desired streamer
      */
-    void unFollowStreamer(Streamer * streamer);
+    void unFollowStreamer(const std::string& streamer);
     /**
      * Join a stream
      * Might throw AlreadyInStreamException
      * @param stream - Desired stream
      */
-    void joinStream(LiveStream *stream);
+    void joinStream(LiveStream* streamId);
     /// Leave the current stream. Might throw a NotInStreamException
     void leaveStream();
+    /// Add stream to the history of streams
+    void addStreamHistory(unsigned long long int streamID);
     /// Like the current stream
     void giveFeedBack(feedback fbValue);
     /**
@@ -56,14 +56,13 @@ public:
      * @param comment - The comment
      */
     void giveFeedBack(std::string comment);
-
 private:
     /// Minimum age to be able to create a viewer account
     static const unsigned minimumAge = VIEWER_MIN_AGE;
     /// Stream currently watching
-    LiveStream * currWatching = nullptr;
-    /// List of streamers the viewer follows
-    std::vector<Streamer *> followingStreamers;
+    unsigned long long int currWatching = 0;
+    /// List of streamers nicks the viewer follows
+    std::vector<std::string> followingStreamers;
     /// Vector of streams that user have seen
     std::vector<unsigned long long int> streamHistory;
 };

@@ -16,14 +16,13 @@ public:
      * @param numViewers - Number of viewers when the stream is closed
      * @param streamerName - Streamer that had stream the stream
      */
-    FinishedStream(std::string title, language language,genre streamGenre, int numViewers, std::string streamerName);
+    FinishedStream(std::string title, language language,genre streamGenre, int numViewers, std::string streamerName, unsigned long long int streamID);
     /**
      * get type of the stream
      *
      * @return - finished type
      */
     streamType getStreamType() const override;
-    std::string getInfo() const override = 0;
 
 private:
     Date finishedDate;
