@@ -67,6 +67,11 @@ public:
     void listUsers();
 
     /**
+     * Displays the leaderboard panel.
+     */
+    void leaderboard();
+
+    /**
      * Lists the top 10 streamers by views
      */
     void top10StreamersViews();

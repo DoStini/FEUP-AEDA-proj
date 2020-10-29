@@ -19,6 +19,8 @@
 #include "RestrictedStreamException.h"
 #include "Stream.h"
 
+class StreamZ;
+
 enum UserType {
     viewer, streamer, admin
 };
@@ -47,6 +49,8 @@ public:
      */
     User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
 
+    virtual ~User();
+
     /**
      * Changes the user's password
      *
@@ -61,6 +65,8 @@ public:
      * @param newName the new name of the user.
      */
     void changeName(std::string newName);
+
+    void setReference(StreamZ * streamZ);
 
     /// @return Name
     const std::string &getName() const;
@@ -86,6 +92,7 @@ protected:
     Date birthDate;
     /// Date when user joined Streamz
     Date joinedPlatformDate;
+    StreamZ * streamZ;
 };
 
 

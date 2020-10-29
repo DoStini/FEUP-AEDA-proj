@@ -4,6 +4,7 @@
 
 #include "User.h"
 #include "InvalidPassword.h"
+#include "StreamZ.h"
 
 
 User::User( std::string name, std::string nickName, const Date &birthDate) :
@@ -49,4 +50,16 @@ void User::changePassword(std::string newPassword) {
 
 void User::changeName(std::string newName) {
     name = newName;
+}
+
+User::~User() {
+    try {
+        streamZ->getDatabase().getUsers().erase(nickName);
+    } catch (std::exception &e) {
+
+    }
+}
+
+void User::setReference(StreamZ *streamZ) {
+    this->streamZ = streamZ;
 }

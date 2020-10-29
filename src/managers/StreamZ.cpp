@@ -112,7 +112,19 @@ void StreamZ::login() {
         }
     }
 
-    User * user = searchManager->getUser(name);
+    User * user = nullptr;
+
+    try {
+        user = searchManager->getUser(name);
+    } catch (DoesNotExist<std::string> &ex) {
+        print();
+        print("That user does not exist.");
+
+        waitForKey();
+
+        return;
+    }
+
     UserType type = user->getInfo();
 
     std::string realPassword = user->getPassword();

@@ -17,15 +17,21 @@ bool UserManager::userExists(std::string nickName) {
 void UserManager::createViewer(std::string userName, std::string nickName, Date date, std::string password) {
     Viewer * viewer = new Viewer(userName, nickName, date);
     viewer->changePassword(password);
+    viewer->setReference(streamZ);
     streamZ->getDatabase().getUsers()[nickName] = viewer;
 }
 
 void UserManager::createStreamer(std::string userName, std::string nickName, Date date, std::string password) {
     Streamer * streamer = new Streamer(userName, nickName, date);
     streamer->changePassword(password);
+    streamer->setReference(streamZ);
     streamZ->getDatabase().getUsers()[nickName] = streamer;
 }
 
 void UserManager::changePassword(const std::string &basicString) {
+
+}
+
+void UserManager::removeUser(std::string nickName) {
 
 }

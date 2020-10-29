@@ -9,7 +9,7 @@ User *SearchManager::getUser(std::string userNick) {
     User * val;
     try{
         val = streamZ->getDatabase().getUsers().at(userNick);
-    } catch (const std::exception &e) {
+    } catch (const std::out_of_range &e) {
         throw DoesNotExist<std::string>(userNick);
     }
     return val;

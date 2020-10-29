@@ -9,7 +9,7 @@
 
 using testing::Eq;
 
-TEST(test, createUsers){
+/*TEST(test, createUsers){
 
     EXPECT_THROW(Viewer("Andre Moreira", "gordoMan", Date(2009,3,9)), RestrictedAgeException);
     try{
@@ -29,7 +29,7 @@ TEST(test, createUsers){
     std::cout << "JCL JOINED: " << sir.getJoinedPlatformDate().getStringDateTime() << std::endl;
     EXPECT_EQ(sir.getBirthDate().getStringDate(), "01/01/2001");
     EXPECT_EQ(sir.getName(), "classy man");
-}
+}*/
 
 
 /*TEST(test, publicStream) {
@@ -272,9 +272,6 @@ TEST(test, dataBase){
 TEST(test, run) {
     StreamZ manager = StreamZ();
     manager.init();
-    Date date = Date("2001/02/25");
-    manager.getUserM()->createViewer("Nuno Alves", "nuno", date, "123");
-
 
     manager.run();
 
