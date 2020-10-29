@@ -113,7 +113,7 @@ bool Date::checkValidDate() {
         dateStruct.tm_isdst = 1;
 
         copy = dateStruct;
-        time_t result = mktime(&copy);
+        result = mktime(&copy);
     }
     if(result < 0) return false;
     else if(copy.tm_year != dateStruct.tm_year || copy.tm_mday != dateStruct.tm_mday ||

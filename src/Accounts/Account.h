@@ -7,6 +7,10 @@
 
 #include "User.h"
 #include "WrongUserTypeException.h"
+#include <functional>
+#include <vector>
+
+
 
 class StreamZ;
 
@@ -14,9 +18,13 @@ class StreamZ;
  * Abstract class that handles account UI and Input
  */
 class Account {
+    typedef std::function<void()> Option;
 protected:
     User * user;
     StreamZ * streamZ;
+    unsigned nOptions = 2;
+    std::vector<Option> options;
+    std::vector<std::string> optionDescriptions;
 public:
     /**
      * Constructor for abstract Account Class
@@ -25,6 +33,8 @@ public:
      * @param streamZ StreamZ Class pointer
      */
     Account(User * user, StreamZ * streamZ);
+
+    virtual ~Account() = default;
 
     /**
      * Abstract function to be overwritten to display account specific options
@@ -66,6 +76,7 @@ public:
      */
     void top10StreamersLikes();
 };
+
 
 
 #endif //FEUP_AEDA_PROJ_ACCOUNT_H

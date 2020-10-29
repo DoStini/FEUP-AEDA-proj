@@ -82,6 +82,7 @@ void StreamZ::run() {
 
         if(option == 1) login();
         else if(option == 2) registerUser();
+        else break;
 
         print(LINE_BREAK);
     }
@@ -139,6 +140,7 @@ void StreamZ::login() {
             account = new AdminAcc(user, this);
         }
 
+        print();
         print("Success logging in!");
 
         waitForKey();
@@ -148,15 +150,12 @@ void StreamZ::login() {
 
         waitForKey();
 
-        print();
         print(LINE_BREAK);
-        print();
 
         return;
     }
-    print();
+
     print(LINE_BREAK);
-    print();
 
     account->run();
     delete account;

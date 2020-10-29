@@ -25,6 +25,7 @@ public:
      * @param StreamZ StreamZ class pointer
      */
     ViewerAcc(User * user, StreamZ * streamZ);
+    ~ViewerAcc() = default;
     /**
      * Displays viewer options.
      */
