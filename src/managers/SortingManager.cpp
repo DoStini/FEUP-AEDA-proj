@@ -53,19 +53,17 @@ void SortingManager::sortStreamByDate(std::vector<LiveStream *> &streams, bool r
               });
 }
 
-/*
+
 void SortingManager::sortUserDatePlatform(std::vector<User *> &users, bool reversed) {
     // If the users vector is empty it gets the currently stored in the system
     // Otherwise it sorts the vector sent
-    if(users.empty()) streamZ->getSearchM()->listLiveusers(users);
+    if(users.empty()) streamZ->getSearchM()->listUsers(users);
 
     std::sort(users.begin(),
               users.end(),
-              [reversed](LiveStream * ptr1, LiveStream * ptr2){
+              [reversed](User * ptr1, User * ptr2){
                   return !reversed
-                         ? ( ptr1->getBeginDate() > ptr2->getBeginDate() )
-                         : ( ptr1->getBeginDate() < ptr2->getBeginDate()  );
+                         ? ( ptr1->getJoinedPlatformDate() < ptr2->getJoinedPlatformDate() )
+                         : ( ptr1->getJoinedPlatformDate() > ptr2->getJoinedPlatformDate()  );
               });
 }
-*/
-

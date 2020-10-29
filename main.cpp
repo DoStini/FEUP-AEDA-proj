@@ -287,8 +287,11 @@ TEST(test, testSorts){
     PublicStream *s5 = new PublicStream("S5", PT_PT, meetGreet);
 
     Viewer *v1 = new Viewer("Rui", "user1", Date(2000, 1, 1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     Viewer *v2 = new Viewer("Rui", "user2", Date(2000, 1, 1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     Viewer *v3 = new Viewer("Rui", "user3", Date(2000, 1, 1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     Viewer *v4 = new Viewer("Rui", "user4", Date(2000, 1, 1));
 
     v1->joinStream(s1);
@@ -325,6 +328,18 @@ TEST(test, testSorts){
     ASSERT_EQ(streams[3]->getNumViewers(), 1);
     ASSERT_EQ(streams[2]->getNumViewers(), 1);
     ASSERT_EQ(streams[0]->getNumViewers(), 0);
+
+    std::vector<User *> users;
+    streamZ.getSortM()->sortUserDatePlatform(users);
+    ASSERT_EQ(users[0]->getNickName(), "user1");
+    ASSERT_EQ(users[1]->getNickName(), "user2");
+    ASSERT_EQ(users[2]->getNickName(), "user3");
+    ASSERT_EQ(users[3]->getNickName(), "user4");
+
+    std::vector<genre> _genres =  {gaming, technology, cooking};
+    streamZ.getSearchM()->listLiveStreams(streams, "", _genres);
+    streamZ.getSortM()->sortStreamByViews(streams);
+    ASSERT_EQ(streams[0]->getTitle(), "Stream 1");
 }
 
 int main() {

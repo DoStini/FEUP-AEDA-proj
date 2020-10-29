@@ -18,3 +18,11 @@ userType Streamer::getUserType() const {
 bool Streamer::operator==(const Streamer &str) {
     return nickName == str.nickName;
 }
+
+bool Streamer::streaming() {
+    return currStreaming != NULL_STREAM;
+}
+
+ID Streamer::getStreamID() {
+    return currStreaming;
+}

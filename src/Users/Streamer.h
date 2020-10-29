@@ -37,6 +37,9 @@ public:
     void removeFollower(std::string viewerNick);
     ///@return - number of followers of the streamer
     unsigned int getNumFollowers() const;
+    /// @return - If the streamer is currently streaming or not
+    bool streaming();
+    ID getStreamID();
     /**
      * Start streaming a public stream
      * @param title - Title of the stream
@@ -85,7 +88,7 @@ private:
     ///Number of viewers that follow the streamer
     std::vector<std::string> followedBy;
     ///Stream that stream is streaming
-    unsigned long long int currStreaming;
+    ID currStreaming = NULL_STREAM;
     ///Streams that the streamer have ended
     std::vector<unsigned long long int> finishedStreams;
 };
