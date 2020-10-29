@@ -5,6 +5,7 @@
 #ifndef FEUP_AEDA_PROJ_UTILS_H
 #define FEUP_AEDA_PROJ_UTILS_H
 
+#define KEY_ESC 27
 #define VIEWER_MIN_AGE 12
 #define STREAMER_MIN_AGE 15
 #define LINE_BREAK "\n#-----------------------------------#\n"
@@ -85,6 +86,15 @@ void waitForKey();
 void getString(std::string &string);
 
 std::string stringToLower(std::string string);
+
+/**
+ * Function that prompts the user for the input of a single char.
+ * Reads only the first char input to the buffer, all else is deleted from the buffer.
+ * Allows the EOF character.
+ *
+ * @param[out] input The variable where the input is stored.
+ */
+void getChar(char& input);
 
 
 #endif //FEUP_AEDA_PROJ_UTILS_H

@@ -48,7 +48,7 @@ public:
      * @param langs - Optional param specifying the language(s) of the streams to search
      * @return Vector of streams corresponding to the specified params
      */
-    std::vector<LiveStream *> listStreams(std::string streamName = "",
+    std::vector<LiveStream *> listStreams(std::string streamName,
                                           std::vector<genre> genres = std::vector<genre>(),
                                           std::vector<language> langs = std::vector<language>());
     /// @return Vector of live streams from a specified streamer

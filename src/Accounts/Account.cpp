@@ -3,17 +3,20 @@
 //
 
 #include "Account.h"
+#include "LiveStream.h"
 #include "StreamZ.h"
 #include "InvalidPassword.h"
 
 Account::Account(User *user, StreamZ *streamZ) {
     this->user = user;
     this->streamZ = streamZ;
-    nOptions = 3;
+    nOptions = 4;
     options = {[](){},
+               std::bind(&Account::listStreams, this),
                std::bind(&Account::changeName, this),
                std::bind(&Account::changePassword, this)};
     optionDescriptions = {"Logout.",
+                          "List all current streams.",
                           "Change your Name.",
                           "Change your password."};
 }
@@ -108,4 +111,48 @@ void Account::changeName() {
     print("Success changing your name!");
 
     waitForKey();
+}
+
+void Account::listStreams() {
+    char action;
+    unsigned order = 1, page = 1;
+    std::stringstream ss;
+
+    std::vector<LiveStream *> liveStreams = streamZ->getSearchM()->listStreams();
+    if(liveStreams.size() == 0) {
+        print("There are no live streams airing.");
+
+        waitForKey();
+
+        return;
+    }
+    auto it = liveStreams.begin();
+
+    print("Here are all the current live streams: ");
+    print();
+
+    while(action != KEY_ESC || it != liveStreams.end()) {
+        ss.str("");
+        ss << "Page " << page << ": ";
+        print(ss.str());
+        print();
+
+        for(int _ = 0; _ < 10 && it != liveStreams.end(); order++, it++, _++) {
+            ss.str("");
+            ss << order << ". " << (*it)->getTitle();
+        }
+
+        if(it == liveStreams.end()) {
+            print();
+            print("End of list.");
+
+            waitForKey();
+        }
+
+        print("Press ENTER to show more streams, press ESC to leave.");
+
+        getChar(action);
+
+        page++;
+    }
 }

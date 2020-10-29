@@ -26,3 +26,7 @@ Stream *SearchManager::getStream(long long int streamID) {
 }
 
 SearchManager::SearchManager(StreamZ *streamZ) : streamZ(streamZ) {}
+
+std::vector<LiveStream *> SearchManager::listStreams() {
+    return std::vector<LiveStream *>();
+}

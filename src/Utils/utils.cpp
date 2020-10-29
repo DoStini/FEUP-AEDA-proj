@@ -23,3 +23,10 @@ void getString(std::string &string) {
     std::getline(std::cin, string);
 }
 
+void getChar(char &input) {
+    input = getchar();
+    if(input != '\n' && input != EOF) std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+}
+
+
+
