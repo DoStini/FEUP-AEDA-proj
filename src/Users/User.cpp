@@ -3,6 +3,7 @@
 //
 
 #include "User.h"
+#include "InvalidPassword.h"
 
 
 User::User( std::string name, std::string nickName, const Date &birthDate) :
@@ -38,10 +39,14 @@ const std::string &User::getPassword() const {
     return password;
 }
 
-bool User::changePassword(std::string newPassword) {
-    if(newPassword == password || newPassword.empty()){
-        return false; // Later throw an exception
+void User::changePassword(std::string newPassword) {
+    if(newPassword.empty()){
+        throw InvalidPassword();
     }
+
     password = newPassword;
-    return true;
+}
+
+void User::changeName(std::string newName) {
+    name = newName;
 }

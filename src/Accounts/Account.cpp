@@ -4,12 +4,18 @@
 
 #include "Account.h"
 #include "StreamZ.h"
+#include "InvalidPassword.h"
 
 Account::Account(User *user, StreamZ *streamZ) {
     this->user = user;
     this->streamZ = streamZ;
-    options = {[](){}, std::bind(&Account::changePassword, this)};
-    optionDescriptions = {"Logout.", "Change your Password."};
+    nOptions = 3;
+    options = {[](){},
+               std::bind(&Account::changeName, this),
+               std::bind(&Account::changePassword, this)};
+    optionDescriptions = {"Logout.",
+                          "Change your Name.",
+                          "Change your password."};
 }
 
 void Account::run() {
@@ -79,9 +85,27 @@ void Account::changePassword() {
         return;
     }
 
-    //streamZ->getUserM()->changePassword();
+    try {
+        user->changePassword(newPassword);
 
-    print("Success changing password!");
+        print("Success changing password!");
+    } catch (InvalidPassword &ex) {
+        print("An invalid password was used.");
+    }
+
+    waitForKey();
+}
+
+void Account::changeName() {
+    std::string newName;
+
+    print("What will be your new name?");
+
+    getString(newName);
+
+    user->changeName(newName);
+
+    print("Success changing your name!");
 
     waitForKey();
 }

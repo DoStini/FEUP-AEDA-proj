@@ -28,13 +28,16 @@ public:
      */
     bool userExists(std::string nickName);
     /// Creates a viewer
-    void createViewer(std::string userName, std::string nickName, Date date);
+    void createViewer(std::string userName, std::string nickName, Date date, std::string password);
     /// Creates a streamer
-    void createStreamer(std::string userName, std::string nickName, Date date);
+    void createStreamer(std::string userName, std::string nickName, Date date, std::string password);
     /// Creates an admin
-    void createAdmin(std::string userName, std::string nickName, Date date);
+    void createAdmin(std::string userName, std::string nickName, Date date, std::string password);
     /// Removes a user
     void removeUser(std::string nickName);
+
+    void changePassword(const std::string &basicString);
+
 private:
     StreamZ * streamZ;
 };

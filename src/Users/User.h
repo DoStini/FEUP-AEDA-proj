@@ -47,7 +47,20 @@ public:
      */
     User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
 
-    bool changePassword(std::string newPassword);
+    /**
+     * Changes the user's password
+     *
+     * @param newPassword the new password
+     * @throws InvalidPassword if the password was invalid.
+     */
+    void changePassword(std::string newPassword);
+
+    /**
+     * Changes the user's name.
+     *
+     * @param newName the new name of the user.
+     */
+    void changeName(std::string newName);
 
     /// @return Name
     const std::string &getName() const;

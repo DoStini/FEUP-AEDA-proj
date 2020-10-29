@@ -22,7 +22,7 @@ class Account {
 protected:
     User * user;
     StreamZ * streamZ;
-    unsigned nOptions = 2;
+    unsigned nOptions;
     std::vector<Option> options;
     std::vector<std::string> optionDescriptions;
 public:

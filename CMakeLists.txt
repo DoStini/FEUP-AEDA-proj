@@ -68,7 +68,7 @@ add_executable(FEUP_AEDA_proj
         src/managers/UserManager.h src/managers/LeaderBoard.cpp 
         src/managers/LeaderBoard.h src/Users/Admin.cpp 
         src/Users/Admin.h src/Utils/utils.cpp 
-        src/Exceptions/users/DoesNotExist.h src/Accounts/Account.cpp src/Accounts/Account.h src/Accounts/AdminAcc.cpp src/Accounts/AdminAcc.h src/Accounts/ViewerAcc.cpp src/Accounts/ViewerAcc.h src/Accounts/StreamerAcc.cpp src/Accounts/StreamerAcc.h src/Exceptions/accounts/WrongUserTypeException.cpp src/Exceptions/accounts/WrongUserTypeException.h)
+        src/Exceptions/users/DoesNotExist.h src/Accounts/Account.cpp src/Accounts/Account.h src/Accounts/AdminAcc.cpp src/Accounts/AdminAcc.h src/Accounts/ViewerAcc.cpp src/Accounts/ViewerAcc.h src/Accounts/StreamerAcc.cpp src/Accounts/StreamerAcc.h src/Exceptions/accounts/WrongUserTypeException.cpp src/Exceptions/accounts/WrongUserTypeException.h src/Exceptions/users/InvalidPassword.cpp src/Exceptions/users/InvalidPassword.h)
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
 

@@ -5,6 +5,7 @@
 #include <PublicStream.h>
 #include "StreamZ.h"
 #include "utils.h"
+#include "InvalidPassword.h"
 
 
 
@@ -197,10 +198,6 @@ void StreamZ::registerUser() {
 
     getString(userName);
 
-    print("What will be your password? ", '\0');
-
-    getString(password);
-
     print("What is the date you were born? (used to calculate your age)");
     print("(Format: YYYY/MM/DD or YYYY-MM-DD or YYYY MM DD) ", '\0');
 
@@ -217,18 +214,30 @@ void StreamZ::registerUser() {
         }
     } while(true);
 
+    print("What will be your password? ", '\0');
+
+    getString(password);
+
     try {
         if(uType == viewer) {
-            userManager->createViewer(userName, nickName, dateObj);
+            userManager->createViewer(userName, nickName, dateObj, password);
         } else if(uType == streamer) {
-            userManager->createStreamer(userName, nickName, dateObj);
+            userManager->createStreamer(userName, nickName, dateObj, password);
         }
 
         print("Success!!");
+
+        return;
     } catch (RestrictedAgeException &ex) {
         print("You are not old enough to create an account: ");
         std::cout << ex;
 
         waitForKey();
+    } catch (InvalidPassword &ex) {
+        print("An invalid password was used.");
+
+        waitForKey();
     }
+
+    print("Register Failed.");
 }

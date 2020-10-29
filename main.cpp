@@ -273,7 +273,7 @@ TEST(test, run) {
     StreamZ manager = StreamZ();
     manager.init();
     Date date = Date("2001/02/25");
-    manager.getUserM()->createViewer("Nuno Alves", "nuno", date);
+    manager.getUserM()->createViewer("Nuno Alves", "nuno", date, "123");
 
 
     manager.run();
