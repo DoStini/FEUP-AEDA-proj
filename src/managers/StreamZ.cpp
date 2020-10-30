@@ -230,6 +230,7 @@ void StreamZ::registerUser() {
 
     getString(password);
 
+    print();
     try {
         if(uType == viewer) {
             userManager->createViewer(userName, nickName, dateObj, password);

@@ -3,6 +3,7 @@
 //
 
 #include "Viewer.h"
+#include "StreamZ.h"
 
 
 Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
@@ -37,7 +38,9 @@ void Viewer::unFollowStreamer(Streamer *streamer) {
     followingStreamers.erase(it);
 }
 
-void Viewer::joinStream(Stream *stream) {
+void Viewer::joinStream(ID streamID) {
+    Stream * stream = streamZ->getDatabase()->
+
     if (watching()) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
     // TODO Is < or <= ???
     unsigned age = getAge();

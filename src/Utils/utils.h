@@ -9,7 +9,7 @@
 #define VIEWER_MIN_AGE 12
 #define STREAMER_MIN_AGE 15
 #define LINE_BREAK "\n#-----------------------------------#\n"
-typedef long long int ID;
+typedef unsigned long long int ID;
 
 
 #include <iostream>

@@ -51,7 +51,7 @@ public:
      * Might throw AlreadyInStreamException
      * @param stream - Desired stream
      */
-    void joinStream(Stream * stream);
+    void joinStream(ID streamID);
     /// Leave the current stream. Might throw a NotInStreamException
     void leaveStream();
     /// Like the current stream
