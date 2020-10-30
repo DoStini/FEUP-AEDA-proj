@@ -31,19 +31,17 @@ static const char *genreTypes[] = {
 Account::Account(User *user, StreamZ *streamZ) {
     this->user = user;
     this->streamZ = streamZ;
-    nOptions = 6;
+    nOptions = 4;
     options = {[](){},
                std::bind(&Account::listStreams, this),
                std::bind(&Account::leaderboard, this),
-               std::bind(&Account::changeName, this),
-               std::bind(&Account::changePassword, this),
-               std::bind(&Account::deleteAccount, this)};
+               std::bind(&Account::accountOptions, this)
+    };
     optionDescriptions = {"Logout.",
                           "Search for current streams.",
                           "View the leaderboards.",
-                          "Change your Name.",
-                          "Change your password.",
-                          "Delete account."};
+                          "View account options."
+    };
 }
 
 void Account::run() {
@@ -133,6 +131,7 @@ void Account::changeName() {
 
     user->changeName(newName);
 
+    print();
     print("Success changing your name!");
 
     waitForKey();
@@ -190,7 +189,7 @@ void Account::deleteAccount() {
 
 void Account::leaderboard() {
     uint16_t option;
-    print("Available leaderboards: ");
+    print("LEADERBOARDS: ");
     print();
 
     print("0. Exit leaderboards.");
@@ -317,4 +316,28 @@ void Account::listStreams() {
 
         page++;
     }
+}
+
+void Account::accountOptions() {
+    uint16_t option;
+    print("ACCOUNT OPTIONS: ");
+    print();
+
+    print("0. Exit options panel");
+    print("1. Change your name.");
+    print("2. Change your password.");
+    print("3. Delete account.");
+    print();
+
+    print("Choose an option: ", '\0');
+
+    while (!checkInput(option) || option < 0 || option > 3) {
+        print("Invalid Option! Please try again: " , '\0');
+    }
+
+    print();
+
+    if(option==1) changeName();
+    else if(option==2) changePassword();
+    else if(option==3) deleteAccount();
 }

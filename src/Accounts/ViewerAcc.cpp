@@ -15,13 +15,16 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         throw WrongUserTypeException(UserType::viewer);
     }
 
-    nOptions += 1;
+
     options.insert(options.begin()+2, {
-        std::bind(&ViewerAcc::joinStreamById, this)
+        std::bind(&ViewerAcc::joinStreamById, this),
+        std::bind(&ViewerAcc::leaveStream, this)
     });
     optionDescriptions.insert(optionDescriptions.begin()+2,{
-        "Join a stream with a stream ID."
+        "Join a stream with a stream ID.",
+        "Leave the stream you are currently watching."
     });
+    nOptions = options.size();
 }
 
 void ViewerAcc::joinStreamById() {
@@ -51,6 +54,18 @@ void ViewerAcc::joinStreamById() {
         print(e);
     } catch (RestrictedStreamException &e) {
         print("Join Failed: "); //No such stream
+        print(e);
+    }
+
+    waitForKey();
+}
+
+void ViewerAcc::leaveStream() {
+    try {
+        viewer->leaveStream();
+
+        print("Left the stream!");
+    } catch (NotInStreamException &e) {
         print(e);
     }
 

@@ -57,7 +57,7 @@ public:
      * @throws RestrictedStreamException if user is not allowed to join the stream.
      */
     void joinStream(ID streamID);
-    /// Leave the current stream. Might throw a NotInStreamException
+    /// Leave the current stream. @throws NotInStreamException if user is not in a stream.
     void leaveStream();
     /// Like the current stream
     void giveFeedBack(feedback fbValue);

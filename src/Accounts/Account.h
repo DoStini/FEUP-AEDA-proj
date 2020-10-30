@@ -64,6 +64,11 @@ protected:
     void leaderboard();
 
     /**
+     * Diplays the account options panel.
+     */
+    void accountOptions();
+
+    /**
      * Lists the top 10 streamers by views
      */
     void top10StreamersViews();
