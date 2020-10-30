@@ -32,7 +32,7 @@ unsigned long long int Stream::getStreamId() const {
 }
 
 void Stream::setStreamZ(StreamZ *streamZ) {
-    Stream::streamZ = streamZ;
+    this->streamZ = streamZ;
 }
 
 

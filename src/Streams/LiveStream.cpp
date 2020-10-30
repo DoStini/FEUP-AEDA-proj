@@ -53,7 +53,7 @@ int LiveStream::getLikes() const {
 int LiveStream::getDislikes() const {
     return nLikes_Dislikes.second;
 }
-void LiveStream::giveLike(std::string viewerNick) {
+void LiveStream::giveLike(const std::string& viewerNick) {
     if(likeSystem[viewerNick] == none) {
         likeSystem[viewerNick] = like;
         nLikes_Dislikes.first++;
@@ -65,7 +65,7 @@ void LiveStream::giveLike(std::string viewerNick) {
     }
 }
 
-void LiveStream::giveDislike(std::string viewerNick) {
+void LiveStream::giveDislike(const std::string& viewerNick) {
     if(likeSystem[viewerNick] == none) {
         likeSystem[viewerNick] = dislike;
         nLikes_Dislikes.second++;
@@ -77,7 +77,7 @@ void LiveStream::giveDislike(std::string viewerNick) {
     }
 }
 
-void LiveStream::removeFeedBack(std::string viewerNick) {
+void LiveStream::removeFeedBack(const std::string& viewerNick) {
     if (likeSystem[viewerNick] == like)
         nLikes_Dislikes.first--;
     else if (likeSystem[viewerNick] == dislike)

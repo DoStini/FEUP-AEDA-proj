@@ -61,19 +61,19 @@ public:
     *
     * @param viewer - viewer that give like
     */
-    void giveLike(std::string viewerNick);
+    void giveLike(const std::string& viewerNick);
     /**
     * add dislike to the stream
     *
     * @param viewer - viewer that give dislike
     */
-    void giveDislike(std::string viewerNick);
+    void giveDislike(const std::string& viewerNick);
     /**
     * remove feedback from the stream either like or dislike
     *
     * @param viewer - viewer that remove feedback
     */
-    void removeFeedBack(std::string viewerNick);
+    void removeFeedBack(const std::string& viewerNick);
     /**
     * Compare stream with there minAge
     *

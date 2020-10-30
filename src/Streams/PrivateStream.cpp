@@ -9,7 +9,8 @@
 #include "User.h"
 
 PrivateStream::PrivateStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned int minAge)
-                                        : LiveStream(std::move(title), streamLanguage, streamGenre,streamerNick, minAge) {}
+                                        : LiveStream(std::move(title), streamLanguage, streamGenre,std::move(streamerNick), minAge) {}
+
 unsigned PrivateStream::getNumberComments() {
     return comments.size();
 }
@@ -18,32 +19,22 @@ streamType PrivateStream::getStreamType() const {
     return privateType;
 }
 
-bool PrivateStream::isValidUser(User *user) {
-    std::string nick = user->getNickName();
-    return std::find_if(
-            whitelist.begin(),
-            whitelist.end(),
-            [nick](User * usr){return usr->getNickName() == nick;}
-            ) != whitelist.end();
+bool PrivateStream::isValidUser(const std::string& userNick) {
+    return (std::find(whitelist.begin(),whitelist.end(),userNick) != whitelist.end());
 }
 
-void PrivateStream::addValidUser(User * user) {
-    std::string nick = user->getNickName();
-    if(std::find_if(
-            whitelist.begin(),
-            whitelist.end(),
-            [nick](User * usr){return usr->getNickName() == nick;}
-        ) != whitelist.end()) throw std::string("Duplicate Exception");
+void PrivateStream::addValidUser(const std::string& userNick) {
+    if(std::find(whitelist.begin(),whitelist.end(),userNick) != whitelist.end()) throw std::string("Duplicate Exception");
     // TODO CREATE DUPLICATE EXCEPTION TO USE AS FOLLOW STREAMER EXCEPTION AS WELL
-    whitelist.push_back(user);
+    whitelist.push_back(userNick);
 }
 
 int PrivateStream::getWhitelistSize() const {
     return whitelist.size();
 }
 
-void PrivateStream::addComment(std::string text, User *viewer) {
-    Comment comment(text,viewer->getName());
+void PrivateStream::addComment(const std::string & text,const std::string & userNick) {
+    Comment comment(text,userNick);
     comments.push_back(comment);
 }
 

@@ -41,7 +41,7 @@ void Viewer::joinStream(LiveStream* stream) {
     if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
 
     auto * psPtr = dynamic_cast<PrivateStream *>(stream);
-    if (psPtr != nullptr && !psPtr->isValidUser(this)) throw RestrictedStreamException(stream->getTitle(), nickName);
+    if (psPtr != nullptr && !psPtr->isValidUser(nickName)) throw RestrictedStreamException(stream->getTitle(), nickName);
 
     stream->addViewer(nickName);
 
@@ -81,7 +81,7 @@ void Viewer::giveFeedBack(std::string comment) {
         throw NotPrivateStreamException(currStream->getTitle());
 
     auto * stream = (PrivateStream *) currStream;
-    stream->addComment(std::move(comment),this);
+    stream->addComment(std::move(comment),nickName);
 }
 
 bool Viewer::watching() const {
