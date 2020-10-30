@@ -80,6 +80,11 @@ public:
      * Lists the top 10 streamers by likes
      */
     void top10StreamersLikes();
+
+    /**
+     * Lists the top 10 oldest viewers
+     */
+     void top10OldestUsers();
 };
 
 

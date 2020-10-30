@@ -10,14 +10,16 @@
 Account::Account(User *user, StreamZ *streamZ) {
     this->user = user;
     this->streamZ = streamZ;
-    nOptions = 5;
+    nOptions = 6;
     options = {[](){},
                std::bind(&Account::listStreams, this),
+               std::bind(&Account::leaderboard, this),
                std::bind(&Account::changeName, this),
                std::bind(&Account::changePassword, this),
                std::bind(&Account::deleteAccount, this)};
     optionDescriptions = {"Logout.",
                           "List all current streams.",
+                          "View the leaderboards.",
                           "Change your Name.",
                           "Change your password.",
                           "Delete account."};
@@ -208,4 +210,27 @@ void Account::deleteAccount() {
 
         waitForKey();
     }
+}
+
+void Account::leaderboard() {
+    uint16_t option;
+    print("Available leaderboards: ");
+    print();
+
+    print("0. Exit leaderboards.");
+    print("1. Top 10 Streamers by likes.");
+    print("2. Top 10 Streamers by views.");
+    print("3. Top 10 oldest users.");
+
+    print();
+    print("Choose an option: ", '\0');
+
+    while (!checkInput(option) || option < 0 || option > 3) {
+        print("Invalid Option! Please try again: " , '\0');
+    }
+
+    //TODO change to actual leaderboard
+    //if(option == 1) streamZ->getLeaderboard()->top10StreamLikes();
+    //else if(option == 2) streamZ->getLeaderboard()->top10StreamViews();
+    //else if (option == 3) streamZ->getLeaderboard()->top10OldestUsers();
 }
