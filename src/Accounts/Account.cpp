@@ -51,10 +51,14 @@ void Account::run() {
     while(option != 0 && user != nullptr) {
         print("Available Options:");
         for(unsigned i = 0; i < nOptions; i++) {
-            ss.str("");
+            auto optionCheckIt = optionChecks.find(i);
 
-            ss << i << ". " << optionDescriptions[i];
-            print(ss.str());
+            if(optionCheckIt == optionChecks.end() || optionCheckIt->second()) {
+                ss.str("");
+
+                ss << i << ". " << optionDescriptions[i];
+                print(ss.str());
+            }
         }
 
         print();

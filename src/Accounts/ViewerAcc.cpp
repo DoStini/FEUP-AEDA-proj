@@ -21,6 +21,9 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         std::bind(&ViewerAcc::leaveStream, this),
         std::bind(&ViewerAcc::giveFeedback, this)
     });
+    optionChecks[2] = [this]() {return !this->viewer->watching();};
+    optionChecks[3] = [this]() {return this->viewer->watching();};
+    optionChecks[4] = [this]() {return this->viewer->watching();};
     optionDescriptions.insert(optionDescriptions.begin()+2,{
         "Join a stream with a stream ID.",
         "Leave the stream you are currently watching.",

@@ -7,6 +7,7 @@
 
 #include "User.h"
 #include "WrongUserTypeException.h"
+#include <unordered_map>
 #include <functional>
 #include <vector>
 
@@ -20,11 +21,13 @@ class LiveStream;
  */
 class Account {
     typedef std::function<void()> Option;
+    typedef std::function<bool()> OptionCheck;
 protected:
     User * user;
     StreamZ * streamZ;
     unsigned nOptions;
     std::vector<Option> options;
+    std::unordered_map<uint32_t, OptionCheck> optionChecks;
     std::vector<std::string> optionDescriptions;
 
     /**
