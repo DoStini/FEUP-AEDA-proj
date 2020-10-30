@@ -12,4 +12,3 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
         throw WrongUserTypeException(UserType::streamer);
     }
 }
-

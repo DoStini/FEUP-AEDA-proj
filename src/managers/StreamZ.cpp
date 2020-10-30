@@ -239,17 +239,18 @@ void StreamZ::registerUser() {
 
         print("Success!!");
 
+        waitForKey();
+
         return;
     } catch (RestrictedAgeException &ex) {
         print("You are not old enough to create an account: ");
         std::cout << ex;
 
-        waitForKey();
     } catch (InvalidPassword &ex) {
         print("An invalid password was used.");
-
-        waitForKey();
     }
 
     print("Register Failed.");
+
+    waitForKey();
 }

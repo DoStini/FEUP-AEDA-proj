@@ -60,9 +60,8 @@ void print(T message, char end = '\n') {
 
 void print(char end = '\n');
 
-
 enum language{
-    PT_PT,
+    PT_PT = 0,
     PT_BR,
     ENG,
     SPA,
@@ -71,14 +70,16 @@ enum language{
     RUS,
     CHI,
     HINDI,
+    LASTL
 };
 
 enum genre{
-    gaming,
+    gaming = 0,
     technology,
     music,
     cooking,
     meetGreet,
+    LASTG
 };
 
 void waitForKey();

@@ -6,6 +6,27 @@
 #include "LiveStream.h"
 #include "StreamZ.h"
 #include "InvalidPassword.h"
+#include "utils.h"
+
+static const char *languageTypes[] = {
+        "Portuguese (Portugal)",
+        "Portuguese (Brazil)",
+        "English",
+        "Spanish",
+        "French",
+        "German",
+        "Russian",
+        "Chinese",
+        "Hindi",
+};
+
+static const char *genreTypes[] = {
+        "Gaming",
+        "Technology",
+        "Music",
+        "Cooking",
+        "Meet & Greet"
+};
 
 Account::Account(User *user, StreamZ *streamZ) {
     this->user = user;
@@ -18,7 +39,7 @@ Account::Account(User *user, StreamZ *streamZ) {
                std::bind(&Account::changePassword, this),
                std::bind(&Account::deleteAccount, this)};
     optionDescriptions = {"Logout.",
-                          "List all current streams.",
+                          "Search for current streams.",
                           "View the leaderboards.",
                           "Change your Name.",
                           "Change your password.",
@@ -117,51 +138,6 @@ void Account::changeName() {
     waitForKey();
 }
 
-void Account::listStreams() {
-    char action;
-    unsigned order = 1, page = 1;
-    std::stringstream ss;
-
-    std::vector<LiveStream *> liveStreams = streamZ->getSearchM()->listStreams();
-    if(liveStreams.size() == 0) {
-        print("There are no live streams airing.");
-
-        waitForKey();
-
-        return;
-    }
-    auto it = liveStreams.begin();
-
-    print("Here are all the current live streams: ");
-    print();
-
-    while(action != KEY_ESC || it != liveStreams.end()) {
-        ss.str("");
-        ss << "Page " << page << ": ";
-        print(ss.str());
-        print();
-
-        for(int _ = 0; _ < 10 && it != liveStreams.end(); order++, it++, _++) {
-            ss.str("");
-            ss << order << ". " << (*it)->getTitle();
-        }
-
-        if(it == liveStreams.end()) {
-            print();
-            print("End of list.");
-
-            waitForKey();
-        }
-
-        print();
-        print("Press ENTER to show more streams, press ESC to leave.");
-
-        getChar(action);
-
-        page++;
-    }
-}
-
 void Account::deleteAccount() {
     char action;
     std::string nickName, password;
@@ -233,4 +209,112 @@ void Account::leaderboard() {
     //if(option == 1) streamZ->getLeaderboard()->top10StreamLikes();
     //else if(option == 2) streamZ->getLeaderboard()->top10StreamViews();
     //else if (option == 3) streamZ->getLeaderboard()->top10OldestUsers();
+}
+
+void Account::searchParameters(std::vector<LiveStream *> &streams) {
+    uint16_t option;
+    std::string streamName;
+    std::vector<genre> genres;
+    std::vector<language> languages;
+    std::stringstream ss;
+
+    print("Stream Name (empty for all streams): ", '\0');
+
+    getString(streamName);
+
+    print("Available Stream Genres: ");
+    print();
+
+    for(uint32_t i = (unsigned int) genre::gaming; i != genre::LASTG; i++) {
+        ss.str("");
+        ss << i + 1 << ". " << genreTypes[i];
+
+        print(ss.str());
+    }
+
+    print();
+    do {
+        print("Choose a genre (0 to stop): ", '\0');
+
+        while(!checkInput(option) || option < 0 || option > LASTG) {
+            print("Invalid input! Please try again: ", '\0');
+        }
+
+        if(option == 0) break;
+
+        genres.push_back((genre) (option + 1));
+    } while(option != 0);
+
+    print("Available Stream Languages: ");
+    print();
+
+    for(uint32_t i = (unsigned int) language::PT_PT; i != language::LASTL; i++) {
+        ss.str("");
+        ss << i + 1 << ". " << languageTypes[i];
+
+        print(ss.str());
+    }
+
+    print();
+    do {
+        print("Choose a language (0 to stop): ", '\0');
+
+        while(!checkInput(option) || option < 0 || option > LASTL) {
+            print("Invalid input! Please try again: ", '\0');
+        }
+
+        if(option == 0) break;
+
+        languages.push_back((language) (option + 1));
+    } while(option != 0);
+
+    streamZ->getSearchM()->listLiveStreams(streams, streamName, genres, languages);
+}
+
+void Account::listStreams() {
+    char action;
+    unsigned order = 1, page = 1;
+    std::vector<LiveStream*> streams;
+    std::stringstream ss;
+
+    searchParameters(streams);
+
+    print();
+    if(streams.size() == 0) {
+        print("There are no live streams airing for the parameters selected.");
+
+        waitForKey();
+
+        return;
+    }
+    auto it = streams.begin();
+
+    print("Here are all the current live streams: ");
+    print();
+
+    while(action != KEY_ESC || it != streams.end()) {
+        ss.str("");
+        ss << "Page " << page << ": ";
+        print(ss.str());
+        print();
+
+        for(int _ = 0; _ < 10 && it != streams.end(); order++, it++, _++) {
+            ss.str("");
+            ss << order << ". " << (*it)->getTitle() << " :: Stream Id : ", (*it)->getId();
+        }
+
+        if(it == streams.end()) {
+            print();
+            print("End of list.");
+
+            waitForKey();
+        }
+
+        print();
+        print("Press ENTER to show more streams, press ESC to leave.");
+
+        getChar(action);
+
+        page++;
+    }
 }

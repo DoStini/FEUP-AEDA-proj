@@ -86,6 +86,8 @@ public:
     // Change this operator later
     bool operator<(Stream * compStream);
 
+    unsigned long long int getId();
+
 private:
     std::string title;
     Date beginDate;

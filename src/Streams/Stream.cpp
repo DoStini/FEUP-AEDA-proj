@@ -56,4 +56,8 @@ const std::string &Stream::getStreamLanguage() const {
     return streamLanguage;
 }
 
+unsigned long long int Stream::getId() {
+    return streamId;
+}
+
 

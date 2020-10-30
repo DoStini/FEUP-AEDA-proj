@@ -4,6 +4,7 @@
 
 #include "ViewerAcc.h"
 #include "Viewer.h"
+#include "StreamZ.h"
 #include <sstream>
 
 ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){

@@ -27,6 +27,9 @@ Stream *SearchManager::getStream(long long int streamID) {
 
 SearchManager::SearchManager(StreamZ *streamZ) : streamZ(streamZ) {}
 
-std::vector<LiveStream *> SearchManager::listStreams() {
-    return std::vector<LiveStream *>();
+void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const std::string &streamName,
+                                    const std::vector<genre> &genres, const std::vector<language> &langs) {
+    //TODO fix this when possible.
+    //streams = *(streamZ->getDatabase().getStreams());
 }
+

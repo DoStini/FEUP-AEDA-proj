@@ -26,12 +26,13 @@ public:
      */
     ViewerAcc(User * user, StreamZ * streamZ);
     ~ViewerAcc() = default;
+
     /**
-     * Prompts the viewer to join a stream.
+     * Prompts the viewer to join a stream if they have their id.
      */
-    void joinStream();
+    void joinStreamById();
     /**
-     * Prompts the viewer to leave a stream.
+     * Prompts the viewer to leave the stream they are watching.
      */
     void leaveStream();
     /**

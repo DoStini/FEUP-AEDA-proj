@@ -13,6 +13,7 @@
 
 
 class StreamZ;
+class LiveStream;
 
 /**
  * Abstract class that handles account UI and Input
@@ -25,21 +26,6 @@ protected:
     unsigned nOptions;
     std::vector<Option> options;
     std::vector<std::string> optionDescriptions;
-public:
-    /**
-     * Constructor for abstract Account Class
-     *
-     * @param user User Class pointer
-     * @param streamZ StreamZ Class pointer
-     */
-    Account(User * user, StreamZ * streamZ);
-
-    virtual ~Account() = default;
-
-    /**
-     * function that displays account specific options
-     */
-    void run();
 
     /**
      * Prompts the user to change their names.
@@ -57,9 +43,15 @@ public:
     void deleteAccount();
 
     /**
-     * Lists all current streams.
+     * Searches for current streams for their title/genre/language and prompts the user (if viewer) to join them.
      */
-    void listStreams();
+    void virtual listStreams();
+
+    /**
+     * Prompts the user for parameters to search for a live stream and returns a vector
+     * @param[out] streams A variable where the resulting search gets put
+     */
+    void searchParameters(std::vector<LiveStream *> &streams);
 
     /**
      * Lists all Users;
@@ -84,7 +76,22 @@ public:
     /**
      * Lists the top 10 oldest viewers
      */
-     void top10OldestUsers();
+    void top10OldestUsers();
+public:
+    /**
+     * Constructor for abstract Account Class
+     *
+     * @param user User Class pointer
+     * @param streamZ StreamZ Class pointer
+     */
+    Account(User * user, StreamZ * streamZ);
+
+    virtual ~Account() = default;
+
+    /**
+     * function that displays account specific options
+     */
+    void run();
 };
 
 
