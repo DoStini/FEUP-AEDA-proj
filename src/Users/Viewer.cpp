@@ -75,6 +75,7 @@ void Viewer::giveFeedBack(feedback fbValue) {
 
 void Viewer::giveFeedBack(std::string comment) {
     if(!watching()) throw NotInStreamException(name);
+    // TODO CHECK IF THIS IS FIXED WITH .GETTYPE AND NO DYNAMIC CASTS
     if (!dynamic_cast<PrivateStream *>(currWatching))
         throw NotPrivateStreamException(currWatching->getTitle());
 
