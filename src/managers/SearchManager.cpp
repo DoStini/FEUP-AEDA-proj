@@ -6,6 +6,7 @@
 #include "StreamZ.h"
 
 
+
 SearchManager::SearchManager(StreamZ *streamZ) : streamZ(streamZ) {}
 
 
@@ -80,19 +81,12 @@ void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const st
 
         // Is a livestream?
         if(ptr->getStreamType() == privateType || ptr->getStreamType() == publicType){
-            genre strGrn = ptr->getGenre();
-            language strLang = ptr->getStreamLanguage();
-
             // Checks if the current stream verifies all 3 requests (or those asked)
-            if( (ptr->getTitle() == streamName || streamName.empty()) &&
+            if( (streamName.empty() || ptr->getTitle() == streamName) &&
                 // Only verifies the vector if it is not empty (if the user wants to specify genre)
-                (!checkGenres || std::find_if(genres.begin(),
-                                              genres.end(),
-                                              [strGrn](genre gnr){return gnr == strGrn;}) != genres.end()) &&
+                (!checkGenres || checkParam<genre>( genres,ptr->getGenre()) ) &&
                 // Only verifies the vector if it is not empty (if the user wants to specify genre)
-                (!checkLangs || std::find_if(langs.begin(),
-                                             langs.end(),
-                                             [strLang](language lang){return lang == strLang;}) != langs.end()))
+                (!checkLangs || checkParam<language>(langs, ptr->getStreamLanguage())))
             {
                 streams.push_back(dynamic_cast<LiveStream *>((*it1).second));
             }
@@ -153,6 +147,50 @@ void SearchManager::listPrivateLiveStreams(std::vector<PrivateStream *> &streams
         it1++;
     }
 
+}
+
+void SearchManager::listAllowedLiveStreams(std::vector<LiveStream *> &streams, std::string viewerNick,
+                                           const std::string &streamName,
+                                           const std::vector<genre> &genres, const std::vector<language> &langs) {
+
+
+    // Empties the vector if not empty
+    if(!streams.empty()) streams.clear();
+
+
+    bool checkGenres = !genres.empty(),
+            checkLangs = !langs.empty();
+
+    // Iterator to the database map
+    auto it1 = streamZ->getDatabase().getStreams().begin(),
+            it2 = streamZ->getDatabase().getStreams().end();
+
+    // Loop to iterate over the map
+    while(it1 != it2){
+        Stream * ptr = (*it1).second; // Getting the current stream pointer
+
+        // Variable that identifies if the user is allowed to join the stream or not
+        bool valid = ptr->getStreamType() == publicType;
+
+        if (!valid && ptr->getStreamType() == privateType){
+            auto * privateStream = dynamic_cast<PrivateStream *>(ptr);
+            // TODO NEED UPDATED METHOD!!!!!
+            //valid = privateStream->isValidUser(viewerNick);
+        }
+
+        // Checks if the current stream verifies all 3 requests (or those asked)
+        if( valid &&
+            (streamName.empty() || ptr->getTitle() == streamName) &&
+            // Only verifies the vector if it is not empty (if the user wants to specify genre)
+            (!checkGenres || checkParam<genre>(genres,ptr->getGenre())) &&
+            // Only verifies the vector if it is not empty (if the user wants to specify genre)
+            (!checkLangs || checkParam<language>(langs, ptr->getStreamLanguage())) )
+        {
+            streams.push_back(dynamic_cast<LiveStream *>((*it1).second));
+        }
+
+        it1++;
+    }
 }
 
 

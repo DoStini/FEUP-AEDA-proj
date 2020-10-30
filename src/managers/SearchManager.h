@@ -15,6 +15,22 @@ class StreamZ;
 class User;
 class LiveStream;
 
+/**
+ * Template function to check if a certain element is present in the vector
+ * @tparam T - Type of data
+ * @param vec - Vector of T elements
+ * @param toFind - Value to check
+ * @return If toFind is in the vector
+ */
+template <class T>
+bool checkParam(const std::vector<T> & vec, T toFind){
+    return std::find_if(vec.begin(),
+                     vec.end(),
+                     [toFind](T currVal){
+                        return currVal == toFind;
+                     }) != vec.end();
+}
+
 
 /**
  * Class to execute search methods over the database
@@ -48,11 +64,16 @@ public:
      */
     void listUsers(std::vector<User *> & users, const std::string& name = "");
 
-     /**
-      * Function that returns by param a vector of livestreams. Clears the vector passed if not empty
-      * @param streams
-      */
-    //void listLiveStreams(std::vector<LiveStream *> & streams);
+    /**
+     * Function to list all streams the viewer is allowed to watch
+     * @param streams - Returns by reference the vector of streams corresponding to the specified params - Will be cleared if not empty
+     * @param streamName - Optional param specifying the name of the streams to search
+     * @param genres - Optional param specifying the genre(s) of the streams to search
+     * @param langs - Optional param specifying the language(s) of the streams to search
+     */
+    void listAllowedLiveStreams(std::vector<LiveStream *> & streams, std::string viewerNick,  const std::string& streamName = "",
+                                const std::vector<genre> & genres = std::vector<genre>(),
+                                const std::vector<language> & langs = std::vector<language>());
     /**
      * @param Returns by reference the vector of streams corresponding to the specified params - Will be cleared if not empty
      * @param streamName - Optional param specifying the name of the streams to search
