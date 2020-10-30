@@ -35,7 +35,8 @@ void Viewer::unFollowStreamer(const std::string& streamer) {
     followingStreamers.erase(it);
 }
 
-void Viewer::joinStream(LiveStream* stream) {
+void Viewer::joinStream(unsigned long long int streamID) {
+    auto * stream = (LiveStream*) streamZ->getSearchM()->getStream(streamID);
     if (watching()) throw AlreadyInStreamException(nickName, currWatching);
     // TODO Is < or <= ???
     if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
@@ -45,7 +46,7 @@ void Viewer::joinStream(LiveStream* stream) {
 
     stream->addViewer(nickName);
 
-    currWatching = stream->getStreamId();
+    currWatching = streamID;
 
 }
 

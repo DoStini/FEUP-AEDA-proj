@@ -44,7 +44,7 @@ public:
      * Might throw AlreadyInStreamException
      * @param stream - Desired stream
      */
-    void joinStream(LiveStream* streamId);
+    void joinStream(unsigned long long int streamID);
     /// Leave the current stream. Might throw a NotInStreamException
     void leaveStream();
     /// Add stream to the history of streams
