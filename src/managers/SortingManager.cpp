@@ -67,3 +67,17 @@ void SortingManager::sortUserDatePlatform(std::vector<User *> &users, bool rever
                          : ( ptr1->getJoinedPlatformDate() > ptr2->getJoinedPlatformDate()  );
               });
 }
+
+void SortingManager::sortStreamByComments(std::vector<PrivateStream *> &streams, bool reversed) {
+    // If the streams vector is empty it gets the currently stored in the system
+    // Otherwise it sorts the vector sent
+    if(streams.empty()) streamZ->getSearchM()->listPrivateLiveStreams(streams);
+
+    std::sort(streams.begin(),
+              streams.end(),
+              [reversed](PrivateStream * ptr1, PrivateStream * ptr2){
+                  return !reversed
+                         ? ( ptr1->getNumberComments() < ptr2->getNumberComments())
+                         : ( ptr1->getNumberComments() > ptr2->getNumberComments());
+              });
+}

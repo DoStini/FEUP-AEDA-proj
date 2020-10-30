@@ -25,7 +25,6 @@ public:
      */
     UserManager(StreamZ *streamZ);
     /// @return If an admin is already registered
-
     /// Creates a viewer
     void createViewer(const std::string& name, const std::string& nickName, const Date &birthDate);
     /// Creates a streamer

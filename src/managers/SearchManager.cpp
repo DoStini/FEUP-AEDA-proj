@@ -135,5 +135,25 @@ bool SearchManager::adminExists() {
                         }) != userDB.end();
 }
 
+void SearchManager::listPrivateLiveStreams(std::vector<PrivateStream *> &streams) {
+    // Empties the vector if not empty
+    if(!streams.empty()) streams.clear();
+
+    // Iterator to the database map
+    auto it1 = streamZ->getDatabase().getStreams().begin(),
+            it2 = streamZ->getDatabase().getStreams().end();
+
+    while(it1 != it2){
+        Stream * ptr = (*it1).second; // Getting the current stream pointer
+
+        // Is a livestream?
+        if(ptr->getStreamType() == privateType){
+            streams.push_back(dynamic_cast<PrivateStream *>(ptr));
+        }
+        it1++;
+    }
+
+}
+
 
 

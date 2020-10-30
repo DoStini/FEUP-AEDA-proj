@@ -6,6 +6,7 @@
 #define FEUP_AEDA_PROJ_SORTINGMANAGER_H
 
 #include <vector>
+#include <PrivateStream.h>
 #include "Date.h"
 class StreamZ;
 class LiveStream;
@@ -35,6 +36,13 @@ public:
      * @return Returns by reference the desired vector of livestreams sorted by likes
      */
     void sortStreamByLikes(std::vector<LiveStream *> & streams, bool reversed = false);
+
+    /**
+     * @param streams - Vector of livestreams - leave empty to sort the most recent data or send a filtered vector
+     * @param reversed - Defaults to highest likes to lower
+     * @return Returns by reference the desired vector of livestreams sorted by likes
+     */
+    void sortStreamByComments(std::vector<PrivateStream *> & streams, bool reversed = false);
 
     /**
      * @param streams - Vector of livestreams - leave empty to sort the most recent data or send a filtered vector

@@ -7,6 +7,7 @@
 
 #include "User.h"
 #include "Stream.h"
+#include "PrivateStream.h"
 #include "DoesNotExist.h"
 
 class StreamZ;
@@ -35,6 +36,7 @@ public:
      * @return If a stream with that ID exists
      */
     bool streamExists(ID streamID);
+    /// @return If an admin account was already created
     bool adminExists();
     /// @return Corresponding user to the nickname
     User * getUser(std::string userNick);
@@ -60,6 +62,8 @@ public:
     void listLiveStreams(std::vector<LiveStream *> & streams, const std::string& streamName = "",
                                           const std::vector<genre> & genres = std::vector<genre>(),
                                           const std::vector<language> & langs = std::vector<language>());
+
+    void listPrivateLiveStreams(std::vector<PrivateStream *> & streams);
     /**
      * List live streams corresponding to some streamers
      * @param streams - Returns by reference the vector of livestreams from the streamers - Will be cleared if not empty
