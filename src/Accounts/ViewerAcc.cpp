@@ -26,6 +26,7 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
 
 void ViewerAcc::joinStreamById() {
     ID streamId;
+    std::stringstream ss;
 
     print("What is the stream ID? ", '\0');
 
@@ -33,8 +34,25 @@ void ViewerAcc::joinStreamById() {
         print("Invalid input! Please try again: ", '\0');
     }
 
+    print();
     try {
         viewer->joinStream(streamId);
+
+        print("Join Successful");
+    } catch(AlreadyInStreamException &e) {
+        print("Join Failed: ");
+        print(e);
+    } catch (DoesNotExist<ID> &e) {
+        ss << "No such stream with ID " << streamId;
+        print("Join Failed: "); //No such stream
+        print(ss.str());
+    } catch (RestrictedAgeException &e) {
+        print("Join Failed: "); //No such stream
+        print(e);
+    } catch (RestrictedStreamException &e) {
+        print("Join Failed: "); //No such stream
+        print(e);
     }
 
+    waitForKey();
 }

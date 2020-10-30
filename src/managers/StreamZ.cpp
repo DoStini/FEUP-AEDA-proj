@@ -249,6 +249,10 @@ void StreamZ::registerUser() {
 
     } catch (InvalidPassword &ex) {
         print("An invalid password was used.");
+
+        //TODO CATCH ALREADY EXISTS
+//    } catch (Alread) {
+//
     }
 
     print("Register Failed.");

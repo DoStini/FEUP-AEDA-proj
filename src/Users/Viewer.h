@@ -50,6 +50,11 @@ public:
      * Join a stream
      * Might throw AlreadyInStreamException
      * @param stream - Desired stream
+     *
+     * @throws DoesNotExist if live stream with stream id does not exist.
+     * @throws AlreadyInStreamException if user is already in a stream.
+     * @throws RestrictedAgeException if user is not old enough.
+     * @throws RestrictedStreamException if user is not allowed to join the stream.
      */
     void joinStream(ID streamID);
     /// Leave the current stream. Might throw a NotInStreamException
