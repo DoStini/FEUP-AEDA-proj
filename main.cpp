@@ -258,16 +258,16 @@ TEST(test, dataBase){
                   AlreadyExists<std::string>);
 }
 
-
+/*
 TEST(test, testSorts){
 
     StreamZ streamZ;
     streamZ.init();
     streamZ.run();
 
-    streamZ.getUserM()->createViewer("Rui", "user1", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Rui", "UsEr1", Date(2000, 1, 1));
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    streamZ.getUserM()->createViewer("Rui", "user2", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Rui", "USER2", Date(2000, 1, 1));
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     streamZ.getUserM()->createViewer("Rui", "user3", Date(2000, 1, 1));
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
@@ -318,6 +318,9 @@ TEST(test, testSorts){
     streamZ.getSortM()->sortStreamByViews(streams);
     ASSERT_EQ(streams[0]->getTitle(), "Stream 1");
 }
+*/
+
+
 
 int main() {
     testing::InitGoogleTest();

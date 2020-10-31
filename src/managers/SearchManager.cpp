@@ -110,6 +110,7 @@ void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &stream
 }
 
 bool SearchManager::userExists(std::string nick) {
+    std::transform(nick.begin(), nick.end(), nick.begin(), ::tolower);
     std::unordered_map<std::string, User *> map = streamZ->getDatabase().getUsers();
     return map.find(nick) != map.end();
 }

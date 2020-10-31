@@ -7,8 +7,10 @@
 
 UserManager::UserManager(StreamZ *streamZ) : streamZ(streamZ) {}
 
-void UserManager::createViewer(const std::string& name, const std::string& nickName, const Date &birthDate) {
+void UserManager::createViewer(const std::string& name, std::string nickName, const Date &birthDate) {
     if(streamZ->getSearchM()->userExists(nickName)) throw AlreadyExists<std::string>(nickName);
+
+    std::transform(nickName.begin(), nickName.end(), nickName.begin(), ::tolower);
 
     Viewer * ptr = new Viewer(name, nickName, birthDate);
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
