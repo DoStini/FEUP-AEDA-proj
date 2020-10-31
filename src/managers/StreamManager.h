@@ -19,6 +19,10 @@ class StreamZ;
  */
 class StreamManager {
 public:
+    /**
+     * Constructor. StreamZ needs to use to access the database and other methods
+     * @param streamZ - Main class pointer
+     */
     StreamManager(StreamZ *streamZ);
 
     /**
