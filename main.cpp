@@ -1,5 +1,7 @@
 #include<iostream>
 #include <gtest/gtest.h>
+#include <chrono>
+#include <thread>
 
 #include "Viewer.h"
 #include "Date.h"
@@ -258,43 +260,38 @@ TEST(test, dataBase){
 
 
 TEST(test, testSorts){
-    /*
-    Create a test file
-    PublicStream *s1 = new PublicStream("Stream 1", PT_PT, gaming);
-    PublicStream *s2 = new PublicStream("Stream 2", PT_BR, technology);
-    PublicStream *s3 = new PublicStream("Ok 1", PT_PT, cooking);
-    PublicStream *s4 = new PublicStream("S", PT_PT, music);
-    PublicStream *s5 = new PublicStream("S5", PT_PT, meetGreet);
 
-    Viewer *v1 = new Viewer("Rui", "user1", Date(2000, 1, 1));
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    Viewer *v2 = new Viewer("Rui", "user2", Date(2000, 1, 1));
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    Viewer *v3 = new Viewer("Rui", "user3", Date(2000, 1, 1));
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    Viewer *v4 = new Viewer("Rui", "user4", Date(2000, 1, 1));
-
-    v1->joinStream(s1);
-    v2->joinStream(s1);
-    v3->joinStream(s2);
-    v4->joinStream(s3);
-
-    dataBase.getUsers().insert(std::pair<std::string, User *>(  v1->getNickName(), (User *) v1  ) );
-    dataBase.getUsers().insert(std::pair<std::string, User *>(  v2->getNickName(), (User *) v2  ) );
-    dataBase.getUsers().insert(std::pair<std::string, User *>(  v3->getNickName(), (User *) v3  ) );
-    dataBase.getUsers().insert(std::pair<std::string, User *>(  v4->getNickName(), (User *) v4  ) );
-
-    dataBase.getStreams().insert(std::pair<ID, Stream *>(  1, (Stream *) s1  ) );
-    dataBase.getStreams().insert(std::pair<ID, Stream *>(  2, (Stream *) s2  ) );
-    dataBase.getStreams().insert(std::pair<ID, Stream *>(  3, (Stream *) s3  ) );
-    dataBase.getStreams().insert(std::pair<ID, Stream *>(  4, (Stream *) s4  ) );
-    dataBase.getStreams().insert(std::pair<ID, Stream *>(  5, (Stream *) s5  ) );
-*/
-
-/*
     StreamZ streamZ;
     streamZ.init();
     streamZ.run();
+
+    streamZ.getUserM()->createViewer("Rui", "user1", Date(2000, 1, 1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    streamZ.getUserM()->createViewer("Rui", "user2", Date(2000, 1, 1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    streamZ.getUserM()->createViewer("Rui", "user3", Date(2000, 1, 1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    streamZ.getUserM()->createViewer("Rui", "user4", Date(2000, 1, 1));
+
+
+    streamZ.getStreamManager()->createPublicStream("Stream 1", PT_PT, gaming);
+    streamZ.getStreamManager()->createPublicStream("Stream 2", PT_BR, technology);
+    streamZ.getStreamManager()->createPublicStream("Ok 1", PT_PT, cooking);
+    streamZ.getStreamManager()->createPublicStream("S", PT_PT, music);
+    streamZ.getStreamManager()->createPublicStream("S5", PT_PT, meetGreet);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(
+            dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(0))
+            );
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(
+            dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(0))
+    );
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(
+            dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(1))
+    );
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(
+            dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(2))
+    );
 
     std::vector<LiveStream *> streams;
     streamZ.getSortM()->sortStreamByViews(streams);
@@ -320,8 +317,6 @@ TEST(test, testSorts){
     streamZ.getSearchM()->listLiveStreams(streams, "", _genres);
     streamZ.getSortM()->sortStreamByViews(streams);
     ASSERT_EQ(streams[0]->getTitle(), "Stream 1");
-*/
-
 }
 
 int main() {

@@ -12,17 +12,18 @@
 #include "SearchManager.h"
 #include "UserManager.h"
 #include "LeaderBoard.h"
+#include "StreamManager.h"
 
 #include "User.h"
 #include "Viewer.h"
 #include "Streamer.h"
 
 
-
 class StreamZ {
     SortingManager * sortingManager;
     SearchManager * searchManager;
     UserManager * userManager;
+    StreamManager * streamManager;
     LeaderBoard * leaderboard;
     Database dataBase;
 public:
@@ -33,9 +34,12 @@ public:
     void backupData(std::string fileName);
     void readFromFile(std::string fileName);
     void resetDatabase();
+
+
     SortingManager * getSortM();
     SearchManager * getSearchM();
     UserManager * getUserM();
+    StreamManager *getStreamManager();
     Database & getDatabase();
 };
 

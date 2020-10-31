@@ -39,7 +39,7 @@ public:
     ///@return - stream genre
     genre getGenre() const;
     ///@return - value that represent the stream id
-    ID getStreamId() const;
+    ID getStreamId();
     /**
      * Give us basic stream title, number of viewers, language and necessary age to join
      *
