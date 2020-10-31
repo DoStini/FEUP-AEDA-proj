@@ -54,6 +54,7 @@ void Viewer::leaveStream() {
     if (!watching()) throw NotInStreamException(name);
     auto* stream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
     stream->removeViewer(nickName);
+    streamHistory.push_back(currWatching);
     currWatching = 0;
 }
 

@@ -7,8 +7,8 @@
 #include <utility>
 
 
-FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerName, unsigned long long int StreamID)
-                                : Stream(std::move(title),language,streamGenre), numViewers(numViewers), streamerName(std::move(streamerName)) {
+FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerNick, unsigned long long int StreamID)
+                                : Stream(std::move(title),language,streamGenre,streamerNick), numViewers(numViewers){
     this->streamID = streamID;
     Date currDate; currDate.setSystemDate();
     finishedDate = currDate;

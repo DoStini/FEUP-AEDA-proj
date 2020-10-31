@@ -7,7 +7,7 @@
 #include <utility>
 
 PublicStream::PublicStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge) :
-                        LiveStream(std::move(title), streamLanguage, streamGenre,streamerNick, minAge) {}
+                        LiveStream(std::move(title), streamLanguage, streamGenre,std::move(streamerNick), minAge) {}
 
 streamType PublicStream::getStreamType() const {
     return publicType;

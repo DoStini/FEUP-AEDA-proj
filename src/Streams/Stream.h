@@ -29,7 +29,7 @@ public:
      * @genre genre - genre of the stream
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    Stream(std::string title, language language, genre genre);
+    Stream(std::string title, language language, genre genre, std::string streamerNick);
     ///@return - Title of the stream
     const std::string &getTitle() const;
     ///@return - stream language
@@ -59,6 +59,8 @@ private:
     language streamLanguage;
     ///Stream genre
     genre streamGenre;
+    /// NickName of the stream streamer
+    std::string streamerNick;
 
 };
 

@@ -91,8 +91,6 @@ private:
     std::map<std::string,feedback> likeSystem;
     /// Number of like and dislikes of the stream
     std::pair<unsigned,unsigned> nLikes_Dislikes;
-    /// NickName of the stream streamer
-    std::string streamerNick;
     /// Id of the last stream created
     static unsigned long long int lastId ;
 };
