@@ -18,7 +18,7 @@ std::ostream &operator<<(std::ostream &os, const AlreadyInStreamException &excep
     return os;
 }
 
-AlreadyInStreamException::AlreadyInStreamException(std::string user,  std::string streamWatching) :
+AlreadyInStreamException::AlreadyInStreamException(std::string user,  unsigned long long int streamWatching) :
                                                     user(std::move(user)),  streamWatching(std::move(streamWatching)){}
 
 

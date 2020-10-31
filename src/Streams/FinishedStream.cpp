@@ -7,14 +7,13 @@
 #include <utility>
 
 
-FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerName)
-                                : Stream(std::move(title),language,streamGenre), numViewers(numViewers), streamerName(std::move(streamerName)) {
-
+FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerNick, unsigned long long int StreamID)
+                                : Stream(std::move(title),language,streamGenre,streamerNick), numViewers(numViewers){
+    this->streamID = streamID;
+    Date currDate; currDate.setSystemDate();
+    finishedDate = currDate;
 }
 
-std::string FinishedStream::getInfo() const {
-    return "Finished stream";
-}
 
 streamType FinishedStream::getStreamType() const {
     return finishedType;

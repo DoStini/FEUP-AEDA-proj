@@ -3,11 +3,12 @@
 //
 
 #include "Stream.h"
-#include <utility>
-#include "Viewer.h"
 
-Stream::Stream(std::string title, language language, genre genre ) :
-            title(std::move(title)), streamLanguage(language), streamGenre(genre){
+#include <utility>
+#include "StreamZ.h"
+
+Stream::Stream(std::string title, language language, genre genre, std::string streamerNick ) :
+            title(std::move(title)), streamLanguage(language),streamGenre(genre) , streamerNick(std::move(streamerNick)){
     Date currDate; currDate.setSystemDate();
     beginDate = currDate;
 }

@@ -10,7 +10,7 @@
 class Admin : public User{
     Admin(std::string name, std::string nickName, const Date &birthDate);
     ///@return - user type = streamer
-    userType getUserType() const;
+    userType getUserType() const override;
 };
 
 

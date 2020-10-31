@@ -6,17 +6,8 @@
 
 #include <utility>
 
-PublicStream::PublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned minAge) :
-                        LiveStream(std::move(title), streamLanguage, streamGenre, minAge) {}
-
-
-
-std::string PublicStream::getInfo() const {
-    std::ostringstream ssInfo;
-    ssInfo <<"Public->  " << this->getTitle() << "       Viewers:" << this->getNumViewers() <<
-                     "     Language:"<< this->getStreamLanguage() << "     Necessary age:" << this->getMinAge();
-    return ssInfo.str();
-}
+PublicStream::PublicStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge) :
+                        LiveStream(std::move(title), streamLanguage, streamGenre,std::move(streamerNick), minAge) {}
 
 streamType PublicStream::getStreamType() const {
     return publicType;

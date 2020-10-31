@@ -4,6 +4,8 @@
 
 #include "Viewer.h"
 
+#include <utility>
+#include "StreamZ.h"
 
 Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
                 User(name, std::move(nickName), birthDate) {
@@ -16,65 +18,74 @@ userType Viewer::getUserType() const {
     return viewer;
 }
 
-void Viewer::followStreamer(Streamer *streamer) {
+void Viewer::followStreamer(const std::string& streamer) {
 
-    if (std::find_if(followingStreamers.begin(), followingStreamers.end(), [streamer](Streamer * curr){
-        return *streamer == *curr;
-    }) != followingStreamers.end()) throw FollowStreamerException(true, streamer->getNickName(), nickName); // Already following
+    if (std::find(followingStreamers.begin(), followingStreamers.end(), streamer) != followingStreamers.end())
+        throw FollowStreamerException(true,streamer, nickName); // Already following
 
     followingStreamers.push_back(streamer);
 
 }
 
-void Viewer::unFollowStreamer(Streamer *streamer) {
-    auto it = std::find_if(followingStreamers.begin(), followingStreamers.end(), [streamer](Streamer * curr){
-        return *streamer == *curr;
-    });
-    if (it == followingStreamers.end()) throw FollowStreamerException(false, streamer->getNickName(), nickName); // Wasn't following
+void Viewer::unFollowStreamer(const std::string& streamer) {
+    auto it = std::find(followingStreamers.begin(), followingStreamers.end(), streamer);
+    if (it == followingStreamers.end())
+        throw FollowStreamerException(false, streamer, nickName); // Wasn't following
 
     followingStreamers.erase(it);
 }
 
-void Viewer::joinStream(LiveStream *stream) {
-    if (watching()) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
+void Viewer::joinStream(unsigned long long int streamID) {
+    auto * stream = (LiveStream*) streamZ->getSearchM()->getStream(streamID);
+    if (watching()) throw AlreadyInStreamException(nickName, currWatching);
     // TODO Is < or <= ???
     if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
 
     auto * psPtr = dynamic_cast<PrivateStream *>(stream);
-    if (psPtr != nullptr && !psPtr->isValidUser(this)) throw RestrictedStreamException(stream->getTitle(), nickName);
+    if (psPtr != nullptr && !psPtr->isValidUser(nickName)) throw RestrictedStreamException(stream->getTitle(), nickName);
 
-    stream->addViewer(this);
+    stream->addViewer(nickName);
 
-    currWatching = stream;
+    currWatching = streamID;
+
 }
 
 void Viewer::leaveStream() {
     if (!watching()) throw NotInStreamException(name);
-    currWatching->removeViewer(this);
-    currWatching = nullptr;
+    auto* stream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
+    stream->removeViewer(nickName);
+    streamHistory.push_back(currWatching);
+    currWatching = 0;
+}
+
+void Viewer::addStreamHistory(unsigned long long streamID) {
+    streamHistory.push_back(streamID);
 }
 
 void Viewer::giveFeedBack(feedback fbValue) {
+    auto * currStream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
+
     if(!watching()) throw NotInStreamException(name);
-    /*
     if (fbValue == like)
-        currWatching->giveLike(this);
+        currStream->giveLike(nickName);
     else if (fbValue == dislike)
-        currWatching->giveDislike(this);
+        currStream->giveDislike(nickName);
     else if (fbValue == none)
-        currWatching->removeFeedBack(this);
-        */
+        currStream->removeFeedBack(nickName);
+
 }
 
 void Viewer::giveFeedBack(std::string comment) {
-    if(!watching()) throw NotInStreamException(name);
-    if (!dynamic_cast<PrivateStream *>(currWatching))
-        throw NotPrivateStreamException(currWatching->getTitle());
+    auto * currStream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
 
-    auto * stream = (PrivateStream *) currWatching;
-    stream->addComment(comment,this);
+    if(!watching()) throw NotInStreamException(name);
+    if (!dynamic_cast<PrivateStream *>(currStream))
+        throw NotPrivateStreamException(currStream->getTitle());
+
+    auto * stream = (PrivateStream *) currStream;
+    stream->addComment(std::move(comment),nickName);
 }
 
-bool Viewer::watching() {
-    return currWatching != nullptr;
+bool Viewer::watching() const {
+    return currWatching != 0;
 }

@@ -5,6 +5,8 @@
 #ifndef FEUP_AEDA_PROJ_PRIVATESTREAM_H
 #define FEUP_AEDA_PROJ_PRIVATESTREAM_H
 
+#include <utility>
+
 #include "LiveStream.h"
 class User;
 
@@ -12,7 +14,7 @@ class User;
 struct Comment{
     std::string comment;
     std::string viewerName;
-    Comment(std::string text, std::string name): comment(text),viewerName(name){}
+    Comment(std::string text, std::string name): comment(std::move(text)),viewerName(std::move(name)){}
 };
 
 class PrivateStream : public LiveStream {
@@ -24,25 +26,23 @@ public:
      * @param language - Stream language
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    PrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned minAge = VIEWER_MIN_AGE);
-
-    std::string getInfo() const override;
+    PrivateStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge);
     ///@return - number of comments that the stream have
     unsigned getNumberComments();
     ///@return - stream type = private type
     streamType getStreamType() const override;
     /**
      * Function to add a user to a whitelisted stream
-     * @param user - User to be added
+     * @param userNick - nick of user to be added
      */
-    void addValidUser(User * user);
+    void addValidUser(const std::string& userNick);
     /**
      * Checks if the user is in the vector of valid users
      *
-     * @param user - user to check
+     * @param userNick - nick of user to check
      * @return - true if it is, otherwise false
      */
-    bool isValidUser(User * user);
+    bool isValidUser(const std::string& userNick);
     /// @return Number of whitelisted viewers
     int getWhitelistSize() const;
     /**
@@ -51,11 +51,11 @@ public:
      * @param text - text that the user write
      * @param viewer - viewer that make the comment
      */
-    void addComment(std::string text, User * viewer);
+    void addComment(const std::string & text, const std::string & userNick);
 
 private:
     std::vector<Comment> comments;
-    std::vector<User *> whitelist;
+    std::vector<std::string> whitelist;
 };
 
 

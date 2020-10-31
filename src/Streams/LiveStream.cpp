@@ -3,25 +3,25 @@
 //
 
 #include "LiveStream.h"
+#include "StreamZ.h"
 
 #include <utility>
 
 ID LiveStream::lastId = 0;
 
-LiveStream::LiveStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge):
-                                Stream(std::move(title),streamLanguage,streamGenre),minAge(minAge) {
-    this->setStreamId(lastId);
-    lastId++;
+LiveStream::LiveStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned int minAge):
+                                Stream(std::move(title),streamLanguage,streamGenre,std::move(streamerNick)),minAge(minAge) {
+    streamID = lastId++;
     nLikes_Dislikes.first = 0;
     nLikes_Dislikes.second = 0;
 }
-void LiveStream::addViewer(User * viewer) {
-    streamViewers.push_back(viewer->getName());
-    likeSystem[viewer->getName()] = none;
+void LiveStream::addViewer(const std::string& viewerNick) {
+    streamViewers.push_back(viewerNick);
+    likeSystem[viewerNick] = none;
 }
 
-void LiveStream::removeViewer(User *viewer) {
-    streamViewers.erase(std::find(streamViewers.begin(),streamViewers.end(),viewer->getName()));
+void LiveStream::removeViewer(const std::string& viewerNick) {
+    streamViewers.erase(std::find(streamViewers.begin(),streamViewers.end(),viewerNick));
 }
 
 unsigned int LiveStream::getNumViewers() const {
@@ -33,11 +33,15 @@ unsigned int LiveStream::getMinAge() const {
 }
 
 unsigned int LiveStream::closeStream() {
-    unsigned nViewers = streamViewers.size();
+    unsigned nViewers = this->getNumViewers();
+    FinishedStream fStream(this->getTitle(),this->getStreamLanguage(),this->getGenre(),nViewers,streamerNick,streamID);
     for (unsigned i = 0; i < streamViewers.size() ; i++) {
-        //Viewer * viewer = (Viewer *) streamViewers.at(i);
-        //viewer->leaveStream();
+        Viewer * viewer = (Viewer *) streamZ->getSearchM()->getUser(streamViewers.at(i));
+        viewer->leaveStream();
+        viewer->addStreamHistory(streamID);
+
     }
+    //TODO REMOVER LIVE STREAM DA DATABASE E ADICIONAR FINISHED STREAM
     return nViewers;
 }
 
@@ -48,39 +52,36 @@ int LiveStream::getLikes() const {
 int LiveStream::getDislikes() const {
     return nLikes_Dislikes.second;
 }
-void LiveStream::giveLike(User * viewer) {
-    std::string name = viewer->getName();
-    if(likeSystem[name] == none) {
-        likeSystem[name] = like;
+void LiveStream::giveLike(const std::string& viewerNick) {
+    if(likeSystem[viewerNick] == none) {
+        likeSystem[viewerNick] = like;
         nLikes_Dislikes.first++;
     }
-    else if(likeSystem[name] == dislike){
-        likeSystem[name] = like;
+    else if(likeSystem[viewerNick] == dislike){
+        likeSystem[viewerNick] = like;
         nLikes_Dislikes.first++;
         nLikes_Dislikes.second--;
     }
 }
 
-void LiveStream::giveDislike(User * viewer) {
-    std::string name = viewer->getName();
-    if(likeSystem[name] == none) {
-        likeSystem[name] = dislike;
+void LiveStream::giveDislike(const std::string& viewerNick) {
+    if(likeSystem[viewerNick] == none) {
+        likeSystem[viewerNick] = dislike;
         nLikes_Dislikes.second++;
     }
-    else if(likeSystem[name] == like){
-        likeSystem[name] = dislike;
+    else if(likeSystem[viewerNick] == like){
+        likeSystem[viewerNick] = dislike;
         nLikes_Dislikes.first--;
         nLikes_Dislikes.second++;
     }
 }
 
-void LiveStream::removeFeedBack(User *viewer) {
-    std::string name = viewer->getName();
-    if (likeSystem[name] == like)
+void LiveStream::removeFeedBack(const std::string& viewerNick) {
+    if (likeSystem[viewerNick] == like)
         nLikes_Dislikes.first--;
-    else if (likeSystem[name] == dislike)
+    else if (likeSystem[viewerNick] == dislike)
         nLikes_Dislikes.second--;
-    likeSystem[name] = none;
+    likeSystem[viewerNick] = none;
 }
 
 bool LiveStream::operator<(LiveStream *compStream) {

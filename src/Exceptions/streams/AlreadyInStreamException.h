@@ -19,7 +19,7 @@ public:
      * @param user - The user that originated the error
      * @param streamWatching
      */
-    AlreadyInStreamException(std::string user, std::string streamWatching);
+    AlreadyInStreamException(std::string user, unsigned long long int streamWatching);
 
     /**
      * Brief info about exception
@@ -31,7 +31,7 @@ public:
 
 private:
     std::string user;
-    std::string streamWatching;
+    unsigned long long int streamWatching;
 };
 
 
