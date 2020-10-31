@@ -6,7 +6,11 @@
 #define FEUP_AEDA_PROJ_USERMANAGER_H
 
 #include <string>
-
+#include <Date.h>
+#include "AlreadyExists.h"
+#include "Viewer.h"
+#include "Streamer.h"
+#include "Admin.h"
 
 class StreamZ;
 
@@ -20,18 +24,13 @@ public:
      * @param streamZ - Main class pointer
      */
     UserManager(StreamZ *streamZ);
-    /**
-     * Function to check if a user exists or not
-     * @param nickName - Nickname of the user
-     * @return user exists or not
-     */
-    bool userExists(std::string nickName);
+    /// @return If an admin is already registered
     /// Creates a viewer
-    void createViewer();
+    void createViewer(const std::string& name, std::string nickName, const Date &birthDate);
     /// Creates a streamer
-    void createStreamer();
+    void createStreamer(std::string name, std::string nickName, const Date &birthDate);
     /// Creates an admin
-    void createAdmin();
+    void createAdmin(std::string name, std::string nickName, const Date &birthDate);
     /// Removes a user
     void removeUser(std::string nickName);
 private:

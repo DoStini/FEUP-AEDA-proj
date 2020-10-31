@@ -81,13 +81,14 @@ public:
     */
     // Change this operator later
     bool operator<(LiveStream * compStream);
+    /// Static variable that stores the last id of the stream ( Not allowing repeated id's )
+    static ID lastId;
 private:
     unsigned minAge;
     std::vector<std::string> streamViewers;
     std::map<std::string,feedback> likeSystem;
     std::pair<unsigned,unsigned> nLikes_Dislikes;
     std::string streamerNick;
-    static unsigned long long int lastId ;
 };
 
 

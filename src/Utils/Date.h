@@ -75,10 +75,14 @@ public:
      */
     std::tm getTimeStruct() const;
 
-    friend bool operator < (const Date &lhs, const Date &rhs);
-    friend bool operator > (const Date &lhs, const Date &rhs);
-    friend bool operator <= (const Date &lhs, const Date &rhs);
-    friend bool operator >= (const Date &lhs, const Date &rhs);
+    bool operator<(const Date &rhs) const;
+
+    bool operator>(const Date &rhs) const;
+
+    bool operator<=(const Date &rhs) const;
+
+    bool operator>=(const Date &rhs) const;
+
 private:
     std::tm dateStruct;
     /// Sets all date values to zero.

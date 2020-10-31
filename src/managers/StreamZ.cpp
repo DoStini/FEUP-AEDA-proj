@@ -14,6 +14,7 @@ void StreamZ::init() {
     sortingManager = new SortingManager(this);
     searchManager = new SearchManager(this);
     userManager = new UserManager(this);
+    streamManager = new StreamManager(this);
     leaderboard = new LeaderBoard(this);
     dataBase = Database();
 }
@@ -23,26 +24,31 @@ void StreamZ::shutdown() {
     delete sortingManager;
     delete searchManager;
     delete userManager;
+    delete streamManager;
     delete leaderboard;
 }
 
-SortingManager *StreamZ::getSortM() {
+SortingManager *StreamZ::getSortM(){
     return sortingManager;
 }
 
-SearchManager *StreamZ::getSearchM() {
+SearchManager *StreamZ::getSearchM(){
     return searchManager;
 }
 
-UserManager *StreamZ::getUserM() {
+UserManager *StreamZ::getUserM(){
     return userManager;
 }
 
 void StreamZ::run() {
 }
 
-Database &StreamZ::getDatabase() {
+Database &StreamZ::getDatabase(){
     return dataBase;
+}
+
+StreamManager *StreamZ::getStreamManager(){
+    return streamManager;
 }
 
 

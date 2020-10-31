@@ -8,6 +8,8 @@
 #define VIEWER_MIN_AGE 12
 #define STREAMER_MIN_AGE 15
 
+#define NULL_STREAM 0
+
 enum streamType{
     publicType = 1,
     privateType,

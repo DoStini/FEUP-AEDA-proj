@@ -128,17 +128,28 @@ void Date::setToZero() {
     dateStruct = {0};
 }
 
-inline bool operator <(const Date & lhs,const Date &rhs) {
-    std::tm tmLhs = lhs.getTimeStruct(); std::tm tmRhs = rhs.getTimeStruct();
+;
+;
+void Date::fixDate() {
+    mktime(&dateStruct);
+}
+
+
+bool Date::operator<(const Date &rhs) const {
+    std::tm tmLhs = getTimeStruct(); std::tm tmRhs = rhs.getTimeStruct();
     time_t tLhs = mktime(&tmLhs), tRhs = mktime(&tmRhs);
 
     return difftime(tLhs, tRhs) < 0;
 }
 
-inline bool operator > (const Date &lhs, const Date &rhs) { return rhs < lhs; };
-inline bool operator <= (const Date &lhs, const Date &rhs) { return !(lhs > rhs);};
-inline bool operator >= (const Date &lhs, const Date &rhs) { return !(rhs > lhs);}
+bool Date::operator>(const Date &rhs) const {
+    return rhs < *this;
+}
 
-void Date::fixDate() {
-    mktime(&dateStruct);
+bool Date::operator<=(const Date &rhs) const {
+    return !(rhs < *this);
+}
+
+bool Date::operator>=(const Date &rhs) const {
+    return !(*this < rhs);
 };

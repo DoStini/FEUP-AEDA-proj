@@ -7,7 +7,7 @@
 #include "Viewer.h"
 
 Stream::Stream(std::string title, language language, genre genre ) :
-            title(std::move(title)), streamLanguage(language){
+            title(std::move(title)), streamLanguage(language), streamGenre(genre){
     Date currDate; currDate.setSystemDate();
     beginDate = currDate;
 }
@@ -28,11 +28,11 @@ genre Stream::getGenre() const {
     return streamGenre;
 }
 
-unsigned long long int Stream::getStreamId() const {
+ID Stream::getStreamId(){
     return streamId;
 }
 
-void Stream::setStreamId(unsigned long long int streamId) {
+void Stream::setStreamId(ID streamId) {
     this->streamId = streamId;
 }
 
