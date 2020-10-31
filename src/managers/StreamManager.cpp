@@ -9,14 +9,14 @@
 
 void
 StreamManager::createPublicStream(std::string name, language streamLanguage, genre streamGenre, unsigned int minAge) {
-    auto * ptr = new PublicStream(std::move(name), streamLanguage, streamGenre, minAge);
+    auto * ptr = new PublicStream(std::move(name), streamLanguage, streamGenre,"meter streamer name", minAge);
 
     streamZ->getDatabase().getStreams().insert(std::pair<ID, Stream *>(ptr->getStreamId(), (Stream *) ptr ));
 }
 
 void
 StreamManager::createPrivateStream(std::string name, language streamLanguage, genre streamGenre,int maxUsers, unsigned int minAge) {
-    auto * ptr = new PrivateStream(std::move(name), streamLanguage, streamGenre, minAge);
+    auto * ptr = new PrivateStream(std::move(name), streamLanguage, streamGenre,"meter streamer name", minAge);
     streamZ->getDatabase().getStreams().insert(
             std::pair<ID, Stream *>(ptr->getStreamId(), dynamic_cast<Stream *>(ptr)));
 }

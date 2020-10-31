@@ -40,6 +40,8 @@ public:
     genre getGenre() const;
     ///@return - value that represent the stream id
     ID getStreamId();
+    /// @return - nick of the streamer
+    const std::string &getStreamerNick() const;
     /// @return - type of the stream
     virtual streamType getStreamType() const = 0;
     /**
@@ -55,7 +57,7 @@ protected:
     /// General class that have all the info
     StreamZ * streamZ = nullptr;
     ///ID of the stream
-    unsigned long long int streamID;
+    ID streamId;
 private:
     ///Stream title
     std::string title;
@@ -65,8 +67,6 @@ private:
     language streamLanguage;
     ///Stream genre
     genre streamGenre;
-    ///ID of the stream
-    ID streamId;
     /// NickName of the stream streamer
     std::string streamerNick;
 

@@ -37,4 +37,12 @@ void Stream::setStreamId(ID streamId) {
     this->streamId = streamId;
 }
 
+void Stream::setStreamZ(StreamZ *streamZ) {
+    this->streamZ = streamZ;
+}
+
+const std::string &Stream::getStreamerNick() const {
+    return streamerNick;
+}
+
 
