@@ -10,6 +10,8 @@
 
 #define NULL_STREAM 0
 
+#define MAX_VIEWERS 10
+
 enum streamType{
     publicType = 1,
     privateType,

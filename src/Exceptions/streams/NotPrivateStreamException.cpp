@@ -5,11 +5,11 @@
 #include "NotPrivateStreamException.h"
 
 
-NotPrivateStreamException::NotPrivateStreamException(std::string streamName)
-        : streamName(std::move(streamName)) {}
+NotPrivateStreamException::NotPrivateStreamException(unsigned long long int streamId)
+        : streamId(streamId) {}
 
 std::ostream &operator<<(std::ostream &os, const NotPrivateStreamException &exception) {
-    os << "Stream " << exception.streamName << " is not a private stream.";
+    os << "Stream " << exception.streamId << " is not a private stream.";
     return os;
 }
 

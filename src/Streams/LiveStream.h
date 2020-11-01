@@ -31,13 +31,13 @@ public:
     /**
     * Add viewers to the stream
     *
-    * @param viewer - pointer to viewer
+    * @param viewerNick - Nick name of the viewer
     */
-    void addViewer(const std::string& viewerNick);
+    virtual void addViewer(const std::string& viewerNick) ;
     /**
     * Remove viewer from the stream
     *
-    * @param viewer - viewer pointer
+    * @param viewerNick - Nick name of the viewer
     */
     void removeViewer(const std::string& viewerNick);
     ///@return - number of viewers in the stream
@@ -59,19 +59,19 @@ public:
     /**
     * add like to the stream
     *
-    * @param viewer - viewer that give like
+    * @param viewerNick - Nick name of the viewer
     */
     void giveLike(const std::string& viewerNick);
     /**
     * add dislike to the stream
     *
-    * @param viewer - viewer that give dislike
+    * @param viewerNick - Nick name of the viewer
     */
     void giveDislike(const std::string& viewerNick);
     /**
     * remove feedback from the stream either like or dislike
     *
-    * @param viewer - viewer that remove feedback
+    * @param viewerNick - Nick name of the viewer
     */
     void removeFeedBack(const std::string& viewerNick);
     /**

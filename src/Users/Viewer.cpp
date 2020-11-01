@@ -93,7 +93,7 @@ void Viewer::giveFeedBack(const std::string& comment) {
 
     if(!watching()) throw NotInStreamException(name);
     if (!dynamic_cast<PrivateStream *>(currStream))
-        throw NotPrivateStreamException(currStream->getTitle());
+        throw NotPrivateStreamException(currStream->getStreamId());
 
     auto * stream = (PrivateStream *) currStream;
     stream->addComment(comment,nickName);

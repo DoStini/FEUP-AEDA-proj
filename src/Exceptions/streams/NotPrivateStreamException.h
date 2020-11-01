@@ -15,7 +15,7 @@ public:
      * Constructor
      * @param stream - The stream that is not private
      */
-    NotPrivateStreamException(std::string streamName);
+    NotPrivateStreamException(unsigned long long int streamId);
     /**
      * Brief info about exception
      * @return
@@ -25,7 +25,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const NotPrivateStreamException &exception);
 
 private:
-    std::string streamName;
+    unsigned long long int streamId;
 };
 
 

@@ -19,6 +19,12 @@ public:
     PublicStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge);
     ///@return - stream type = public type
     streamType getStreamType() const override;
+    /**
+    * Add viewers to the stream
+    *
+    * @param viewerNick - Nick name of the viewer
+    */
+    void addViewer(const std::string& viewerNick) override;
 };
 
 

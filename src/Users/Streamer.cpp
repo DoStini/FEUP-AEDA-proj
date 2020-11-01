@@ -3,13 +3,14 @@
 //
 
 #include "Streamer.h"
+
+#include <utility>
 #include "StreamZ.h"
 
 Streamer::Streamer(std::string name, std::string nickName, const Date &birthDate) :
         User(name, std::move(nickName), birthDate) {
     if(age <= minimumAge)
         throw RestrictedAgeException(name, age, minimumAge);
-
 }
 
 userType Streamer::getUserType() const {
@@ -54,3 +55,17 @@ void Streamer::closeStream() {
     currStreaming = NULL_STREAM;
 
 }
+
+void Streamer::startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
+    PublicStream newStream(std::move(title),streamLanguage,streamGenre,nickName,minAge);
+    currStreaming = newStream.getStreamId();
+    // TODO ADD NEW STREAM TO DATABASE
+}
+
+void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge, unsigned int maxNumberViewers) {
+    PrivateStream newStream(std::move(title),streamLanguage,streamGenre,nickName,minAge,maxNumberViewers);
+    currStreaming = newStream.getStreamId();
+    // TODO ADD NEW STREAM TO DATABASE
+}
+
+

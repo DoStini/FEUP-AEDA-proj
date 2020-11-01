@@ -48,15 +48,17 @@ public:
      * @genre genre - Genre of the stream
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    void startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned minAge);
+    void startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned minAge = VIEWER_MIN_AGE);
     /**
      * Start streaming a private stream
      * @param title - Title of the stream
      * @param language - Stream language
-     * @genre genre - Genre of the stream
+     * @param genre - Genre of the stream
      * @param minAge - Minimal age of the stream , 12 by default
+     * @param maxNumberViewers - max number of viewers that the stream will have
      */
-    void startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned minAge);
+    void startPrivateStream(std::string title, language streamLanguage, genre streamGenre,
+                            unsigned minAge = VIEWER_MIN_AGE, unsigned int maxNumberViewers = MAX_VIEWERS);
     ///@return - number of viewers in the stream
     unsigned int getNumViewers() const;
     /**
