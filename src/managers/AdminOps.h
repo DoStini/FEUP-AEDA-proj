@@ -25,9 +25,15 @@ public:
     AdminOps(StreamZ *streamZ);
     /// @return Pointer to the most viewed streamer
     Streamer * mostViewed();
-    /// @return Most common language among streams ( enum language)
+    /**
+     * @param reversed - Optional: Set to true if you want the least viewed language
+     * @return Most viewed language among streams ( enum language)
+     */
     language rankViewsLang(bool reversed = false);
-    /// @return Most common genre among streams ( enum genre)
+    /**
+     * @param reversed - Optional: Set to true if you want the least viewed genre
+     * @return Most viewed genre among streams ( enum genre)
+     */
     genre rankViewsGenres(bool reversed = false);
     /// @return The median views per stream
     float medianViewsStream();
