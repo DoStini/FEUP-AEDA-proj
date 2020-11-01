@@ -6,6 +6,8 @@
 #define FEUP_AEDA_PROJ_ADMINOPS_H
 
 #include <string>
+#include <map>
+
 #include "utils.h"
 
 class StreamZ;
@@ -24,9 +26,9 @@ public:
     /// @return Pointer to the most viewed streamer
     Streamer * mostViewed();
     /// @return Most common language among streams ( enum language)
-    language mostCommonLang();
+    language rankViewsLang(bool reversed = false);
     /// @return Most common genre among streams ( enum genre)
-    genre mostCommonGenre();
+    genre rankViewsGenres(bool reversed = false);
     /// @return The median views per stream
     float medianViewsStream();
     /// @return The number of active streams

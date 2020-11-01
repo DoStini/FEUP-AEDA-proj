@@ -244,7 +244,7 @@ TEST(test, dataBase){
 
 
 
-
+/*
     StreamZ streamZ;
     streamZ.init();
     streamZ.run();
@@ -256,7 +256,8 @@ TEST(test, dataBase){
     ASSERT_EQ(streamZ.getSearchM()->getUser("user1")->getName(), "Rui");
     ASSERT_THROW(streamZ.getUserM()->createViewer("Rui", "user1", Date(2001, 1, 1)),
                   AlreadyExists<std::string>);
-}
+*/
+ }
 
 /*
 TEST(test, testSorts){
@@ -320,6 +321,39 @@ TEST(test, testSorts){
 }
 */
 
+
+TEST(test, adminOps){
+    StreamZ streamZ;
+    streamZ.init();
+    streamZ.run();
+
+    streamZ.getUserM()->createViewer("Rui", "UsEr1", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Jacinto", "USER2", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Luis", "user3", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Alfredo", "user4", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe", "user5", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "user6", Date(2000, 1, 1));
+
+
+    streamZ.getStreamManager()->createPublicStream("Stream 1", PT_PT, gaming);
+    streamZ.getStreamManager()->createPublicStream("Stream 2", PT_BR, technology);
+    streamZ.getStreamManager()->createPublicStream("Ok 1", PT_PT, cooking);
+    streamZ.getStreamManager()->createPublicStream("S", PT_PT, music);
+    streamZ.getStreamManager()->createPublicStream("S5", SPA, meetGreet);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(0);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(3);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(2);
+
+    ASSERT_EQ(streamZ.getAdminOps()->rankViewsLang(), PT_PT);
+    ASSERT_EQ(streamZ.getAdminOps()->rankViewsLang(true), SPA);
+    ASSERT_EQ(streamZ.getAdminOps()->rankViewsGenres(), technology);
+    ASSERT_EQ(streamZ.getAdminOps()->rankViewsGenres(true), meetGreet);
+
+}
 
 
 int main() {

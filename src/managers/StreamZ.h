@@ -17,7 +17,7 @@
 #include "User.h"
 #include "Viewer.h"
 #include "Streamer.h"
-
+#include "AdminOps.h"
 
 class StreamZ {
     SortingManager * sortingManager;
@@ -25,6 +25,11 @@ class StreamZ {
     UserManager * userManager;
     StreamManager * streamManager;
     LeaderBoard * leaderboard;
+    AdminOps * adminOps;
+public:
+    AdminOps *getAdminOps() const;
+
+private:
     Database dataBase;
 public:
     void init();
