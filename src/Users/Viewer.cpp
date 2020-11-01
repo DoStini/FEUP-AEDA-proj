@@ -35,14 +35,22 @@ void Viewer::unFollowStreamer(const std::string& streamer) {
     followingStreamers.erase(it);
 }
 
-void Viewer::joinStream(unsigned long long int streamID) {
+void Viewer::joinStream(ID streamID) {
     auto * stream = (LiveStream*) streamZ->getSearchM()->getStream(streamID);
     if (watching()) throw AlreadyInStreamException(nickName, currWatching);
     // TODO Is < or <= ???
     if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
 
-    auto * psPtr = dynamic_cast<PrivateStream *>(stream);
-    if (psPtr != nullptr && !psPtr->isValidUser(nickName)) throw RestrictedStreamException(stream->getTitle(), nickName);
+    streamType type = stream->getStreamType();
+
+    if (type == finishedType)
+        throw RestrictedStreamException(stream->getTitle(), nickName);
+    else if(type == privateType)
+    {
+        auto * pStream = (PrivateStream *) stream;
+        if (!pStream->isValidUser(nickName))
+            throw RestrictedStreamException(stream->getTitle(), nickName);
+    }
 
     stream->addViewer(nickName);
 
@@ -58,7 +66,7 @@ void Viewer::leaveStream() {
     currWatching = 0;
 }
 
-void Viewer::addStreamHistory(unsigned long long streamID) {
+void Viewer::addStreamHistory(ID streamID) {
     streamHistory.push_back(streamID);
 }
 
@@ -75,7 +83,7 @@ void Viewer::giveFeedBack(feedback fbValue) {
 
 }
 
-void Viewer::giveFeedBack(std::string comment) {
+void Viewer::giveFeedBack(const std::string& comment) {
     auto * currStream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
 
     if(!watching()) throw NotInStreamException(name);
@@ -83,7 +91,7 @@ void Viewer::giveFeedBack(std::string comment) {
         throw NotPrivateStreamException(currStream->getTitle());
 
     auto * stream = (PrivateStream *) currStream;
-    stream->addComment(std::move(comment),nickName);
+    stream->addComment(comment,nickName);
 }
 
 bool Viewer::watching() const {

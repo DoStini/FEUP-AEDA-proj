@@ -55,7 +55,7 @@ public:
      * Leave a comment on the (private) stream currently watching
      * @param comment - The comment
      */
-    void giveFeedBack(std::string comment);
+    void giveFeedBack(const std::string& comment);
 private:
     /// Minimum age to be able to create a viewer account
     static const unsigned minimumAge = VIEWER_MIN_AGE;
