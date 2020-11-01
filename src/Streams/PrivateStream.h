@@ -37,6 +37,11 @@ public:
      */
     void addValidUser(const std::string& userNick);
     /**
+     * Function to remove a user from the stream whitelist
+     * @param userNick - nick of user to be removed
+     */
+    void removeValidUser(const std::string& userNick);
+    /**
      * Checks if the user is in the vector of valid users
      *
      * @param userNick - nick of user to check

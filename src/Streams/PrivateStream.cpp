@@ -29,6 +29,10 @@ void PrivateStream::addValidUser(const std::string& userNick) {
     whitelist.push_back(userNick);
 }
 
+void PrivateStream::removeValidUser(const std::string &userNick) {
+    whitelist.erase(find(whitelist.begin(),whitelist.end(),userNick));
+}
+
 int PrivateStream::getWhitelistSize() const {
     return whitelist.size();
 }
@@ -37,4 +41,5 @@ void PrivateStream::addComment(const std::string & text,const std::string & user
     Comment comment(text,userNick);
     comments.push_back(comment);
 }
+
 

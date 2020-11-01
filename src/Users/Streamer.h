@@ -39,6 +39,7 @@ public:
     unsigned int getNumFollowers() const;
     /// @return - If the streamer is currently streaming or not
     bool streaming();
+    /// @return - ID of the current stream
     ID getStreamID();
     /**
      * Start streaming a public stream
@@ -62,22 +63,12 @@ public:
      * Remove user from the stream
      * @param viewerNick - nick of the viewer
      */
-    void kickUser(std::string viewerNick);
+    void kickUser(std::string viewerNick); // REMOVE MAYBE
     /**
      * Add user from the stream
      * @param viewerNick - nick of the viewer
      */
-    void addUser(std::string viewerNick);
-    /**
-     * Add user to the whitelist of the private stream
-     * @param viewerNick - nick of the viewer
-     */
-    void addUserToPrivate(std::string viewerNick);
-    /**
-     * Remove user to the whitelist of the private stream
-     * @param viewerNick - nick of the viewer
-     */
-    void removeUserFromPrivate(std::string viewerNick);
+    void addUser(std::string viewerNick);// REMOVE MAYBE
     ///Command to end the current streaming stream
     void closeStream();
     ///Compare two streamers

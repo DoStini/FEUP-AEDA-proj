@@ -18,21 +18,26 @@ userType Viewer::getUserType() const {
     return viewer;
 }
 
-void Viewer::followStreamer(const std::string& streamer) {
+void Viewer::followStreamer(const std::string& streamerNick) {
 
-    if (std::find(followingStreamers.begin(), followingStreamers.end(), streamer) != followingStreamers.end())
-        throw FollowStreamerException(true,streamer, nickName); // Already following
+    if (std::find(followingStreamers.begin(), followingStreamers.end(), streamerNick) != followingStreamers.end())
+        throw FollowStreamerException(true,streamerNick, nickName); // Already following
 
-    followingStreamers.push_back(streamer);
+    followingStreamers.push_back(streamerNick);
 
+    auto streamer = (Streamer*) streamZ->getSearchM()->getUser(streamerNick);
+    streamer->addFollower(nickName);
 }
 
-void Viewer::unFollowStreamer(const std::string& streamer) {
-    auto it = std::find(followingStreamers.begin(), followingStreamers.end(), streamer);
+void Viewer::unFollowStreamer(const std::string& streamerNick) {
+    auto it = std::find(followingStreamers.begin(), followingStreamers.end(), streamerNick);
     if (it == followingStreamers.end())
-        throw FollowStreamerException(false, streamer, nickName); // Wasn't following
+        throw FollowStreamerException(false, streamerNick, nickName); // Wasn't following
 
     followingStreamers.erase(it);
+
+    auto streamer = (Streamer*) streamZ->getSearchM()->getUser(streamerNick);
+    streamer->addFollower(nickName);
 }
 
 void Viewer::joinStream(ID streamID) {

@@ -41,7 +41,7 @@ unsigned int LiveStream::closeStream() {
         viewer->addStreamHistory(streamId);
 
     }
-    //TODO REMOVER LIVE STREAM DA DATABASE E ADICIONAR FINISHED STREAM
+    //TODO REMOVER LIVESTREAM DA DATABASE E ADICIONAR FINISHED STREAM
     return nViewers;
 }
 
