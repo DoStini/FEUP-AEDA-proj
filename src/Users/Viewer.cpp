@@ -19,21 +19,21 @@ UserType Viewer::getInfo() const {
     return viewer;
 }
 
-void Viewer::followStreamer(Streamer *streamer) {
+void Viewer::followStreamer(std::string streamer) {
 
-    if (std::find_if(followingStreamers.begin(), followingStreamers.end(), [streamer](Streamer * curr){
-        return *streamer == *curr;
-    }) != followingStreamers.end()) throw FollowStreamerException(true, streamer->getNickName(), nickName); // Already following
+    if (std::find_if(followingStreamers.begin(), followingStreamers.end(), [streamer](std::string curr){
+        return streamer == curr;
+    }) != followingStreamers.end()) throw FollowStreamerException(true, streamer, nickName); // Already following
 
     followingStreamers.push_back(streamer);
 
 }
 
-void Viewer::unFollowStreamer(Streamer *streamer) {
-    auto it = std::find_if(followingStreamers.begin(), followingStreamers.end(), [streamer](Streamer * curr){
-        return *streamer == *curr;
+void Viewer::unFollowStreamer(std::string streamer) {
+    auto it = std::find_if(followingStreamers.begin(), followingStreamers.end(), [streamer](std::string curr){
+        return streamer == curr;
     });
-    if (it == followingStreamers.end()) throw FollowStreamerException(false, streamer->getNickName(), nickName); // Wasn't following
+    if (it == followingStreamers.end()) throw FollowStreamerException(false, streamer, nickName); // Wasn't following
 
     followingStreamers.erase(it);
 }
@@ -89,4 +89,8 @@ void Viewer::giveFeedBack(std::string comment) {
 
 bool Viewer::watching() {
     return currWatching != nullptr;
+}
+
+const std::vector<std::string> &Viewer::getFollowingStreamers() {
+    return followingStreamers;
 }

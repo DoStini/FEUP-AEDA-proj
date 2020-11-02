@@ -17,16 +17,19 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
 
 
     options.insert(options.begin()+2, {
+        std::bind(&ViewerAcc::findStreamFollowing, this),
         std::bind(&ViewerAcc::joinStreamById, this),
         std::bind(&ViewerAcc::leaveStream, this),
         std::bind(&ViewerAcc::giveFeedback, this),
         std::bind(&ViewerAcc::giveComment, this)
     });
-    optionChecks[2] = [this]() {return !this->viewer->watching();};
-    optionChecks[3] = [this]() {return this->viewer->watching();};
+    optionChecks[2] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
+    optionChecks[3] = [this]() {return !this->viewer->watching();};
     optionChecks[4] = [this]() {return this->viewer->watching();};
-    optionChecks[5] = [this]() { return this->checkWatchingPrivate();};
+    optionChecks[5] = [this]() {return this->viewer->watching();};
+    optionChecks[6] = [this]() { return this->checkWatchingPrivate();};
     optionDescriptions.insert(optionDescriptions.begin()+2,{
+        "List all live streams from the streamers you follow.",
         "Join a stream with a stream ID.",
         "Leave the stream you are currently watching.",
         "Give feedback to current stream.",
@@ -134,4 +137,28 @@ void ViewerAcc::giveComment() {
     else print("Success!");
 
     waitForKey();
+}
+
+void ViewerAcc::findStreamFollowing() {
+    const std::vector<std::string> streamerNicks = viewer->getFollowingStreamers();
+    std::vector<LiveStream *> streams;
+    streamZ->getSearchM()->listLiveStreamsByStreamers(streams, streamerNicks);
+
+    if(streams.size() == 0) {
+        print("There are no live streams airing from the streamers you follow.");
+
+        waitForKey();
+
+        return;
+    }
+
+    print("Here are all the current live streams from the streamers you follow: ");
+    print();
+
+    // TODO CHANGE TO FUNCTION IN TYPE.
+    printPagedList(streams, std::function<std::string(LiveStream *)>([](LiveStream*stream){
+        std::stringstream  ss;
+        ss << stream->getTitle() << " (Stream Id: " << stream->getId() << ")";
+        return ss.str();
+    }));
 }

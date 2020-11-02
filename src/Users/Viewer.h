@@ -40,12 +40,12 @@ public:
      * Follow a streamer
      * @param streamer - The desired streamer
      */
-    void followStreamer(Streamer * streamer);
+    void followStreamer(std::string streamer);
     /**
      * Unfollow a streamer
      * @param streamer - Desired streamer
      */
-    void unFollowStreamer(Streamer * streamer);
+    void unFollowStreamer(std::string streamer);
     /**
      * Join a stream
      * Might throw AlreadyInStreamException
@@ -67,6 +67,8 @@ public:
      */
     void giveFeedBack(std::string comment);
 
+    const std::vector<std::string> &getFollowingStreamers();
+
     unsigned long long int getStreamID() const;
 
 private:
@@ -75,7 +77,7 @@ private:
     /// Stream currently watching
     Stream * currWatching = nullptr;
     /// List of streamers the viewer follows
-    std::vector<Streamer *> followingStreamers;
+    std::vector<std::string> followingStreamers;
 };
 
 

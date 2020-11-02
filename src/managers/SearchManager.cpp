@@ -33,3 +33,8 @@ void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const st
     //streams = *(streamZ->getDatabase().getStreams());
 }
 
+void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &streams,
+                                               const std::vector<std::string> &streamerNick) {
+
+}
+
