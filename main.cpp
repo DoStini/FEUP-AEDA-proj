@@ -372,6 +372,7 @@ TEST(test, adminOps){
     std::stringstream ss;
     ss << val;
     ASSERT_EQ(ss.str(), "1.4");
+    ASSERT_EQ(streamZ.getAdminOps()->numStreams(), 2);
 }
 
 

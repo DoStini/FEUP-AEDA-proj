@@ -118,8 +118,7 @@ long int AdminOps::numStreams() {
     long int acc = std::count_if(its,
                                  ite,
                                  [](const std::pair<ID, Stream *> & l1){
-                                     return l1.second->getStreamType() == privateType ||
-                                            l1.second->getStreamType() == publicType;
+                                     return l1.second->getStreamType() != finishedType;
                                  });
     return acc;
 }
