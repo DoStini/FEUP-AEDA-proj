@@ -273,6 +273,12 @@ TEST(test, run) {
     StreamZ manager = StreamZ();
     manager.init();
 
+    manager.getUserM()->createAdmin("Admin","admin",Date(2001, 02, 25), "admin");
+    manager.getUserM()->createViewer("NUno","nuno",Date(2001, 02, 25), "admin");
+    manager.getUserM()->createViewer("roger","roger",Date(2001, 02, 25), "admin");
+    manager.getUserM()->createViewer("asd","asd",Date(2001, 02, 25), "admin");
+
+
     manager.run();
 
 }

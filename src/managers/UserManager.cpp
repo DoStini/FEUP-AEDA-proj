@@ -35,3 +35,10 @@ void UserManager::changePassword(const std::string &basicString) {
 void UserManager::removeUser(std::string nickName) {
 
 }
+
+void UserManager::createAdmin(std::string userName, std::string nickName, Date date, std::string password) {
+    Admin * admin = new Admin(userName, nickName, date);
+    admin->changePassword(password);
+    admin->setReference(streamZ);
+    streamZ->getDatabase().getUsers()[nickName] = admin;
+}

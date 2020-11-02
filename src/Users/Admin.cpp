@@ -7,3 +7,7 @@
 UserType Admin::getInfo() const {
     return admin;
 }
+
+Admin::Admin(std::string name, std::string nickName, const Date &birthDate) : User(name, nickName, birthDate) {
+
+}

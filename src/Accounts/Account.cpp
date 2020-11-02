@@ -183,6 +183,7 @@ void Account::deleteAccount() {
             return;
         }
 
+        // TODO CHANGE TO ACTUAL DELETE FUNCTION
         delete user;
         print();
         print("User deleted. We hope you enjoyed your stay.");

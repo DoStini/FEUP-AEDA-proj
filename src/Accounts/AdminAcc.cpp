@@ -4,6 +4,7 @@
 
 #include "AdminAcc.h"
 #include "Admin.h"
+#include "StreamZ.h"
 
 AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
     if(Admin * ad = dynamic_cast<Admin*>(admin)) {
@@ -11,4 +12,41 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
     } else {
         throw WrongUserTypeException(UserType::admin);
     }
+    options.insert(options.begin()+3, {
+       std::bind(&AdminAcc::removeUser, this)
+    });
+    optionDescriptions.insert(optionDescriptions.begin()+3, {
+        "Delete a user from the platform."
+    });
+    nOptions=options.size();
+}
+
+void AdminAcc::removeUser() {
+    std::string nickName;
+    std::stringstream ss;
+
+    print("What is the nickname of the user you wish to delete? (empty to cancel) ", '\0');
+
+    getTruncatedString(nickName);
+
+    print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    try {
+        streamZ->getAdminOps()->removeUser(nickName);
+
+        print("Operation success. User Terminated. It is nice to be in power :)");
+    } catch (DoesNotExist<std::string> &e) {
+        ss << "No such user with nickname " << nickName << ".";
+        print("Operation Failed: ");
+        print(ss.str());
+    }
+
+    waitForKey();
 }

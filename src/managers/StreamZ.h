@@ -10,6 +10,7 @@
 #include "Database.h"
 #include "SortingManager.h"
 #include "SearchManager.h"
+#include "AdminOps.h"
 #include "UserManager.h"
 #include "LeaderBoard.h"
 #include "utils.h"
@@ -24,6 +25,7 @@
 #include "StreamerAcc.h"
 #include "AdminAcc.h"
 
+
 #define ID unsigned long long int
 
 
@@ -33,6 +35,7 @@ class StreamZ {
     SearchManager * searchManager;
     UserManager * userManager;
     LeaderBoard * leaderboard;
+    AdminOps * adminOps;
     Database dataBase;
 public:
     void init();
@@ -56,6 +59,7 @@ public:
     SortingManager * getSortM();
     SearchManager * getSearchM();
     UserManager * getUserM();
+    AdminOps * getAdminOps();
     Database & getDatabase();
 };
 

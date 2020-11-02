@@ -17,6 +17,7 @@ void StreamZ::init() {
     searchManager = new SearchManager(this);
     userManager = new UserManager(this);
     leaderboard = new LeaderBoard;
+    adminOps = new AdminOps(this);
     dataBase = Database();
 }
 
@@ -38,6 +39,10 @@ SearchManager *StreamZ::getSearchM() {
 
 UserManager *StreamZ::getUserM() {
     return userManager;
+}
+
+AdminOps *StreamZ::getAdminOps() {
+    return adminOps;
 }
 
 void StreamZ::run() {
