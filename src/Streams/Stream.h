@@ -41,6 +41,8 @@ public:
      * @return - string with all the info
      */
     virtual std::string getInfo() const = 0;
+    /// @return - type of the stream
+    virtual streamType getStreamType() const = 0;
     /**
      * Give us the stream language
      *

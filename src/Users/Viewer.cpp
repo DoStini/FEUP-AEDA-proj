@@ -61,6 +61,10 @@ void Viewer::leaveStream() {
     currWatching = nullptr;
 }
 
+ID Viewer::getStreamID() const {
+    return 0;
+}
+
 void Viewer::giveFeedBack(feedback fbValue) {
     if(!watching()) throw NotInStreamException(name);
     /*

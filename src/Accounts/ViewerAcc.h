@@ -17,6 +17,7 @@ class Viewer;
 class ViewerAcc : public Account{
 private:
     Viewer * viewer;
+    bool checkWatchingPrivate() const;
 public:
     /**
      * ViewerAcc constructor
@@ -39,6 +40,12 @@ public:
      * Prompts the user to give a stream feedback.
      */
     void giveFeedback();
+
+    /**
+     * Prompts the user to comment on a private stream.
+     */
+    void giveComment();
+
 
     /**
      * Displays the live streams of the streamers the viewer is following.

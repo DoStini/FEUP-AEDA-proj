@@ -67,6 +67,8 @@ public:
      */
     void giveFeedBack(std::string comment);
 
+    unsigned long long int getStreamID() const;
+
 private:
     /// Minimum age to be able to create a viewer account
     static const unsigned minimumAge = VIEWER_MIN_AGE;
@@ -74,7 +76,6 @@ private:
     Stream * currWatching = nullptr;
     /// List of streamers the viewer follows
     std::vector<Streamer *> followingStreamers;
-
 };
 
 

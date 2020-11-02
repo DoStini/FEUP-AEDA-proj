@@ -60,6 +60,12 @@ void print(T message, char end = '\n') {
 
 void print(char end = '\n');
 
+enum streamType{
+    publicType = 1,
+    privateType,
+    finishedType,
+};
+
 enum language{
     PT_PT = 0,
     PT_BR,
