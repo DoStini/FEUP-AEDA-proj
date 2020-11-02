@@ -27,6 +27,8 @@ public:
     Viewer(std::string name, std::string nickName, const Date &birthDate);
     ///@return - user type = viewer
     userType getUserType() const override;
+    ///@return - ID of current watching stream
+    ID getCurrWatching() const;
     /// @return boolean indicating if the user is watching some stream or not
     bool watching() const;
     /**
@@ -44,27 +46,39 @@ public:
      * Might throw AlreadyInStreamException
      * @param stream - Desired stream
      */
-    void joinStream(unsigned long long int streamID);
+    void joinStream(ID streamID);
     /// Leave the current stream. Might throw a NotInStreamException
     void leaveStream();
-    /// Add stream to the history of streams
-    void addStreamHistory(unsigned long long int streamID);
+    /**
+     * Add stream to the stream history
+     *
+     * @param streamID - stream to be added to the history
+     */
+    void addStreamHistory(ID streamID);
+    /**
+     * Checks if a stream is in the stream history
+     *
+     * @param streamID - id of the stream to be checked
+     * @return - true if it is, otherwise false
+     */
+    bool isInStreamHistory(ID streamID);
     /// Like the current stream
     void giveFeedBack(feedback fbValue);
     /**
      * Leave a comment on the (private) stream currently watching
      * @param comment - The comment
      */
-    void giveFeedBack(std::string comment);
+    void giveFeedBack(const std::string& comment);
+
 private:
     /// Minimum age to be able to create a viewer account
     static const unsigned minimumAge = VIEWER_MIN_AGE;
     /// Stream currently watching
-    unsigned long long int currWatching = 0;
+    ID currWatching = 0;
     /// List of streamers nicks the viewer follows
     std::vector<std::string> followingStreamers;
     /// Vector of streams that user have seen
-    std::vector<unsigned long long int> streamHistory;
+    std::vector<ID> streamHistory;
 };
 
 

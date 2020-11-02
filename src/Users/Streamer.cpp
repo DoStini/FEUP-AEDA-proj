@@ -12,7 +12,6 @@ Streamer::Streamer(std::string name, std::string nickName, const Date &birthDate
         User(name, std::move(nickName), birthDate) {
     if(age <= minimumAge)
         throw RestrictedAgeException(name, age, minimumAge);
-
 }
 
 userType Streamer::getUserType() const {
@@ -31,6 +30,7 @@ ID Streamer::getStreamID() {
     return currStreaming;
 }
 
+
 unsigned int Streamer::getNumViewers()  {
 
     unsigned int views;
@@ -46,10 +46,23 @@ unsigned int Streamer::getNumViewers()  {
 
     return views;
 
+void Streamer::addFollower(std::string viewerNick) {
+    followedBy.push_back(viewerNick);
 }
+
+void Streamer::removeFollower(std::string viewerNick) {
+    followedBy.erase(find(followedBy.begin(),followedBy.end(),viewerNick));
+}
+
+unsigned int Streamer::getNumFollowers() const {
+    return followedBy.size();
+}
+
+
 
 void Streamer::closeStream() {
     finishedStreams.push_back(currStreaming);
+
     dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currStreaming))->closeStream();
     currStreaming = NULL_STREAM;
 }
@@ -65,3 +78,29 @@ void Streamer::startPrivateStream(std::string title, language streamLanguage, ge
 
     currStreaming = streamID;
 }
+
+
+
+void Streamer::startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
+    PublicStream newStream(std::move(title),streamLanguage,streamGenre,nickName,minAge);
+    currStreaming = newStream.getStreamId();
+    // TODO ADD NEW STREAM TO DATABASE
+}
+
+void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge, unsigned int maxNumberViewers) {
+    PrivateStream newStream(std::move(title),streamLanguage,streamGenre,nickName,minAge,maxNumberViewers);
+    currStreaming = newStream.getStreamId();
+    // TODO ADD NEW STREAM TO DATABASE
+}
+
+void Streamer::kickUser(std::string viewerNick) {
+    if(!streamZ->getSearchM()->userExists(viewerNick))
+        throw DoesNotExist<std::string>(viewerNick);
+
+    auto viewer = (Viewer*) streamZ->getSearchM()->getUser(viewerNick);
+    if(viewer->getCurrWatching() == currStreaming)
+        viewer->leaveStream();
+}
+
+
+

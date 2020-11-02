@@ -73,6 +73,7 @@ add_executable(FEUP_AEDA_proj
         src/managers/AdminOps.cpp 
         src/managers/AdminOps.h
         src/Users/Admin.cpp 
+
         src/Users/Admin.h src/Exceptions/users/AlreadyExists.h src/managers/StreamManager.cpp src/managers/StreamManager.h src/Exceptions/streams/AlreadyInWhiteListException.cpp src/Exceptions/streams/AlreadyInWhiteListException.h)
 
 

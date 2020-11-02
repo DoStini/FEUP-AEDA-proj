@@ -20,7 +20,6 @@ public:
      * @param streamWatching
      */
     AlreadyInStreamException(std::string user, unsigned long long int streamWatching);
-
     /**
      * Brief info about exception
      * @return

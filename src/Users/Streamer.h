@@ -53,10 +53,14 @@ public:
      * Start streaming a private stream
      * @param title - Title of the stream
      * @param language - Stream language
-     * @genre genre - Genre of the stream
+     * @param genre - Genre of the stream
      * @param minAge - Minimal age of the stream , 12 by default
+     * @param maxNumberViewers - max number of viewers that the stream will have
      */
-    void startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned minAge = VIEWER_MIN_AGE);
+
+    void startPrivateStream(std::string title, language streamLanguage, genre streamGenre,
+                            unsigned minAge = VIEWER_MIN_AGE, unsigned int maxNumberViewers = MAX_VIEWERS);
+
     ///@return - number of viewers in the stream
     unsigned int getNumViewers();
     /**
@@ -64,21 +68,6 @@ public:
      * @param viewerNick - nick of the viewer
      */
     void kickUser(std::string viewerNick);
-    /**
-     * Add user from the stream
-     * @param viewerNick - nick of the viewer
-     */
-    void addUser(std::string viewerNick);
-    /**
-     * Add user to the whitelist of the private stream
-     * @param viewerNick - nick of the viewer
-     */
-    void addUserToPrivate(std::string viewerNick);
-    /**
-     * Remove user to the whitelist of the private stream
-     * @param viewerNick - nick of the viewer
-     */
-    void removeUserFromPrivate(std::string viewerNick);
     ///Command to end the current streaming stream
     void closeStream();
     ///Compare two streamers

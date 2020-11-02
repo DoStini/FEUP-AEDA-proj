@@ -10,7 +10,7 @@
 #include "StreamZ.h"
 
 using testing::Eq;
-/*
+
 TEST(test, createUsers){
 
     EXPECT_THROW(Viewer("Andre Moreira", "gordoMan", Date(2009,3,9)), RestrictedAgeException);
@@ -35,43 +35,43 @@ TEST(test, createUsers){
 
 
 TEST(test, publicStream) {
-    PublicStream s1("Nice stream", "PT");
+    PublicStream s1("Nice stream", PT_PT,gaming,"unknow",12);
     ASSERT_EQ(s1.getTitle(), "Nice stream");
     ASSERT_EQ(s1.getMinAge(), 12);
     ASSERT_EQ(s1.getNumViewers(), 0);
     Viewer v1("Andre Moreira", "gordoMan", Date(1999,3,9));
     Viewer v2("Andre Moreira", "gordox2", Date(1999,3,9));
-    s1.addViewer((User *) &v1);
+    s1.addViewer(v1.getNickName());
     ASSERT_EQ(s1.getNumViewers(), 1);
-    s1.addViewer((User *) &v2);
+    s1.addViewer(v2.getNickName());
     ASSERT_EQ(s1.getNumViewers(), 2);
 
-}*/
+}
 
 /*TEST(test, user_private_stream) {
-    PublicStream sp("Nice open source stream", "PT");
-    PrivateStream s1("Nice stream", "PT");
+    PublicStream sp("Nice open source stream", PT_PT,gaming,"unknow",12);
+    PrivateStream s1("Nice stream", PT_PT,gaming,"unknow",12,5);
     ASSERT_EQ(s1.getTitle(), "Nice stream");
     ASSERT_EQ(s1.getMinAge(), 12);
     ASSERT_EQ(s1.getNumViewers(), 0);
     Viewer v1("Andre Moreira", "gordoMan", Date(1999, 3, 9));
     Viewer v2("Andre Moreira", "gordox2", Date(1999, 3, 9));
 
-    EXPECT_THROW(v1.joinStream(&s1), RestrictedStreamException);
-    EXPECT_THROW(v2.joinStream(&s1), RestrictedStreamException);
+    EXPECT_THROW(v1.joinStream(s1.getStreamId()), RestrictedStreamException);
+    EXPECT_THROW(v2.joinStream(s1.getStreamId()), RestrictedStreamException);
 
-    s1.addValidUser(&v1);
-    v1.joinStream(&s1);
+    s1.addValidUser(v1.getNickName());
+    v1.joinStream(s1.getStreamId());
     EXPECT_EQ(s1.getNumViewers(), 1);
 
     try{
-        v2.joinStream(&s1);
+        v2.joinStream(s1.getStreamId());
     } catch (std::exception & e) {
         if(strcmp(e.what(), "User not whitelisted"))
             std::cout << *( dynamic_cast<RestrictedStreamException *>(&e) ) << std::endl;
     }
 
-    EXPECT_THROW(v1.joinStream(&sp), AlreadyInStreamException);
+    EXPECT_THROW(v1.joinStream(sp.getStreamId()), AlreadyInStreamException);
 
 }*/
 

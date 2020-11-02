@@ -12,3 +12,7 @@ PublicStream::PublicStream(std::string title, language streamLanguage, genre str
 streamType PublicStream::getStreamType() const {
     return publicType;
 }
+
+void PublicStream::addViewer(const std::string &viewerNick) {
+    LiveStream::addViewer(viewerNick);
+}
