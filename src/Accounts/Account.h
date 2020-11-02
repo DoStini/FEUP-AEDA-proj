@@ -51,15 +51,15 @@ protected:
     void virtual listStreams();
 
     /**
+     * Searches for users (with their display name) and lists them.
+     */
+    void listUsers();
+
+    /**
      * Prompts the user for parameters to search for a live stream and returns a vector
      * @param[out] streams A variable where the resulting search gets put
      */
     void searchParameters(std::vector<LiveStream *> &streams);
-
-    /**
-     * Lists all Users;
-     */
-    void listUsers();
 
     /**
      * Displays the leaderboard panel.

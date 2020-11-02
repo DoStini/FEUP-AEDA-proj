@@ -16,7 +16,7 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
     }
 
 
-    options.insert(options.begin()+2, {
+    options.insert(options.begin()+3, {
         std::bind(&ViewerAcc::findStreamFollowing, this),
         std::bind(&ViewerAcc::joinStreamById, this),
         std::bind(&ViewerAcc::leaveStream, this),
@@ -26,14 +26,14 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         std::bind(&ViewerAcc::followStreamer, this),
         std::bind(&ViewerAcc::unfollowStreamer, this)
     });
-    optionChecks[2] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
-    optionChecks[3] = [this]() {return !this->viewer->watching();};
-    optionChecks[4] = [this]() {return this->viewer->watching();};
+    optionChecks[3] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
+    optionChecks[4] = [this]() {return !this->viewer->watching();};
     optionChecks[5] = [this]() {return this->viewer->watching();};
-    optionChecks[6] = [this]() { return this->checkWatchingPrivate();};
-    optionChecks[7] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
-    optionChecks[9] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
-    optionDescriptions.insert(optionDescriptions.begin()+2,{
+    optionChecks[6] = [this]() {return this->viewer->watching();};
+    optionChecks[7] = [this]() { return this->checkWatchingPrivate();};
+    optionChecks[8] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
+    optionChecks[10] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
+    optionDescriptions.insert(optionDescriptions.begin()+3,{
         "List all live streams from the streamers you follow.",
         "Join a stream with a stream ID.",
         "Leave the stream you are currently watching.",
@@ -174,13 +174,18 @@ void ViewerAcc::findStreamFollowing() {
 void ViewerAcc::followStreamer() {
     std::string nickName;
 
-    print("What is the nickname of the streamer you wish to follow? ", '\0');
+    print("What is the nickname of the streamer you wish to follow? (empty to cancel) ", '\0');
 
-    while(!checkInput(nickName)) {
-        print("Invalid nickname, please try again: ", '\0');
-    }
+    getTruncatedString(nickName);
 
     print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
     // TODO THIS IS NOT CHECKING IF THE STREAMER EXISTS OR NOT
     try {
         viewer->followStreamer(nickName);
@@ -197,13 +202,18 @@ void ViewerAcc::followStreamer() {
 void ViewerAcc::unfollowStreamer() {
     std::string nickName;
 
-    print("What is the nickname of the streamer you wish to unfollow? ", '\0');
+    print("What is the nickname of the streamer you wish to unfollow? (empty to cancel) ", '\0');
 
-    while(!checkInput(nickName)) {
-        print("Invalid nickname, please try again: ", '\0');
-    }
+    getTruncatedString(nickName);
 
     print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
     // TODO THIS IS NOT CHECKING IF THE STREAMER EXISTS OR NOT
     try {
         viewer->unFollowStreamer(nickName);

@@ -31,14 +31,16 @@ static const char *genreTypes[] = {
 Account::Account(User *user, StreamZ *streamZ) {
     this->user = user;
     this->streamZ = streamZ;
-    nOptions = 4;
+    nOptions = 5;
     options = {[](){},
                std::bind(&Account::listStreams, this),
+               std::bind(&Account::listUsers, this),
                std::bind(&Account::leaderboard, this),
                std::bind(&Account::accountOptions, this)
     };
     optionDescriptions = {"Logout.",
                           "Search for current streams.",
+                          "Search for users",
                           "View the leaderboards.",
                           "View account options."
     };
@@ -322,4 +324,34 @@ void Account::accountOptions() {
     if(option==1) changeName();
     else if(option==2) changePassword();
     else if(option==3) deleteAccount();
+}
+
+void Account::listUsers() {
+    std::vector<User*> users;
+    std::string name;
+
+    print("User Name (empty for all users): ", '\0');
+
+    getString(name);
+
+    streamZ->getSearchM()->listUsers(users, name);
+
+    print();
+    if(users.size() == 0) {
+        print("There are no users that satisfy the selected parameters.");
+
+        waitForKey();
+
+        return;
+    }
+
+    print("Here are the results: ");
+    print();
+
+    // TODO CHANGE TO FUNCTION IN TYPE.
+    printPagedList(users, std::function<std::string(User *)>([](User*user){
+        std::stringstream  ss;
+        ss << user->getName() << " (Nickname: " << user->getNickName() << ")";
+        return ss.str();
+    }));
 }

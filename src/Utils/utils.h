@@ -31,6 +31,13 @@ void waitForKey();
 void getString(std::string &string);
 
 /**
+ * Gets a string and truncates after space.
+ *
+ * @param string variable passed in reference where the string will be output.
+ */
+void getTruncatedString(std::string &string);
+
+/**
  * Turns a string to lowercase
  *
  * @param string

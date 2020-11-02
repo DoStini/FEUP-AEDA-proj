@@ -38,3 +38,6 @@ void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &stream
 
 }
 
+void SearchManager::listUsers(std::vector<User *> &users, const std::string &name) {
+}
+
