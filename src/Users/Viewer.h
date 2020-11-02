@@ -67,7 +67,7 @@ public:
      */
     void giveFeedBack(std::string comment);
 
-    const std::vector<std::string> &getFollowingStreamers();
+    const std::vector<std::string> &getFollowingStreamers() const;
 
     unsigned long long int getStreamID() const;
 

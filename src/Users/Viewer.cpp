@@ -91,6 +91,6 @@ bool Viewer::watching() {
     return currWatching != nullptr;
 }
 
-const std::vector<std::string> &Viewer::getFollowingStreamers() {
+const std::vector<std::string> &Viewer::getFollowingStreamers() const {
     return followingStreamers;
 }

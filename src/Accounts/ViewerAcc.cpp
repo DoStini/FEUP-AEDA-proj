@@ -22,20 +22,23 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         std::bind(&ViewerAcc::leaveStream, this),
         std::bind(&ViewerAcc::giveFeedback, this),
         std::bind(&ViewerAcc::giveComment, this),
-        std::bind(&ViewerAcc::followStreamer, this)
+        std::bind(&ViewerAcc::followStreamer, this),
+        std::bind(&ViewerAcc::unfollowStreamer, this)
     });
     optionChecks[2] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
     optionChecks[3] = [this]() {return !this->viewer->watching();};
     optionChecks[4] = [this]() {return this->viewer->watching();};
     optionChecks[5] = [this]() {return this->viewer->watching();};
     optionChecks[6] = [this]() { return this->checkWatchingPrivate();};
+    optionChecks[8] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
     optionDescriptions.insert(optionDescriptions.begin()+2,{
         "List all live streams from the streamers you follow.",
         "Join a stream with a stream ID.",
         "Leave the stream you are currently watching.",
         "Give feedback to current stream.",
         "Write a comment to the current stream.",
-        "Follow a streamer."
+        "Follow a streamer.",
+        "Unfollow a streamer."
     });
     nOptions = options.size();
 }
@@ -186,4 +189,26 @@ void ViewerAcc::followStreamer() {
 
     waitForKey();
 
+}
+
+void ViewerAcc::unfollowStreamer() {
+    std::string nickName;
+
+    print("What is the nickname of the streamer you wish to unfollow? ", '\0');
+
+    while(!checkInput(nickName)) {
+        print("Invalid nickname, please try again: ", '\0');
+    }
+
+    print();
+    // TODO THIS IS NOT CHECKING IF THE STREAMER EXISTS OR NOT
+    try {
+        viewer->unFollowStreamer(nickName);
+
+        print("Success!");
+    } catch (FollowStreamerException &e) {
+        print(e);
+    }
+
+    waitForKey();
 }
