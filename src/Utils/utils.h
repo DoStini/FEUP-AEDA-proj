@@ -16,8 +16,36 @@ typedef unsigned long long int ID;
 #include <limits>
 #include<string>
 #include <algorithm>
+#include <vector>
+#include <sstream>
+#include <functional>
 
+/// Waits for input to continue;
+void waitForKey();
 
+/**
+ * Gets a string with spaces.
+ *
+ * @param string variable passed in reference where the string will be output.
+ */
+void getString(std::string &string);
+
+/**
+ * Turns a string to lowercase
+ *
+ * @param string
+ * @return a copy of the string in lowercase
+ */
+std::string stringToLower(std::string string);
+
+/**
+ * Function that prompts the user for the input of a single char.
+ * Reads only the first char input to the buffer, all else is deleted from the buffer.
+ * Allows the EOF character.
+ *
+ * @param[out] input The variable where the input is stored.
+ */
+void getChar(char& input);
 
 /**
  * Function that prompts the user for input.
@@ -60,6 +88,51 @@ void print(T message, char end = '\n') {
 
 void print(char end = '\n');
 
+/**
+ * Prints a vector in pages.
+ *
+ * @tparam T the type of data in the vector
+ * @param[in] list The vector to be printed
+ * @param printFunction A std::function that returns a string containing information of the data to be listed
+ */
+template<typename T>
+void printPagedList(std::vector<T> list, std::function<std::string(T)> printFunction) {
+    char action;
+    unsigned order = 1, page = 1;
+    std::stringstream ss;
+    auto it = list.begin();
+
+    while(action != 'S' || it != list.end()) {
+        ss.str("");
+        ss << "Page " << page << ": ";
+        print(ss.str());
+        print();
+
+        for(int _ = 0; _ < 10 && it != list.end(); order++, it++, _++) {
+            ss.str("");
+            ss << order << ". " << printFunction((*it));
+            print(ss.str());
+        }
+
+        if(it == list.end()) {
+            print();
+            print("End of list.");
+
+            waitForKey();
+
+            return;
+        }
+
+        print();
+        print("Press ENTER to show more items, write 'S' to leave.");
+
+        getChar(action);
+        action = toupper(action);
+
+        page++;
+    }
+}
+
 enum streamType{
     publicType = 1,
     privateType,
@@ -87,21 +160,6 @@ enum genre{
     meetGreet,
     LASTG
 };
-
-void waitForKey();
-
-void getString(std::string &string);
-
-std::string stringToLower(std::string string);
-
-/**
- * Function that prompts the user for the input of a single char.
- * Reads only the first char input to the buffer, all else is deleted from the buffer.
- * Allows the EOF character.
- *
- * @param[out] input The variable where the input is stored.
- */
-void getChar(char& input);
 
 
 #endif //FEUP_AEDA_PROJ_UTILS_H

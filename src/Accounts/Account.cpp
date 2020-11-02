@@ -275,8 +275,6 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
 }
 
 void Account::listStreams() {
-    char action;
-    unsigned order = 1, page = 1;
     std::vector<LiveStream*> streams;
     std::stringstream ss;
 
@@ -290,36 +288,16 @@ void Account::listStreams() {
 
         return;
     }
-    auto it = streams.begin();
 
     print("Here are all the current live streams: ");
     print();
 
-    while(action != KEY_ESC || it != streams.end()) {
-        ss.str("");
-        ss << "Page " << page << ": ";
-        print(ss.str());
-        print();
-
-        for(int _ = 0; _ < 10 && it != streams.end(); order++, it++, _++) {
-            ss.str("");
-            ss << order << ". " << (*it)->getTitle() << " :: Stream Id : ", (*it)->getId();
-        }
-
-        if(it == streams.end()) {
-            print();
-            print("End of list.");
-
-            waitForKey();
-        }
-
-        print();
-        print("Press ENTER to show more streams, press ESC to leave.");
-
-        getChar(action);
-
-        page++;
-    }
+    // TODO CHANGE TO FUNCTION IN TYPE.
+    printPagedList(streams, std::function<std::string(LiveStream *)>([](LiveStream*stream){
+        std::stringstream  ss;
+        ss << stream->getTitle() << " (Stream Id: " << stream->getId() << ")";
+        return ss.str();
+    }));
 }
 
 void Account::accountOptions() {

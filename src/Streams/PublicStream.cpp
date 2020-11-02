@@ -16,3 +16,7 @@ std::string PublicStream::getInfo() const {
                      "     Language:"<< this->getStreamLanguage() << "     Necessary age:" << this->getMinAge();
     return ssInfo.str();
 }
+
+streamType PublicStream::getStreamType() const {
+    return publicType;
+}

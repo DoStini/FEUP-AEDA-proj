@@ -18,6 +18,7 @@ public:
      */
     PublicStream(std::string title, std::string language, unsigned minAge = 12);
     std::string getInfo() const override;
+    streamType getStreamType() const override;
 };
 
 

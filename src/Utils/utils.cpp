@@ -26,7 +26,7 @@ void getChar(char &input) {
 void waitForKey() {
     char buffer;
 
-    std::cout << "Press any key to continue..." << std::endl;
+    std::cout << "Press ENTER/RETURN to continue..." << std::endl;
     getChar(buffer);
 }
 
