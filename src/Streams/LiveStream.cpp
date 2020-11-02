@@ -34,14 +34,16 @@ unsigned int LiveStream::getMinAge() const {
 
 unsigned int LiveStream::closeStream() {
     unsigned nViewers = this->getNumViewers();
-    FinishedStream fStream(this->getTitle(),this->getStreamLanguage(),this->getGenre(),nViewers,this->getStreamerNick(),streamId);
+
+    FinishedStream *fStream = new FinishedStream(this->getTitle(),this->getStreamLanguage(),this->getGenre(),nViewers,this->getStreamerNick(),streamId);
     for (unsigned i = 0; i < streamViewers.size() ; i++) {
         Viewer * viewer = (Viewer *) streamZ->getSearchM()->getUser(streamViewers.at(i));
         viewer->leaveStream();
         viewer->addStreamHistory(streamId);
 
     }
-    //TODO REMOVER LIVE STREAM DA DATABASE E ADICIONAR FINISHED STREAM
+    streamZ->getDatabase().getStreams().erase(streamId);
+    streamZ->getDatabase().getStreams().insert(std::pair<ID, Stream *> ( streamId, (Stream * )fStream ));
     return nViewers;
 }
 

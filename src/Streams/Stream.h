@@ -58,7 +58,6 @@ protected:
     StreamZ * streamZ = nullptr;
     ///ID of the stream
     ID streamId;
-private:
     ///Stream title
     std::string title;
     ///Stream begin date

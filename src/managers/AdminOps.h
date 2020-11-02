@@ -9,6 +9,7 @@
 #include <map>
 
 #include "utils.h"
+#include "Date.h"
 
 class StreamZ;
 class Streamer;
@@ -37,8 +38,17 @@ public:
     genre rankViewsGenres(bool reversed = false);
     /// @return The median views per stream
     float medianViewsStream();
+
+    float medianViewsStream(Date d1, Date d2);
+    /// @return The number of all of the streams ever created
+    long int numStreamsAll();
     /// @return The number of active streams
     long int numStreams();
+    /**
+     * @param streamType - The specific type (public, private or finished)
+     * @return The number of streams of the specified type
+     */
+    long int numStreams(streamType streamType);
     /**
      * Removes a user
      * @param nickName Nickname of the user

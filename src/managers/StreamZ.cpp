@@ -4,13 +4,13 @@
 
 #include <PublicStream.h>
 #include "StreamZ.h"
-
+#include "LiveStream.h"
 
 
 void StreamZ::init() {
 
     //readFromFile();
-
+    LiveStream::lastId = 1;
     sortingManager = new SortingManager(this);
     searchManager = new SearchManager(this);
     userManager = new UserManager(this);

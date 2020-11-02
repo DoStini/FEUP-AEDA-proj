@@ -3,6 +3,8 @@
 //
 
 #include "Streamer.h"
+
+#include <utility>
 #include "StreamZ.h"
 
 
@@ -44,4 +46,22 @@ unsigned int Streamer::getNumViewers()  {
 
     return views;
 
+}
+
+void Streamer::closeStream() {
+    finishedStreams.push_back(currStreaming);
+    dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currStreaming))->closeStream();
+    currStreaming = NULL_STREAM;
+}
+
+void Streamer::startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
+    ID streamID = streamZ->getStreamManager()->createPublicStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
+
+    currStreaming = streamID;
+}
+
+void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
+    ID streamID = streamZ->getStreamManager()->createPrivateStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
+
+    currStreaming = streamID;
 }

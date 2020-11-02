@@ -3,6 +3,7 @@
 //
 
 #include <set>
+#include <numeric>
 #include "AdminOps.h"
 #include "StreamZ.h"
 
@@ -107,3 +108,75 @@ Streamer *AdminOps::mostViewed() {
 
 }
 
+long int AdminOps::numStreamsAll() {
+    return streamZ->getDatabase().getStreams().size();
+}
+
+long int AdminOps::numStreams() {
+    auto its = streamZ->getDatabase().getStreams().begin();
+    auto ite = streamZ->getDatabase().getStreams().end();
+    long int acc = std::count_if(its,
+                                 ite,
+                                 [](const std::pair<ID, Stream *> & l1){
+                                     return l1.second->getStreamType() == privateType ||
+                                            l1.second->getStreamType() == publicType;
+                                 });
+    return acc;
+}
+
+long int AdminOps::numStreams(streamType streamType) {
+    auto its = streamZ->getDatabase().getStreams().begin();
+    auto ite = streamZ->getDatabase().getStreams().end();
+    long int acc = std::count_if(its,
+                                 ite,
+                                 [streamType](const std::pair<ID, Stream *> & l1){
+                                    return l1.second->getStreamType() == streamType;
+                                 });
+    return acc;
+
+}
+
+float AdminOps::medianViewsStream() {
+    auto its = streamZ->getDatabase().getStreams().begin();
+    auto ite = streamZ->getDatabase().getStreams().end();
+    long int sum = 0;
+    while(its != ite){
+        if( its->second->getStreamType() == finishedType ){
+            FinishedStream * ptr = dynamic_cast<FinishedStream *>(its->second) ;
+            sum += ptr->getNumViewers();
+
+        }
+        else{
+            LiveStream * ptr = dynamic_cast<LiveStream *>(its->second);
+            sum += ptr->getNumViewers();
+        }
+        its++;
+    }
+    return (float)sum/(float)numStreamsAll();
+}
+
+float AdminOps::medianViewsStream(Date d1, Date d2) {
+    auto its = streamZ->getDatabase().getStreams().begin();
+    auto ite = streamZ->getDatabase().getStreams().end();
+    long int numStreams = 0, sum = 0;
+
+    while(its != ite){
+        if( its->second->getStreamType() == finishedType ){
+            FinishedStream * ptr = dynamic_cast<FinishedStream *>(its->second);
+            if(ptr->getBeginDate() >= d1 && ptr->getFinishedDate() <= d2) {
+                sum += ptr->getNumViewers();
+                numStreams++;
+            }
+        }
+        else{
+            LiveStream * ptr = dynamic_cast<LiveStream *>(its->second);
+            if (ptr->getBeginDate() <= d2 && ptr->getBeginDate() >= d1) {
+                sum += ptr->getNumViewers();
+                numStreams++;
+            }
+        }
+        its++;
+    }
+
+    return (float)sum/(float)numStreams;
+}

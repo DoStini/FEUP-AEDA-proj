@@ -82,7 +82,8 @@ public:
     */
     // Change this operator later
     bool operator<(LiveStream * compStream);
-    /// Static variable that stores the last id of the stream ( Not allowing repeated id's )f
+    /// Id of the last stream created
+    static ID lastId ;
 private:
     /// Necessary age to se the stream
     unsigned minAge;
@@ -92,8 +93,7 @@ private:
     std::map<std::string,feedback> likeSystem;
     /// Number of like and dislikes of the stream
     std::pair<unsigned,unsigned> nLikes_Dislikes;
-    /// Id of the last stream created
-    static ID lastId ;
+
 };
 
 
