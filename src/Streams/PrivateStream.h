@@ -6,6 +6,8 @@
 #define FEUP_AEDA_PROJ_PRIVATESTREAM_H
 
 #include <utility>
+
+#include "AlreadyInWhiteListException.h"
 #include "LiveStream.h"
 #include "MaxViewersReach.h"
 class User;

@@ -7,6 +7,7 @@
 #include <utility>
 #include "StreamZ.h"
 
+
 Streamer::Streamer(std::string name, std::string nickName, const Date &birthDate) :
         User(name, std::move(nickName), birthDate) {
     if(age <= minimumAge)
@@ -29,6 +30,22 @@ ID Streamer::getStreamID() {
     return currStreaming;
 }
 
+
+unsigned int Streamer::getNumViewers()  {
+
+    unsigned int views;
+
+    Stream * ptr = streamZ->getSearchM()->getStream(currStreaming);
+
+    if(streaming()) views += dynamic_cast<LiveStream *>(ptr)->getNumViewers();
+
+    for(const auto & id : finishedStreams){
+        ptr = streamZ->getSearchM()->getStream(id);
+        views += dynamic_cast<FinishedStream *>(ptr)->getNumViewers();
+    }
+
+    return views;
+
 void Streamer::addFollower(std::string viewerNick) {
     followedBy.push_back(viewerNick);
 }
@@ -41,20 +58,28 @@ unsigned int Streamer::getNumFollowers() const {
     return followedBy.size();
 }
 
-unsigned int Streamer::getNumViewers() const {
-    if (currStreaming == NULL_STREAM)
-        throw NotInStreamException(nickName);
-    auto lStream = (LiveStream*) streamZ->getSearchM()->getStream(currStreaming);
-    return lStream->getNumViewers();
-}
+
 
 void Streamer::closeStream() {
     finishedStreams.push_back(currStreaming);
-    auto lStream = (LiveStream*) streamZ->getSearchM()->getStream(currStreaming);
-    lStream->closeStream();
-    currStreaming = NULL_STREAM;
 
+    dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currStreaming))->closeStream();
+    currStreaming = NULL_STREAM;
 }
+
+void Streamer::startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
+    ID streamID = streamZ->getStreamManager()->createPublicStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
+
+    currStreaming = streamID;
+}
+
+void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
+    ID streamID = streamZ->getStreamManager()->createPrivateStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
+
+    currStreaming = streamID;
+}
+
+
 
 void Streamer::startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
     PublicStream newStream(std::move(title),streamLanguage,streamGenre,nickName,minAge);
@@ -76,5 +101,6 @@ void Streamer::kickUser(std::string viewerNick) {
     if(viewer->getCurrWatching() == currStreaming)
         viewer->leaveStream();
 }
+
 
 
