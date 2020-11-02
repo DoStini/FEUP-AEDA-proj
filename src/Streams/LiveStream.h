@@ -53,9 +53,9 @@ public:
     */
     unsigned closeStream(); //TODO CHANGE IN DATABASE
     ///@return - number of likes of the stream
-    int getLikes() const;
+    unsigned int getLikes() const;
     ///@return - give number of dislikes of the stream
-    int getDislikes() const;
+    unsigned int getDislikes() const;
     /**
     * add like to the stream
     *

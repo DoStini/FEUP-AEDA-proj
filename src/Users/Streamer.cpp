@@ -68,4 +68,13 @@ void Streamer::startPrivateStream(std::string title, language streamLanguage, ge
     // TODO ADD NEW STREAM TO DATABASE
 }
 
+void Streamer::kickUser(std::string viewerNick) {
+    if(!streamZ->getSearchM()->userExists(viewerNick))
+        throw DoesNotExist<std::string>(viewerNick);
+
+    auto viewer = (Viewer*) streamZ->getSearchM()->getUser(viewerNick);
+    if(viewer->getCurrWatching() == currStreaming)
+        viewer->leaveStream();
+}
+
 

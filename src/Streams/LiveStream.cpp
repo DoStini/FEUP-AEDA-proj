@@ -17,7 +17,10 @@ LiveStream::LiveStream(std::string title, language streamLanguage, genre streamG
 }
 void LiveStream::addViewer(const std::string& viewerNick) {
     streamViewers.push_back(viewerNick);
-    likeSystem[viewerNick] = none;
+
+    auto viewer = (Viewer *) streamZ->getSearchM()->getUser(viewerNick);
+    if (!viewer->isInStreamHistory(streamId))
+        likeSystem[viewerNick] = none;
 }
 
 void LiveStream::removeViewer(const std::string& viewerNick) {
@@ -45,11 +48,11 @@ unsigned int LiveStream::closeStream() {
     return nViewers;
 }
 
-int LiveStream::getLikes() const {
+unsigned int LiveStream::getLikes() const {
     return nLikes_Dislikes.first;
 }
 
-int LiveStream::getDislikes() const {
+unsigned int LiveStream::getDislikes() const {
     return nLikes_Dislikes.second;
 }
 void LiveStream::giveLike(const std::string& viewerNick) {

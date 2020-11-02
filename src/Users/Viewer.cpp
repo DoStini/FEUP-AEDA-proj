@@ -19,6 +19,8 @@ userType Viewer::getUserType() const {
 }
 
 void Viewer::followStreamer(const std::string& streamerNick) {
+    if(!streamZ->getSearchM()->userExists(streamerNick))
+        throw DoesNotExist<std::string>(streamerNick);
 
     if (std::find(followingStreamers.begin(), followingStreamers.end(), streamerNick) != followingStreamers.end())
         throw FollowStreamerException(true,streamerNick, nickName); // Already following
@@ -41,6 +43,9 @@ void Viewer::unFollowStreamer(const std::string& streamerNick) {
 }
 
 void Viewer::joinStream(ID streamID) {
+    if(!streamZ->getSearchM()->streamExists(streamID))
+        throw DoesNotExist<ID>(streamID);
+
     auto * stream = (LiveStream*) streamZ->getSearchM()->getStream(streamID);
     if (watching()) throw AlreadyInStreamException(nickName, currWatching);
     // TODO Is < or <= ???
@@ -101,4 +106,12 @@ void Viewer::giveFeedBack(const std::string& comment) {
 
 bool Viewer::watching() const {
     return currWatching != 0;
+}
+
+bool Viewer::isInStreamHistory(ID streamID) {
+    return !(find(streamHistory.begin(),streamHistory.end(),streamID) == streamHistory.end());
+}
+
+ID Viewer::getCurrWatching() const {
+    return currWatching;
 }

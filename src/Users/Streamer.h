@@ -65,12 +65,7 @@ public:
      * Remove user from the stream
      * @param viewerNick - nick of the viewer
      */
-    void kickUser(std::string viewerNick); // REMOVE MAYBE
-    /**
-     * Add user from the stream
-     * @param viewerNick - nick of the viewer
-     */
-    void addUser(std::string viewerNick);// REMOVE MAYBE
+    void kickUser(std::string viewerNick);
     ///Command to end the current streaming stream
     void closeStream();
     ///Compare two streamers
