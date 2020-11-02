@@ -19,7 +19,7 @@ struct comparator{
 
 
 language AdminOps::rankViewsLang(bool reversed) {
-    std::map<language, int> ammViews;
+    std::unordered_map<language, int> ammViews;
 
     auto its = streamZ->getDatabase().getStreams().begin();
     auto ite = streamZ->getDatabase().getStreams().end();
@@ -50,7 +50,7 @@ language AdminOps::rankViewsLang(bool reversed) {
 }
 
 genre AdminOps::rankViewsGenres(bool reversed) {
-    std::map<genre, int> ammViews;
+    std::unordered_map<genre, int> ammViews;
 
     auto its = streamZ->getDatabase().getStreams().begin();
     auto ite = streamZ->getDatabase().getStreams().end();
@@ -78,5 +78,32 @@ genre AdminOps::rankViewsGenres(bool reversed) {
     return !reversed
            ? res.begin()->first
            : last->first;
+}
+
+Streamer *AdminOps::mostViewed() {
+    std::unordered_map<std::string, int> ammViews;
+
+    auto its = streamZ->getDatabase().getUsers().begin();
+    auto ite = streamZ->getDatabase().getUsers().end();
+
+    while(its != ite){
+
+        User * ptr = its->second;
+
+        if(ptr->getUserType() == userType::stream){
+            if ( ammViews.find(ptr->getNickName()) != ammViews.end() )
+                ammViews[ptr->getNickName()] += dynamic_cast<Streamer *>(ptr)->getNumViewers();
+            else
+                ammViews[ptr->getNickName()] = dynamic_cast<Streamer *>(ptr)->getNumViewers();
+        }
+        its++;
+    }
+
+    std::set<std::pair<std::string, int>, comparator> res(ammViews.begin(), ammViews.end());
+
+
+    std::string mostViewedNick = res.begin()->first;
+    return (Streamer *) streamZ->getSearchM()->getUser(mostViewedNick);
+
 }
 

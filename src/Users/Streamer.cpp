@@ -3,6 +3,8 @@
 //
 
 #include "Streamer.h"
+#include "StreamZ.h"
+
 
 Streamer::Streamer(std::string name, std::string nickName, const Date &birthDate) :
         User(name, std::move(nickName), birthDate) {
@@ -25,4 +27,21 @@ bool Streamer::streaming() {
 
 ID Streamer::getStreamID() {
     return currStreaming;
+}
+
+unsigned int Streamer::getNumViewers()  {
+
+    unsigned int views;
+
+    Stream * ptr = streamZ->getSearchM()->getStream(currStreaming);
+
+    if(streaming()) views += dynamic_cast<LiveStream *>(ptr)->getNumViewers();
+
+    for(const auto & id : finishedStreams){
+        ptr = streamZ->getSearchM()->getStream(id);
+        views += dynamic_cast<FinishedStream *>(ptr)->getNumViewers();
+    }
+
+    return views;
+
 }

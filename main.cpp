@@ -348,7 +348,7 @@ TEST(test, adminOps){
     dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(3);
     dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(2);
 
-    ASSERT_EQ(streamZ.getAdminOps()->rankViewsLang(), PT_PT);
+    ASSERT_EQ(streamZ.getAdminOps()->rankViewsLang(), PT_BR);
     ASSERT_EQ(streamZ.getAdminOps()->rankViewsLang(true), SPA);
     ASSERT_EQ(streamZ.getAdminOps()->rankViewsGenres(), technology);
     ASSERT_EQ(streamZ.getAdminOps()->rankViewsGenres(true), meetGreet);
