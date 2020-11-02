@@ -26,7 +26,8 @@ public:
      * @param language - Stream language
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    PrivateStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge, unsigned maxViewers = MAX_VIEWERS);
+    PrivateStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick,
+                  unsigned minAge = VIEWER_MIN_AGE, unsigned maxViewers = MAX_VIEWERS);
     ///@return - number of comments that the stream have
     unsigned getNumberComments();
     ///@return - stream type = private type
