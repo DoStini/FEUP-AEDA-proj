@@ -24,8 +24,8 @@ bool PrivateStream::isValidUser(const std::string& userNick) {
 }
 
 void PrivateStream::addValidUser(const std::string& userNick) {
-    if(std::find(whitelist.begin(),whitelist.end(),userNick) != whitelist.end()) throw std::string("Duplicate Exception");
-    // TODO CREATE DUPLICATE EXCEPTION TO USE AS FOLLOW STREAMER EXCEPTION AS WELL
+    if(std::find(whitelist.begin(),whitelist.end(),userNick) != whitelist.end())
+        throw AlreadyInWhiteListException(userNick,this->getStreamId()) ;
     whitelist.push_back(userNick);
 }
 
