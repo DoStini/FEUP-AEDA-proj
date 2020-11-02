@@ -22,6 +22,7 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         std::bind(&ViewerAcc::leaveStream, this),
         std::bind(&ViewerAcc::giveFeedback, this),
         std::bind(&ViewerAcc::giveComment, this),
+        std::bind(&ViewerAcc::listFollowingStreamers, this),
         std::bind(&ViewerAcc::followStreamer, this),
         std::bind(&ViewerAcc::unfollowStreamer, this)
     });
@@ -30,13 +31,15 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
     optionChecks[4] = [this]() {return this->viewer->watching();};
     optionChecks[5] = [this]() {return this->viewer->watching();};
     optionChecks[6] = [this]() { return this->checkWatchingPrivate();};
-    optionChecks[8] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
+    optionChecks[7] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
+    optionChecks[9] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
     optionDescriptions.insert(optionDescriptions.begin()+2,{
         "List all live streams from the streamers you follow.",
         "Join a stream with a stream ID.",
         "Leave the stream you are currently watching.",
         "Give feedback to current stream.",
         "Write a comment to the current stream.",
+        "List all the streamers you follow.",
         "Follow a streamer.",
         "Unfollow a streamer."
     });
@@ -211,4 +214,27 @@ void ViewerAcc::unfollowStreamer() {
     }
 
     waitForKey();
+}
+
+void ViewerAcc::listFollowingStreamers() {
+    const std::vector<std::string> following = viewer->getFollowingStreamers();
+
+    if(following.empty()) {
+        print("You don't follow any streamers.");
+
+        waitForKey();
+
+        return;
+    }
+
+    print("Here are all the streamers you follow: ");
+    print();
+
+    // TODO CHANGE TO FUNCTION IN TYPE.
+    printPagedList(following, std::function<std::string(std::string)>([this](std::string nick){
+        std::stringstream  ss;
+        Streamer * streamer = dynamic_cast<Streamer *>(this->streamZ->getSearchM()->getUser(nick));
+        ss << streamer->getName() << " (Nickname: " << streamer->getNickName() << ")";
+        return ss.str();
+    }));
 }
