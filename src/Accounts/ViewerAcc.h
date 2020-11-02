@@ -46,11 +46,15 @@ public:
      */
     void giveComment();
 
-
     /**
      * Displays the live streams of the streamers the viewer is following.
      */
     void findStreamFollowing();
+
+    /**
+     * Displays all of the streamers the viewer is following
+     */
+     void listFollowingStreamers();
 
     /**
      * Prompts the user to follow a streamer.

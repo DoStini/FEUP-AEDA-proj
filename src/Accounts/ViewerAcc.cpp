@@ -21,7 +21,8 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         std::bind(&ViewerAcc::joinStreamById, this),
         std::bind(&ViewerAcc::leaveStream, this),
         std::bind(&ViewerAcc::giveFeedback, this),
-        std::bind(&ViewerAcc::giveComment, this)
+        std::bind(&ViewerAcc::giveComment, this),
+        std::bind(&ViewerAcc::followStreamer, this)
     });
     optionChecks[2] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
     optionChecks[3] = [this]() {return !this->viewer->watching();};
@@ -33,7 +34,8 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         "Join a stream with a stream ID.",
         "Leave the stream you are currently watching.",
         "Give feedback to current stream.",
-        "Write a comment to the current stream."
+        "Write a comment to the current stream.",
+        "Follow a streamer."
     });
     nOptions = options.size();
 }
@@ -161,4 +163,27 @@ void ViewerAcc::findStreamFollowing() {
         ss << stream->getTitle() << " (Stream Id: " << stream->getId() << ")";
         return ss.str();
     }));
+}
+
+void ViewerAcc::followStreamer() {
+    std::string nickName;
+
+    print("What is the nickname of the streamer you wish to follow? ", '\0');
+
+    while(!checkInput(nickName)) {
+        print("Invalid nickname, please try again: ", '\0');
+    }
+
+    print();
+    // TODO THIS IS NOT CHECKING IF THE STREAMER EXISTS OR NOT
+    try {
+        viewer->followStreamer(nickName);
+
+        print("Success!");
+    } catch (FollowStreamerException &e) {
+        print(e);
+    }
+
+    waitForKey();
+
 }
