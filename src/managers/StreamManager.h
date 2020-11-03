@@ -32,7 +32,7 @@ public:
      * @param streamGenre - Stream genre
      * @param minAge - Minimum age for a viewer to join
      */
-    void createPublicStream(std::string name, language streamLanguage, genre streamGenre, unsigned minAge = VIEWER_MIN_AGE);
+    ID createPublicStream(std::string name, std::string streamerNick, language streamLanguage, genre streamGenre, unsigned minAge = VIEWER_MIN_AGE);
     /**
      * Function to create a public stream
      * @param name - Desired name of the new stream
@@ -40,7 +40,7 @@ public:
      * @param streamGenre - Stream genre
      * @param minAge - Minimum age for a viewer to join
      */
-    void createPrivateStream(std::string name, language streamLanguage, genre streamGenre, int maxUsers, unsigned minAge = VIEWER_MIN_AGE);
+    ID createPrivateStream(std::string name, std::string streamerNick, language streamLanguage, genre streamGenre, int maxUsers, unsigned minAge = VIEWER_MIN_AGE);
 
     /// @param streamID - Stream id of the stream to be removed
     void removeStream(ID streamID);

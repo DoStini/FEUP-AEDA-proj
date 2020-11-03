@@ -7,20 +7,6 @@
 #include <utility>
 #include "StreamZ.h"
 
-void
-StreamManager::createPublicStream(std::string name, language streamLanguage, genre streamGenre, unsigned int minAge) {
-    auto * ptr = new PublicStream(std::move(name), streamLanguage, streamGenre,"meter streamer name", minAge);
-
-    streamZ->getDatabase().getStreams().insert(std::pair<ID, Stream *>(ptr->getStreamId(), (Stream *) ptr ));
-}
-
-void
-StreamManager::createPrivateStream(std::string name, language streamLanguage, genre streamGenre,int maxUsers, unsigned int minAge) {
-    auto * ptr = new PrivateStream(std::move(name), streamLanguage, streamGenre,"meter streamer name", minAge);
-    streamZ->getDatabase().getStreams().insert(
-            std::pair<ID, Stream *>(ptr->getStreamId(), dynamic_cast<Stream *>(ptr)));
-}
-
 void StreamManager::removeStream(ID streamID) {
     if(!streamZ->getSearchM()->streamExists(streamID)) throw DoesNotExist<ID>(streamID);
 
@@ -41,3 +27,21 @@ void StreamManager::removeStreamByStreamer(std::string streamerNick) {
 }
 
 StreamManager::StreamManager(StreamZ *streamZ) : streamZ(streamZ) {}
+
+ID StreamManager::createPublicStream(std::string name, std::string streamerNick, language streamLanguage,
+                                     genre streamGenre, unsigned int minAge) {
+    auto * ptr = new PublicStream(std::move(name), streamLanguage, streamGenre,std::move(streamerNick), minAge);
+    ptr->setStreamZ(streamZ);
+    streamZ->getDatabase().getStreams().insert(std::pair<ID, Stream *>(ptr->getStreamId(), (Stream *) ptr ));
+    return ptr->getStreamId();
+}
+
+ID StreamManager::createPrivateStream(std::string name, std::string streamerNick, language streamLanguage,
+                                      genre streamGenre, int maxUsers, unsigned int minAge) {
+    auto * ptr = new PrivateStream(std::move(name), streamLanguage, streamGenre,std::move(streamerNick), minAge);
+    ptr->setStreamZ(streamZ);
+    streamZ->getDatabase().getStreams().insert(
+            std::pair<ID, Stream *>(ptr->getStreamId(), dynamic_cast<Stream *>(ptr)));
+
+    return ptr->getStreamId();
+}

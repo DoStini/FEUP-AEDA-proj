@@ -13,6 +13,7 @@ void UserManager::createViewer(const std::string& name, std::string nickName, co
     std::transform(nickName.begin(), nickName.end(), nickName.begin(), ::tolower);
 
     Viewer * ptr = new Viewer(name, nickName, birthDate);
+    ptr->setStreamZ(streamZ);
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
@@ -20,6 +21,7 @@ void UserManager::createStreamer(std::string name, std::string nickName, const D
     if(streamZ->getSearchM()->userExists(nickName)) throw AlreadyExists<std::string>(nickName);
 
     Streamer * ptr = new Streamer(name, nickName, birthDate);
+    ptr->setStreamZ(streamZ);
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
@@ -28,6 +30,7 @@ void UserManager::createAdmin(std::string name, std::string nickName, const Date
     else if(streamZ->getSearchM()->userExists(nickName)) throw AlreadyExists<std::string>(nickName);
 
     Viewer * ptr = new Viewer(name, nickName, birthDate);
+    ptr->setStreamZ(streamZ);
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 

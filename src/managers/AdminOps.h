@@ -6,7 +6,10 @@
 #define FEUP_AEDA_PROJ_ADMINOPS_H
 
 #include <string>
+#include <map>
+
 #include "utils.h"
+#include "Date.h"
 
 class StreamZ;
 class Streamer;
@@ -23,14 +26,29 @@ public:
     AdminOps(StreamZ *streamZ);
     /// @return Pointer to the most viewed streamer
     Streamer * mostViewed();
-    /// @return Most common language among streams ( enum language)
-    language mostCommonLang();
-    /// @return Most common genre among streams ( enum genre)
-    genre mostCommonGenre();
+    /**
+     * @param reversed - Optional: Set to true if you want the least viewed language
+     * @return Most viewed language among streams ( enum language)
+     */
+    language rankViewsLang(bool reversed = false);
+    /**
+     * @param reversed - Optional: Set to true if you want the least viewed genre
+     * @return Most viewed genre among streams ( enum genre)
+     */
+    genre rankViewsGenres(bool reversed = false);
     /// @return The median views per stream
     float medianViewsStream();
+
+    float medianViewsStream(Date d1, Date d2);
+    /// @return The number of all of the streams ever created
+    long int numStreamsAll();
     /// @return The number of active streams
     long int numStreams();
+    /**
+     * @param streamType - The specific type (public, private or finished)
+     * @return The number of streams of the specified type
+     */
+    long int numStreams(streamType streamType);
     /**
      * Removes a user
      * @param nickName Nickname of the user

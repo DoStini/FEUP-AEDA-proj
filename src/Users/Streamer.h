@@ -39,7 +39,7 @@ public:
     unsigned int getNumFollowers() const;
     /// @return - If the streamer is currently streaming or not
     bool streaming();
-    /// @return - ID of the current stream
+    /// @return - The current stream, or 0 if none
     ID getStreamID();
     /**
      * Start streaming a public stream
@@ -57,10 +57,12 @@ public:
      * @param minAge - Minimal age of the stream , 12 by default
      * @param maxNumberViewers - max number of viewers that the stream will have
      */
+
     void startPrivateStream(std::string title, language streamLanguage, genre streamGenre,
                             unsigned minAge = VIEWER_MIN_AGE, unsigned int maxNumberViewers = MAX_VIEWERS);
+
     ///@return - number of viewers in the stream
-    unsigned int getNumViewers() const;
+    unsigned int getNumViewers();
     /**
      * Remove user from the stream
      * @param viewerNick - nick of the viewer
@@ -78,7 +80,7 @@ private:
     ///Stream that stream is streaming
     ID currStreaming = NULL_STREAM;
     ///Streams that the streamer have ended
-    std::vector<unsigned long long int> finishedStreams;
+    std::vector<ID> finishedStreams;
 };
 
 
