@@ -8,6 +8,8 @@
 #include <exception>
 #include <ostream>
 
+#include "utils.h"
+
 class MaxViewersReach : public std::exception{
 
 public:

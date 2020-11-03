@@ -49,7 +49,7 @@ unsigned int PrivateStream::getMaxViewers() const {
 
 void PrivateStream::addViewer(const std::string &viewerNick) {
     if(this->getNumViewers() == maxViewers)
-        throw MaxViewersReach(this->getStreamId(),maxViewers);
+        throw MaxViewersReach(streamId, maxViewers);
     else
         streamViewers.push_back(viewerNick);
 }

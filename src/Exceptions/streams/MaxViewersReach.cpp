@@ -4,7 +4,7 @@
 
 #include "MaxViewersReach.h"
 
-MaxViewersReach::MaxViewersReach(unsigned long long int streamId, unsigned maxViewers)
+MaxViewersReach::MaxViewersReach(ID streamId, unsigned maxViewers)
         : streamId(streamId), maxViewers(maxViewers) {}
 
 std::ostream &operator<<(std::ostream &os, const MaxViewersReach &exception) {

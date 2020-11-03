@@ -31,20 +31,21 @@ ID Streamer::getStreamID() {
 }
 
 
-unsigned int Streamer::getNumViewers()  {
+unsigned int Streamer::getNumViewers() {
 
     unsigned int views;
 
-    Stream * ptr = streamZ->getSearchM()->getStream(currStreaming);
+    Stream *ptr = streamZ->getSearchM()->getStream(currStreaming);
 
-    if(streaming()) views += dynamic_cast<LiveStream *>(ptr)->getNumViewers();
+    if (streaming()) views += dynamic_cast<LiveStream *>(ptr)->getNumViewers();
 
-    for(const auto & id : finishedStreams){
+    for (const auto &id : finishedStreams) {
         ptr = streamZ->getSearchM()->getStream(id);
         views += dynamic_cast<FinishedStream *>(ptr)->getNumViewers();
     }
 
     return views;
+}
 
 void Streamer::addFollower(std::string viewerNick) {
     followedBy.push_back(viewerNick);
@@ -73,24 +74,11 @@ void Streamer::startPublicStream(std::string title, language streamLanguage, gen
     currStreaming = streamID;
 }
 
-void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
+void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge,
+                                  unsigned int maxNumberViewers) {
     ID streamID = streamZ->getStreamManager()->createPrivateStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
 
     currStreaming = streamID;
-}
-
-
-
-void Streamer::startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
-    PublicStream newStream(std::move(title),streamLanguage,streamGenre,nickName,minAge);
-    currStreaming = newStream.getStreamId();
-    // TODO ADD NEW STREAM TO DATABASE
-}
-
-void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge, unsigned int maxNumberViewers) {
-    PrivateStream newStream(std::move(title),streamLanguage,streamGenre,nickName,minAge,maxNumberViewers);
-    currStreaming = newStream.getStreamId();
-    // TODO ADD NEW STREAM TO DATABASE
 }
 
 void Streamer::kickUser(std::string viewerNick) {
@@ -101,6 +89,3 @@ void Streamer::kickUser(std::string viewerNick) {
     if(viewer->getCurrWatching() == currStreaming)
         viewer->leaveStream();
 }
-
-
-

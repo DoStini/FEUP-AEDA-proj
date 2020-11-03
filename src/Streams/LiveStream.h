@@ -82,10 +82,10 @@ public:
     */
     // Change this operator later
     bool operator<(LiveStream * compStream);
-    
-protected:
     /// Static variable that stores the last id of the stream ( Not allowing repeated id's )f
     static ID lastId ;
+protected:
+
     /// Necessary age to se the stream
     unsigned minAge;
     /// Vector with nicks of viewers of the stream

@@ -41,6 +41,8 @@ add_executable(FEUP_AEDA_proj
         src/Exceptions/streams/AlreadyInStreamException.h
         src/Exceptions/streams/NotInStreamException.cpp
         src/Exceptions/streams/NotInStreamException.h
+        src/Exceptions/streams/MaxViewersReach.cpp
+        src/Exceptions/streams/MaxViewersReach.h
         src/Exceptions/users/FollowStreamerException.cpp
         src/Exceptions/users/FollowStreamerException.h
         src/Utils/utils.h
@@ -74,7 +76,11 @@ add_executable(FEUP_AEDA_proj
         src/managers/AdminOps.h
         src/Users/Admin.cpp 
 
-        src/Users/Admin.h src/Exceptions/users/AlreadyExists.h src/managers/StreamManager.cpp src/managers/StreamManager.h src/Exceptions/streams/AlreadyInWhiteListException.cpp src/Exceptions/streams/AlreadyInWhiteListException.h)
+        src/Users/Admin.h src/Exceptions/users/AlreadyExists.h
+        src/managers/StreamManager.cpp
+        src/managers/StreamManager.h
+        src/Exceptions/streams/AlreadyInWhiteListException.cpp
+        src/Exceptions/streams/AlreadyInWhiteListException.h)
 
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
