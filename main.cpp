@@ -375,6 +375,58 @@ TEST(test, adminOps){
     ASSERT_EQ(streamZ.getAdminOps()->numStreams(), 2);
 }
 
+TEST(test, likeSystem){
+    StreamZ streamZ;
+    streamZ.init();
+    streamZ.run();
+
+    streamZ.getUserM()->createViewer("Rui", "UsEr1", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Jacinto", "USER2", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Luis", "user3", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Alfredo", "user4", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe", "user5", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "user6", Date(2000, 1, 1));
+
+    streamZ.getUserM()->createStreamer("Streamer 1", "streamer1", Date(1995, 2,3));
+
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->startPublicStream("Stream 1", PT_PT, gaming);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(1);
+
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getNumViewers(),6);
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getDislikes(),0);
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),0);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->giveFeedBack(like);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->giveFeedBack(dislike);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->giveFeedBack(like);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->giveFeedBack(like);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->giveFeedBack(dislike);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->giveFeedBack(like);
+
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getDislikes(),2);
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),4);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->giveFeedBack(none);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->giveFeedBack(none);
+
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getDislikes(),1);
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),3);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->leaveStream();
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),3);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->giveFeedBack(like);
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),3);
+
+
+}
 
 int main() {
     testing::InitGoogleTest();
