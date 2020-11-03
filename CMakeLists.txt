@@ -70,8 +70,8 @@ add_executable(FEUP_AEDA_proj
         src/managers/UserManager.cpp 
         src/managers/UserManager.h
         src/managers/LeaderBoard.cpp 
-        src/managers/LeaderBoard.h 
-        src/Exceptions/users/DoesNotExist.h 
+        src/managers/LeaderBoard.h
+        src/Exceptions/DoesNotExist.h
         src/managers/AdminOps.cpp 
         src/managers/AdminOps.h
         src/Users/Admin.cpp 

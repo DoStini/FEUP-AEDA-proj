@@ -30,6 +30,7 @@ public:
      * @param minAge - Minimal age of the stream , 12 by default
      */
     Stream(std::string title, language language, genre genre, std::string streamerNick);
+    virtual ~Stream(){};
     ///@return - Title of the stream
     const std::string &getTitle() const;
     ///@return - stream language

@@ -10,8 +10,10 @@
 void StreamManager::removeStream(ID streamID) {
     if(!streamZ->getSearchM()->streamExists(streamID)) throw DoesNotExist<ID>(streamID);
 
+    Stream * ptr = streamZ->getSearchM()->getStream(streamID);
     streamZ->getDatabase().getStreams().erase(streamID);
 
+    delete ptr;
 }
 
 void StreamManager::removeStreamByStreamer(std::string streamerNick) {

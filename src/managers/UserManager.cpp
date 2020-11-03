@@ -38,6 +38,8 @@ void UserManager::removeUser(std::string nickName) {
     if(!streamZ->getSearchM()->userExists(nickName)) throw DoesNotExist<std::string>(nickName);
 
     User * ptr = streamZ->getSearchM()->getUser(nickName);
+
     streamZ->getDatabase().getUsers().erase(nickName);
+
     delete ptr;
 }

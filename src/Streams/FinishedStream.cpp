@@ -15,6 +15,10 @@ FinishedStream::FinishedStream(std::string title, language language, genre strea
 }
 
 
+FinishedStream::~FinishedStream() {
+    
+}
+
 streamType FinishedStream::getStreamType() const {
     return finishedType;
 }
@@ -30,3 +34,4 @@ int FinishedStream::getNumViewers() const {
 const std::string &FinishedStream::getStreamerName() const {
     return streamerName;
 }
+

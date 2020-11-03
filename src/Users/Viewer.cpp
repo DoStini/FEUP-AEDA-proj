@@ -73,7 +73,13 @@ void Viewer::leaveStream() {
     auto* stream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
     stream->removeViewer(nickName);
     streamHistory.push_back(currWatching);
-    currWatching = 0;
+    currWatching = NULL_STREAM;
+}
+
+void Viewer::kickedStream() {
+    if (!watching()) throw NotInStreamException(name);
+    streamHistory.push_back(currWatching);
+    currWatching = NULL_STREAM;
 }
 
 void Viewer::addStreamHistory(ID streamID) {
@@ -119,5 +125,12 @@ bool Viewer::isInStreamHistory(ID streamID) {
 
 ID Viewer::getCurrWatching() const {
     return currWatching;
+}
+
+Viewer::~Viewer() {
+    if(watching()){
+        LiveStream * ptr = (LiveStream *) streamZ->getSearchM()->getStream(currWatching);
+        ptr->removeViewer(nickName);
+    }
 }
 
