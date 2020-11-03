@@ -14,5 +14,5 @@ streamType PublicStream::getStreamType() const {
 }
 
 void PublicStream::addViewer(const std::string &viewerNick) {
-    LiveStream::addViewer(viewerNick);
+    streamViewers.push_back(viewerNick);
 }

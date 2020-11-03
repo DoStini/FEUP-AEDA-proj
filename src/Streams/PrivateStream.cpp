@@ -51,7 +51,7 @@ void PrivateStream::addViewer(const std::string &viewerNick) {
     if(this->getNumViewers() == maxViewers)
         throw MaxViewersReach(this->getStreamId(),maxViewers);
     else
-        LiveStream::addViewer(viewerNick);
+        streamViewers.push_back(viewerNick);
 }
 
 

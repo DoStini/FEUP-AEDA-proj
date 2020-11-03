@@ -15,13 +15,6 @@ LiveStream::LiveStream(std::string title, language streamLanguage, genre streamG
     nLikes_Dislikes.first = 0;
     nLikes_Dislikes.second = 0;
 }
-void LiveStream::addViewer(const std::string& viewerNick) {
-    streamViewers.push_back(viewerNick);
-
-    auto viewer = (Viewer *) streamZ->getSearchM()->getUser(viewerNick);
-    if (!viewer->isInStreamHistory(streamId))
-        likeSystem[viewerNick] = none;
-}
 
 void LiveStream::removeViewer(const std::string& viewerNick) {
     streamViewers.erase(std::find(streamViewers.begin(),streamViewers.end(),viewerNick));
@@ -56,6 +49,8 @@ unsigned int LiveStream::getDislikes() const {
     return nLikes_Dislikes.second;
 }
 void LiveStream::giveLike(const std::string& viewerNick) {
+    if(likeSystem.find(viewerNick) == likeSystem.end())
+        likeSystem[viewerNick] = none;
     if(likeSystem[viewerNick] == none) {
         likeSystem[viewerNick] = like;
         nLikes_Dislikes.first++;
@@ -68,6 +63,8 @@ void LiveStream::giveLike(const std::string& viewerNick) {
 }
 
 void LiveStream::giveDislike(const std::string& viewerNick) {
+    if(likeSystem.find(viewerNick) == likeSystem.end())
+        likeSystem[viewerNick] = none;
     if(likeSystem[viewerNick] == none) {
         likeSystem[viewerNick] = dislike;
         nLikes_Dislikes.second++;
@@ -80,6 +77,8 @@ void LiveStream::giveDislike(const std::string& viewerNick) {
 }
 
 void LiveStream::removeFeedBack(const std::string& viewerNick) {
+    if(likeSystem.find(viewerNick) == likeSystem.end())
+        likeSystem[viewerNick] = none;
     if (likeSystem[viewerNick] == like)
         nLikes_Dislikes.first--;
     else if (likeSystem[viewerNick] == dislike)

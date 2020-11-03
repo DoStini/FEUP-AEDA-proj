@@ -8,6 +8,7 @@
 #include <utility>
 #include "LiveStream.h"
 #include "MaxViewersReach.h"
+
 class User;
 
 // struct used to save comments in the stream

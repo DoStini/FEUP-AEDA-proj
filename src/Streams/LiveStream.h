@@ -33,7 +33,7 @@ public:
     *
     * @param viewerNick - Nick name of the viewer
     */
-    virtual void addViewer(const std::string& viewerNick) ;
+    virtual void addViewer(const std::string& viewerNick) = 0 ;
     /**
     * Remove viewer from the stream
     *
@@ -83,7 +83,7 @@ public:
     // Change this operator later
     bool operator<(LiveStream * compStream);
     /// Static variable that stores the last id of the stream ( Not allowing repeated id's )f
-private:
+protected:
     /// Necessary age to se the stream
     unsigned minAge;
     /// Vector with nicks of viewers of the stream
