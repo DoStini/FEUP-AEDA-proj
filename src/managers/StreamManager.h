@@ -23,7 +23,7 @@ public:
      * Constructor. StreamZ needs to use to access the database and other methods
      * @param streamZ - Main class pointer
      */
-    StreamManager(StreamZ *streamZ);
+    explicit StreamManager(StreamZ *streamZ);
 
     /**
      * Function to create a public stream

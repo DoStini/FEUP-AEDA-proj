@@ -28,6 +28,7 @@ public:
      * @param minAge - min age of the stream
      */
     LiveStream(std::string title, language streamLanguage, genre streamGenre, std::string streamerNick, unsigned minAge = VIEWER_MIN_AGE);
+    ~LiveStream();
     /**
     * Add viewers to the stream
     *

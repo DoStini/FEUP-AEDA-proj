@@ -9,6 +9,7 @@
 #include "PublicStream.h"
 #include "StreamZ.h"
 
+
 using testing::Eq;
 
 TEST(test, createUsers){
@@ -33,7 +34,7 @@ TEST(test, createUsers){
     EXPECT_EQ(sir.getName(), "classy man");
 }
 
-
+/*
 TEST(test, publicStream) {
     PublicStream s1("Nice stream", PT_PT,gaming,"unknow",12);
     ASSERT_EQ(s1.getTitle(), "Nice stream");
@@ -47,6 +48,7 @@ TEST(test, publicStream) {
     ASSERT_EQ(s1.getNumViewers(), 2);
 
 }
+*/
 
 /*TEST(test, user_private_stream) {
     PublicStream sp("Nice open source stream", PT_PT,gaming,"unknow",12);
@@ -427,6 +429,51 @@ TEST(test, likeSystem){
 
 
 }
+TEST(test, testDestructs){
+    StreamZ streamZ;
+    streamZ.init();
+    streamZ.run();
+
+    streamZ.getUserM()->createViewer("Rui", "UsEr1", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Jacinto", "USER2", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Luis", "user3", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Alfredo", "user4", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe", "user5", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "user6", Date(2000, 1, 1));
+
+    streamZ.getUserM()->createStreamer("Streamer 1", "streamer1", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 2", "streamer2", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer3", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer4", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer5", Date(1995, 2,3));
+
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->startPublicStream("Stream 1", PT_PT, gaming);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->startPublicStream("Stream 2", PT_BR, technology);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->startPublicStream("Ok 1", PT_PT, cooking);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->startPublicStream("S", PT_PT, music);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->startPublicStream("S5", SPA, meetGreet);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(2);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(2);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(2);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(4);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(3);
+
+    ASSERT_EQ(dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(2))->getNumViewers(), 3);
+    streamZ.getUserM()->removeUser("streamer1");
+    ASSERT_THROW(streamZ.getSearchM()->getStream(1), DoesNotExist<ID>);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->watching(), false);
+    streamZ.getUserM()->removeUser("user1");
+    ASSERT_EQ(dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(2))->getNumViewers(), 2);
+    streamZ.getStreamManager()->removeStream(2);
+    ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->streaming(), false);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->watching(), false);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->watching(), false);
+    ASSERT_THROW(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->watching(), DoesNotExist<std::string>);
+    ASSERT_THROW(dynamic_cast<Viewer *>(streamZ.getSearchM()->getStream(2)), DoesNotExist<ID>);
+}
+
 
 int main() {
     testing::InitGoogleTest();

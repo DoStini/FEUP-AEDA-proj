@@ -13,6 +13,7 @@ Stream::Stream(std::string title, language language, genre genre, std::string st
     beginDate = currDate;
 }
 
+
 const std::string &Stream::getTitle() const {
     return title;
 }
@@ -44,5 +45,7 @@ void Stream::setStreamZ(StreamZ *streamZ) {
 const std::string &Stream::getStreamerNick() const {
     return streamerNick;
 }
+
+
 
 

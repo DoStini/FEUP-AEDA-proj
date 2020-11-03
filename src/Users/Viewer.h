@@ -25,6 +25,7 @@ public:
      * @param birthDate - Date of Birth
      */
     Viewer(std::string name, std::string nickName, const Date &birthDate);
+    ~Viewer();
     ///@return - user type = viewer
     userType getUserType() const override;
     ///@return - ID of current watching stream
@@ -54,6 +55,10 @@ public:
      * @throw NotInStreamException
      */
     void leaveStream();
+    /**
+     * Function to be used only when deleting a stream from the system deleting the stream pointer
+     */
+    void kickedStream();
     /**
      * Add stream to the stream history
      *

@@ -14,6 +14,18 @@ Streamer::Streamer(std::string name, std::string nickName, const Date &birthDate
         throw RestrictedAgeException(name, age, minimumAge);
 }
 
+
+Streamer::~Streamer() {
+    if(streaming()){
+        closeStream();
+        // This moves the stream to finished stream, so it doesnt have problems in recursive deletion
+    }
+
+    for(const auto & curr : finishedStreams){
+        streamZ->getStreamManager()->removeStream(curr);
+    }
+}
+
 userType Streamer::getUserType() const {
     return stream;
 }
@@ -92,3 +104,10 @@ void Streamer::kickUser(std::string viewerNick) {
     if(viewer->getCurrWatching() == currStreaming)
         viewer->leaveStream();
 }
+
+void Streamer::kickedStream() {
+    if(!streaming()) throw NotInStreamException(nickName);
+
+    currStreaming = NULL_STREAM;
+}
+

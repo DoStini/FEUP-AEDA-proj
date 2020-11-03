@@ -16,6 +16,15 @@ LiveStream::LiveStream(std::string title, language streamLanguage, genre streamG
     nLikes_Dislikes.second = 0;
 }
 
+LiveStream::~LiveStream() {
+    Streamer * streamer = (Streamer *) streamZ->getSearchM()->getUser(streamerNick);
+    streamer->kickedStream();
+    for(const auto & v : streamViewers){
+        Viewer * ptr = (Viewer *) streamZ->getSearchM()->getUser(v);
+        ptr->kickedStream();
+    }
+}
+
 void LiveStream::removeViewer(const std::string& viewerNick) {
     streamViewers.erase(std::find(streamViewers.begin(),streamViewers.end(),viewerNick));
 }
@@ -92,3 +101,4 @@ void LiveStream::removeFeedBack(const std::string& viewerNick) {
 bool LiveStream::operator<(LiveStream *compStream) {
     return (minAge < compStream->getMinAge());
 }
+

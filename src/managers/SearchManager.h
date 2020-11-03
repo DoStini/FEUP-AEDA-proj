@@ -8,7 +8,7 @@
 #include "User.h"
 #include "Stream.h"
 #include "PrivateStream.h"
-#include "DoesNotExist.h"
+#include "../Exceptions/DoesNotExist.h"
 
 class StreamZ;
 

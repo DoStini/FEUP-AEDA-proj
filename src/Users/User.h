@@ -45,7 +45,7 @@ public:
      * @param joinedPlatDate - Date when user joined Streamz
      */
     User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
-
+    virtual ~User(){};
     /// @return Name
     const std::string &getName() const;
     /// @return Nickname

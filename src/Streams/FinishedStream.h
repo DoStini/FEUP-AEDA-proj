@@ -17,6 +17,7 @@ public:
      * @param streamerName - Streamer that had stream the stream
      */
     FinishedStream(std::string title, language language,genre streamGenre, int numViewers, std::string streamerNick, ID streamID);
+    ~FinishedStream();
     /**
      * get type of the stream
      *

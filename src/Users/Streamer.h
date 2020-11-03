@@ -23,6 +23,7 @@ public:
     * @param birthDate - Date of Birth
     */
     Streamer(std::string name, std::string nickName, const Date &birthDate);
+    ~Streamer() override;
     ///@return - user type = streamer
     userType getUserType() const override;
     /**
@@ -75,6 +76,10 @@ public:
      * NotInStreamException
      */
     void closeStream();
+    /**
+     * Function to be used only when deleting a stream from the system deleting the stream pointer
+     */
+    void kickedStream();
     ///Compare two streamers
     bool operator == (const Streamer & str);
 private:
