@@ -6,7 +6,7 @@
 #include <utility>
 #include "Viewer.h"
 
-unsigned long long int Stream::lastId = 0;
+unsigned long long int Stream::lastId = 1;
 
 Stream::Stream(std::string title, std::string language /*genres genre*/ ) :
             title(std::move(title)), streamLanguage(std::move(language)){

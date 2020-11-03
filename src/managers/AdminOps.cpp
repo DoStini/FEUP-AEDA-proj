@@ -11,3 +11,7 @@ AdminOps::AdminOps(StreamZ *streamZ) {
 void AdminOps::removeUser(std::string nickName) {
 
 }
+
+void AdminOps::removeStream(ID streamID) {
+
+}

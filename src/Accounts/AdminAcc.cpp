@@ -13,10 +13,12 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
         throw WrongUserTypeException(UserType::admin);
     }
     options.insert(options.begin()+3, {
-       std::bind(&AdminAcc::removeUser, this)
+       std::bind(&AdminAcc::removeUser, this),
+       std::bind(&AdminAcc::removeStream, this)
     });
     optionDescriptions.insert(optionDescriptions.begin()+3, {
-        "Delete a user from the platform."
+        "Delete a user from the platform.",
+        "Delete a stream from the platform."
     });
     nOptions=options.size();
 }
@@ -44,6 +46,38 @@ void AdminAcc::removeUser() {
         print("Operation success. User Terminated. It is nice to be in power :)");
     } catch (DoesNotExist<std::string> &e) {
         ss << "No such user with nickname " << nickName << ".";
+        print("Operation Failed: ");
+        print(ss.str());
+    }
+
+    waitForKey();
+}
+
+void AdminAcc::removeStream() {
+    ID streamId;
+    std::stringstream ss;
+
+    print("What is the ID of the stream you wish to delete? (0 to cancel) ", '\0');
+
+    while(!checkInput(streamId)) {
+        print("Invalid ID. Please try again: ", '\0');
+    }
+
+    print();
+    if(streamId == 0) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    try {
+        streamZ->getAdminOps()->removeStream(streamId);
+
+        print("Operation success.");
+    } catch (DoesNotExist<ID> &e) {
+        ss << "No such stream with ID " << streamId << ".";
         print("Operation Failed: ");
         print(ss.str());
     }
