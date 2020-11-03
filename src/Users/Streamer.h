@@ -43,6 +43,7 @@ public:
     ID getStreamID();
     /**
      * Start streaming a public stream
+     * @throw AlreadyInStreamException
      * @param title - Title of the stream
      * @param language - Stream language
      * @genre genre - Genre of the stream
@@ -51,13 +52,13 @@ public:
     void startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned minAge = VIEWER_MIN_AGE);
     /**
      * Start streaming a private stream
+     * @throw AlreadyInStreamException
      * @param title - Title of the stream
      * @param language - Stream language
      * @param genre - Genre of the stream
      * @param minAge - Minimal age of the stream , 12 by default
      * @param maxNumberViewers - max number of viewers that the stream will have
      */
-
     void startPrivateStream(std::string title, language streamLanguage, genre streamGenre,
                             unsigned minAge = VIEWER_MIN_AGE, unsigned int maxNumberViewers = MAX_VIEWERS);
 
@@ -65,10 +66,14 @@ public:
     unsigned int getNumViewers();
     /**
      * Remove user from the stream
+     * @throw DoesNotExist
      * @param viewerNick - nick of the viewer
      */
     void kickUser(std::string viewerNick);
-    ///Command to end the current streaming stream
+    /**
+     * Command to end the current streaming stream
+     * NotInStreamException
+     */
     void closeStream();
     ///Compare two streamers
     bool operator == (const Streamer & str);

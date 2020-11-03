@@ -42,9 +42,18 @@ public:
      */
     ID createPrivateStream(std::string name, std::string streamerNick, language streamLanguage, genre streamGenre, int maxUsers, unsigned minAge = VIEWER_MIN_AGE);
 
-    /// @param streamID - Stream id of the stream to be removed
+    /**
+     * Removes a stream from the system
+     * @throw DoestNotExist
+     * @param streamID
+     */
     void removeStream(ID streamID);
 
+    /**
+     * Deletes all of the streams from a specified streamer from the database and from history of viewers
+     * @throw DoesNotExist
+     * @param streamerNick
+     */
     void removeStreamByStreamer(std::string streamerNick);
 
 private:

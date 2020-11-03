@@ -62,6 +62,7 @@ unsigned int Streamer::getNumFollowers() const {
 
 
 void Streamer::closeStream() {
+    if(!streaming()) throw NotInStreamException(nickName);
     finishedStreams.push_back(currStreaming);
 
     dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currStreaming))->closeStream();
@@ -69,6 +70,7 @@ void Streamer::closeStream() {
 }
 
 void Streamer::startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
+    if(streaming()) throw AlreadyInStreamException(nickName, currStreaming);
     ID streamID = streamZ->getStreamManager()->createPublicStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
 
     currStreaming = streamID;
@@ -76,6 +78,7 @@ void Streamer::startPublicStream(std::string title, language streamLanguage, gen
 
 void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge,
                                   unsigned int maxNumberViewers) {
+    if(streaming()) throw AlreadyInStreamException(nickName, currStreaming);
     ID streamID = streamZ->getStreamManager()->createPrivateStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
 
     currStreaming = streamID;

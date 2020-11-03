@@ -43,11 +43,16 @@ public:
     void unFollowStreamer(const std::string& streamer);
     /**
      * Join a stream
-     * Might throw AlreadyInStreamException
+     * @throw DoesNotExist
+     * @throw AlreadyInStreamException
+     * @throw RestrictedAgeExpeption
+     * @throw RestrictedStreamExpeption
      * @param stream - Desired stream
      */
     void joinStream(ID streamID);
-    /// Leave the current stream. Might throw a NotInStreamException
+    /** Leave the current stream
+     * @throw NotInStreamException
+     */
     void leaveStream();
     /**
      * Add stream to the stream history
@@ -55,17 +60,23 @@ public:
      * @param streamID - stream to be added to the history
      */
     void addStreamHistory(ID streamID);
+    void removeStreamHistory(ID streamID);
     /**
      * Checks if a stream is in the stream history
-     *
      * @param streamID - id of the stream to be checked
      * @return - true if it is, otherwise false
      */
     bool isInStreamHistory(ID streamID);
-    /// Like the current stream
+    /**
+     * Gives feedback
+     * @throw NotInStreamException
+     * @param fbValue - Feedback value
+     */
     void giveFeedBack(feedback fbValue);
     /**
      * Leave a comment on the (private) stream currently watching
+     * @throw NotInStreamException
+     * @throw NotPrivateStreamException
      * @param comment - The comment
      */
     void giveFeedBack(const std::string& comment);

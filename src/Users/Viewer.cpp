@@ -45,9 +45,9 @@ void Viewer::unFollowStreamer(const std::string& streamerNick) {
 void Viewer::joinStream(ID streamID) {
     if(!streamZ->getSearchM()->streamExists(streamID))
         throw DoesNotExist<ID>(streamID);
+    else if(watching()) throw AlreadyInStreamException(nickName, currWatching);
 
     auto * stream = (LiveStream*) streamZ->getSearchM()->getStream(streamID);
-    if (watching()) throw AlreadyInStreamException(nickName, currWatching);
     // TODO Is < or <= ???
     if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
 
@@ -79,6 +79,11 @@ void Viewer::leaveStream() {
 void Viewer::addStreamHistory(ID streamID) {
     streamHistory.push_back(streamID);
 }
+
+void Viewer::removeStreamHistory(ID streamID) {
+    streamHistory.erase(std::find(streamHistory.begin(), streamHistory.end(), streamID));
+}
+
 
 void Viewer::giveFeedBack(feedback fbValue) {
     auto * currStream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
@@ -115,3 +120,4 @@ bool Viewer::isInStreamHistory(ID streamID) {
 ID Viewer::getCurrWatching() const {
     return currWatching;
 }
+
