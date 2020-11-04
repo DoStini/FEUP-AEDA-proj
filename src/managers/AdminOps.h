@@ -36,6 +36,11 @@ public:
      * @return Most viewed genre among streams ( enum genre)
      */
     genre rankViewsGenres(bool reversed = false);
+    /**
+     * @param reversed - Optional: Set to true if you want the least viewed genre
+     * @return Most viewed genre among streams ( enum genre)
+     */
+    streamType rankViewsTypes(bool reversed = false);
     /// @return The median views per stream
     float medianViewsStream();
 

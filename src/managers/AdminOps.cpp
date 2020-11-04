@@ -81,6 +81,35 @@ genre AdminOps::rankViewsGenres(bool reversed) {
            : last->first;
 }
 
+streamType AdminOps::rankViewsTypes(bool reversed) {
+    std::unordered_map<streamType, int> ammViews;
+
+    auto its = streamZ->getDatabase().getStreams().begin();
+    auto ite = streamZ->getDatabase().getStreams().end();
+
+    streamType type;
+    int views;
+
+    while(its != ite){
+        type = (*its).second->getStreamType();
+
+        if ( ammViews.find(type) != ammViews.end() )
+            ammViews[type] += views;
+        else
+            ammViews[type] = views;
+        its++;
+    }
+
+    std::set<std::pair<streamType, int>, comparator> res(ammViews.begin(), ammViews.end());
+
+    auto last = res.end(); --last;
+
+    return !reversed
+           ? res.begin()->first
+           : last->first;
+}
+
+
 Streamer *AdminOps::mostViewed() {
     std::unordered_map<std::string, int> ammViews;
 
@@ -195,3 +224,5 @@ void AdminOps::removeStream(ID streamID) {
         throw e;
     }
 }
+
+
