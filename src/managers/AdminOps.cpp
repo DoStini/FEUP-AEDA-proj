@@ -179,3 +179,19 @@ float AdminOps::medianViewsStream(Date d1, Date d2) {
 
     return (float)sum/(float)numStreams;
 }
+
+void AdminOps::removeUser(std::string nickName) {
+    try{
+        streamZ->getUserM()->removeUser(nickName);
+    } catch (const DoesNotExist<std::string> &e) {
+        throw e;
+    }
+}
+
+void AdminOps::removeStream(ID streamID) {
+    try{
+        streamZ->getStreamManager()->removeStream(streamID);
+    } catch (const DoesNotExist<ID> &e) {
+        throw e;
+    }
+}

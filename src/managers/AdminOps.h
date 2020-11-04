@@ -51,11 +51,13 @@ public:
     long int numStreams(streamType streamType);
     /**
      * Removes a user
+     * @throw DoesNotExist<std::string>
      * @param nickName Nickname of the user
      */
     void removeUser(std::string nickName);
     /**
      * Removes a stream
+     * @throw DoesNotExist<ID>
      * @param streamID ID of the stream
      */
     void removeStream(ID streamID);
