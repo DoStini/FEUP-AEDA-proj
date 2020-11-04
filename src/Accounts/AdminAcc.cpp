@@ -12,6 +12,7 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
     } else {
         throw WrongUserTypeException(UserType::admin);
     }
+
     options.insert(options.begin()+3, {
        std::bind(&AdminAcc::removeUser, this),
        std::bind(&AdminAcc::removeStream, this)
@@ -83,4 +84,28 @@ void AdminAcc::removeStream() {
     }
 
     waitForKey();
+}
+
+void AdminAcc::statistics() {
+    uint16_t option;
+    print("STATISTICS: ");
+    print();
+
+    print("0. Exit statistics panel.");
+    print("1. Number of streams airing.");
+    print("2. Number of views per stream.");
+    print("3. Most viewed stream genre.");
+    print("3. Most viewed stream language.");
+
+    print();
+    print("Choose an option: ", '\0');
+
+    while (!checkInput(option) || option < 0 || option > 3) {
+        print("Invalid Option! Please try again: " , '\0');
+    }
+
+    //TODO change to actual leaderboard
+    //if(option == 1) streamZ->getLeaderboard()->top10StreamLikes();
+    //else if(option == 2) streamZ->getLeaderboard()->top10StreamViews();
+    //else if (option == 3) streamZ->getLeaderboard()->top10OldestUsers();
 }
