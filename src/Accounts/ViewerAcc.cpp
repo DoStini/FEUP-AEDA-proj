@@ -12,7 +12,7 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
     if(Viewer * viewer = dynamic_cast<Viewer*>(user)) {
         this->viewer = viewer;
     } else {
-        throw WrongUserTypeException(UserType::viewer);
+        throw WrongUserTypeException(userType::viewer);
     }
 
 

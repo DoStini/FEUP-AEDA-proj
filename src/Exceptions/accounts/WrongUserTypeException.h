@@ -14,7 +14,7 @@
  */
 class WrongUserTypeException : public std::exception{
 public:
-    WrongUserTypeException(UserType type);
+    WrongUserTypeException(userType type);
     /**
      * Brief info about exception
      * @return
@@ -22,7 +22,7 @@ public:
     const char * what () const noexcept override;
     friend std::ostream &operator<<(std::ostream &os, const WrongUserTypeException &exception);
 private:
-    UserType userType;
+    userType userType;
 };
 
 

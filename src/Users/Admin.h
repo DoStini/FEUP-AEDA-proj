@@ -21,7 +21,7 @@ public:
      * Info about the Admin
      * @return UserType containing info about the admin
      */
-    UserType getInfo() const override;
+    userType getUserType() const override;
 };
 
 

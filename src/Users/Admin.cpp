@@ -4,7 +4,7 @@
 
 #include "Admin.h"
 
-UserType Admin::getInfo() const {
+userType Admin::getUserType() const {
     return admin;
 }
 

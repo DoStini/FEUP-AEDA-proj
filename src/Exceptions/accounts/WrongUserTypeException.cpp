@@ -4,7 +4,7 @@
 
 #include "WrongUserTypeException.h"
 
-WrongUserTypeException::WrongUserTypeException(UserType type) : userType(type) {}
+WrongUserTypeException::WrongUserTypeException(enum::userType type) : userType(type) {}
 
 const char *WrongUserTypeException::what() const throw() {
     return "Wrong User Class sent to account constructor.";

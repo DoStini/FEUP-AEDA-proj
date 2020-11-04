@@ -130,7 +130,7 @@ void StreamZ::login() {
         return;
     }
 
-    UserType type = user->getInfo();
+    userType type = user->getUserType();
 
     std::string realPassword = user->getPassword();
 
@@ -203,7 +203,7 @@ void StreamZ::registerUser() {
         print("Invalid Option! Please try again: " , '\0');
     }
 
-    UserType uType = (UserType) (type - 1);
+    userType uType = (userType) (type - 1);
 
     print("What will be your nick name? (used to login) ", '\0');
 

@@ -1,6 +1,7 @@
 //
 // Created by Nuno Alves on 28/10/2020.
 //
+#pragma once
 
 #ifndef FEUP_AEDA_PROJ_ACCOUNT_H
 #define FEUP_AEDA_PROJ_ACCOUNT_H
@@ -15,6 +16,10 @@
 
 class StreamZ;
 class LiveStream;
+
+extern const char *languageTypes[];
+
+extern const char *genreTypes[];
 
 /**
  * Abstract class that handles account UI and Input

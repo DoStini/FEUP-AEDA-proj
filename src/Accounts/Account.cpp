@@ -8,19 +8,19 @@
 #include "InvalidPassword.h"
 #include "utils.h"
 
-static const char *languageTypes[] = {
-        "Portuguese (Portugal)",
-        "Portuguese (Brazil)",
-        "English",
-        "Spanish",
-        "French",
-        "German",
-        "Russian",
-        "Chinese",
-        "Hindi",
+const char *languageTypes[] = {
+    "Portuguese (Portugal)",
+    "Portuguese (Brazil)",
+    "English",
+    "Spanish",
+    "French",
+    "German",
+    "Russian",
+    "Chinese",
+    "Hindi"
 };
 
-static const char *genreTypes[] = {
+const char *genreTypes[] = {
         "Gaming",
         "Technology",
         "Music",
@@ -248,7 +248,7 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
 
         if(option == 0) break;
 
-        genres.push_back((genre) (option + 1));
+        genres.push_back((genre) (option - 1));
     } while(option != 0);
 
     print("Available Stream Languages: ");
@@ -271,7 +271,7 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
 
         if(option == 0) break;
 
-        languages.push_back((language) (option + 1));
+        languages.push_back((language) (option - 1));
     } while(option != 0);
 
     streamZ->getSearchM()->listLiveStreams(streams, streamName, genres, languages);

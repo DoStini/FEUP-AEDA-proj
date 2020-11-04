@@ -21,7 +21,7 @@
 
 class StreamZ;
 
-enum UserType {
+enum userType {
     viewer, streamer, admin
 };
 
@@ -79,7 +79,7 @@ public:
     /// @return Date which user joined StreamZ
     const Date &getJoinedPlatformDate() const;
     /// @return UserType info about the user
-    virtual UserType getInfo() const = 0;
+    virtual userType getUserType() const = 0;
     /// @return password of the user
     const std::string &getPassword() const;
 

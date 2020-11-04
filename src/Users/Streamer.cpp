@@ -17,8 +17,21 @@ bool Streamer::operator==(const Streamer &str) {
     return nickName == str.nickName;
 }
 
-UserType Streamer::getInfo() const {
+void Streamer::startPublicStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge) {
+
+}
+
+void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge,
+                                  unsigned int maxNumberViewers) {
+
+}
+
+userType Streamer::getUserType() const {
     return streamer;
+}
+
+ID Streamer::getStreamID() {
+    return currStreaming;
 }
 
 

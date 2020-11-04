@@ -10,7 +10,7 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
     if(Admin * ad = dynamic_cast<Admin*>(admin)) {
         this->admin = ad;
     } else {
-        throw WrongUserTypeException(UserType::admin);
+        throw WrongUserTypeException(userType::admin);
     }
 
     options.insert(options.begin()+3, {
@@ -35,6 +35,13 @@ void AdminAcc::removeUser() {
     print();
     if(nickName.empty()) {
         print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+    else if(nickName == admin->getNickName()) {
+        print("To delete your own account, please use the correct option in the menu");
 
         waitForKey();
 

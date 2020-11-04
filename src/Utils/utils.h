@@ -5,9 +5,12 @@
 #ifndef FEUP_AEDA_PROJ_UTILS_H
 #define FEUP_AEDA_PROJ_UTILS_H
 
-#define KEY_ESC 27
 #define VIEWER_MIN_AGE 12
 #define STREAMER_MIN_AGE 15
+
+#define NULL_STREAM 0
+
+#define MAX_VIEWERS 10
 #define LINE_BREAK "\n#-----------------------------------#\n"
 typedef unsigned long long int ID;
 

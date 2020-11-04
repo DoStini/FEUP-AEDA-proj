@@ -33,7 +33,7 @@ public:
      * Info about the viewer
      * @return UserType containing info about the viewer
      */
-    UserType getInfo() const override;
+    userType getUserType() const override;
     /// @return boolean indicating if the user is watching some stream or not
     bool watching();
     /**

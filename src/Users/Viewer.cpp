@@ -15,7 +15,7 @@ Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
 
 }
 
-UserType Viewer::getInfo() const {
+userType Viewer::getUserType() const {
     return viewer;
 }
 
