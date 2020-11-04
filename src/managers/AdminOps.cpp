@@ -164,6 +164,46 @@ long int AdminOps::numStreams(streamType streamType) {
 
 }
 
+long int AdminOps::numStreams(streamType streamType, Date d1, Date d2) {
+    auto its = streamZ->getDatabase().getStreams().begin();
+    auto ite = streamZ->getDatabase().getStreams().end();
+    long int acc = std::count_if(its,
+                                 ite,
+                                 [streamType,d1,d2](const std::pair<ID, Stream *> & l1){
+                                     if(l1.second->getStreamType() == streamType){
+                                         if (l1.second->getStreamType() == finishedType){
+                                             FinishedStream * ptr = (FinishedStream *) l1.second;
+                                             return ptr->getBeginDate() >= d1 && ptr->getFinishedDate() <= d2;
+                                         }
+                                         else{
+                                             LiveStream * ptr = (LiveStream *) l1.second;
+                                             return ptr->getBeginDate() >= d1;
+                                         }
+                                     }
+                                     else return false;
+                                 });
+    return acc;
+}
+
+long int AdminOps::numStreams(Date d1, Date d2) {
+    auto its = streamZ->getDatabase().getStreams().begin();
+    auto ite = streamZ->getDatabase().getStreams().end();
+    long int acc = std::count_if(its,
+                                 ite,
+                                 [d1, d2](const std::pair<ID, Stream *> & l1){
+                                     if(l1.second->getStreamType() == finishedType){
+                                         FinishedStream * ptr = (FinishedStream *) l1.second;
+                                         return ptr->getBeginDate() >= d1 && ptr->getFinishedDate() <= d2;
+                                     }
+                                     else{
+                                         LiveStream * ptr = (LiveStream *) l1.second;
+                                         return ptr->getBeginDate() >= d1;
+                                     }
+                                 });
+    return acc;
+}
+
+
 float AdminOps::medianViewsStream() {
     auto its = streamZ->getDatabase().getStreams().begin();
     auto ite = streamZ->getDatabase().getStreams().end();
@@ -224,5 +264,8 @@ void AdminOps::removeStream(ID streamID) {
         throw e;
     }
 }
+
+
+
 
 

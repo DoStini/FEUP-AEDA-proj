@@ -54,6 +54,9 @@ public:
      * @return The number of streams of the specified type
      */
     long int numStreams(streamType streamType);
+    long int numStreams(Date d1, Date d2);
+    long int numStreams(streamType streamType, Date d1, Date d2);
+
     /**
      * Removes a user
      * @throw DoesNotExist<std::string>
