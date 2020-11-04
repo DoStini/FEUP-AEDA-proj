@@ -39,7 +39,14 @@ void Viewer::unFollowStreamer(const std::string& streamerNick) {
     followingStreamers.erase(it);
 
     auto streamer = (Streamer*) streamZ->getSearchM()->getUser(streamerNick);
-    streamer->addFollower(nickName);
+    streamer->leaveFollower(nickName);
+}
+
+
+void Viewer::removeFollowStreamer(const std::string & streamerNick) {
+    auto it = std::find(followingStreamers.begin(), followingStreamers.end(), streamerNick);
+
+    followingStreamers.erase(it);
 }
 
 void Viewer::joinStream(ID streamID) {
@@ -132,5 +139,14 @@ Viewer::~Viewer() {
         LiveStream * ptr = (LiveStream *) streamZ->getSearchM()->getStream(currWatching);
         ptr->removeViewer(nickName);
     }
+    for(const auto & streamer : followingStreamers){
+        Streamer * ptr = (Streamer *) streamZ->getSearchM()->getUser(streamer);
+        ptr->leaveFollower(nickName);
+    }
 }
+
+bool Viewer::isFollowing(std::string &streamer) {
+    return false;
+}
+
 

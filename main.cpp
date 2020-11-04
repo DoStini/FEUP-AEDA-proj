@@ -460,11 +460,20 @@ TEST(test, testDestructs){
     dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(4);
     dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(3);
 
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->followStreamer("streamer2");
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->followStreamer("streamer2");
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->followStreamer("streamer1");
+
+    ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->getNumFollowers(), 2);
+
     ASSERT_EQ(dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(2))->getNumViewers(), 3);
     streamZ.getUserM()->removeUser("streamer1");
     ASSERT_THROW(streamZ.getSearchM()->getStream(1), DoesNotExist<ID>);
     ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->watching(), false);
     streamZ.getUserM()->removeUser("user1");
+
+    ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->getNumFollowers(), 1);
+
     ASSERT_EQ(dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(2))->getNumViewers(), 2);
     streamZ.getStreamManager()->removeStream(2);
     ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->streaming(), false);
