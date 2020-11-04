@@ -43,7 +43,9 @@ bool Streamer::streaming() {
 }
 
 ID Streamer::getStreamID() {
-    return currStreaming;
+    if (currStreaming == 0)
+        throw NotInStreamException(nickName);
+    else return currStreaming;
 }
 
 
@@ -74,8 +76,6 @@ void Streamer::leaveFollower(std::string viewerNick) {
 unsigned int Streamer::getNumFollowers() const {
     return followedBy.size();
 }
-
-
 
 void Streamer::closeStream() {
     if(!streaming()) throw NotInStreamException(nickName);
