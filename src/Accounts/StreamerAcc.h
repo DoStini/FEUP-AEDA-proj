@@ -46,6 +46,11 @@ public:
     void addUserToPrivate();
 
     /**
+    * Prompts the streamer to remove a user from private stream.
+    */
+    void removeUserFromPrivate();
+
+    /**
      *  Prompts the streamer to end a stream.
      */
     void endStream();

@@ -100,7 +100,7 @@ void ViewerAcc::giveFeedback() {
         return;
     }
 
-    print("Do you want to press the like or the dislike button? (Y for like, N for dislike) ", '\0');
+    print("Do you want to press the like or the dislike button? (Y for like, N for dislike, 0 to remove) ", '\0');
 
     getChar(input);
     input = toupper(input);
@@ -110,10 +110,14 @@ void ViewerAcc::giveFeedback() {
         viewer->giveFeedBack(feedback::dislike);
 
         print("Disliked!");
-    } else {
+    } else if(input == 'Y') {
         viewer->giveFeedBack(feedback::like);
 
         print("Liked!");
+    } else {
+        viewer->giveFeedBack(feedback::none);
+
+        print("Your feedback has been removed.");
     }
 
     waitForKey();
