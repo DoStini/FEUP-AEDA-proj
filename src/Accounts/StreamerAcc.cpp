@@ -17,15 +17,23 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
     options.insert(options.begin()+3, {
         std::bind(&StreamerAcc::startStream, this),
         std::bind(&StreamerAcc::checkNumViewers, this),
-        std::bind(&StreamerAcc::kickUserFromStream, this)
+        std::bind(&StreamerAcc::kickUserFromStream, this),
+        std::bind(&StreamerAcc::addUserToPrivate, this)
     });
     optionChecks[3] = [this](){return !this->streamer->streaming();};
     optionChecks[4] = [this](){return this->streamer->streaming();};
     optionChecks[5] = [this](){return this->streamer->streaming();};
+    optionChecks[6] = [this](){
+        if(!this->streamer->streaming()) return false;
+
+        ID streamID = this->streamer->getStreamID();
+        return this->streamZ->getSearchM()->getStream(streamID)->getStreamType() == privateType;
+    };
     optionDescriptions.insert(optionDescriptions.begin() + 3, {
         "Start a stream.",
         "Check the number of viewers on your stream.",
-        "Kick viewer from the stream."
+        "Kick viewer from the stream.",
+        "Add user to stream whitelist."
     });
     nOptions = options.size();
 }
@@ -189,7 +197,49 @@ void StreamerAcc::kickUserFromStream() {
 }
 
 void StreamerAcc::addUserToPrivate() {
+    std::string nickName;
+    ID streamID;
+
+    print("What is the nickname of the viewer you want to add to your whitelist? (empty to cancel) ", '\0');
+
+    getTruncatedString(nickName);
+
     print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    try {
+        streamID = streamer->getStreamID();
+        PrivateStream * privateStream = dynamic_cast<PrivateStream *>(streamZ->getSearchM()->getStream(streamID));
+        if(!privateStream) {
+            throw NotPrivateStreamException(streamID);
+        }
+
+        privateStream->addValidUser(nickName);
+
+        print("Success!");
+    } catch (NotInStreamException &e) {
+        print("Operation failed: ");
+        print(e);
+    } catch (DoesNotExist<ID> &e) {
+        print("Operation failed: ");
+        print("No such stream with ID ", '\0');
+        print(streamID);
+    } catch (DoesNotExist<std::string> &e) {
+        print("Operation failed: ");
+        print("No such user with nickname ", '\0');
+        print(nickName);
+    } catch (AlreadyInWhiteListException &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    waitForKey();
 }
 
 void StreamerAcc::endStream() {

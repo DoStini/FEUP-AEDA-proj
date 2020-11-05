@@ -48,7 +48,7 @@ void Viewer::joinStream(ID streamID) {
     if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
 
     auto * psPtr = dynamic_cast<PrivateStream *>(stream);
-    if (psPtr != nullptr && !psPtr->isValidUser(this)) throw RestrictedStreamException(stream->getTitle(), nickName);
+    if (psPtr != nullptr && !psPtr->isValidUser(this->getNickName())) throw RestrictedStreamException(stream->getTitle(), nickName);
 
     stream->addViewer(this);
 
@@ -81,10 +81,10 @@ void Viewer::giveFeedBack(std::string comment) {
     if(!watching()) throw NotInStreamException(name);
     // TODO CHECK IF THIS IS FIXED WITH .GETTYPE AND NO DYNAMIC CASTS
     if (!dynamic_cast<PrivateStream *>(currWatching))
-        throw NotPrivateStreamException(currWatching->getTitle());
+        throw NotPrivateStreamException(currWatching->getId());
 
     auto * stream = (PrivateStream *) currWatching;
-    stream->addComment(comment,this);
+    stream->addComment(comment,this->getNickName());
 }
 
 bool Viewer::watching() {

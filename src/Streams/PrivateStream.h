@@ -5,14 +5,19 @@
 #ifndef FEUP_AEDA_PROJ_PRIVATESTREAM_H
 #define FEUP_AEDA_PROJ_PRIVATESTREAM_H
 
+#include <utility>
+
+#include "AlreadyInWhiteListException.h"
 #include "LiveStream.h"
+#include "MaxViewersReach.h"
+
 class User;
 
 // struct used to save comments in the stream
 struct Comment{
     std::string comment;
-    std::string viewerName;
-    Comment(std::string text, std::string name): comment(text),viewerName(name){}
+    std::string viewerNick;
+    Comment(std::string text, std::string name): comment(std::move(text)),viewerNick(std::move(name)){}
 };
 
 class PrivateStream : public LiveStream {
@@ -24,28 +29,29 @@ public:
      * @param language - Stream language
      * @param minAge - Minimal age of the stream , 12 by default
      */
-    PrivateStream(std::string title, std::string language, unsigned minAge = 12);
-
-    std::string getInfo() const override;
-
-    /**
-     * Number of comments of the stream
-     *
-     * @return - number of comments
-     */
+    PrivateStream(std::string title, std::string streamLanguage,
+                  unsigned minAge = VIEWER_MIN_AGE);
+    ///@return - number of comments that the stream have
     unsigned getNumberComments();
+    ///@return - stream type = private type
+    streamType getStreamType() const override;
     /**
      * Function to add a user to a whitelisted stream
-     * @param user - User to be added
+     * @param userNick - nick of user to be added
      */
-    void addValidUser(User * user);
+    void addValidUser(const std::string& userNick);
+    /**
+     * Function to remove a user from the stream whitelist
+     * @param userNick - nick of user to be removed
+     */
+    void removeValidUser(const std::string& userNick);
     /**
      * Checks if the user is in the vector of valid users
      *
-     * @param user - user to check
+     * @param userNick - nick of user to check
      * @return - true if it is, otherwise false
      */
-    bool isValidUser(User * user);
+    bool isValidUser(const std::string& userNick);
     /// @return Number of whitelisted viewers
     int getWhitelistSize() const;
     /**
@@ -54,11 +60,23 @@ public:
      * @param text - text that the user write
      * @param viewer - viewer that make the comment
      */
-    void addComment(std::string text, User * viewer);
+    void addComment(const std::string & text, const std::string & userNick);
+    ///@return - max numbers of viewers that may be in the stream
+    unsigned int getMaxViewers() const;
+    /**
+    * Add viewers to the stream
+    *
+    * @param viewerNick - Nick name of the viewer
+    */
+    void addViewer(const std::string& viewerNick);
 
 private:
+    ///vector that have all the comments made for the stream
     std::vector<Comment> comments;
-    std::vector<User *> whitelist;
+    ///Valid nick names to enter de stream
+    std::vector<std::string> whitelist;
+    ///Max number of viewers of the stream
+    unsigned int maxViewers;
 };
 
 
