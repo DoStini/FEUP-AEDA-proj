@@ -63,8 +63,10 @@ public:
     void startPrivateStream(std::string title, language streamLanguage, genre streamGenre,
                             unsigned minAge = VIEWER_MIN_AGE, unsigned int maxNumberViewers = MAX_VIEWERS);
 
+    ///@return - total number of views
+    unsigned int getTotalViews();
     ///@return - number of viewers in the stream
-    unsigned int getNumViewers();
+    unsigned int getStreamViewers();
     /**
      * Remove user from the stream
      * @throw DoesNotExist

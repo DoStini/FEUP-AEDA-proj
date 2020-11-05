@@ -43,7 +43,7 @@ TEST(test, publicStream) {
     Viewer v1("Andre Moreira", "gordoMan", Date(1999,3,9));
     Viewer v2("Andre Moreira", "gordox2", Date(1999,3,9));
     s1.addViewer(v1.getNickName());
-    ASSERT_EQ(s1.getNumViewers(), 1);
+    ASSERT_EQ(s1.getTotalViews(), 1);
     s1.addViewer(v2.getNickName());
     ASSERT_EQ(s1.getNumViewers(), 2);
 
@@ -64,7 +64,7 @@ TEST(test, publicStream) {
 
     s1.addValidUser(v1.getNickName());
     v1.joinStream(s1.getStreamId());
-    EXPECT_EQ(s1.getNumViewers(), 1);
+    EXPECT_EQ(s1.getTotalViews(), 1);
 
     try{
         v2.joinStream(s1.getStreamId());
@@ -306,7 +306,7 @@ TEST(test, testSorts){
     ASSERT_EQ(streams[4]->getTitle(),"Stream 1");
     ASSERT_EQ(streams[4]->getNumViewers(), 2);
     ASSERT_EQ(streams[3]->getNumViewers(), 1);
-    ASSERT_EQ(streams[2]->getNumViewers(), 1);
+    ASSERT_EQ(streams[2]->getTotalViews(), 1);
     ASSERT_EQ(streams[0]->getNumViewers(), 0);
 
     std::vector<User *> users;

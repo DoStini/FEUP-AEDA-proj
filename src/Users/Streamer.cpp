@@ -49,7 +49,7 @@ ID Streamer::getStreamID() {
 }
 
 
-unsigned int Streamer::getNumViewers() {
+unsigned int Streamer::getTotalViews() {
 
     unsigned int views;
 
@@ -64,6 +64,15 @@ unsigned int Streamer::getNumViewers() {
 
     return views;
 }
+
+unsigned int Streamer::getStreamViewers() {
+    if(!streaming())
+        throw NotInStreamException(nickName);
+
+    auto ptr =(LiveStream *) streamZ->getSearchM()->getStream(currStreaming);
+    return ptr->getNumViewers();
+}
+
 
 void Streamer::addFollower(std::string viewerNick) {
     followedBy.push_back(viewerNick);
@@ -101,6 +110,9 @@ void Streamer::startPrivateStream(std::string title, language streamLanguage, ge
 }
 
 void Streamer::kickUser(std::string viewerNick) {
+    if(!streaming())
+        throw NotInStreamException(nickName);
+
     if(!streamZ->getSearchM()->userExists(viewerNick))
         throw DoesNotExist<std::string>(viewerNick);
 
