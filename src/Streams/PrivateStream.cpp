@@ -26,25 +26,16 @@ bool PrivateStream::isValidUser(const std::string& userNick) {
 }
 
 void PrivateStream::addValidUser(const std::string& userNick) {
-<<<<<<< HEAD
-    if( isValidUser(userNick) )
-=======
+
     if(!streamZ->getSearchM()->userExists(userNick))
         throw DoesNotExist<std::string>(userNick);
-    if(std::find(whitelist.begin(),whitelist.end(),userNick) != whitelist.end())
->>>>>>> 913997ff7dfb43cdfe2091050b4d128f64f10c3f
+    if( isValidUser(userNick) )
         throw AlreadyInWhiteListException(userNick,this->getStreamId()) ;
     whitelist.push_back(userNick);
 }
 
 void PrivateStream::removeValidUser(const std::string &userNick) {
-<<<<<<< HEAD
 
-    if(!isValidUser(userNick))
-        throw NotInWhiteListException(userNick, streamId);
-
-    whitelist.erase(find(whitelist.begin(),whitelist.end(),userNick));
-=======
     auto it = find(whitelist.begin(),whitelist.end(),userNick);
     if(it == whitelist.end())
         throw NotInStreamException(userNick);
@@ -55,7 +46,6 @@ void PrivateStream::removeValidUser(const std::string &userNick) {
         if (viewer->getCurrWatching() == streamId)
             viewer->leaveStream();
     }
->>>>>>> 913997ff7dfb43cdfe2091050b4d128f64f10c3f
 }
 
 int PrivateStream::getWhitelistSize() const {
