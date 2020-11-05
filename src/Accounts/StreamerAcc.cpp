@@ -187,3 +187,11 @@ void StreamerAcc::kickUserFromStream() {
 
     waitForKey();
 }
+
+void StreamerAcc::addUserToPrivate() {
+    print();
+}
+
+void StreamerAcc::endStream() {
+
+}
