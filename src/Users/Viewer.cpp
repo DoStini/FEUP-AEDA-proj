@@ -136,11 +136,11 @@ ID Viewer::getCurrWatching() const {
 
 Viewer::~Viewer() {
     if(watching()){
-        LiveStream * ptr = (LiveStream *) streamZ->getSearchM()->getStream(currWatching);
+        LiveStream * ptr =  dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currWatching));
         ptr->removeViewer(nickName);
     }
     for(const auto & streamer : followingStreamers){
-        Streamer * ptr = (Streamer *) streamZ->getSearchM()->getUser(streamer);
+        Streamer * ptr = dynamic_cast<Streamer *>(streamZ->getSearchM()->getUser(streamer));
         ptr->leaveFollower(nickName);
     }
     streamZ->getStreamManager()->removeViewerFromWhitelists(nickName);
