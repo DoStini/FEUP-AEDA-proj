@@ -190,13 +190,18 @@ void ViewerAcc::followStreamer() {
 
         return;
     }
-    // TODO THIS IS NOT CHECKING IF THE STREAMER EXISTS OR NOT
+
     try {
         viewer->followStreamer(nickName);
 
         print("Success!");
     } catch (FollowStreamerException &e) {
+        print("Operation failed: ");
         print(e);
+    } catch (DoesNotExist<std::string> &e) {
+        print("Operation failed: ");
+        print("No such streamer with nickname ", '\0');
+        print(nickName);
     }
 
     waitForKey();
@@ -218,13 +223,18 @@ void ViewerAcc::unfollowStreamer() {
 
         return;
     }
-    // TODO THIS IS NOT CHECKING IF THE STREAMER EXISTS OR NOT
+
     try {
         viewer->unFollowStreamer(nickName);
 
         print("Success!");
     } catch (FollowStreamerException &e) {
+        print("Operation failed: ");
         print(e);
+    } catch (DoesNotExist<std::string> &e) {
+        print("Operation failed: ");
+        print("No such streamer with nickname: ", '\0');
+        print(nickName);
     }
 
     waitForKey();

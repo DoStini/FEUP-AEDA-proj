@@ -6,6 +6,7 @@
 #include "StreamZ.h"
 #include "utils.h"
 #include "InvalidPassword.h"
+#include "AlreadyExists.h"
 
 
 
@@ -243,24 +244,18 @@ void StreamZ::registerUser() {
             userManager->createStreamer(userName, nickName, dateObj, password);
         }
 
-        print("Success!!");
+        print("Success!");
 
-        waitForKey();
-
-        return;
     } catch (RestrictedAgeException &ex) {
-        print("You are not old enough to create an account: ");
-        std::cout << ex;
-
+        print("Operation failed: ");
+        print(ex);
     } catch (InvalidPassword &ex) {
+        print("Operation failed: ");
         print("An invalid password was used.");
-
-        //TODO CATCH ALREADY EXISTS
-//    } catch (Alread) {
-//
+    } catch (AlreadyExists<std::string> &e) {
+        print("Operation failed: ");
+        print(e);
     }
-
-    print("Register Failed.");
 
     waitForKey();
 }
