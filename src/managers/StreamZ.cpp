@@ -10,7 +10,7 @@
 void StreamZ::init() {
 
     //readFromFile();
-    LiveStream::lastId = 0;
+    LiveStream::lastId = NULL_STREAM;
     sortingManager = new SortingManager(this);
     searchManager = new SearchManager(this);
     userManager = new UserManager(this);
