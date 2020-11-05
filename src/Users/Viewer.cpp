@@ -115,7 +115,7 @@ void Viewer::giveFeedBack(const std::string& comment) {
     auto * currStream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
 
     if(!watching()) throw NotInStreamException(name);
-    if (!dynamic_cast<PrivateStream *>(currStream))
+    if (currStream->getStreamType() != privateType)
         throw NotPrivateStreamException(currStream->getStreamId());
 
     auto * stream = (PrivateStream *) currStream;
