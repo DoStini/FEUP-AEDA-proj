@@ -5,6 +5,7 @@
 #include "StreamerAcc.h"
 #include "Streamer.h"
 #include "Account.h"
+#include "StreamZ.h"
 
 StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
     if(Streamer * streamer = dynamic_cast<Streamer*>(user)) {
@@ -14,11 +15,14 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
     }
 
     options.insert(options.begin()+3, {
-        std::bind(&StreamerAcc::startStream, this)
+        std::bind(&StreamerAcc::startStream, this),
+        std::bind(&StreamerAcc::checkNumViewers, this)
     });
-    optionChecks[3] = [this](){return this->streamer->getStreamID() == 0;};
+    optionChecks[3] = [this](){return !this->streamer->streaming();};
+    optionChecks[4] = [this](){return this->streamer->streaming();};
     optionDescriptions.insert(optionDescriptions.begin() + 3, {
-        "Start a stream."
+        "Start a stream.",
+        "Check the number of viewers on your stream."
     });
 }
 
@@ -119,6 +123,31 @@ void StreamerAcc::startStream() {
         print("Operation failed: ");
         print(e);
     }
+
+    waitForKey();
+}
+
+void StreamerAcc::checkNumViewers() {
+    std::stringstream  ss;
+    ID streamID;
+    unsigned viewers;
+
+    try {
+        streamID = streamer->getStreamID();
+        viewers = streamZ->getSearchM()->getStream(streamID)->getNumViewers();
+    } catch (NotInStreamException &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    ss << viewers;
+
+    if(viewers == 1) ss << " is";
+    else ss << " are";
+
+    ss << " watching your stream.";
+
+    print(ss.str());
 
     waitForKey();
 }

@@ -31,6 +31,11 @@ public:
     void startStream();
 
     /**
+     * Displays the number of viewers of the stream;
+     */
+    void checkNumViewers();
+
+    /**
      * Prompts the streamer to kick a user from their stream.
      */
     void kickUserFromStream();
@@ -44,10 +49,7 @@ public:
      *  Prompts the streamer to end a stream.
      */
     void endStream();
-    /**
-     * Displays the number of viewers of the stream;
-     */
-    void checkNumViewers();
+
     /**
      * Displays the number of followers
      */
