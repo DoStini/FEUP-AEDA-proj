@@ -34,4 +34,8 @@ ID Streamer::getStreamID() {
     return currStreaming;
 }
 
+void Streamer::kickUser(std::string viewerNick) {
+
+}
+
 

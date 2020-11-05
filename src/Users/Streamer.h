@@ -31,10 +31,10 @@ public:
      */
     void addFollower(std::string viewerNick);
     /**
-     * Remove viewer to the followers vector
+     * Remove viewer from the followers vector
      * @param viewerNick - nick of the viewer
      */
-    void removeFollower(std::string viewerNick);
+    void leaveFollower(std::string viewerNick);
     ///@return - number of followers of the streamer
     unsigned int getNumFollowers() const;
     /// @return - If the streamer is currently streaming or not

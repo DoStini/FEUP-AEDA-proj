@@ -151,3 +151,37 @@ void StreamerAcc::checkNumViewers() {
 
     waitForKey();
 }
+
+void StreamerAcc::kickUserFromStream() {
+    std::string nickName;
+    ID streamID;
+    Stream * stream = nullptr;
+
+    print("What is the nickname of the viewer you want to kick? (empty to cancel) ", '\0');
+
+    getTruncatedString(nickName);
+
+    print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    try {
+        streamer->kickUser(nickName);
+
+        print("Operation success!");
+    } catch (NotInStreamException &e) {
+        print("Operation failed: ");
+        print(e);
+    } catch (DoesNotExist<std::string> &e) {
+        print("Operation failed: ");
+        print("No such user with the nickname ",'\0');
+        print(nickName);
+    }
+
+    waitForKey();
+}
