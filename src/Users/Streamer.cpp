@@ -97,6 +97,9 @@ void Streamer::startPrivateStream(std::string title, language streamLanguage, ge
 }
 
 void Streamer::kickUser(std::string viewerNick) {
+    if(!streaming())
+        throw NotInStreamException(nickName);
+
     if(!streamZ->getSearchM()->userExists(viewerNick))
         throw DoesNotExist<std::string>(viewerNick);
 
