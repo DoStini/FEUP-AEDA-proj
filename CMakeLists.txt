@@ -80,7 +80,7 @@ add_executable(FEUP_AEDA_proj
         src/managers/StreamManager.cpp
         src/managers/StreamManager.h
         src/Exceptions/streams/AlreadyInWhiteListException.cpp
-        src/Exceptions/streams/AlreadyInWhiteListException.h)
+        src/Exceptions/streams/AlreadyInWhiteListException.h src/Exceptions/streams/NotInWhiteListException.cpp src/Exceptions/streams/NotInWhiteListException.h)
 
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)

@@ -8,6 +8,7 @@
 #include <utility>
 
 #include "AlreadyInWhiteListException.h"
+#include "NotInWhiteListException.h"
 #include "LiveStream.h"
 #include "MaxViewersReach.h"
 
@@ -42,6 +43,7 @@ public:
     void addValidUser(const std::string& userNick);
     /**
      * Function to remove a user from the stream whitelist
+     * @throw NotInStreamException
      * @param userNick - nick of user to be removed
      */
     void removeValidUser(const std::string& userNick);

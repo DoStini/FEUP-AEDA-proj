@@ -19,7 +19,8 @@ class Viewer : public User{
 public:
     /**
      * Constructor when creating a new user
-     * Throws a RestrictedAgeException if the user is not allowed to create an account
+     * @throw RestrictedAgeException if the user is not allowed to create an account
+     * @throw RestrictedStreamException if the user is not whitelisted
      * @param name - Name of the user
      * @param nickName - Nickname
      * @param birthDate - Date of Birth

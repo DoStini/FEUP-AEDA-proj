@@ -441,11 +441,17 @@ TEST(test, testDestructs){
     streamZ.getUserM()->createViewer("Ganda cringe", "user5", Date(2000, 1, 1));
     streamZ.getUserM()->createViewer("Ganda cringe 2", "user6", Date(2000, 1, 1));
 
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "private1", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "private2", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "private3", Date(2000, 1, 1));
+
     streamZ.getUserM()->createStreamer("Streamer 1", "streamer1", Date(1995, 2,3));
     streamZ.getUserM()->createStreamer("Streamer 2", "streamer2", Date(1995, 2,3));
     streamZ.getUserM()->createStreamer("Streamer 3", "streamer3", Date(1995, 2,3));
     streamZ.getUserM()->createStreamer("Streamer 3", "streamer4", Date(1995, 2,3));
     streamZ.getUserM()->createStreamer("Streamer 3", "streamer5", Date(1995, 2,3));
+
+    streamZ.getUserM()->createStreamer("Streamer 3", "sp1", Date(1995, 2,3));
 
     dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->startPublicStream("Stream 1", PT_PT, gaming);
     dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->startPublicStream("Stream 2", PT_BR, technology);
@@ -481,6 +487,24 @@ TEST(test, testDestructs){
     ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->watching(), false);
     ASSERT_THROW(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->watching(), DoesNotExist<std::string>);
     ASSERT_THROW(dynamic_cast<Viewer *>(streamZ.getSearchM()->getStream(2)), DoesNotExist<ID>);
+
+
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("sp1"))->startPrivateStream("Private stream", PT_PT, gaming);
+    ASSERT_THROW(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("private1"))->joinStream(6), RestrictedStreamException);
+    auto * ps = dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(6));
+    ps->addValidUser("private1");
+    ps->addValidUser("private2");
+    ps->addValidUser("private3");
+    ASSERT_EQ(ps->getNumViewers(), 0);
+    ASSERT_EQ(ps->getWhitelistSize(), 3);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("private1"))->joinStream(6);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("private2"))->joinStream(6);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("private3"))->joinStream(6);
+    ASSERT_EQ(ps->getNumViewers(), 3);
+    streamZ.getAdminOps()->removeUser("private1");
+    ASSERT_EQ(ps->getNumViewers(), 2);
+    ASSERT_EQ(ps->getWhitelistSize(), 2);
+
 }
 
 

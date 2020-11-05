@@ -25,12 +25,16 @@ bool PrivateStream::isValidUser(const std::string& userNick) {
 }
 
 void PrivateStream::addValidUser(const std::string& userNick) {
-    if(std::find(whitelist.begin(),whitelist.end(),userNick) != whitelist.end())
+    if( isValidUser(userNick) )
         throw AlreadyInWhiteListException(userNick,this->getStreamId()) ;
     whitelist.push_back(userNick);
 }
 
 void PrivateStream::removeValidUser(const std::string &userNick) {
+
+    if(!isValidUser(userNick))
+        throw NotInWhiteListException(userNick, streamId);
+
     whitelist.erase(find(whitelist.begin(),whitelist.end(),userNick));
 }
 

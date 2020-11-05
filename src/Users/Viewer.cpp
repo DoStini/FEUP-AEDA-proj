@@ -143,6 +143,7 @@ Viewer::~Viewer() {
         Streamer * ptr = (Streamer *) streamZ->getSearchM()->getUser(streamer);
         ptr->leaveFollower(nickName);
     }
+    streamZ->getStreamManager()->removeViewerFromWhitelists(nickName);
 }
 
 bool Viewer::isFollowing(std::string &streamer) {

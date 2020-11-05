@@ -47,3 +47,22 @@ ID StreamManager::createPrivateStream(std::string name, std::string streamerNick
 
     return ptr->getStreamId();
 }
+
+void StreamManager::removeViewerFromWhitelists(std::string nick) {
+    auto it1 = streamZ->getDatabase().getStreams().begin(),
+            ite = streamZ->getDatabase().getStreams().end();
+
+    while(it1 != ite){
+        if(it1->second->getStreamType() == privateType){
+            PrivateStream * ptr = dynamic_cast<PrivateStream *>(it1->second);
+
+            try {
+                ptr->removeValidUser(nick);
+            } catch (const std::exception & e) {
+            }
+        }
+        it1++;
+    }
+
+
+}
