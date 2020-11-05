@@ -12,9 +12,8 @@ const char *AlreadyInStreamException::what() const noexcept {
 }
 
 std::ostream &operator<<(std::ostream &os, const AlreadyInStreamException &exception) {
-    // TODO
-    // Check weather it is a streamer or a viewer
-    os << "The operation " << exception.user << " requested wasn't executed because he is already in " << exception.currStream << ".";
+    os << "The operation " << exception.user << " requested wasn't executed because the user is already "
+    << (exception.isViewer ? "watching " : "streaming ") << exception.currStream << ".";
     return os;
 }
 
