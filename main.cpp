@@ -281,7 +281,6 @@ TEST(test, run) {
     manager.getUserM()->createStreamer("asd", "streamer", Date(2001, 02, 25),"streamer");
 
     manager.run();
-
 }
 
 int main() {

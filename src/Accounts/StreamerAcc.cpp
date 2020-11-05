@@ -16,14 +16,18 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
 
     options.insert(options.begin()+3, {
         std::bind(&StreamerAcc::startStream, this),
-        std::bind(&StreamerAcc::checkNumViewers, this)
+        std::bind(&StreamerAcc::checkNumViewers, this),
+        std::bind(&StreamerAcc::kickUserFromStream, this)
     });
     optionChecks[3] = [this](){return !this->streamer->streaming();};
     optionChecks[4] = [this](){return this->streamer->streaming();};
+    optionChecks[5] = [this](){return this->streamer->streaming();};
     optionDescriptions.insert(optionDescriptions.begin() + 3, {
         "Start a stream.",
-        "Check the number of viewers on your stream."
+        "Check the number of viewers on your stream.",
+        "Kick viewer from the stream."
     });
+    nOptions = options.size();
 }
 
 void StreamerAcc::startStream() {
@@ -154,8 +158,6 @@ void StreamerAcc::checkNumViewers() {
 
 void StreamerAcc::kickUserFromStream() {
     std::string nickName;
-    ID streamID;
-    Stream * stream = nullptr;
 
     print("What is the nickname of the viewer you want to kick? (empty to cancel) ", '\0');
 

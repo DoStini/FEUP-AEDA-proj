@@ -38,4 +38,8 @@ void Streamer::kickUser(std::string viewerNick) {
 
 }
 
+bool Streamer::streaming() {
+    return currStreaming != NULL_STREAM;
+}
+
 
