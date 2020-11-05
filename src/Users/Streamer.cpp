@@ -24,6 +24,10 @@ Streamer::~Streamer() {
     for(const auto & curr : finishedStreams){
         streamZ->getStreamManager()->removeStream(curr);
     }
+    for(const auto & curr : followedBy){
+        Viewer * ptr = (Viewer *) streamZ->getSearchM()->getUser(curr);
+        ptr->removeFollowStreamer(nickName);
+    }
 }
 
 userType Streamer::getUserType() const {
@@ -65,7 +69,7 @@ void Streamer::addFollower(std::string viewerNick) {
     followedBy.push_back(viewerNick);
 }
 
-void Streamer::removeFollower(std::string viewerNick) {
+void Streamer::leaveFollower(std::string viewerNick) {
     followedBy.erase(find(followedBy.begin(),followedBy.end(),viewerNick));
 }
 
@@ -113,4 +117,6 @@ void Streamer::kickedStream() {
 
     currStreaming = NULL_STREAM;
 }
+
+
 
