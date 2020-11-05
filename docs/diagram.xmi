@@ -161,7 +161,7 @@
           <UML:Parameter isSpecification="false" visibility="private" type="uu9Txax1lkefj" xmi.id="ud7RrNrzBtxbh" value="" name="viewer"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isLeaf="false" isSpecification="false" isAbstract="false" visibility="public" isQuery="true" isRoot="false" isInline="false" xmi.id="udhTeXNbfBhEi" isVirtual="false" name="getNumViewers" isOverride="false">
+        <UML:Operation isLeaf="false" isSpecification="false" isAbstract="false" visibility="public" isQuery="true" isRoot="false" isInline="false" xmi.id="udhTeXNbfBhEi" isVirtual="false" name="getTotalViews" isOverride="false">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter kind="return" type="uAfnsmMKCkRby" xmi.id="uULDUlzyhPbBt"/>
          </UML:BehavioralFeature.parameter>
