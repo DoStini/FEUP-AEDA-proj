@@ -38,7 +38,7 @@ void PrivateStream::removeValidUser(const std::string &userNick) {
 
     auto it = find(whitelist.begin(),whitelist.end(),userNick);
     if(it == whitelist.end())
-        throw NotInStreamException(userNick);
+        throw NotInWhiteListException(userNick,streamId);
     else {
         whitelist.erase(it);
 
