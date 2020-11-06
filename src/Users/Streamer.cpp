@@ -42,4 +42,8 @@ bool Streamer::streaming() {
     return currStreaming != NULL_STREAM;
 }
 
+void Streamer::closeStream() {
+
+}
+
 

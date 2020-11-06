@@ -243,5 +243,22 @@ void StreamerAcc::addUserToPrivate() {
 }
 
 void StreamerAcc::endStream() {
+    char option;
+    print("Do you want to end your stream? (Y/N) ", '\0');
 
+    while(!checkInput(option) || option != 'Y') {
+        print("Invalid Option! Please try again: ", '\0');
+    }
+
+    print();
+    try {
+        streamer->closeStream();
+
+        print("Operation success!");
+    } catch (NotInStreamException &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    waitForKey();
 }
