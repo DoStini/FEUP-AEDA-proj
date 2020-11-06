@@ -65,6 +65,10 @@ public:
      * Prompts the viewer to unfollow a streamer.
      */
     void unfollowStreamer();
+
+    // TODO ADD VIEW HISTORY
+
+    // TODO MAYBE ADD STTREAM TO HISTORY ON ENTER
 };
 
 

@@ -26,13 +26,11 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         std::bind(&ViewerAcc::followStreamer, this),
         std::bind(&ViewerAcc::unfollowStreamer, this)
     });
-    optionChecks[3] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
+    optionChecks[3] = optionChecks[8] = optionChecks[10] =
+            [this]() {return !this->viewer->getFollowingStreamers().empty();};
     optionChecks[4] = [this]() {return !this->viewer->watching();};
-    optionChecks[5] = [this]() {return this->viewer->watching();};
-    optionChecks[6] = [this]() {return this->viewer->watching();};
+    optionChecks[5] = optionChecks[6] = [this]() {return this->viewer->watching();};
     optionChecks[7] = [this]() { return this->checkWatchingPrivate();};
-    optionChecks[8] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
-    optionChecks[10] = [this]() {return !this->viewer->getFollowingStreamers().empty();};
     optionDescriptions.insert(optionDescriptions.begin()+3,{
         "List all live streams from the streamers you follow.",
         "Join a stream with a stream ID.",
@@ -60,19 +58,19 @@ void ViewerAcc::joinStreamById() {
     try {
         viewer->joinStream(streamId);
 
-        print("Join Successful");
+        print("Operation success!");
     } catch(AlreadyInStreamException &e) {
-        print("Join Failed: ");
+        print("Operation failed: ");
         print(e);
     } catch (DoesNotExist<ID> &e) {
         ss << "No such stream with ID " << streamId;
-        print("Join Failed: "); //No such stream
+        print("Operation failed: "); //No such stream
         print(ss.str());
     } catch (RestrictedAgeException &e) {
-        print("Join Failed: "); //No such stream
+        print("Operation failed: "); //No such stream
         print(e);
     } catch (RestrictedStreamException &e) {
-        print("Join Failed: "); //No such stream
+        print("Operation failed: "); //No such stream
         print(e);
     }
 
@@ -145,8 +143,25 @@ void ViewerAcc::giveComment() {
     getString(comment);
 
     print();
-    if(comment.empty()) print("Operation cancelled.");
-    else print("Success!");
+    if(comment.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    try {
+        viewer->giveFeedBack(comment);
+
+        print("Operation success!");
+    } catch (NotInStreamException &e) {
+        print("Operation failed: ");
+        print(e);
+    } catch (NotPrivateStreamException &e) {
+        print("Operation failed: ");
+        print(e);
+    }
 
     waitForKey();
 }
@@ -194,7 +209,7 @@ void ViewerAcc::followStreamer() {
     try {
         viewer->followStreamer(nickName);
 
-        print("Success!");
+        print("Operation success!");
     } catch (FollowStreamerException &e) {
         print("Operation failed: ");
         print(e);
@@ -227,7 +242,7 @@ void ViewerAcc::unfollowStreamer() {
     try {
         viewer->unFollowStreamer(nickName);
 
-        print("Success!");
+        print("Operation success!");
     } catch (FollowStreamerException &e) {
         print("Operation failed: ");
         print(e);

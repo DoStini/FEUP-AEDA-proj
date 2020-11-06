@@ -222,6 +222,7 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
     std::string streamName;
     std::vector<genre> genres;
     std::vector<language> languages;
+    unsigned age;
     std::stringstream ss;
 
     print("Stream Name (empty for all streams): ", '\0');
@@ -274,6 +275,15 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
         languages.push_back((language) (option - 1));
     } while(option != 0);
 
+    print("Minimum age of stream: (0 for default) ", '\0');
+
+    while(!checkInput(age)) {
+        print("Invalid Input! Please try again: ", '\0');
+    }
+
+    if(age == 0) age = VIEWER_MIN_AGE;
+
+    // TODO UPDATE FUNCTION TO SEARCH WITH AGE
     streamZ->getSearchM()->listLiveStreams(streams, streamName, genres, languages);
 }
 
