@@ -38,7 +38,7 @@ void PrivateStream::removeValidUser(const std::string &userNick) {
 
     auto it = find(whitelist.begin(),whitelist.end(),userNick);
     if(it == whitelist.end())
-        throw NotInStreamException(userNick);
+        throw NotInWhiteListException(userNick,streamId);
     else {
         whitelist.erase(it);
 
@@ -66,6 +66,30 @@ void PrivateStream::addViewer(const std::string &viewerNick) {
         throw MaxViewersReach(streamId, maxViewers);
     else
         streamViewers.push_back(viewerNick);
+}
+
+std::string PrivateStream::getShorDescription() const {
+    std::stringstream ss;
+    ss << title << " (Stream Id: " << streamId << ")" << " ->Private";
+    return ss.str();
+}
+
+std::string PrivateStream::getLongDescription() const {
+    std::stringstream ss;
+    ss << "Streamed by:" << streamerNick << std::endl
+       << "Star streaming: " << beginDate.getStringDate() << std::endl
+       << "Language: " << streamLanguage << std::endl
+       << "Genre: " << streamGenre << std::endl
+       << "Necessary age to join: " << minAge << std::endl
+       << "Current watching: " << streamViewers.size() << std::endl
+       << "Can only have a total of " << maxViewers << " viewers watching." << std::endl
+       << "Likes: " << getLikes() << " Dislikes: " << getDislikes() << std::endl
+       << "My comments!";
+    for(auto it=comments.begin(); it!=comments.end(); it++){
+        ss << (*it);
+    }
+
+    return ss.str();
 }
 
 
