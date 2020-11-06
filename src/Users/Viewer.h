@@ -17,6 +17,7 @@
  */
 class Viewer : public User{
 public:
+
     /**
      * Constructor when creating a new user
      * @throw RestrictedAgeException if the user is not allowed to create an account
@@ -26,35 +27,44 @@ public:
      * @param birthDate - Date of Birth
      */
     Viewer(std::string name, std::string nickName, const Date &birthDate);
+
     ~Viewer();
+
     ///@return - user type = viewer
     userType getUserType() const override;
+
     ///@return - ID of current watching stream
     ID getCurrWatching() const;
+
     /// @return boolean indicating if the user is watching some stream or not
     bool watching() const;
+
     /**
      * Follow a streamer
      * @param streamer - The desired streamer
      */
     void followStreamer(const std::string& streamer);
+
     /**
      * Unfollow a streamer
      * @param streamer - Desired streamer
      */
     void unFollowStreamer(const std::string& streamer);
+
     /**
      * Removes a streamer from the vector
      * Used only by streamer destructor
      * @param streamer
      */
     void removeFollowStreamer(const std::string & streamer);
+
     /**
      * Checks if the viewers is following a streamer
      * @param streamer - The streamer's nick
      * @return
      */
     bool isFollowing(std::string & streamer);
+
     /**
      * Join a stream
      * @throw DoesNotExist
@@ -64,33 +74,45 @@ public:
      * @param stream - Desired stream
      */
     void joinStream(ID streamID);
+
     /** Leave the current stream
      * @throw NotInStreamException
      */
     void leaveStream();
+
     /**
      * Function to be used only when deleting a stream from the system deleting the stream pointer
      */
     void kickedStream();
+
     /**
      * Add stream to the stream history
      *
      * @param streamID - stream to be added to the history
      */
     void addStreamHistory(ID streamID);
+
+    /**
+     * Remove stream from the stream history
+     *
+     * @param streamID - stream to be removed from the history
+     */
     void removeStreamHistory(ID streamID);
+
     /**
      * Checks if a stream is in the stream history
      * @param streamID - id of the stream to be checked
      * @return - true if it is, otherwise false
      */
     bool isInStreamHistory(ID streamID);
+
     /**
      * Gives feedback
      * @throw NotInStreamException
      * @param fbValue - Feedback value
      */
     void giveFeedBack(feedback fbValue);
+
     /**
      * Leave a comment on the (private) stream currently watching
      * @throw NotInStreamException
@@ -98,6 +120,18 @@ public:
      * @param comment - The comment
      */
     void giveFeedBack(const std::string& comment);
+
+    /// @return - relevant info about user
+    std::string getShorDescription() const override;
+
+    /// @return - detailed info about user
+    std::string getLongDescription() const override;
+
+    /// @return - string with all the following
+    std::string getFollowDetails() const override;
+
+    /// @return - string with all the stream history
+    std::string getHistoryDetails() const override;
 
 private:
     /// Minimum age to be able to create a viewer account

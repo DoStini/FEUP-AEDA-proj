@@ -31,7 +31,19 @@ int FinishedStream::getNumViewers() const {
     return numViewers;
 }
 
-const std::string &FinishedStream::getStreamerName() const {
-    return streamerName;
+std::string FinishedStream::getShorDescription() const {
+    std::stringstream ss;
+    ss << title << " (Stream Id: " << streamId << ")" << " ->Finished";
+    return ss.str();
 }
 
+std::string FinishedStream::getLongDescription() const {
+    std::stringstream ss;
+    ss << "Streamed by:" << streamerNick << std::endl
+       << "Star streaming: " << beginDate.getStringDate() << std::endl
+       << "Language: " << streamLanguage << std::endl
+       << "Genre: " << streamGenre << std::endl
+       << "Final viewers: " << numViewers << std::endl
+       << "Stream finished at: " << finishedDate.getStringDate();
+    return ss.str();
+}

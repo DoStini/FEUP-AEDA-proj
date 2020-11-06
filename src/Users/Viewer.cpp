@@ -136,7 +136,7 @@ ID Viewer::getCurrWatching() const {
 
 Viewer::~Viewer() {
     if(watching()){
-        LiveStream * ptr =  dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currWatching));
+        auto * ptr =  dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currWatching));
         ptr->removeViewer(nickName);
     }
     for(const auto & streamer : followingStreamers){
@@ -148,6 +148,51 @@ Viewer::~Viewer() {
 
 bool Viewer::isFollowing(std::string &streamer) {
     return false;
+}
+
+std::string Viewer::getShorDescription() const {
+    std::stringstream  ss;
+    ss << name << " (Nickname: " << nickName << ")" << " ->Viewer";
+    return ss.str();
+}
+
+std::string Viewer::getLongDescription() const {
+    std::stringstream  ss;
+    ss << "My password is " << password << " hope you enjoy my account :)\n"
+       << "I was born in " << birthDate.getStringDate() << " so i have " << age << " years.\n"
+       << "Have join StreamZ in: " << joinedPlatformDate.getStringDate()
+       << "Follow " << followingStreamers.size() << " streamers.\n"
+       << "They are:\n";
+    for(const auto & it : followingStreamers){
+        ss << it << std::endl;
+    }
+    if(currWatching == NULL_STREAM){
+        ss << "Right now i am watching nothing.\n";
+    }
+    else{
+        ss << "Right now i am watching:\n"
+           << streamZ->getSearchM()->getStream(currWatching)->getShorDescription() << std::endl;
+    }
+    ss << "I have seen a total of " << streamHistory.size() << " streams.\n";
+    return ss.str();
+}
+
+std::string Viewer::getFollowDetails() const {
+    std::stringstream  ss;
+    ss << "The streamers that i follow are:\n";
+    for(const auto & it : followingStreamers){
+        ss << it << std::endl;
+    }
+    return ss.str();
+}
+
+std::string Viewer::getHistoryDetails() const {
+    std::stringstream  ss;
+    ss << "I have participate in the following streams: \n";
+    for(const auto & it : streamHistory){
+        ss << streamZ->getSearchM()->getStream(it)->getShorDescription() << std::endl;
+    }
+    return ss.str();
 }
 
 

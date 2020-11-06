@@ -127,5 +127,46 @@ void Streamer::kickedStream() {
     currStreaming = NULL_STREAM;
 }
 
+std::string Streamer::getShorDescription() const {
+    std::stringstream  ss;
+    ss << name << " (Nickname: " << nickName << ")" << " ->Streamer";
+    return ss.str();
+}
+
+std::string Streamer::getLongDescription() const {
+    std::stringstream  ss;
+    ss << "My password is " << password << " hope you enjoy my account :)\n"
+    << "I was born in " << birthDate.getStringDate() << " so i have " << age << " years.\n"
+    << "Have join StreamZ in: " << joinedPlatformDate.getStringDate()
+    << "Current have " << getNumFollowers() << " followers.\n";
+    if(currStreaming == NULL_STREAM){
+        ss << "Right now i am not streaming.\n";
+    }
+    else{
+        ss << "Right now i am streaming:\n"
+        << streamZ->getSearchM()->getStream(currStreaming)->getShorDescription() << std::endl;
+    }
+    ss << "I have streamed a total of " << finishedStreams.size() << " streams.\n";
+    return ss.str();
+}
+
+std::string Streamer::getFollowDetails() const {
+    std::stringstream  ss;
+    ss << "My followers are:\n";
+    for(const auto & it : followedBy){
+        ss << it << std::endl;
+    }
+    return ss.str();
+}
+
+std::string Streamer::getHistoryDetails() const {
+    std::stringstream  ss;
+    ss << "My finished streams are:\n";
+    for(const auto & it : finishedStreams){
+        ss << streamZ->getSearchM()->getStream(it)->getShorDescription() << std::endl;
+    }
+    return ss.str();
+}
+
 
 

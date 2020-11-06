@@ -25,16 +25,20 @@ public:
      */
     streamType getStreamType() const override;
 
+     /// @return - Date when the stream end
     const Date &getFinishedDate() const;
 
     int getNumViewers() const;
 
-    const std::string &getStreamerName() const;
+    /// @return - relevant info about stream
+    std::string getShorDescription() const override;
+
+    /// @return - detailed info about stream
+    std::string getLongDescription() const override;
 
 private:
     Date finishedDate;
     int numViewers;
-    std::string streamerName;
 };
 
 
