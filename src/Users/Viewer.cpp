@@ -94,3 +94,7 @@ bool Viewer::watching() {
 const std::vector<std::string> &Viewer::getFollowingStreamers() const {
     return followingStreamers;
 }
+
+const std::vector<ID> &Viewer::getHistory() const {
+    return streamHistory;
+}

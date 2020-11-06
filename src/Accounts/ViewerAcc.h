@@ -66,7 +66,7 @@ public:
      */
     void unfollowStreamer();
 
-    // TODO ADD VIEW HISTORY
+    void displayHistory();
 
     // TODO MAYBE ADD STTREAM TO HISTORY ON ENTER
 };

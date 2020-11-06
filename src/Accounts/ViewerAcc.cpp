@@ -24,7 +24,8 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         std::bind(&ViewerAcc::giveComment, this),
         std::bind(&ViewerAcc::listFollowingStreamers, this),
         std::bind(&ViewerAcc::followStreamer, this),
-        std::bind(&ViewerAcc::unfollowStreamer, this)
+        std::bind(&ViewerAcc::unfollowStreamer, this),
+        std::bind(&ViewerAcc::displayHistory, this)
     });
     optionChecks[3] = optionChecks[8] = optionChecks[10] =
             [this]() {return !this->viewer->getFollowingStreamers().empty();};
@@ -39,7 +40,8 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         "Write a comment to the current stream.",
         "List all the streamers you follow.",
         "Follow a streamer.",
-        "Unfollow a streamer."
+        "Unfollow a streamer.",
+        "Display your watch history."
     });
     nOptions = options.size();
 }
@@ -274,6 +276,29 @@ void ViewerAcc::listFollowingStreamers() {
         std::stringstream  ss;
         Streamer * streamer = dynamic_cast<Streamer *>(this->streamZ->getSearchM()->getUser(nick));
         ss << streamer->getName() << " (Nickname: " << streamer->getNickName() << ")";
+        return ss.str();
+    }));
+}
+
+void ViewerAcc::displayHistory() {
+    std::vector<ID> history = viewer->getHistory();
+
+    if(history.empty()) {
+        print("You haven't watched any streams.");
+
+        waitForKey();
+
+        return;
+    }
+
+    print("Here are all the streams you have watched: ");
+    print();
+
+    // TODO CHANGE TO FUNCTION IN TYPE.
+    printPagedList(history, std::function<std::string(ID)>([this](ID streamID){
+        std::stringstream  ss;
+        Stream * stream = dynamic_cast<Stream *>(this->streamZ->getSearchM()->getStream(streamID));
+        ss << stream->getTitle() << " (Stream ID: " << stream->getId() << ")";
         return ss.str();
     }));
 }

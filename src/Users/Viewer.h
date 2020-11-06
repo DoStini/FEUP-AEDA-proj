@@ -67,6 +67,8 @@ public:
      */
     void giveFeedBack(std::string comment);
 
+    const std::vector<ID> &getHistory() const;
+
     const std::vector<std::string> &getFollowingStreamers() const;
 
     unsigned long long int getStreamID() const;
@@ -78,6 +80,8 @@ private:
     Stream * currWatching = nullptr;
     /// List of streamers the viewer follows
     std::vector<std::string> followingStreamers;
+    /// Vector of streams that user have seen
+    std::vector<ID> streamHistory;
 };
 
 
