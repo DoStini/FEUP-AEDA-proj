@@ -6,6 +6,7 @@
 #include "Streamer.h"
 #include "Account.h"
 #include "StreamZ.h"
+#include "NotInWhiteListException.h"
 
 StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
     if(Streamer * streamer = dynamic_cast<Streamer*>(user)) {
@@ -18,12 +19,13 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
         std::bind(&StreamerAcc::startStream, this),
         std::bind(&StreamerAcc::checkNumViewers, this),
         std::bind(&StreamerAcc::kickUserFromStream, this),
-        std::bind(&StreamerAcc::addUserToPrivate, this)
+        std::bind(&StreamerAcc::addUserToPrivate, this),
+        std::bind(&StreamerAcc::removeUserFromPrivate, this),
+        std::bind(&StreamerAcc::endStream, this)
     });
     optionChecks[3] = [this](){return !this->streamer->streaming();};
-    optionChecks[4] = [this](){return this->streamer->streaming();};
-    optionChecks[5] = [this](){return this->streamer->streaming();};
-    optionChecks[6] = [this](){
+    optionChecks[4] = optionChecks[5] = optionChecks[8] = [this](){return this->streamer->streaming();};
+    optionChecks[6] = optionChecks[7] = [this](){
         if(!this->streamer->streaming()) return false;
 
         ID streamID = this->streamer->getStreamID();
@@ -33,7 +35,9 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
         "Start a stream.",
         "Check the number of viewers on your stream.",
         "Kick viewer from the stream.",
-        "Add user to stream whitelist."
+        "Add user to stream whitelist.",
+        "Remove user from stream whitelist.",
+        "End stream."
     });
     nOptions = options.size();
 }
@@ -200,6 +204,11 @@ void StreamerAcc::addUserToPrivate() {
     std::string nickName;
     ID streamID;
 
+    if(!streamer->streaming()) {
+        print("Operation cancelled: ");
+        print("You are not streaming.");
+    }
+
     print("What is the nickname of the viewer you want to add to your whitelist? (empty to cancel) ", '\0');
 
     getTruncatedString(nickName);
@@ -222,7 +231,7 @@ void StreamerAcc::addUserToPrivate() {
 
         privateStream->addValidUser(nickName);
 
-        print("Success!");
+        print("Operation success!");
     } catch (NotInStreamException &e) {
         print("Operation failed: ");
         print(e);
@@ -256,6 +265,52 @@ void StreamerAcc::endStream() {
 
         print("Operation success!");
     } catch (NotInStreamException &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    waitForKey();
+}
+
+void StreamerAcc::removeUserFromPrivate() {
+    std::string nickName;
+    ID streamID;
+
+    print("What is the nickname of the viewer you want to remove from your whitelist? (empty to cancel) ", '\0');
+
+    getTruncatedString(nickName);
+
+    print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    try {
+        streamID = streamer->getStreamID();
+        PrivateStream * privateStream = dynamic_cast<PrivateStream *>(streamZ->getSearchM()->getStream(streamID));
+        if(!privateStream) {
+            throw NotPrivateStreamException(streamID);
+        }
+
+        privateStream->removeValidUser(nickName);
+
+        print("Operation success!");
+    } catch (NotInStreamException &e) {
+        print("Operation failed: ");
+        print(e);
+    } catch (DoesNotExist<ID> &e) {
+        print("Operation failed: ");
+        print("No such stream with ID ", '\0');
+        print(streamID);
+    } catch (DoesNotExist<std::string> &e) {
+        print("Operation failed: ");
+        print("No such user with nickname ", '\0');
+        print(nickName);
+    } catch (NotInWhiteListException &e) {
         print("Operation failed: ");
         print(e);
     }

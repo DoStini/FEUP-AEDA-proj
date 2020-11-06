@@ -32,3 +32,7 @@ streamType PrivateStream::getStreamType() const {
     return privateType;
 }
 
+void PrivateStream::removeValidUser(const std::string &userNick) {
+
+}
+
