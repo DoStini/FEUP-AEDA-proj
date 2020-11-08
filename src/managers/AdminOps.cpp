@@ -96,12 +96,13 @@ streamType AdminOps::rankViewsTypes(bool reversed) {
 
     while(its != ite){
         type = (*its).second->getStreamType();
+        its++;
+        if (type != finishedType) continue;
 
         if ( ammViews.find(type) != ammViews.end() )
             ammViews[type] += views;
         else
             ammViews[type] = views;
-        its++;
     }
 
     if(ammViews.empty()) throw EmptyDatabaseException(false);
