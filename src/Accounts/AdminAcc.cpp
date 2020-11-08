@@ -124,21 +124,26 @@ void AdminAcc::statistics() {
     };
     print();
 
-    for(unsigned i = 0; i < sOptions.size(); i++) {
-        ss.str("");
+    do {
+        for(unsigned i = 0; i < sOptions.size(); i++) {
+            ss.str("");
 
-        ss << i << ". " << descriptions[i];
-        print(ss.str());
-    }
+            ss << i << ". " << descriptions[i];
+            print(ss.str());
+        }
 
-    print();
-    print("Choose an option: ", '\0');
+        print();
+        print("Choose an option: ", '\0');
 
-    while (!checkInput(option) || option < 0 || option >= sOptions.size()) {
-        print("Invalid Option! Please try again: " , '\0');
-    }
+        while (!checkInput(option) || option < 0 || option >= sOptions.size()) {
+            print("Invalid Option! Please try again: " , '\0');
+        }
+        if(option == 0) break;
 
-    sOptions[option]();
+        print(LINE_BREAK);
+        sOptions[option]();
+        print(LINE_BREAK);
+    } while(option != 0);
 }
 
 void AdminAcc::numStreams() {
@@ -162,6 +167,7 @@ void AdminAcc::viewsPerStream() {
     bool validInterval = getTimeInterval(dateInterval);
     float views;
 
+    print();
     if(validInterval) {
         print("Mean views per stream between dates ",'\0');
         print(dateInterval.first.getStringDate(),'\0');
