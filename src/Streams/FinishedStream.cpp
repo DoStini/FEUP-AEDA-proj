@@ -12,3 +12,11 @@ FinishedStream::FinishedStream(std::string title, std::string language, int numV
 std::string FinishedStream::getInfo() const {
     return "Finished stream";
 }
+
+std::string FinishedStream::getShortDescription() const {
+    return std::__cxx11::string();
+}
+
+std::string FinishedStream::getLongDescription() const {
+    return std::__cxx11::string();
+}

@@ -83,6 +83,12 @@ public:
     /// @return password of the user
     const std::string &getPassword() const;
 
+    /// @return - relevant info about user
+    virtual std::string getShortDescription() const = 0;
+
+    /// @return - detailed info about user
+    virtual std::string getLongDescription() const = 0;
+
 protected:
     std::string name;
     /// Used to login and other id related stuff

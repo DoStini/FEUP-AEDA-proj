@@ -11,3 +11,11 @@ userType Admin::getUserType() const {
 Admin::Admin(std::string name, std::string nickName, const Date &birthDate) : User(name, nickName, birthDate) {
 
 }
+
+std::string Admin::getShortDescription() const {
+    return std::__cxx11::string();
+}
+
+std::string Admin::getLongDescription() const {
+    return std::__cxx11::string();
+}

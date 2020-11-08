@@ -36,3 +36,11 @@ void PrivateStream::removeValidUser(const std::string &userNick) {
 
 }
 
+std::string PrivateStream::getLongDescription() const {
+    return std::__cxx11::string();
+}
+
+std::string PrivateStream::getShorDescription() const {
+    return std::__cxx11::string();
+}
+

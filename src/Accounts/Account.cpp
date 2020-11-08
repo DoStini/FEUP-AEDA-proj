@@ -305,11 +305,8 @@ void Account::listStreams() {
     print("Here are all the current live streams: ");
     print();
 
-    // TODO CHANGE TO FUNCTION IN TYPE.
     printPagedList(streams, std::function<std::string(LiveStream *)>([](LiveStream*stream){
-        std::stringstream  ss;
-        ss << stream->getTitle() << " (Stream Id: " << stream->getId() << ")";
-        return ss.str();
+        return stream->getShortDescription();
     }));
 }
 
@@ -359,10 +356,11 @@ void Account::listUsers() {
     print("Here are the results: ");
     print();
 
-    // TODO CHANGE TO FUNCTION IN TYPE.
     printPagedList(users, std::function<std::string(User *)>([](User*user){
-        std::stringstream  ss;
-        ss << user->getName() << " (Nickname: " << user->getNickName() << ")";
-        return ss.str();
+        return user->getShortDescription();
     }));
+}
+
+void Account::top10StreamersViews() {
+
 }

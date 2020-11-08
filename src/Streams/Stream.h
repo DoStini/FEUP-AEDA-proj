@@ -90,6 +90,12 @@ public:
 
     unsigned long long int getId();
 
+    /// @return - relevant info about stream
+    virtual std::string getShortDescription() const = 0;
+
+    /// @return - detailed info about stream
+    virtual std::string getLongDescription() const = 0;
+
 private:
     std::string title;
     Date beginDate;

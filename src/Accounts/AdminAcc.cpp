@@ -110,9 +110,4 @@ void AdminAcc::statistics() {
     while (!checkInput(option) || option < 0 || option > 3) {
         print("Invalid Option! Please try again: " , '\0');
     }
-
-    //TODO change to actual leaderboard
-    //if(option == 1) streamZ->getLeaderboard()->top10StreamLikes();
-    //else if(option == 2) streamZ->getLeaderboard()->top10StreamViews();
-    //else if (option == 3) streamZ->getLeaderboard()->top10OldestUsers();
 }

@@ -22,6 +22,13 @@ public:
      * @return UserType containing info about the admin
      */
     userType getUserType() const override;
+
+    /// @return - relevant info about user
+    std::string getShortDescription() const override;
+
+    /// @return - detailed info about user
+    std::string getLongDescription() const override;
+
 };
 
 

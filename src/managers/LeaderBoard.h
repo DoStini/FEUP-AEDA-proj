@@ -7,13 +7,32 @@
 
 
 #include <Stream.h>
+#include <PrivateStream.h>
 
+class StreamZ;
+#include "LiveStream.h"
+
+/**
+ * Class to execute leaderboard related commands
+ */
 class LeaderBoard {
 public:
-    LeaderBoard() = default;
-    std::vector<Stream *> top10StreamViews();
-    std::vector<Stream *> top10StreamLikes();
-    std::vector<User *> top10oldestUsers();
+    /**
+     * Constructor. StreamZ needs to be used by the class to access the database and other methods
+     * @param streamZ - Main class pointer
+     */
+    explicit LeaderBoard(StreamZ *streamZ);
+    /// @param Returns by reference Vector of stream pointers containing the top 10 streams according to the number of views
+    void top10StreamViews(std::vector<LiveStream *> & streams);
+    /// @param Returns by reference  Vector of stream pointers containing the top 10 streams according to the number of likes
+    void top10StreamLikes(std::vector<LiveStream *> & streams);
+    /// @param Returns by reference Vector of stream pointers containing the top 10 streams according to the number of comments (private streams only)
+    void top10StreamComments(std::vector<PrivateStream *> & streams);
+    /// @param Returns by reference Vector of users pointers containing the top 10 oldest users in the platform (by time joined)
+    void top10oldestUsersPlat(std::vector<User *> & streams);
+
+private:
+    StreamZ * streamZ;
 };
 
 

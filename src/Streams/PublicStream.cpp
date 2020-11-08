@@ -20,3 +20,11 @@ std::string PublicStream::getInfo() const {
 streamType PublicStream::getStreamType() const {
     return publicType;
 }
+
+std::string PublicStream::getShortDescription() const {
+    return std::__cxx11::string();
+}
+
+std::string PublicStream::getLongDescription() const {
+    return std::__cxx11::string();
+}

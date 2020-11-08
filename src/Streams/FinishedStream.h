@@ -19,6 +19,13 @@ public:
     FinishedStream(std::string title, std::string language, int numViewers, std::string streamerName);
     std::string getInfo() const override = 0;
 
+    /// @return - relevant info about stream
+    std::string getShortDescription() const override;
+
+    /// @return - detailed info about stream
+    std::string getLongDescription() const override;
+
+
 private:
     Date finishedDate;
     int numViewers;

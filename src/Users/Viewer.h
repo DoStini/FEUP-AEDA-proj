@@ -73,6 +73,13 @@ public:
 
     unsigned long long int getStreamID() const;
 
+    /// @return - relevant info about user
+    std::string getShortDescription() const override;
+
+    /// @return - detailed info about user
+    std::string getLongDescription() const override;
+
+
 private:
     /// Minimum age to be able to create a viewer account
     static const unsigned minimumAge = VIEWER_MIN_AGE;

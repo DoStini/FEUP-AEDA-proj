@@ -70,6 +70,12 @@ public:
     */
     void addViewer(const std::string& viewerNick);
 
+    /// @return - relevant info about stream
+    std::string getShortDescription() const override;
+
+    /// @return - detailed info about stream
+    std::string getLongDescription() const override;
+
 private:
     ///vector that have all the comments made for the stream
     std::vector<Comment> comments;

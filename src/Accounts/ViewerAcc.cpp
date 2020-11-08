@@ -184,11 +184,8 @@ void ViewerAcc::findStreamFollowing() {
     print("Here are all the current live streams from the streamers you follow: ");
     print();
 
-    // TODO CHANGE TO FUNCTION IN TYPE.
     printPagedList(streams, std::function<std::string(LiveStream *)>([](LiveStream*stream){
-        std::stringstream  ss;
-        ss << stream->getTitle() << " (Stream Id: " << stream->getId() << ")";
-        return ss.str();
+        return stream->getShortDescription();
     }));
 }
 
@@ -271,12 +268,9 @@ void ViewerAcc::listFollowingStreamers() {
     print("Here are all the streamers you follow: ");
     print();
 
-    // TODO CHANGE TO FUNCTION IN TYPE.
     printPagedList(following, std::function<std::string(std::string)>([this](std::string nick){
-        std::stringstream  ss;
         Streamer * streamer = dynamic_cast<Streamer *>(this->streamZ->getSearchM()->getUser(nick));
-        ss << streamer->getName() << " (Nickname: " << streamer->getNickName() << ")";
-        return ss.str();
+        return streamer->getShortDescription();
     }));
 }
 
@@ -296,9 +290,7 @@ void ViewerAcc::displayHistory() {
 
     // TODO CHANGE TO FUNCTION IN TYPE.
     printPagedList(history, std::function<std::string(ID)>([this](ID streamID){
-        std::stringstream  ss;
         Stream * stream = dynamic_cast<Stream *>(this->streamZ->getSearchM()->getStream(streamID));
-        ss << stream->getTitle() << " (Stream ID: " << stream->getId() << ")";
-        return ss.str();
+        return stream->getShortDescription();
     }));
 }

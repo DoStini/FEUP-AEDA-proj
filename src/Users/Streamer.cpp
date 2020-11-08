@@ -46,4 +46,12 @@ void Streamer::closeStream() {
 
 }
 
+std::string Streamer::getShortDescription() const {
+    return std::__cxx11::string();
+}
+
+std::string Streamer::getLongDescription() const {
+    return std::__cxx11::string();
+}
+
 

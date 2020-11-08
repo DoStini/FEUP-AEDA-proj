@@ -81,6 +81,13 @@ public:
     void kickedStream();
     ///Compare two streamers
     bool operator == (const Streamer & str);
+
+    /// @return - relevant info about user
+    std::string getShortDescription() const override;
+
+    /// @return - detailed info about user
+    std::string getLongDescription() const override;
+
 private:
     ///Age of the user
     static const unsigned minimumAge = STREAMER_MIN_AGE;

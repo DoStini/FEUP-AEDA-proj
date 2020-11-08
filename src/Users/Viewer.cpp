@@ -98,3 +98,11 @@ const std::vector<std::string> &Viewer::getFollowingStreamers() const {
 const std::vector<ID> &Viewer::getHistory() const {
     return streamHistory;
 }
+
+std::string Viewer::getShortDescription() const {
+    return std::__cxx11::string();
+}
+
+std::string Viewer::getLongDescription() const {
+    return std::__cxx11::string();
+}
