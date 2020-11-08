@@ -15,6 +15,12 @@ class Admin;
 class AdminAcc : public Account{
 private:
     Admin * admin;
+    /**
+     * Gets a time interval
+     * @param[out] dateInterval interval is stored here
+     * @return a bool that indicates if an interval was given
+     */
+    bool getTimeInterval(std::pair<Date, Date> &dateInterval);
 public:
     /**
      * Admin Account Constructor

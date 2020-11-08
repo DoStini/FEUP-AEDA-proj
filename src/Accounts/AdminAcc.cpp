@@ -144,27 +144,100 @@ void AdminAcc::statistics() {
 void AdminAcc::numStreams() {
     print("The number of streams currently airing is: ",'\0');
     print(streamZ->getAdminOps()->numStreams());
+
+    print();
+    waitForKey();
 }
 
 void AdminAcc::numStreamsAll()  {
     print("The number of all streams created is: ",'\0');
     print(streamZ->getAdminOps()->numStreamsAll());
+
+    print();
+    waitForKey();
 }
 
 void AdminAcc::viewsPerStream() {
-    print("What is the date you were born? (used to calculate your age)");
-    print("(Format: YYYY/MM/DD or YYYY-MM-DD or YYYY MM DD) ", '\0');
+    std::pair<Date, Date> dateInterval;
+    bool validInterval = getTimeInterval(dateInterval);
+    float views;
+
+    if(validInterval) {
+        print("Mean views per stream between dates ",'\0');
+        print(dateInterval.first.getStringDate(),'\0');
+        print(" and ", '\0');
+        print(dateInterval.second.getStringDate(),'\0');
+        print(": ");
+
+        views = streamZ->getAdminOps()->medianViewsStream(dateInterval.first, dateInterval.second);
+    } else {
+        print("Mean views per stream: ", '\0');
+
+        views = streamZ->getAdminOps()->medianViewsStream();
+    }
+
+    print();
+    print(views);
+    print();
+
+    waitForKey();
+}
+
+void AdminAcc::numStreamsType() {
+
+}
+
+bool AdminAcc::getTimeInterval(std::pair<Date, Date> &dateInterval) {
+    std::string date;
 
     do {
         try {
-            getString(date);
-            dateObj = Date(date);
+            print("What is the date of the first interval limit? (empty for no interval)");
+            print("(Format: YYYY/MM/DD or YYYY-MM-DD or YYYY MM DD) ", '\0');
+
+            getTruncatedString(date);
+
+            if(date.empty()) {
+                return false;
+            }
+
+            dateInterval.first = Date(date);
+
+            print("What is the date of the second interval limit? (empty for no interval)");
+            print("(Format: YYYY/MM/DD or YYYY-MM-DD or YYYY MM DD) ", '\0');
+
+            getTruncatedString(date);
+
+            if(date.empty()) {
+                return false;
+            }
+
+            dateInterval.second = Date(date);
 
             break;
         } catch (BadDateFormat &ex) {
-            print("Date was in a wrong format. Please try again: ", '\0');
+            print("Date was in a wrong format. Please try again: ");
         } catch (InvalidDate &ex) {
-            print("Date is not valid! Please try again: ", '\0');
+            print("Date is not valid! Please try again: ");
         }
     } while(true);
+
+
+    return true;
+}
+
+void AdminAcc::mostViewedType() {
+
+}
+
+void AdminAcc::mostViewedStreamer() {
+
+}
+
+void AdminAcc::mostViewedGenre() {
+
+}
+
+void AdminAcc::mostViewedLanguage() {
+
 }
