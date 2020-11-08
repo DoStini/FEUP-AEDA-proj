@@ -137,4 +137,34 @@ void AdminAcc::statistics() {
     while (!checkInput(option) || option < 0 || option >= sOptions.size()) {
         print("Invalid Option! Please try again: " , '\0');
     }
+
+    sOptions[option]();
+}
+
+void AdminAcc::numStreams() {
+    print("The number of streams currently airing is: ",'\0');
+    print(streamZ->getAdminOps()->numStreams());
+}
+
+void AdminAcc::numStreamsAll()  {
+    print("The number of all streams created is: ",'\0');
+    print(streamZ->getAdminOps()->numStreamsAll());
+}
+
+void AdminAcc::viewsPerStream() {
+    print("What is the date you were born? (used to calculate your age)");
+    print("(Format: YYYY/MM/DD or YYYY-MM-DD or YYYY MM DD) ", '\0');
+
+    do {
+        try {
+            getString(date);
+            dateObj = Date(date);
+
+            break;
+        } catch (BadDateFormat &ex) {
+            print("Date was in a wrong format. Please try again: ", '\0');
+        } catch (InvalidDate &ex) {
+            print("Date is not valid! Please try again: ", '\0');
+        }
+    } while(true);
 }
