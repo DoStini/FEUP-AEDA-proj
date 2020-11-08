@@ -9,6 +9,8 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <fstream>
+#include <istream>
 
 #include "utils.h"
 #include "Date.h"
@@ -27,6 +29,7 @@ class StreamZ;
  */
 class User {
 public:
+    User() = default;
     /**
      * Constructor when creating a new user
      *
@@ -44,7 +47,6 @@ public:
      * @param birthDate - Date of birth
      * @param joinedPlatDate - Date when user joined Streamz
      */
-    User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
     virtual ~User(){};
     /// @return Name
     const std::string &getName() const;
@@ -64,6 +66,9 @@ public:
     void setStreamZ(StreamZ *streamZ);
 
     bool changePassword(const std::string& newPassword);
+
+    virtual void readFromFile(std::ifstream & ifstream ) = 0;
+    virtual void writeToFile(std::ofstream  & ofstream ) = 0;
 
 protected:
     /// General class that have all the info

@@ -7,9 +7,15 @@
 Date::Date(const std::string &date) {
     dateStruct = {0};
     std::stringstream dateStream(date);
-    const char* formats[5] = {"%Y/%m/%d %H:%M\0", "%Y/%m/%d %H\0", "%Y/%m/%d\0", "%Y-%m-%d\0", "%Y %m %d\0"};
+    const char* formats[7] = {"%Y/%m/%d %H:%M\0",
+                              "%d/%m/%Y %H:%M\0",
+                              "%Y/%m/%d %H\0",
+                              "%d/%m/%Y\0",
+                              "%Y/%m/%d\0",
+                              "%Y-%m-%d\0",
+                              "%Y %m %d\0"};
 
-    for(short i = 0 ; i < 5; i++) {
+    for(short i = 0 ; i < 7; i++) {
         setToZero();
         dateStream >> std::get_time(&dateStruct, formats[i]);
 
@@ -18,8 +24,6 @@ Date::Date(const std::string &date) {
                 fixDate();
                 return;
             }
-
-            throw InvalidDate();
         }
 
         dateStream = std::stringstream(date);

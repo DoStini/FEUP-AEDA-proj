@@ -14,6 +14,10 @@ void UserManager::createViewer(const std::string& name, std::string nickName, co
 
     Viewer * ptr = new Viewer(name, nickName, birthDate);
     ptr->setStreamZ(streamZ);
+
+    // TODO PASSWORD
+    ptr->changePassword(" temporario");
+
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
@@ -22,6 +26,10 @@ void UserManager::createStreamer(std::string name, std::string nickName, const D
 
     Streamer * ptr = new Streamer(name, nickName, birthDate);
     ptr->setStreamZ(streamZ);
+
+    // TODO PASSWORD
+    ptr->changePassword(" temporario");
+
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
@@ -31,6 +39,10 @@ void UserManager::createAdmin(std::string name, std::string nickName, const Date
 
     Viewer * ptr = new Viewer(name, nickName, birthDate);
     ptr->setStreamZ(streamZ);
+
+    // TODO PASSWORD
+    ptr->changePassword(" temporario");
+
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 

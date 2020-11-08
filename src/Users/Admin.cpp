@@ -12,3 +12,15 @@ userType Admin::getUserType() const {
 
 Admin::Admin(std::string name, std::string nickName, const Date &birthDate) : User(std::move(name), std::move(nickName), birthDate) {
 }
+
+Admin::Admin() : User(){
+
+}
+
+void Admin::writeToFile(std::ofstream &ofstream) {
+
+}
+
+void Admin::readFromFile(std::ifstream &ifstream) {
+
+}

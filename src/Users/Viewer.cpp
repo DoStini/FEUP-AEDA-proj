@@ -149,4 +149,77 @@ bool Viewer::isFollowing(std::string &streamer) {
     return false;
 }
 
+Viewer::Viewer() {}
 
+void Viewer::readFromFile(std::ifstream &ff) {
+
+    int numNames;
+    char sep;
+
+    std::string temp;
+    std::stringstream ss;
+
+    ff >> numNames >> sep;
+
+    for (int i = 0; i < numNames; ++i) {
+        ff >> temp;
+        ss << temp;
+    }
+
+    name = ss.str();
+
+    ff >> sep >> nickName >> sep >> password >> sep;
+
+    ff >> temp;
+    birthDate = Date(temp);
+    ff >> sep;
+
+    // Clearing the string stream
+    ss.str(std::string());
+
+    ff >> temp; ss << temp << " "; // Building date and hour/minute
+    ff >> temp; ss << temp; // Building date and hour/minute
+
+    joinedPlatformDate = Date(ss.str());
+
+    int size;
+    ID id;
+
+    ff >> sep >> currWatching >> sep >> size >> sep;
+
+    for (int i = 0; i < size; ++i) {
+        ff >> temp >> sep;
+        followingStreamers.push_back(temp);
+    }
+
+    ff >> size >> sep;
+
+    for (int i = 0; i < size; ++i) {
+        ff >> id >> sep;
+        streamHistory.push_back(id);
+    }
+}
+
+void Viewer::writeToFile(std::ofstream &ff) {
+
+    int numNames = 0;
+    std::string counter;
+    std::stringstream temp(name);
+    while (temp >> counter) numNames ++;
+
+    ff << numNames << " , " << name << " , " << nickName << " , " << password << " , "
+        << birthDate.getStringDate() << " , " << joinedPlatformDate.getStringDateTime()
+        << " , " << currWatching << " , "
+        << followingStreamers.size() << " , ";
+
+    for(const auto & str : followingStreamers){
+        ff << str << " , ";
+    }
+
+    ff << streamHistory.size() << " , ";
+
+    for(const auto & id : streamHistory){
+        ff << id << " , ";
+    }
+    ff << std::endl;
+}

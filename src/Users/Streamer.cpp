@@ -115,5 +115,83 @@ void Streamer::kickedStream() {
     currStreaming = NULL_STREAM;
 }
 
+void Streamer::writeToFile(std::ofstream &ff) {
+    int numNames = 0;
+    std::string counter;
+    std::stringstream temp(name);
+    while (temp >> counter) numNames ++;
+
+
+    ff << numNames << " , " << name << " , " << nickName << " , " << password << " , "
+       << birthDate.getStringDate() << " , " << joinedPlatformDate.getStringDateTime()
+       << " , " << currStreaming << " , "
+       << followedBy.size() << " , ";
+
+    for(const auto & str : followedBy){
+        ff << str << " , ";
+    }
+
+    ff << finishedStreams.size() << " , ";
+
+    for(const auto & id : finishedStreams){
+        ff << id << " , ";
+    }
+    ff << std::endl;
+}
+
+void Streamer::readFromFile(std::ifstream &ff) {
+    int numNames;
+    char sep;
+
+    std::string temp;
+    std::stringstream ss;
+
+    ff >> numNames >> sep;
+
+    for (int i = 0; i < numNames; ++i) {
+        ff >> temp;
+        ss << temp << " ";
+    }
+
+    name = ss.str();
+
+    ff >> sep >> nickName >> sep >> password >> sep;
+
+    ff >> temp;
+    birthDate = Date(temp);
+    ff >> sep;
+
+    // Clearing the string stream
+    ss.str(std::string());
+
+    ff >> temp; ss << temp << " "; // Building date and hour/minute
+    ff >> temp; ss << temp; // Building date and hour/minute
+
+
+    joinedPlatformDate = Date(ss.str());
+
+    int size;
+    ID id;
+
+    ff >> sep >> currStreaming >> sep >> size >> sep;
+
+    for (int i = 0; i < size; ++i) {
+        ff >> temp >> sep;
+        followedBy.push_back(temp);
+    }
+
+    ff >> size >> sep;
+
+    for (int i = 0; i < size; ++i) {
+        ff >> id >> sep;
+        finishedStreams.push_back(id);
+    }
+}
+
+Streamer::Streamer() {
+
+}
+
+
 
 

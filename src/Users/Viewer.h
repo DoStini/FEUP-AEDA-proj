@@ -17,6 +17,7 @@
  */
 class Viewer : public User{
 public:
+    Viewer();
     /**
      * Constructor when creating a new user
      * Throws a RestrictedAgeException if the user is not allowed to create an account
@@ -97,6 +98,8 @@ public:
      * @param comment - The comment
      */
     void giveFeedBack(const std::string& comment);
+    void readFromFile(std::ifstream & ff ) override;
+    void writeToFile(std::ofstream  & ff ) override;
 
 private:
     /// Minimum age to be able to create a viewer account
