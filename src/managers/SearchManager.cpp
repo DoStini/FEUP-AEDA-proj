@@ -95,19 +95,13 @@ void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const st
     }
 }
 
-void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &streams, const std::string & user,
+void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &streams,
                                                const std::vector<std::string> &streamerNick) {
     // Empties the vector if not empty
     if(!streams.empty()) streams.clear();
 
     for( const auto & nick : streamerNick){
-        User * ptr = getUser(nick);
-        if(ptr->getUserType() == stream)
-        {
-            Streamer * str = dynamic_cast<Streamer *>(ptr);
-            if (str->streaming() && )
-        }
-
+        Streamer * str = dynamic_cast<Streamer *>(getUser(nick));
         // Converting the user, if it is a viewer, str stores nullptr
         // If the the streaming is currently streaming, finds and stores the respective stream
         if (str != nullptr && str->streaming())

@@ -41,6 +41,8 @@ language AdminOps::rankViewsLang(bool reversed) {
         its++;
     }
 
+    if(ammViews.empty()) throw EmptyDatabaseException(false);
+
     std::set<std::pair<language, int>, comparator> res(ammViews.begin(), ammViews.end());
 
     auto last = res.end(); --last;
@@ -72,6 +74,8 @@ genre AdminOps::rankViewsGenres(bool reversed) {
         its++;
     }
 
+    if(ammViews.empty()) throw EmptyDatabaseException(false);
+
     std::set<std::pair<genre, int>, comparator> res(ammViews.begin(), ammViews.end());
 
     auto last = res.end(); --last;
@@ -99,6 +103,8 @@ streamType AdminOps::rankViewsTypes(bool reversed) {
             ammViews[type] = views;
         its++;
     }
+
+    if(ammViews.empty()) throw EmptyDatabaseException(false);
 
     std::set<std::pair<streamType, int>, comparator> res(ammViews.begin(), ammViews.end());
 
@@ -128,6 +134,8 @@ Streamer *AdminOps::mostViewed() {
         }
         its++;
     }
+
+    if(ammViews.empty()) throw EmptyDatabaseException(true);
 
     std::set<std::pair<std::string, int>, comparator> res(ammViews.begin(), ammViews.end());
 

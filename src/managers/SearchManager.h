@@ -90,7 +90,7 @@ public:
      * @param streams - Returns by reference the vector of livestreams from the streamers - Will be cleared if not empty
      * @param streamerID - Vector of streamer ID's
      */
-    void listLiveStreamsByStreamers(std::vector<LiveStream *> & streams, const std::string & user, const std::vector<std::string> & streamerNick);
+    void listLiveStreamsByStreamers(std::vector<LiveStream *> &streams, const std::vector<std::string> &streamerNick);
     /**
      * Lists all private streams
      * @param streams
