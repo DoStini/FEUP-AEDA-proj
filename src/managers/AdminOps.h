@@ -25,7 +25,7 @@ public:
      */
     AdminOps(StreamZ *streamZ);
     /// @return Pointer to the most viewed streamer
-    Streamer * mostViewed();
+    Streamer * mostViewed() const;
     /**
      * @param reversed - Optional: Set to true if you want the least viewed language
      * @return Most viewed language among streams ( enum language)
@@ -36,6 +36,11 @@ public:
      * @return Most viewed genre among streams ( enum genre)
      */
     genre rankViewsGenres(bool reversed = false) const;
+    /**
+     * @param reversed - Optional: Set to true if you want the least viewed genre
+     * @return Most viewed genre among streams ( enum genre)
+     */
+    streamType rankViewsTypes(bool reversed = false) const;
     /// @return The median views per stream
     float medianViewsStream() const;
 
@@ -49,13 +54,18 @@ public:
      * @return The number of streams of the specified type
      */
     long int numStreams(streamType streamType) const;
+    long int numStreams(Date d1, Date d2) const;
+    long int numStreams(streamType streamType, Date d1, Date d2) const;
+
     /**
      * Removes a user
+     * @throw DoesNotExist<std::string>
      * @param nickName Nickname of the user
      */
     void removeUser(std::string nickName) const;
     /**
      * Removes a stream
+     * @throw DoesNotExist<ID>
      * @param streamID ID of the stream
      */
     void removeStream(ID streamID) const;

@@ -25,24 +25,44 @@ public:
     AdminAcc(User * user, StreamZ * streamZ);
 
     /**
-     * Lists the number of streams.
+     * Lists the number of all streams ever created.
+     */
+    void numStreamsAll();
+
+    /**
+     * Lists the current number of streams.
      */
     void numStreams();
 
     /**
-     * Displays the mean views per stream().
+     * Lists the number of streams of a certain type in an interval of time.
+     */
+    void numStreamsType();
+
+    /**
+     * Displays the mean views per stream. (optional date interval exists)
      */
     void viewsPerStream();
 
     /**
-     * Displays the most viewed genre of stream.
+     * Displays the most viewed type of stream.
      */
     void mostViewedType();
 
     /**
-     * Displays the most viewed genre.
+     * Displays the most viewed streamer.
      */
     void mostViewedStreamer();
+
+    /**
+     * Displays the most viewed genre.
+     */
+    void mostViewedGenre();
+
+    /**
+     * Displays the most viewed language.
+     */
+    void mostViewedLanguage();
 
     /**
      * Prompts the admin to remove a user.

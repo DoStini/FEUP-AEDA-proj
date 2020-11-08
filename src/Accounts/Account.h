@@ -21,12 +21,13 @@ extern const char *languageTypes[];
 
 extern const char *genreTypes[];
 
+typedef std::function<void()> Option;
+typedef std::function<bool()> OptionCheck;
+
 /**
  * Abstract class that handles account UI and Input
  */
 class Account {
-    typedef std::function<void()> Option;
-    typedef std::function<bool()> OptionCheck;
 protected:
     User * user;
     StreamZ * streamZ;

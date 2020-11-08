@@ -3,6 +3,7 @@
 //
 
 #include "AdminAcc.h"
+#include "Account.h"
 #include "Admin.h"
 #include "StreamZ.h"
 
@@ -14,10 +15,12 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
     }
 
     options.insert(options.begin()+3, {
-       std::bind(&AdminAcc::removeUser, this),
-       std::bind(&AdminAcc::removeStream, this)
+        std::bind(&AdminAcc::statistics, this),
+        std::bind(&AdminAcc::removeUser, this),
+        std::bind(&AdminAcc::removeStream, this)
     });
     optionDescriptions.insert(optionDescriptions.begin()+3, {
+        "Display the statistics panel.",
         "Delete a user from the platform.",
         "Delete a stream from the platform."
     });
@@ -95,19 +98,43 @@ void AdminAcc::removeStream() {
 
 void AdminAcc::statistics() {
     uint16_t option;
+    std::stringstream ss;
     print("STATISTICS: ");
+    std::vector<Option> sOptions = {
+            [](){},
+            std::bind(&AdminAcc::numStreams, this),
+            std::bind(&AdminAcc::numStreamsAll, this),
+            std::bind(&AdminAcc::numStreamsType, this),
+            std::bind(&AdminAcc::viewsPerStream, this),
+            std::bind(&AdminAcc::mostViewedType, this),
+            std::bind(&AdminAcc::mostViewedGenre, this),
+            std::bind(&AdminAcc::mostViewedLanguage, this),
+            std::bind(&AdminAcc::mostViewedStreamer, this)
+    };
+    std::vector<std::string> descriptions = {
+            "Exit statistics panel",
+            "Number of streams currently airing.",
+            "Number of all streams ever aired.",
+            "Number of streams of a certain type in a certain time interval.",
+            "Mean views per stream during a certain time interval.",
+            "Most viewed type of stream.",
+            "Most viewed genre of stream.",
+            "Most viewed language.",
+            "Most viewed streamer."
+    };
     print();
 
-    print("0. Exit statistics panel.");
-    print("1. Number of streams airing.");
-    print("2. Number of views per stream.");
-    print("3. Most viewed stream genre.");
-    print("3. Most viewed stream language.");
+    for(unsigned i = 0; i < sOptions.size(); i++) {
+        ss.str("");
+
+        ss << i << ". " << descriptions[i];
+        print(ss.str());
+    }
 
     print();
     print("Choose an option: ", '\0');
 
-    while (!checkInput(option) || option < 0 || option > 3) {
+    while (!checkInput(option) || option < 0 || option >= sOptions.size()) {
         print("Invalid Option! Please try again: " , '\0');
     }
 }
