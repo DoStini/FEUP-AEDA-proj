@@ -9,10 +9,9 @@
 
 #include "AlreadyInWhiteListException.h"
 #include "NotInWhiteListException.h"
-#include "LiveStream.h"
 #include "MaxViewersReach.h"
+#include "LiveStream.h"
 
-class User;
 
 // struct used to save comments in the stream
 struct Comment{

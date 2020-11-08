@@ -3,10 +3,7 @@
 //
 
 #include "PrivateStream.h"
-
 #include <utility>
-
-#include "User.h"
 #include "StreamZ.h"
 
 PrivateStream::PrivateStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick,
@@ -88,7 +85,6 @@ std::string PrivateStream::getLongDescription() const {
     for(auto it=comments.begin(); it!=comments.end(); it++){
         ss << (*it);
     }
-
     return ss.str();
 }
 

@@ -54,23 +54,24 @@ void Viewer::joinStream(ID streamID) {
         throw DoesNotExist<ID>(streamID);
     else if(watching()) throw AlreadyInStreamException(nickName, currWatching);
 
-    auto * stream = (LiveStream*) streamZ->getSearchM()->getStream(streamID);
-    // TODO Is < or <= ???
-    if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
-
+    auto * stream =streamZ->getSearchM()->getStream(streamID);
     streamType type = stream->getStreamType();
 
     if (type == finishedType)
         throw RestrictedStreamException(stream->getTitle(), nickName);
-    else if(type == privateType)
+
+    auto liveStream = (LiveStream *) stream;
+    // TODO Is < or <= ???
+    if(age < liveStream->getMinAge()) throw RestrictedAgeException(nickName, age, liveStream->getMinAge());
+
+    if(type == privateType)
     {
         auto * pStream = (PrivateStream *) stream;
         if (!pStream->isValidUser(nickName))
             throw RestrictedStreamException(stream->getTitle(), nickName);
     }
 
-    stream->addViewer(nickName);
-
+    liveStream->addViewer(nickName);
     currWatching = streamID;
 
 }
