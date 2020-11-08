@@ -15,8 +15,8 @@ public:
 
     ///@return - user type = streamer
     userType getUserType() const override;
-    void writeToFile(std::ofstream &ofstream) override;
-    void readFromFile(std::ifstream &ifstream) override;
+    void writeToFile(std::ofstream &ff) override;
+    void readFromFile(std::ifstream &ff) override;
 };
 
 

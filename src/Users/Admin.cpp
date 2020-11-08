@@ -17,10 +17,38 @@ Admin::Admin() : User(){
 
 }
 
-void Admin::writeToFile(std::ofstream &ofstream) {
+void Admin::writeToFile(std::ofstream &ff) {
 
 }
 
-void Admin::readFromFile(std::ifstream &ifstream) {
+void Admin::readFromFile(std::ifstream &ff) {
+    int numNames;
+    char sep;
 
+    std::string temp;
+    std::stringstream ss;
+
+    ff >> numNames >> sep;
+
+    for (int i = 0; i < numNames; ++i) {
+        ff >> temp;
+        ss << temp << " ";
+    }
+
+    name = ss.str();
+
+    ff >> sep >> nickName >> sep >> password >> sep;
+
+    ff >> temp;
+    birthDate = Date(temp);
+    ff >> sep;
+
+    // Clearing the string stream
+    ss.str(std::string());
+
+    ff >> temp; ss << temp << " "; // Building date and hour/minute
+    ff >> temp; ss << temp; // Building date and hour/minute
+
+
+    joinedPlatformDate = Date(ss.str());
 }

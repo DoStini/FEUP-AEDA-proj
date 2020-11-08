@@ -54,6 +54,8 @@ public:
     ///@param streamZ - pointer to the streamZ master class
     void setStreamZ(StreamZ *streamZ);
 
+
+
 protected:
     /// General class that have all the info
     StreamZ * streamZ = nullptr;
