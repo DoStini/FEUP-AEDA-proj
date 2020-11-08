@@ -220,6 +220,9 @@ float AdminOps::medianViewsStream() {
         }
         its++;
     }
+
+    if(numStreamsAll() == 0) return 0;
+
     return (float)sum/(float)numStreamsAll();
 }
 
@@ -245,7 +248,7 @@ float AdminOps::medianViewsStream(Date d1, Date d2) {
         }
         its++;
     }
-
+    if(numStreams == 0) return 0;
     return (float)sum/(float)numStreams;
 }
 
