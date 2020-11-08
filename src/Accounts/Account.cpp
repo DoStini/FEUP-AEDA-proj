@@ -4,6 +4,7 @@
 
 #include "Account.h"
 #include "LiveStream.h"
+#include "LeaderBoard.h"
 #include "StreamZ.h"
 #include "InvalidPassword.h"
 #include "utils.h"
@@ -200,9 +201,9 @@ void Account::leaderboard() {
     print();
 
     print("0. Exit leaderboards.");
-    print("1. Top 10 Streamers by likes.");
-    print("2. Top 10 Streamers by views.");
-    print("3. Top 10 oldest users.");
+    print("1. Top 10 streams by likes.");
+    print("2. Top 10 streams by views.");
+    print("3. Top 10 long standing users.");
 
     print();
     print("Choose an option: ", '\0');
@@ -211,10 +212,9 @@ void Account::leaderboard() {
         print("Invalid Option! Please try again: " , '\0');
     }
 
-    //TODO change to actual leaderboard
-    //if(option == 1) streamZ->getLeaderboard()->top10StreamLikes();
-    //else if(option == 2) streamZ->getLeaderboard()->top10StreamViews();
-    //else if (option == 3) streamZ->getLeaderboard()->top10OldestUsers();
+    if(option == 1) top10StreamsLikes();
+    else if(option == 2) top10StreamsViews();
+    else if (option == 3) top10OldestUsers();
 }
 
 void Account::searchParameters(std::vector<LiveStream *> &streams) {
@@ -361,6 +361,78 @@ void Account::listUsers() {
     }));
 }
 
-void Account::top10StreamersViews() {
+void Account::top10StreamsViews() {
+    std::vector<LiveStream*> streams;
+    std::stringstream ss;
 
+    streamZ->getLeaderBoard()->top10StreamViews(streams);
+
+    if(streams.size() == 0) {
+        print("There are no streams currently airing.");
+
+        waitForKey();
+
+        return;
+    }
+
+    print("Here are the top 10 streams by views: ");
+
+    print();
+    for(unsigned short i = 0; i < streams.size(); i++) {
+        ss.str("");
+        ss << i+1 << ". " << streams[i]->getShortDescription() << " Views: " << streams[i]->getNumViewers();
+
+        print(ss.str());
+    }
+
+    print();
+    waitForKey();
+}
+
+void Account::top10StreamsLikes() {
+    std::vector<LiveStream*> streams;
+    std::stringstream ss;
+
+    if(streams.size() == 0) {
+        print("There are no streams currently airing.");
+
+        waitForKey();
+
+        return;
+    }
+
+    streamZ->getLeaderBoard()->top10StreamLikes(streams);
+
+    print("Here are the top 10 streams by likes: ");
+
+    print();
+    for(unsigned short i = 0; i < streams.size(); i++) {
+        ss.str("");
+        ss << i+1 << ". " << streams[i]->getShortDescription() << " Likes: " << streams[i]->getLikes();
+
+        print(ss.str());
+    }
+
+    print();
+    waitForKey();
+}
+
+void Account::top10OldestUsers() {
+    std::vector<User*> users;
+    std::stringstream ss;
+
+    streamZ->getLeaderBoard()->top10oldestUsersPlat(users);
+
+    print("Here are the top 10 long standing users: ");
+
+    print();
+    for(unsigned short i = 0; i < users.size(); i++) {
+        ss.str("");
+        ss << i+1 << ". " << users[i]->getShortDescription() << " Date Joined: " << users[i]->getJoinedPlatformDate().getStringDate();
+
+        print(ss.str());
+    }
+
+    print();
+    waitForKey();
 }

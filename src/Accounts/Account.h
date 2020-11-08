@@ -77,14 +77,14 @@ protected:
     void accountOptions();
 
     /**
-     * Lists the top 10 streamers by views
+     * Lists the top 10 streams by views
      */
-    void top10StreamersViews();
+    void top10StreamsViews();
 
     /**
-     * Lists the top 10 streamers by likes
+     * Lists the top 10 streams by likes
      */
-    void top10StreamersLikes();
+    void top10StreamsLikes();
 
     /**
      * Lists the top 10 oldest viewers
