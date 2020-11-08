@@ -15,7 +15,7 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
         throw WrongUserTypeException(userType::streamer);
     }
 
-    options.insert(options.begin()+3, {
+    options.insert(options.begin()+5, {
         std::bind(&StreamerAcc::startStream, this),
         std::bind(&StreamerAcc::checkNumViewers, this),
         std::bind(&StreamerAcc::kickUserFromStream, this),
@@ -23,15 +23,15 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
         std::bind(&StreamerAcc::removeUserFromPrivate, this),
         std::bind(&StreamerAcc::endStream, this)
     });
-    optionChecks[3] = [this](){return !this->streamer->streaming();};
-    optionChecks[4] = optionChecks[5] = optionChecks[8] = [this](){return this->streamer->streaming();};
-    optionChecks[6] = optionChecks[7] = [this](){
+    optionChecks[5] = [this](){return !this->streamer->streaming();};
+    optionChecks[6] = optionChecks[7] = optionChecks[10] = [this](){return this->streamer->streaming();};
+    optionChecks[8] = optionChecks[9] = [this](){
         if(!this->streamer->streaming()) return false;
 
         ID streamID = this->streamer->getStreamID();
         return this->streamZ->getSearchM()->getStream(streamID)->getStreamType() == privateType;
     };
-    optionDescriptions.insert(optionDescriptions.begin() + 3, {
+    optionDescriptions.insert(optionDescriptions.begin() + 5, {
         "Start a stream.",
         "Check the number of viewers on your stream.",
         "Kick viewer from the stream.",

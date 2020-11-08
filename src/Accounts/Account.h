@@ -73,6 +73,16 @@ protected:
     void leaderboard();
 
     /**
+    * Displays stream information given an ID.
+    */
+    void displayStreamInfo();
+
+    /**
+     * Displays user information given a nickname.
+     */
+    void displayUserInfo();
+
+    /**
      * Diplays the account options panel.
      */
     void accountOptions();

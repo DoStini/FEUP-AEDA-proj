@@ -14,12 +14,12 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
         throw WrongUserTypeException(userType::admin);
     }
 
-    options.insert(options.begin()+3, {
+    options.insert(options.begin()+5, {
         std::bind(&AdminAcc::statistics, this),
         std::bind(&AdminAcc::removeUser, this),
         std::bind(&AdminAcc::removeStream, this)
     });
-    optionDescriptions.insert(optionDescriptions.begin()+3, {
+    optionDescriptions.insert(optionDescriptions.begin()+5, {
         "Display the statistics panel.",
         "Delete a user from the platform.",
         "Delete a stream from the platform."
@@ -117,10 +117,10 @@ void AdminAcc::statistics() {
             "Number of all streams ever aired.",
             "Number of streams of a certain type in a certain time interval.",
             "Mean views per stream during a certain time interval.",
-            "Most viewed type of stream.",
-            "Most viewed genre of stream.",
-            "Most viewed language.",
-            "Most viewed streamer."
+            "Most/Least viewed type of stream.",
+            "Most/Least viewed genre of stream.",
+            "Most/Least viewed language.",
+            "Most/Least viewed streamer."
     };
     print();
 
@@ -189,6 +189,7 @@ void AdminAcc::viewsPerStream() {
     waitForKey();
 }
 
+// TODO THIS
 void AdminAcc::numStreamsType() {
 
 }
@@ -232,11 +233,17 @@ bool AdminAcc::getTimeInterval(std::pair<Date, Date> &dateInterval) {
     return true;
 }
 
+// TODO THIS
 void AdminAcc::mostViewedType() {
+    print("The most viewed type of stream is: ",'\0');
+
 
 }
 
 void AdminAcc::mostViewedStreamer() {
+    Streamer * streamer = streamZ->getAdminOps()->mostViewed();
+
+    print("The most viewed streamer is: ",'\0');
 
 }
 

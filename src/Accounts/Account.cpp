@@ -36,12 +36,16 @@ Account::Account(User *user, StreamZ *streamZ) {
     options = {[](){},
                std::bind(&Account::listStreams, this),
                std::bind(&Account::listUsers, this),
+               std::bind(&Account::displayStreamInfo, this),
+               std::bind(&Account::displayUserInfo, this),
                std::bind(&Account::leaderboard, this),
                std::bind(&Account::accountOptions, this)
     };
     optionDescriptions = {"Logout.",
                           "Search for current streams.",
                           "Search for users",
+                          "Display stream information",
+                          "Display user information",
                           "View the leaderboards.",
                           "View account options."
     };
@@ -434,5 +438,65 @@ void Account::top10OldestUsers() {
     }
 
     print();
+    waitForKey();
+}
+
+void Account::displayStreamInfo() {
+    ID streamID;
+
+    print("What is the ID of the stream you wish to know more about? (0 to cancel)", '\0');
+
+    while(!checkInput(streamID)) {
+        print("Invalid input! Please try again: ", '\0');
+    }
+
+    print();
+    if(streamID == 0) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    try {
+        Stream * stream = streamZ->getSearchM()->getStream(streamID);
+
+        print(stream->getLongDescription());
+    } catch(DoesNotExist<ID> &e) {
+        print("Operation failed: ");
+        print("No such stream with ID ", '\0');
+        print(streamID);
+    }
+
+    waitForKey();
+}
+
+void Account::displayUserInfo() {
+    std::string nickName;
+
+    print("What is the nickname of the user you wish to know more about? (empty to cancel)", '\0');
+
+    getTruncatedString(nickName);
+
+    print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    try {
+        User * user = streamZ->getSearchM()->getUser(nickName);
+
+        print(user->getLongDescription());
+    } catch(DoesNotExist<std::string> &e) {
+        print("Operation failed: ");
+        print("No such user with nickname ", '\0');
+        print(nickName);
+    }
+
     waitForKey();
 }

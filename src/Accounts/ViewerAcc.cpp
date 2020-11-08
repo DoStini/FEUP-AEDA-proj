@@ -16,7 +16,7 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
     }
 
 
-    options.insert(options.begin()+3, {
+    options.insert(options.begin()+5, {
         std::bind(&ViewerAcc::findStreamFollowing, this),
         std::bind(&ViewerAcc::joinStreamById, this),
         std::bind(&ViewerAcc::leaveStream, this),
@@ -27,12 +27,12 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         std::bind(&ViewerAcc::unfollowStreamer, this),
         std::bind(&ViewerAcc::displayHistory, this)
     });
-    optionChecks[3] = optionChecks[8] = optionChecks[10] =
+    optionChecks[5] = optionChecks[10] = optionChecks[12] =
             [this]() {return !this->viewer->getFollowingStreamers().empty();};
-    optionChecks[4] = [this]() {return !this->viewer->watching();};
-    optionChecks[5] = optionChecks[6] = [this]() {return this->viewer->watching();};
-    optionChecks[7] = [this]() { return this->checkWatchingPrivate();};
-    optionDescriptions.insert(optionDescriptions.begin()+3,{
+    optionChecks[6] = [this]() {return !this->viewer->watching();};
+    optionChecks[7] = optionChecks[8] = [this]() {return this->viewer->watching();};
+    optionChecks[9] = [this]() { return this->checkWatchingPrivate();};
+    optionDescriptions.insert(optionDescriptions.begin()+5,{
         "List all live streams from the streamers you follow.",
         "Join a stream with a stream ID.",
         "Leave the stream you are currently watching.",
