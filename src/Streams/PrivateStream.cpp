@@ -40,7 +40,7 @@ std::string PrivateStream::getLongDescription() const {
     return std::__cxx11::string();
 }
 
-std::string PrivateStream::getShorDescription() const {
+std::string PrivateStream::getShortDescription() const {
     return std::__cxx11::string();
 }
 

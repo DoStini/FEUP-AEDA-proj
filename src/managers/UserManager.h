@@ -26,17 +26,17 @@ public:
      * @param nickName - Nickname of the user
      * @return user exists or not
      */
-    bool userExists(std::string nickName);
+    bool userExists(std::string nickName) const;
     /// Creates a viewer
-    void createViewer(std::string userName, std::string nickName, Date date, std::string password);
+    void createViewer(std::string userName, std::string nickName, Date date, std::string password) const;
     /// Creates a streamer
-    void createStreamer(std::string userName, std::string nickName, Date date, std::string password);
+    void createStreamer(std::string userName, std::string nickName, Date date, std::string password) const;
     /// Creates an admin
-    void createAdmin(std::string userName, std::string nickName, Date date, std::string password);
+    void createAdmin(std::string userName, std::string nickName, Date date, std::string password) const;
     /// Removes a user
-    void removeUser(std::string nickName);
+    void removeUser(std::string nickName) const;
 
-    void changePassword(const std::string &basicString);
+    void changePassword(const std::string &basicString) const;
 
 private:
     StreamZ * streamZ;

@@ -8,10 +8,10 @@ AdminOps::AdminOps(StreamZ *streamZ) {
     this->streamZ = streamZ;
 }
 
-void AdminOps::removeUser(std::string nickName) {
+void AdminOps::removeUser(std::string nickName) const{
 
 }
 
-void AdminOps::removeStream(ID streamID) {
+void AdminOps::removeStream(ID streamID) const{
 
 }

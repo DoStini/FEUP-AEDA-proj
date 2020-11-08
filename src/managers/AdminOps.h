@@ -30,35 +30,35 @@ public:
      * @param reversed - Optional: Set to true if you want the least viewed language
      * @return Most viewed language among streams ( enum language)
      */
-    language rankViewsLang(bool reversed = false);
+    language rankViewsLang(bool reversed = false) const;
     /**
      * @param reversed - Optional: Set to true if you want the least viewed genre
      * @return Most viewed genre among streams ( enum genre)
      */
-    genre rankViewsGenres(bool reversed = false);
+    genre rankViewsGenres(bool reversed = false) const;
     /// @return The median views per stream
-    float medianViewsStream();
+    float medianViewsStream() const;
 
-    float medianViewsStream(Date d1, Date d2);
+    float medianViewsStream(Date d1, Date d2) const;
     /// @return The number of all of the streams ever created
-    long int numStreamsAll();
+    long int numStreamsAll() const;
     /// @return The number of active streams
-    long int numStreams();
+    long int numStreams() const;
     /**
      * @param streamType - The specific type (public, private or finished)
      * @return The number of streams of the specified type
      */
-    long int numStreams(streamType streamType);
+    long int numStreams(streamType streamType) const;
     /**
      * Removes a user
      * @param nickName Nickname of the user
      */
-    void removeUser(std::string nickName);
+    void removeUser(std::string nickName) const;
     /**
      * Removes a stream
      * @param streamID ID of the stream
      */
-    void removeStream(ID streamID);
+    void removeStream(ID streamID) const;
 
 private:
     StreamZ * streamZ;

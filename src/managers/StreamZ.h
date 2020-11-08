@@ -56,10 +56,11 @@ public:
     void backupData(std::string fileName);
     void readFromFile(std::string fileName);
     void resetDatabase();
-    SortingManager * getSortM();
-    SearchManager * getSearchM();
-    UserManager * getUserM();
-    AdminOps * getAdminOps();
+    const SortingManager * getSortM();
+    const SearchManager * getSearchM();
+    const UserManager * getUserM();
+    const LeaderBoard * getLeaderBoard();
+    const AdminOps * getAdminOps();
     Database & getDatabase();
 };
 

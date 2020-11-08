@@ -5,7 +5,7 @@
 #include "SearchManager.h"
 #include "StreamZ.h"
 
-User *SearchManager::getUser(std::string userNick) {
+User *SearchManager::getUser(std::string userNick) const {
     User * val;
     try{
         val = streamZ->getDatabase().getUsers().at(userNick);
@@ -15,7 +15,7 @@ User *SearchManager::getUser(std::string userNick) {
     return val;
 }
 
-Stream *SearchManager::getStream(ID streamID) {
+Stream *SearchManager::getStream(ID streamID) const {
     Stream * val;
     try{
         val = streamZ->getDatabase().getStreams().at(streamID);
@@ -28,16 +28,16 @@ Stream *SearchManager::getStream(ID streamID) {
 SearchManager::SearchManager(StreamZ *streamZ) : streamZ(streamZ) {}
 
 void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const std::string &streamName,
-                                    const std::vector<genre> &genres, const std::vector<language> &langs) {
+                                    const std::vector<genre> &genres, const std::vector<language> &langs) const{
     //TODO fix this when possible.
     //streams = *(streamZ->getDatabase().getStreams());
 }
 
 void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &streams,
-                                               const std::vector<std::string> &streamerNick) {
+                                               const std::vector<std::string> &streamerNick)const {
 
 }
 
-void SearchManager::listUsers(std::vector<User *> &users, const std::string &name) {
+void SearchManager::listUsers(std::vector<User *> &users, const std::string &name) const{
 }
 
