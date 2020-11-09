@@ -16,3 +16,15 @@ streamType PublicStream::getStreamType() const {
 void PublicStream::addViewer(const std::string &viewerNick) {
     streamViewers.push_back(viewerNick);
 }
+
+void PublicStream::readFromFile(std::ifstream &ff) {
+
+}
+
+void PublicStream::writeToFile(std::ofstream &ff) {
+
+}
+
+PublicStream::PublicStream() : LiveStream() {
+
+}

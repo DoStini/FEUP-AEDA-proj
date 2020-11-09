@@ -8,6 +8,7 @@
 #include "Stream.h"
 class FinishedStream : public Stream{
 public:
+    FinishedStream();
     /**
      * Constructor for a finished stream
      *
@@ -30,6 +31,9 @@ public:
     int getNumViewers() const;
 
     const std::string &getStreamerName() const;
+
+    void writeToFile(std::ofstream &ff) override;
+    void readFromFile(std::ifstream &ff) override;
 
 private:
     Date finishedDate;

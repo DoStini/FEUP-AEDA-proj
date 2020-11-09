@@ -67,8 +67,16 @@ public:
 
     bool changePassword(const std::string& newPassword);
 
-    virtual void readFromFile(std::ifstream & ifstream ) = 0;
-    virtual void writeToFile(std::ofstream  & ofstream ) = 0;
+    /**
+     * Function to read a User to the files
+     * @param ifstream
+     */
+    virtual void readFromFile(std::ifstream & ff ) = 0;
+    /**
+     * Function to write a User to the files
+     * @param ofstream
+     */
+    virtual void writeToFile(std::ofstream  & ff ) = 0;
 
 protected:
     /// General class that have all the info

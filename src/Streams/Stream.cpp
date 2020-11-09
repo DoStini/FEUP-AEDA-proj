@@ -46,6 +46,10 @@ const std::string &Stream::getStreamerNick() const {
     return streamerNick;
 }
 
+Stream::Stream() {
+
+}
+
 
 
 

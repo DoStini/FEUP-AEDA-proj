@@ -22,6 +22,7 @@ struct Comment{
 
 class PrivateStream : public LiveStream {
 public:
+    PrivateStream();
     /**
      * Constructor to private stream
      *
@@ -69,7 +70,8 @@ public:
     * @param viewerNick - Nick name of the viewer
     */
     void addViewer(const std::string& viewerNick);
-
+    void readFromFile(std::ifstream &ff) override;
+    void writeToFile(std::ofstream &ff) override;
 private:
     ///vector that have all the comments made for the stream
     std::vector<Comment> comments;

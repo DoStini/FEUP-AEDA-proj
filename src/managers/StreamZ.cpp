@@ -75,6 +75,20 @@ void StreamZ::backupData(std::string fileName) {
         userPair.second->writeToFile(ff);
     }
     ff.close();
+
+
+    ff.open("streams_" + fileName, std::ofstream::trunc);
+    // TODO EXCEPTION
+    if (!ff.is_open()) throw "No file";
+
+    ff << LiveStream::lastId << std::endl;
+
+    for (const auto & strPair : getDatabase().getStreams()){
+        ff << strPair.second->getStreamType() << " : ";
+        strPair.second->writeToFile(ff);
+    }
+    ff.close();
+
 }
 
 void StreamZ::readFromFile(std::string fileName) {
@@ -85,6 +99,7 @@ void StreamZ::readFromFile(std::string fileName) {
 
     // TODO EXCEPTION
     if (!ff.is_open()) throw std::string("No file");
+
 
     int uType;
     char sep;
@@ -116,6 +131,46 @@ void StreamZ::readFromFile(std::string fileName) {
 
     ff.close();
 
+    ff.open("streams_" + fileName);
+
+    //usersRef.clear();
+
+    // TODO EXCEPTION
+    if (!ff.is_open()) throw std::string("No file");
+
+    ff >> LiveStream::lastId;
+
+    int sType;
+    ID biggestID;
+
+
+    while (ff.peek() != EOF){
+
+        ff >> sType >> sep;
+
+        if(ff.eof()) break;
+
+        Stream * newStream;
+
+        switch ((streamType) sType ) {
+
+            case finishedType:
+                newStream = new FinishedStream();
+                break;
+            case publicType:
+                newStream = new PublicStream();
+                break;
+            case privateType:
+                newStream = new PrivateStream();
+                break;
+        }
+
+        newStream->readFromFile(ff);
+        newStream->setStreamZ(this);
+        dataBase.getStreams().insert(std::pair<ID, Stream *>( newStream->getStreamId(), newStream ));
+    }
+
+    ff.close();
 }
 
 void StreamZ::resetDatabase() {

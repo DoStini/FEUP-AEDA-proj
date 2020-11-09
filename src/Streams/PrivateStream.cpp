@@ -54,4 +54,16 @@ void PrivateStream::addViewer(const std::string &viewerNick) {
         streamViewers.push_back(viewerNick);
 }
 
+void PrivateStream::writeToFile(std::ofstream &ff) {
+
+}
+
+void PrivateStream::readFromFile(std::ifstream &ff) {
+
+}
+
+PrivateStream::PrivateStream() : LiveStream(){
+
+}
+
 

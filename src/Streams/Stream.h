@@ -11,6 +11,7 @@
 #include <map>
 #include <utility>
 #include <sstream>
+#include <fstream>
 
 #include "utils.h"
 #include "Date.h"
@@ -21,6 +22,7 @@ class StreamZ;
 
 class Stream {
 public:
+    Stream();
     /**
      * Constructor when creating a new stream
      *
@@ -54,7 +56,16 @@ public:
     ///@param streamZ - pointer to the streamZ master class
     void setStreamZ(StreamZ *streamZ);
 
-
+    /**
+     * Function to read a User to the files
+     * @param ifstream
+     */
+    virtual void readFromFile(std::ifstream & ff ) = 0;
+    /**
+     * Function to write a User to the files
+     * @param ofstream
+     */
+    virtual void writeToFile(std::ofstream  & ff ) = 0;
 
 protected:
     /// General class that have all the info

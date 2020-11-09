@@ -19,6 +19,7 @@ enum feedback{
 
 class LiveStream : public Stream {
 public:
+    LiveStream();
     /**
      * Constructor of a LiveStream
      *
@@ -95,6 +96,8 @@ protected:
     std::map<std::string,feedback> likeSystem;
     /// Number of like and dislikes of the stream
     std::pair<unsigned,unsigned> nLikes_Dislikes;
+    virtual void writeToFile(std::ofstream &ff) = 0;
+    virtual void readFromFile(std::ifstream &ff) = 0;
 
 };
 

@@ -9,6 +9,7 @@
 
 class PublicStream : public LiveStream {
 public:
+    PublicStream();
     /**
      * Constructor to Public Stream
      *
@@ -25,6 +26,8 @@ public:
     * @param viewerNick - Nick name of the viewer
     */
     void addViewer(const std::string& viewerNick) override;
+    void readFromFile(std::ifstream &ff) override;
+    void writeToFile(std::ofstream &ff) override;
 };
 
 
