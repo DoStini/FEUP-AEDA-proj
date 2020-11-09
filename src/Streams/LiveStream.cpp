@@ -39,15 +39,14 @@ unsigned int LiveStream::getMinAge() const {
 unsigned int LiveStream::closeStream() {
     unsigned nViewers = this->getNumViewers();
 
-    FinishedStream *fStream = new FinishedStream(this->getTitle(),this->getStreamLanguage(),this->getGenre(),nViewers,this->getStreamerNick(),streamId);
+    auto *fStream = new FinishedStream(this->getTitle(),this->getStreamLanguage(),this->getGenre(),nViewers,this->getStreamerNick(),streamId);
+    ID id =streamId;
     for (unsigned i = 0; i < streamViewers.size() ; i++) {
         Viewer * viewer = (Viewer *) streamZ->getSearchM()->getUser(streamViewers.at(i));
         viewer->leaveStream();
-        viewer->addStreamHistory(streamId);
-
     }
-    streamZ->getDatabase().getStreams().erase(streamId);
-    streamZ->getDatabase().getStreams().insert(std::pair<ID, Stream *> ( streamId, (Stream * )fStream ));
+    streamZ->getDatabase().getStreams().erase(id);
+    streamZ->getDatabase().getStreams().insert(std::pair<ID, Stream *> (id, fStream));
 
     return nViewers;
 }
