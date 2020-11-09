@@ -6,6 +6,7 @@
 #include "Account.h"
 #include "Admin.h"
 #include "StreamZ.h"
+#include "EmptyDatabaseException.h"
 
 AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
     if(Admin * ad = dynamic_cast<Admin*>(admin)) {
@@ -233,7 +234,6 @@ bool AdminAcc::getTimeInterval(std::pair<Date, Date> &dateInterval) {
     return true;
 }
 
-// TODO THIS
 void AdminAcc::mostViewedType() {
     print("The most viewed type of stream is: ",'\0');
 
@@ -241,16 +241,58 @@ void AdminAcc::mostViewedType() {
 }
 
 void AdminAcc::mostViewedStreamer() {
-    Streamer * streamer = streamZ->getAdminOps()->mostViewed();
+    try {
+        Streamer * streamer = streamZ->getAdminOps()->mostViewed();
 
-    print("The most viewed streamer is: ",'\0');
+        print("The most viewed streamer is: ");
+        print(streamer->getLongDescription());
 
+        waitForKey();
+    } catch (EmptyDatabaseException &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    print();
+    waitForKey();
 }
 
 void AdminAcc::mostViewedGenre() {
+    try {
+        genre gnr = streamZ->getAdminOps()->rankViewsGenres();
 
+        print("The most viewed genre is: ");
+        print(genreTypes[(int)gnr]);
+
+        gnr = streamZ->getAdminOps()->rankViewsGenres(true);
+
+        print("The least viewed genre is: ");
+        print(genreTypes[(int)gnr]);
+    } catch (EmptyDatabaseException &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    print();
+    waitForKey();
 }
 
 void AdminAcc::mostViewedLanguage() {
+    try {
+        language lng = streamZ->getAdminOps()->rankViewsLang();
 
+        print("The most viewed language is: ");
+        print(languageTypes[(int)lng]);
+
+        lng = streamZ->getAdminOps()->rankViewsLang(true);
+
+        print("The least viewed language is: ");
+        print(languageTypes[(int)lng]);
+    } catch (EmptyDatabaseException &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    print();
+    waitForKey();
 }
