@@ -427,7 +427,8 @@ TEST(test, likeSystem){
     dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->giveFeedBack(like);
     ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),3);
 
-
+    dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->closeStream();
+    ASSERT_EQ(streamZ.getSearchM()->getStream(1)->getStreamId(),finishedType);
 }
 TEST(test, testDestructs){
     StreamZ streamZ;
