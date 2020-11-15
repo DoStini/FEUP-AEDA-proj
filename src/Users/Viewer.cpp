@@ -9,8 +9,8 @@
 
 Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
                 User(name, std::move(nickName), birthDate) {
-    if(age <= minimumAge)
-        throw RestrictedAgeException(name, age, minimumAge);
+    if(age() <= minimumAge)
+        throw RestrictedAgeException(name, (int) age(), minimumAge);
 
 }
 
@@ -56,7 +56,7 @@ void Viewer::joinStream(ID streamID) {
 
     auto * stream = (LiveStream*) streamZ->getSearchM()->getStream(streamID);
     // TODO Is < or <= ???
-    if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
+    if(age() < stream->getMinAge()) throw RestrictedAgeException(nickName, (int) age(), stream->getMinAge());
 
     streamType type = stream->getStreamType();
 

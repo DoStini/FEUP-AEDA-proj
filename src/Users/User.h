@@ -52,14 +52,14 @@ public:
     const std::string &getName() const;
     /// @return Nickname
     const std::string &getNickName() const;
-    /// @return Age
-    unsigned int getAge() const;
     /// @return BirthDate
     const Date &getBirthDate() const;
     /// @return Date which user joined StreamZ
     const Date &getJoinedPlatformDate() const;
     /// @return password of the user
     const std::string &getPassword() const;
+    /// @return Age
+    unsigned age();
     ///@return - give us the user type
     virtual userType getUserType() const = 0;
     ///@param streamZ - pointer to streamZ
@@ -77,7 +77,6 @@ public:
      * @param ofstream
      */
     virtual void writeToFile(std::ofstream  & ff ) = 0;
-
 protected:
     /// General class that have all the info
     StreamZ * streamZ = nullptr;
@@ -87,7 +86,7 @@ protected:
     std::string nickName;
     /// Used to login
     std::string password;
-    unsigned age;
+
     Date birthDate;
     /// Date when user joined Streamz
     Date joinedPlatformDate;
