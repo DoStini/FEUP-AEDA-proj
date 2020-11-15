@@ -23,7 +23,7 @@ void Admin::writeToFile(std::ofstream &ff) {
     std::stringstream temp(name);
     while (temp >> counter) numNames ++;
     ff << numNames << " , " << name << " , " << nickName << " , " << password << " , "
-       << birthDate.getStringDate() << " , " << joinedPlatformDate.getStringDateTime() << std::endl;
+       << birthDate.getStringDate() << " , " << joinedPlatformDate.getStringDateTime() << " , " << std::endl;
 }
 
 void Admin::readFromFile(std::ifstream &ff) {
@@ -52,8 +52,7 @@ void Admin::readFromFile(std::ifstream &ff) {
     ss.str(std::string());
 
     ff >> temp; ss << temp << " "; // Building date and hour/minute
-    ff >> temp; ss << temp; // Building date and hour/minute
-
+    ff >> temp >> sep; ss << temp; // Building date and hour/minute
 
     joinedPlatformDate = Date(ss.str());
 }
