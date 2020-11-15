@@ -8,6 +8,7 @@
 #include "Stream.h"
 class FinishedStream : public Stream{
 public:
+    FinishedStream();
     /**
      * Constructor for a finished stream
      *
@@ -35,6 +36,9 @@ public:
 
     /// @return - detailed info about stream
     std::string getLongDescription() const override;
+
+    void writeToFile(std::ofstream &ff) override;
+    void readFromFile(std::ifstream &ff) override;
 
 private:
     Date finishedDate;

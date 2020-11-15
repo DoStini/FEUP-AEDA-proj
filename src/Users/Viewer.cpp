@@ -9,8 +9,8 @@
 
 Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
                 User(name, std::move(nickName), birthDate) {
-    if(age <= minimumAge)
-        throw RestrictedAgeException(name, age, minimumAge);
+    if(age() <= minimumAge)
+        throw RestrictedAgeException(name, (int) age(), minimumAge);
 
 }
 
@@ -54,7 +54,13 @@ void Viewer::joinStream(ID streamID) {
         throw DoesNotExist<ID>(streamID);
     else if(watching()) throw AlreadyInStreamException(nickName, currWatching);
 
+
+    auto * stream = (LiveStream*) streamZ->getSearchM()->getStream(streamID);
+    // TODO Is < or <= ???
+    if(age() < stream->getMinAge()) throw RestrictedAgeException(nickName, (int) age(), stream->getMinAge());
+
     auto * stream =streamZ->getSearchM()->getStream(streamID);
+
     streamType type = stream->getStreamType();
 
     if (type == finishedType)
@@ -151,6 +157,9 @@ bool Viewer::isFollowing(std::string &streamer) {
     return false;
 }
 
+
+Viewer::Viewer() {}
+
 std::string Viewer::getShorDescription() const {
     std::stringstream  ss;
     ss << name << " (Nickname: " << nickName << ")" << " ->Viewer";
@@ -196,4 +205,75 @@ std::string Viewer::getHistoryDetails() const {
     return ss.str();
 }
 
+void Viewer::readFromFile(std::ifstream &ff) {
 
+    int numNames;
+    char sep;
+
+    std::string temp;
+    std::stringstream ss;
+
+    ff >> numNames >> sep;
+
+    for (int i = 0; i < numNames; ++i) {
+        ff >> temp;
+        ss << temp;
+    }
+
+    name = ss.str();
+
+    ff >> sep >> nickName >> sep >> password >> sep;
+
+    ff >> temp;
+    birthDate = Date(temp);
+    ff >> sep;
+
+    // Clearing the string stream
+    ss.str(std::string());
+
+    ff >> temp; ss << temp << " "; // Building date and hour/minute
+    ff >> temp; ss << temp; // Building date and hour/minute
+
+    joinedPlatformDate = Date(ss.str());
+
+    int size;
+    ID id;
+
+    ff >> sep >> currWatching >> sep >> size >> sep;
+
+    for (int i = 0; i < size; ++i) {
+        ff >> temp >> sep;
+        followingStreamers.push_back(temp);
+    }
+
+    ff >> size >> sep;
+
+    for (int i = 0; i < size; ++i) {
+        ff >> id >> sep;
+        streamHistory.push_back(id);
+    }
+}
+
+void Viewer::writeToFile(std::ofstream &ff) {
+
+    int numNames = 0;
+    std::string counter;
+    std::stringstream temp(name);
+    while (temp >> counter) numNames ++;
+
+    ff << numNames << " , " << name << " , " << nickName << " , " << password << " , "
+        << birthDate.getStringDate() << " , " << joinedPlatformDate.getStringDateTime()
+        << " , " << currWatching << " , "
+        << followingStreamers.size() << " , ";
+
+    for(const auto & str : followingStreamers){
+        ff << str << " , ";
+    }
+
+    ff << streamHistory.size() << " , ";
+
+    for(const auto & id : streamHistory){
+        ff << id << " , ";
+    }
+    ff << std::endl;
+}

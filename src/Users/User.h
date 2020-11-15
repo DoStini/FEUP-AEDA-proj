@@ -9,6 +9,8 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <fstream>
+#include <istream>
 
 #include "utils.h"
 #include "Date.h"
@@ -27,7 +29,7 @@ class StreamZ;
  */
 class User {
 public:
-
+    User() = default;
     /**
      * Constructor when creating a new user
      *
@@ -46,8 +48,8 @@ public:
      * @param birthDate - Date of birth
      * @param joinedPlatDate - Date when user joined Streamz
      */
-    User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
 
+    User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
     virtual ~User(){};
 
     /// @return Name
@@ -55,9 +57,6 @@ public:
 
     /// @return Nickname
     const std::string &getNickName() const;
-
-    /// @return Age
-    unsigned int getAge() const;
 
     /// @return BirthDate
     const Date &getBirthDate() const;
@@ -68,6 +67,8 @@ public:
     /// @return password of the user
     const std::string &getPassword() const;
 
+    /// @return Age
+    unsigned age();
     ///@return - give us the user type
     virtual userType getUserType() const = 0;
 
@@ -94,6 +95,16 @@ public:
      */
     bool changePassword(const std::string& newPassword);
 
+    /**
+     * Function to read a User to the files
+     * @param ifstream
+     */
+    virtual void readFromFile(std::ifstream & ff ) = 0;
+    /**
+     * Function to write a User to the files
+     * @param ofstream
+     */
+    virtual void writeToFile(std::ofstream  & ff ) = 0;
 protected:
     /// General class that have all the info
     StreamZ * streamZ = nullptr;
@@ -103,7 +114,7 @@ protected:
     std::string nickName;
     /// Used to login
     std::string password;
-    unsigned age;
+
     Date birthDate;
     /// Date when user joined Streamz
     Date joinedPlatformDate;

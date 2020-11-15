@@ -9,7 +9,6 @@ User::User( std::string name, std::string nickName, const Date &birthDate) :
             name(std::move(name)), nickName(std::move(nickName)),birthDate(birthDate) {
     Date currDate; currDate.setSystemDate();
     joinedPlatformDate = currDate;
-    age = currDate.getYearDifference(birthDate);
 }
 
 
@@ -21,9 +20,7 @@ const std::string &User::getNickName() const {
     return nickName;
 }
 
-unsigned int User::getAge() const {
-    return age;
-}
+
 
 const Date &User::getBirthDate() const {
     return birthDate;
@@ -47,4 +44,9 @@ bool User::changePassword(const std::string& newPassword) {
 
 void User::setStreamZ(StreamZ *streamZ) {
     this->streamZ = streamZ;
+}
+
+unsigned User::age() {
+    Date currDate; currDate.setSystemDate();
+    return currDate.getYearDifference(birthDate);;
 }

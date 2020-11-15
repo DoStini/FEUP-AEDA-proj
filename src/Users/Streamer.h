@@ -25,6 +25,9 @@ public:
     */
     Streamer(std::string name, std::string nickName, const Date &birthDate);
 
+
+    Streamer();
+
     ~Streamer() override;
 
     ///@return - user type = streamer
@@ -113,6 +116,9 @@ public:
     ///Compare two streamers
     bool operator == (const Streamer & str);
 
+
+    void writeToFile(std::ofstream &ff) override;
+    void readFromFile(std::ifstream &ff) override;
 private:
     ///Age of the user
     static const unsigned minimumAge = STREAMER_MIN_AGE;

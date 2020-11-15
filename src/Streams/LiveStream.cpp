@@ -100,3 +100,7 @@ bool LiveStream::operator<(LiveStream *compStream) {
     return (minAge < compStream->getMinAge());
 }
 
+LiveStream::LiveStream() : Stream(){
+
+}
+

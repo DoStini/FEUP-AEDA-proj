@@ -33,7 +33,7 @@ private:
     Database dataBase;
 public:
     void init();
-    void shutdown();
+    void shutdown(std::string fileName);
     void run();
 
     void backupData(std::string fileName);
