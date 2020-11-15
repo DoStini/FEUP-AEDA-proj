@@ -547,8 +547,6 @@ TEST(test, files1){
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->followStreamer("streamer2");
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->followStreamer("streamer1");
 
-        //dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->closeStream();
-        //dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->closeStream();
         dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->closeStream();
         dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->closeStream();
         dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->closeStream();
