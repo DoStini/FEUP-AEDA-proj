@@ -487,41 +487,47 @@ TEST(test, files1){
     streamZ.init();
     streamZ.run();
 
-    streamZ.getUserM()->createViewer("Rui", "UsEr1", Date(2000, 1, 1));
-    streamZ.getUserM()->createViewer("Jacinto", "USER2", Date(2000, 1, 1));
-    streamZ.getUserM()->createViewer("Luis", "user3", Date(2000, 1, 1));
-    streamZ.getUserM()->createViewer("Alfredo", "user4", Date(2000, 1, 1));
-    streamZ.getUserM()->createViewer("Ganda cringe", "user5", Date(2000, 1, 1));
-    streamZ.getUserM()->createViewer("Ganda cringe 2", "user6", Date(2000, 1, 1));
+    try{
+        streamZ.getUserM()->createViewer("Rui", "UsEr1", Date(2000, 1, 1));
+        streamZ.getUserM()->createViewer("Jacinto", "USER2", Date(2000, 1, 1));
+        streamZ.getUserM()->createViewer("Luis", "user3", Date(2000, 1, 1));
+        streamZ.getUserM()->createViewer("Alfredo", "user4", Date(2000, 1, 1));
+        streamZ.getUserM()->createViewer("Ganda cringe", "user5", Date(2000, 1, 1));
+        streamZ.getUserM()->createViewer("Ganda cringe 2", "user6", Date(2000, 1, 1));
 
-    streamZ.getUserM()->createStreamer("Streamer 1", "streamer1", Date(1995, 2,3));
-    streamZ.getUserM()->createStreamer("Streamer 2", "streamer2", Date(1995, 2,3));
-    streamZ.getUserM()->createStreamer("Streamer 3", "streamer3", Date(1995, 2,3));
-    streamZ.getUserM()->createStreamer("Streamer 3", "streamer4", Date(1995, 2,3));
-    streamZ.getUserM()->createStreamer("Streamer 3", "streamer5", Date(1995, 2,3));
+        streamZ.getUserM()->createStreamer("Streamer 1", "streamer1", Date(1995, 2,3));
+        streamZ.getUserM()->createStreamer("Streamer 2", "streamer2", Date(1995, 2,3));
+        streamZ.getUserM()->createStreamer("Streamer 3", "streamer3", Date(1995, 2,3));
+        streamZ.getUserM()->createStreamer("Streamer 3", "streamer4", Date(1995, 2,3));
+        streamZ.getUserM()->createStreamer("Streamer 3", "streamer5", Date(1995, 2,3));
 
-    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->startPublicStream("Stream 1", PT_PT, gaming);
-    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->startPublicStream("Stream 2", PT_BR, technology);
-    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->startPublicStream("Ok 1", PT_PT, cooking);
-    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->startPublicStream("S", PT_PT, music);
-    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->startPublicStream("S5", SPA, meetGreet);
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->startPublicStream("Stream 1", PT_PT, gaming);
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->startPublicStream("Stream 2", PT_BR, technology);
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->startPublicStream("Ok 1", PT_PT, cooking);
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->startPublicStream("S", PT_PT, music);
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->startPublicStream("S5", SPA, meetGreet);
 
-    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(2);
-    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(1);
-    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(2);
-    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(2);
-    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(4);
-    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(3);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(2);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(1);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(2);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(2);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(4);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(3);
 
-    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->followStreamer("streamer2");
-    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->followStreamer("streamer2");
-    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->followStreamer("streamer1");
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->followStreamer("streamer2");
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->followStreamer("streamer2");
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->followStreamer("streamer1");
 
-    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->closeStream();
-    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->closeStream();
-    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->closeStream();
-    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->closeStream();
-    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->closeStream();
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->closeStream();
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->closeStream();
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->closeStream();
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->closeStream();
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->closeStream();
+    }
+    catch (AlreadyExists<std::string> & e) {
+        std::cout << "Exception: " << e.what() << std::endl;
+    }
+
 
 
     streamZ.shutdown("DB.txt");

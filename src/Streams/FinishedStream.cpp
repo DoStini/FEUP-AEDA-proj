@@ -67,7 +67,7 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
 
     for (int i = 0; i < num; ++i) {
         ff >> temp;
-        ss << temp << " ";
+        ss << temp << (i == num-1 ? "" : " ");
     }
 
     title =  ss.str();
@@ -96,7 +96,7 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
 
     finishedDate = Date(ss.str());
 
-    ff >> numViewers >> sep >> num >> sep;
+    ff >> sep >> numViewers >> sep >> num >> sep;
 
     ss.str(std::string());    // Clearing the string stream
 
