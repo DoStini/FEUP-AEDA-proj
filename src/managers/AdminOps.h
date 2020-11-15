@@ -10,6 +10,7 @@
 
 #include "utils.h"
 #include "Date.h"
+#include "EmptyDatabaseException.h"
 
 class StreamZ;
 class Streamer;
@@ -24,20 +25,26 @@ public:
      * @param streamZ - Main class pointer
      */
     AdminOps(StreamZ *streamZ);
-    /// @return Pointer to the most viewed streamer
+    /**
+     * @throw EmptyDatabase if the custom search doesn't find anything
+     * @return Pointer to the most viewed streamer
+     */
     Streamer * mostViewed();
     /**
      * @param reversed - Optional: Set to true if you want the least viewed language
+     * @throw EmptyDatabase if the custom search doesn't find anything
      * @return Most viewed language among streams ( enum language)
      */
     language rankViewsLang(bool reversed = false);
     /**
      * @param reversed - Optional: Set to true if you want the least viewed genre
+     * @throw EmptyDatabase if the custom search doesn't find anything
      * @return Most viewed genre among streams ( enum genre)
      */
     genre rankViewsGenres(bool reversed = false);
     /**
      * @param reversed - Optional: Set to true if you want the least viewed genre
+     * @throw EmptyDatabase if the custom search doesn't find anything
      * @return Most viewed genre among streams ( enum genre)
      */
     streamType rankViewsTypes(bool reversed = false);
@@ -54,7 +61,20 @@ public:
      * @return The number of streams of the specified type
      */
     long int numStreams(streamType streamType);
+    /**
+     * Number of streams between the specified dates
+     * @param d1 - Smaller date
+     * @param d2 - Bigger date
+     * @return Number of streams
+     */
     long int numStreams(Date d1, Date d2);
+    /**
+     * Number of streams between the specified dates of the specified type
+     * @param streamType - The specific type (public, private or finished)
+     * @param d1 - Smaller date
+     * @param d2 - Bigger date
+     * @return
+     */
     long int numStreams(streamType streamType, Date d1, Date d2);
 
     /**

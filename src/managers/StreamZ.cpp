@@ -8,7 +8,6 @@
 
 
 void StreamZ::init() {
-
     LiveStream::lastId = NULL_STREAM;
     sortingManager = new SortingManager(this);
     searchManager = new SearchManager(this);

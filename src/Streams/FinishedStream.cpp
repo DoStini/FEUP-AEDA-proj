@@ -7,9 +7,9 @@
 #include <utility>
 
 
-FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerNick,ID StreamID)
+FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerNick,ID streamID)
                                 : Stream(std::move(title),language,streamGenre,std::move(streamerNick)), numViewers(numViewers){
-    this->streamId = streamId;
+    streamId = streamID;
     Date currDate; currDate.setSystemDate();
     finishedDate = currDate;
 }
@@ -31,8 +31,21 @@ int FinishedStream::getNumViewers() const {
     return numViewers;
 }
 
-const std::string &FinishedStream::getStreamerName() const {
-    return streamerName;
+std::string FinishedStream::getShorDescription() const {
+    std::stringstream ss;
+    ss << title << " (Stream Id: " << streamId << ")" << " ->Finished";
+    return ss.str();
+}
+
+std::string FinishedStream::getLongDescription() const {
+    std::stringstream ss;
+    ss << "Streamed by:" << streamerNick << std::endl
+       << "Star streaming: " << beginDate.getStringDate() << std::endl
+       << "Language: " << streamLanguage << std::endl
+       << "Genre: " << streamGenre << std::endl
+       << "Final viewers: " << numViewers << std::endl
+       << "Stream finished at: " << finishedDate.getStringDate();
+    return ss.str();
 }
 
 void FinishedStream::writeToFile(std::ofstream &ff) {
@@ -112,4 +125,3 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
 FinishedStream::FinishedStream() : Stream() {
 
 }
-

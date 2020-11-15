@@ -84,13 +84,18 @@ public:
                                           const std::vector<genre> & genres = std::vector<genre>(),
                                           const std::vector<language> & langs = std::vector<language>());
 
-    void listPrivateLiveStreams(std::vector<PrivateStream *> & streams);
     /**
      * List live streams corresponding to some streamers
+     * Usefull to get a vector according to the following streamers of a viewer
      * @param streams - Returns by reference the vector of livestreams from the streamers - Will be cleared if not empty
      * @param streamerID - Vector of streamer ID's
      */
-    void listLiveStreamsByStreamers(std::vector<LiveStream *> & streams, const std::vector<std::string> & streamerNick);
+    void listLiveStreamsByStreamers(std::vector<LiveStream *> &streams, const std::vector<std::string> &streamerNick);
+    /**
+     * Lists all private streams
+     * @param streams
+     */
+    void listPrivateLiveStreams(std::vector<PrivateStream *> & streams);
 
 private:
     StreamZ * streamZ;

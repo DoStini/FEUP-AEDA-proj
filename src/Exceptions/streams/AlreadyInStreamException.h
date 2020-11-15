@@ -7,6 +7,7 @@
 
 #include <exception>
 #include <ostream>
+#include <utils.h>
 
 
 /**
@@ -17,9 +18,10 @@ public:
     /**
      * Constructor
      * @param user - The user that originated the error
-     * @param streamWatching
+     * @param currStream - The stream
+     * @param viewer - If the user is a viewer(true) or a streamer
      */
-    AlreadyInStreamException(std::string user, unsigned long long int streamWatching);
+    AlreadyInStreamException(std::string user, ID streamWatching, bool viewer = true);
     /**
      * Brief info about exception
      * @return
@@ -30,7 +32,8 @@ public:
 
 private:
     std::string user;
-    unsigned long long int streamWatching;
+    ID currStream;
+    bool isViewer;
 };
 
 

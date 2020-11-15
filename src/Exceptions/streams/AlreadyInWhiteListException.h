@@ -8,6 +8,9 @@
 #include <exception>
 #include <ostream>
 
+#include "utils.h"
+
+
 class AlreadyInWhiteListException: public std::exception{
 public:
     /**

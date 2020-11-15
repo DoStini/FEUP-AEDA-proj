@@ -41,6 +41,8 @@ language AdminOps::rankViewsLang(bool reversed) {
         its++;
     }
 
+    if(ammViews.empty()) throw EmptyDatabaseException(false);
+
     std::set<std::pair<language, int>, comparator> res(ammViews.begin(), ammViews.end());
 
     auto last = res.end(); --last;
@@ -72,6 +74,8 @@ genre AdminOps::rankViewsGenres(bool reversed) {
         its++;
     }
 
+    if(ammViews.empty()) throw EmptyDatabaseException(false);
+
     std::set<std::pair<genre, int>, comparator> res(ammViews.begin(), ammViews.end());
 
     auto last = res.end(); --last;
@@ -92,13 +96,16 @@ streamType AdminOps::rankViewsTypes(bool reversed) {
 
     while(its != ite){
         type = (*its).second->getStreamType();
+        its++;
+        if (type != finishedType) continue;
 
         if ( ammViews.find(type) != ammViews.end() )
             ammViews[type] += views;
         else
             ammViews[type] = views;
-        its++;
     }
+
+    if(ammViews.empty()) throw EmptyDatabaseException(false);
 
     std::set<std::pair<streamType, int>, comparator> res(ammViews.begin(), ammViews.end());
 
@@ -122,12 +129,14 @@ Streamer *AdminOps::mostViewed() {
 
         if(ptr->getUserType() == userType::stream){
             if ( ammViews.find(ptr->getNickName()) != ammViews.end() )
-                ammViews[ptr->getNickName()] += dynamic_cast<Streamer *>(ptr)->getNumViewers();
+                ammViews[ptr->getNickName()] += dynamic_cast<Streamer *>(ptr)->getTotalViews();
             else
-                ammViews[ptr->getNickName()] = dynamic_cast<Streamer *>(ptr)->getNumViewers();
+                ammViews[ptr->getNickName()] = dynamic_cast<Streamer *>(ptr)->getTotalViews();
         }
         its++;
     }
+
+    if(ammViews.empty()) throw EmptyDatabaseException(true);
 
     std::set<std::pair<std::string, int>, comparator> res(ammViews.begin(), ammViews.end());
 
@@ -220,6 +229,9 @@ float AdminOps::medianViewsStream() {
         }
         its++;
     }
+
+    if(numStreamsAll() == 0) return 0;
+
     return (float)sum/(float)numStreamsAll();
 }
 
@@ -245,7 +257,7 @@ float AdminOps::medianViewsStream(Date d1, Date d2) {
         }
         its++;
     }
-
+    if(numStreams == 0) return 0;
     return (float)sum/(float)numStreams;
 }
 

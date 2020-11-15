@@ -14,6 +14,7 @@ include_directories(src/Exceptions/streams
         src/Utils
         src/Date
         src/Exceptions/date
+        src/Exceptions
         src/managers)
 
 
@@ -80,7 +81,9 @@ add_executable(FEUP_AEDA_proj
         src/managers/StreamManager.cpp
         src/managers/StreamManager.h
         src/Exceptions/streams/AlreadyInWhiteListException.cpp
-        src/Exceptions/streams/AlreadyInWhiteListException.h)
+        src/Exceptions/streams/AlreadyInWhiteListException.h src/Exceptions/streams/NotInWhiteListException.cpp src/Exceptions/streams/NotInWhiteListException.h
+        src/Exceptions/EmptyDatabaseException.cpp
+        src/Exceptions/EmptyDatabaseException.h)
 
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)

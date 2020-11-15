@@ -38,6 +38,7 @@ public:
      * @param birthDate - Date of Birth
      */
     User(std::string name, std::string nickName, const Date &birthDate);
+
     /**
      * Constructor when loading user from a file database
      * TEMPORARY - IF WE READ FROM BINARY WE DONT NEED THIS
@@ -47,24 +48,51 @@ public:
      * @param birthDate - Date of birth
      * @param joinedPlatDate - Date when user joined Streamz
      */
+
+    User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
     virtual ~User(){};
+
     /// @return Name
     const std::string &getName() const;
+
     /// @return Nickname
     const std::string &getNickName() const;
+
     /// @return BirthDate
     const Date &getBirthDate() const;
+
     /// @return Date which user joined StreamZ
     const Date &getJoinedPlatformDate() const;
+
     /// @return password of the user
     const std::string &getPassword() const;
+
     /// @return Age
     unsigned age();
     ///@return - give us the user type
     virtual userType getUserType() const = 0;
+
+    /// @return - relevant info about user
+    virtual std::string getShorDescription() const = 0;
+
+    /// @return - detailed info about user
+    virtual std::string getLongDescription() const = 0;
+
+    /// @return - string with all the followers/following
+    virtual std::string getFollowDetails() const = 0;
+
+    /// @return - string with all the stream history/finished
+    virtual std::string getHistoryDetails() const = 0;
+
     ///@param streamZ - pointer to streamZ
     void setStreamZ(StreamZ *streamZ);
 
+    /**
+     * Change password of the user
+     *
+     * @param newPassword
+     * @return - true if succeed else false
+     */
     bool changePassword(const std::string& newPassword);
 
     /**

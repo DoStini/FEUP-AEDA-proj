@@ -54,23 +54,30 @@ void Viewer::joinStream(ID streamID) {
         throw DoesNotExist<ID>(streamID);
     else if(watching()) throw AlreadyInStreamException(nickName, currWatching);
 
+
     auto * stream = (LiveStream*) streamZ->getSearchM()->getStream(streamID);
     // TODO Is < or <= ???
     if(age() < stream->getMinAge()) throw RestrictedAgeException(nickName, (int) age(), stream->getMinAge());
+
+    auto * stream =streamZ->getSearchM()->getStream(streamID);
 
     streamType type = stream->getStreamType();
 
     if (type == finishedType)
         throw RestrictedStreamException(stream->getTitle(), nickName);
-    else if(type == privateType)
+
+    auto liveStream = (LiveStream *) stream;
+    // TODO Is < or <= ???
+    if(age < liveStream->getMinAge()) throw RestrictedAgeException(nickName, age, liveStream->getMinAge());
+
+    if(type == privateType)
     {
         auto * pStream = (PrivateStream *) stream;
         if (!pStream->isValidUser(nickName))
             throw RestrictedStreamException(stream->getTitle(), nickName);
     }
 
-    stream->addViewer(nickName);
-
+    liveStream->addViewer(nickName);
     currWatching = streamID;
 
 }
@@ -115,7 +122,7 @@ void Viewer::giveFeedBack(const std::string& comment) {
     auto * currStream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
 
     if(!watching()) throw NotInStreamException(name);
-    if (!dynamic_cast<PrivateStream *>(currStream))
+    if (currStream->getStreamType() != privateType)
         throw NotPrivateStreamException(currStream->getStreamId());
 
     auto * stream = (PrivateStream *) currStream;
@@ -136,20 +143,67 @@ ID Viewer::getCurrWatching() const {
 
 Viewer::~Viewer() {
     if(watching()){
-        LiveStream * ptr = (LiveStream *) streamZ->getSearchM()->getStream(currWatching);
+        auto * ptr =  dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currWatching));
         ptr->removeViewer(nickName);
     }
     for(const auto & streamer : followingStreamers){
-        Streamer * ptr = (Streamer *) streamZ->getSearchM()->getUser(streamer);
+        Streamer * ptr = dynamic_cast<Streamer *>(streamZ->getSearchM()->getUser(streamer));
         ptr->leaveFollower(nickName);
     }
+    streamZ->getStreamManager()->removeViewerFromWhitelists(nickName);
 }
 
 bool Viewer::isFollowing(std::string &streamer) {
     return false;
 }
 
+
 Viewer::Viewer() {}
+
+std::string Viewer::getShorDescription() const {
+    std::stringstream  ss;
+    ss << name << " (Nickname: " << nickName << ")" << " ->Viewer";
+    return ss.str();
+}
+
+std::string Viewer::getLongDescription() const {
+    std::stringstream  ss;
+    ss << "My password is " << password << " hope you enjoy my account :)\n"
+       << "I was born in " << birthDate.getStringDate() << " so i have " << age << " years.\n"
+       << "Have join StreamZ in: " << joinedPlatformDate.getStringDate()
+       << "Follow " << followingStreamers.size() << " streamers.\n"
+       << "They are:\n";
+    for(const auto & it : followingStreamers){
+        ss << it << std::endl;
+    }
+    if(currWatching == NULL_STREAM){
+        ss << "Right now i am watching nothing.\n";
+    }
+    else{
+        ss << "Right now i am watching:\n"
+           << streamZ->getSearchM()->getStream(currWatching)->getShorDescription() << std::endl;
+    }
+    ss << "I have seen a total of " << streamHistory.size() << " streams.\n";
+    return ss.str();
+}
+
+std::string Viewer::getFollowDetails() const {
+    std::stringstream  ss;
+    ss << "The streamers that i follow are:\n";
+    for(const auto & it : followingStreamers){
+        ss << it << std::endl;
+    }
+    return ss.str();
+}
+
+std::string Viewer::getHistoryDetails() const {
+    std::stringstream  ss;
+    ss << "I have participate in the following streams: \n";
+    for(const auto & it : streamHistory){
+        ss << streamZ->getSearchM()->getStream(it)->getShorDescription() << std::endl;
+    }
+    return ss.str();
+}
 
 void Viewer::readFromFile(std::ifstream &ff) {
 

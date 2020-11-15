@@ -3,10 +3,8 @@
 //
 
 #include "PrivateStream.h"
-
 #include <utility>
-
-#include "User.h"
+#include "StreamZ.h"
 
 PrivateStream::PrivateStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick,
                                 unsigned int minAge, unsigned int maxViewers) : LiveStream(std::move(title),
@@ -25,13 +23,26 @@ bool PrivateStream::isValidUser(const std::string& userNick) {
 }
 
 void PrivateStream::addValidUser(const std::string& userNick) {
-    if(std::find(whitelist.begin(),whitelist.end(),userNick) != whitelist.end())
+
+    if(!streamZ->getSearchM()->userExists(userNick))
+        throw DoesNotExist<std::string>(userNick);
+    if( isValidUser(userNick) )
         throw AlreadyInWhiteListException(userNick,this->getStreamId()) ;
     whitelist.push_back(userNick);
 }
 
 void PrivateStream::removeValidUser(const std::string &userNick) {
-    whitelist.erase(find(whitelist.begin(),whitelist.end(),userNick));
+
+    auto it = find(whitelist.begin(),whitelist.end(),userNick);
+    if(it == whitelist.end())
+        throw NotInStreamException(userNick);
+    else {
+        whitelist.erase(it);
+
+        auto viewer = (Viewer *) streamZ->getSearchM()->getUser(userNick);
+        if (viewer->getCurrWatching() == streamId)
+            viewer->leaveStream();
+    }
 }
 
 int PrivateStream::getWhitelistSize() const {
@@ -53,6 +64,32 @@ void PrivateStream::addViewer(const std::string &viewerNick) {
     else
         streamViewers.push_back(viewerNick);
 }
+
+PrivateStream::PrivateStream() : LiveStream(){
+std::string PrivateStream::getShorDescription() const {
+    std::stringstream ss;
+    ss << title << " (Stream Id: " << streamId << ")" << " ->Private";
+    return ss.str();
+}
+
+std::string PrivateStream::getLongDescription() const {
+    std::stringstream ss;
+    ss << "Streamed by:" << streamerNick << std::endl
+       << "Star streaming: " << beginDate.getStringDate() << std::endl
+       << "Language: " << streamLanguage << std::endl
+       << "Genre: " << streamGenre << std::endl
+       << "Necessary age to join: " << minAge << std::endl
+       << "Current watching: " << streamViewers.size() << std::endl
+       << "Can only have a total of " << maxViewers << " viewers watching." << std::endl
+       << "Likes: " << getLikes() << " Dislikes: " << getDislikes() << std::endl
+       << "My comments!";
+    for(auto it=comments.begin(); it!=comments.end(); it++){
+        ss << (*it);
+    }
+    return ss.str();
+
+}
+
 
 void PrivateStream::writeToFile(std::ofstream &ff) {
 
@@ -210,9 +247,3 @@ void PrivateStream::readFromFile(std::ifstream &ff) {
     ff >> maxViewers >> sep;
 
 }
-
-PrivateStream::PrivateStream() : LiveStream(){
-
-}
-
-

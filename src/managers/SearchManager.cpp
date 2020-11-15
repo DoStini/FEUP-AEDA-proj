@@ -176,8 +176,7 @@ void SearchManager::listAllowedLiveStreams(std::vector<LiveStream *> &streams, s
 
         if (!valid && ptr->getStreamType() == privateType){
             auto * privateStream = dynamic_cast<PrivateStream *>(ptr);
-            // TODO NEED UPDATED METHOD!!!!!
-            //valid = privateStream->isValidUser(viewerNick);
+            valid = privateStream->isValidUser(viewerNick);
         }
 
         // Checks if the current stream verifies all 3 requests (or those asked)

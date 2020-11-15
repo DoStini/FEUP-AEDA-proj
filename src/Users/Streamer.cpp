@@ -49,7 +49,7 @@ ID Streamer::getStreamID() {
 }
 
 
-unsigned int Streamer::getNumViewers() {
+unsigned int Streamer::getTotalViews() {
 
     unsigned int views;
 
@@ -64,6 +64,15 @@ unsigned int Streamer::getNumViewers() {
 
     return views;
 }
+
+unsigned int Streamer::getStreamViewers() {
+    if(!streaming())
+        throw NotInStreamException(nickName);
+
+    auto ptr =(LiveStream *) streamZ->getSearchM()->getStream(currStreaming);
+    return ptr->getNumViewers();
+}
+
 
 void Streamer::addFollower(std::string viewerNick) {
     followedBy.push_back(viewerNick);
@@ -101,6 +110,9 @@ void Streamer::startPrivateStream(std::string title, language streamLanguage, ge
 }
 
 void Streamer::kickUser(std::string viewerNick) {
+    if(!streaming())
+        throw NotInStreamException(nickName);
+
     if(!streamZ->getSearchM()->userExists(viewerNick))
         throw DoesNotExist<std::string>(viewerNick);
 
@@ -114,6 +126,48 @@ void Streamer::kickedStream() {
 
     currStreaming = NULL_STREAM;
 }
+
+std::string Streamer::getShorDescription() const {
+    std::stringstream  ss;
+    ss << name << " (Nickname: " << nickName << ")" << " ->Streamer";
+    return ss.str();
+}
+
+std::string Streamer::getLongDescription() const {
+    std::stringstream  ss;
+    ss << "My password is " << password << " hope you enjoy my account :)\n"
+    << "I was born in " << birthDate.getStringDate() << " so i have " << age << " years.\n"
+    << "Have join StreamZ in: " << joinedPlatformDate.getStringDate()
+    << "Current have " << getNumFollowers() << " followers.\n";
+    if(currStreaming == NULL_STREAM){
+        ss << "Right now i am not streaming.\n";
+    }
+    else{
+        ss << "Right now i am streaming:\n"
+        << streamZ->getSearchM()->getStream(currStreaming)->getShorDescription() << std::endl;
+    }
+    ss << "I have streamed a total of " << finishedStreams.size() << " streams.\n";
+    return ss.str();
+}
+
+std::string Streamer::getFollowDetails() const {
+    std::stringstream  ss;
+    ss << "My followers are:\n";
+    for(const auto & it : followedBy){
+        ss << it << std::endl;
+    }
+    return ss.str();
+}
+
+std::string Streamer::getHistoryDetails() const {
+    std::stringstream  ss;
+    ss << "My finished streams are:\n";
+    for(const auto & it : finishedStreams){
+        ss << streamZ->getSearchM()->getStream(it)->getShorDescription() << std::endl;
+    }
+    return ss.str();
+}
+
 
 void Streamer::writeToFile(std::ofstream &ff) {
     int numNames = 0;
@@ -191,7 +245,3 @@ void Streamer::readFromFile(std::ifstream &ff) {
 Streamer::Streamer() {
 
 }
-
-
-
-

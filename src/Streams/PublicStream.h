@@ -19,8 +19,10 @@ public:
      * @param minAge - Minimal age of the stream , 12 by default
      */
     PublicStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge);
+
     ///@return - stream type = public type
     streamType getStreamType() const override;
+
     /**
     * Add viewers to the stream
     *
@@ -29,6 +31,11 @@ public:
     void addViewer(const std::string& viewerNick) override;
     void readFromFile(std::ifstream &ff) override;
     void writeToFile(std::ofstream &ff) override;
+    /// @return - relevant info about stream
+    std::string getShorDescription() const override;
+
+    /// @return - detailed info about stream
+    std::string getLongDescription() const override;
 };
 
 
