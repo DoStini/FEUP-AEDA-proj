@@ -57,3 +57,19 @@ void Admin::readFromFile(std::ifstream &ff) {
 
     joinedPlatformDate = Date(ss.str());
 }
+
+std::string Admin::getShorDescription() const {
+    return std::string();
+}
+
+std::string Admin::getLongDescription() const {
+    return std::string();
+}
+
+std::string Admin::getFollowDetails() const {
+    return std::string();
+}
+
+std::string Admin::getHistoryDetails() const {
+    return std::string();
+}

@@ -55,9 +55,7 @@ void Viewer::joinStream(ID streamID) {
     else if(watching()) throw AlreadyInStreamException(nickName, currWatching);
 
 
-    auto * stream = (LiveStream*) streamZ->getSearchM()->getStream(streamID);
     // TODO Is < or <= ???
-    if(age() < stream->getMinAge()) throw RestrictedAgeException(nickName, (int) age(), stream->getMinAge());
 
     auto * stream =streamZ->getSearchM()->getStream(streamID);
 
@@ -67,8 +65,8 @@ void Viewer::joinStream(ID streamID) {
         throw RestrictedStreamException(stream->getTitle(), nickName);
 
     auto liveStream = (LiveStream *) stream;
-    // TODO Is < or <= ???
-    if(age < liveStream->getMinAge()) throw RestrictedAgeException(nickName, age, liveStream->getMinAge());
+
+    if(age() < liveStream->getMinAge()) throw RestrictedAgeException(nickName, age(), liveStream->getMinAge());
 
     if(type == privateType)
     {
@@ -169,7 +167,7 @@ std::string Viewer::getShorDescription() const {
 std::string Viewer::getLongDescription() const {
     std::stringstream  ss;
     ss << "My password is " << password << " hope you enjoy my account :)\n"
-       << "I was born in " << birthDate.getStringDate() << " so i have " << age << " years.\n"
+       << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
        << "Have join StreamZ in: " << joinedPlatformDate.getStringDate()
        << "Follow " << followingStreamers.size() << " streamers.\n"
        << "They are:\n";

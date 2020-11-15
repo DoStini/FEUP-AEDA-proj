@@ -68,7 +68,7 @@ public:
     const std::string &getPassword() const;
 
     /// @return Age
-    unsigned age();
+    unsigned age() const;
     ///@return - give us the user type
     virtual userType getUserType() const = 0;
 

@@ -136,7 +136,7 @@ std::string Streamer::getShorDescription() const {
 std::string Streamer::getLongDescription() const {
     std::stringstream  ss;
     ss << "My password is " << password << " hope you enjoy my account :)\n"
-    << "I was born in " << birthDate.getStringDate() << " so i have " << age << " years.\n"
+    << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
     << "Have join StreamZ in: " << joinedPlatformDate.getStringDate()
     << "Current have " << getNumFollowers() << " followers.\n";
     if(currStreaming == NULL_STREAM){

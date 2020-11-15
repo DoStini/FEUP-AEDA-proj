@@ -15,6 +15,10 @@ public:
 
     ///@return - user type = streamer
     userType getUserType() const override;
+    std::string getShorDescription() const override;
+    std::string getLongDescription() const override;
+    std::string getFollowDetails() const override;
+    std::string getHistoryDetails() const override;
     void writeToFile(std::ofstream &ff) override;
     void readFromFile(std::ifstream &ff) override;
 };

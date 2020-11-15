@@ -65,7 +65,7 @@ void PrivateStream::addViewer(const std::string &viewerNick) {
         streamViewers.push_back(viewerNick);
 }
 
-PrivateStream::PrivateStream() : LiveStream(){
+PrivateStream::PrivateStream() : LiveStream(){}
 std::string PrivateStream::getShorDescription() const {
     std::stringstream ss;
     ss << title << " (Stream Id: " << streamId << ")" << " ->Private";

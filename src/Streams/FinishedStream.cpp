@@ -58,13 +58,7 @@ void FinishedStream::writeToFile(std::ofstream &ff) {
     ff << streamId << " , " << num << " , " << title << " , " << beginDate.getStringDateTime()
        << " , " << streamLanguage << " , " << streamGenre
        << " , " << streamerNick << " , " << finishedDate.getStringDateTime()
-       << " , " << numViewers << " , ";
-
-    num = 0;
-    temp.str(streamerName);
-    while (temp >> counter) num ++;
-
-    ff << num << " , " << streamerName << std::endl;
+       << " , " << numViewers << " , " << std::endl;
 
 }
 
@@ -109,16 +103,7 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
 
     finishedDate = Date(ss.str());
 
-    ff >> sep >> numViewers >> sep >> num >> sep;
-
-    ss.str(std::string());    // Clearing the string stream
-
-    for (int i = 0; i < num; ++i) {
-        ff >> temp;
-        ss << temp << " ";
-    }
-
-    streamerName = ss.str();
+    ff >> sep >> numViewers >> sep;
 
 }
 
