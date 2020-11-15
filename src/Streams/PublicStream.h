@@ -6,6 +6,7 @@
 #define FEUP_AEDA_PROJ_PUBLICSTREAM_H
 
 #include "LiveStream.h"
+#include <fstream>
 
 class PublicStream : public LiveStream {
 public:

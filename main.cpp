@@ -508,9 +508,13 @@ TEST(test, files1){
         dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->startPublicStream("S5", SPA, meetGreet);
 
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(2);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->giveFeedBack(like);
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(1);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->giveFeedBack(dislike);
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(2);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->giveFeedBack(dislike);
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(2);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->giveFeedBack(dislike);
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(4);
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(3);
 
@@ -518,8 +522,8 @@ TEST(test, files1){
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->followStreamer("streamer2");
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->followStreamer("streamer1");
 
-        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->closeStream();
-        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->closeStream();
+        //dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->closeStream();
+        //dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->closeStream();
         dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->closeStream();
         dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->closeStream();
         dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->closeStream();
