@@ -35,9 +35,10 @@ public:
      *
      * @param name - Name of the user
      * @param nickName - Nickename
+     * @param password - password of the user
      * @param birthDate - Date of Birth
      */
-    User(std::string name, std::string nickName, const Date &birthDate);
+    User(std::string name, std::string nickName,std::string password ,const Date &birthDate);
 
     /**
      * Constructor when loading user from a file database

@@ -7,8 +7,8 @@
 #include <utility>
 #include "StreamZ.h"
 
-Viewer::Viewer(std::string name, std::string nickName, const Date &birthDate) :
-                User(name, std::move(nickName), birthDate) {
+Viewer::Viewer(std::string name, std::string nickName,std::string password, const Date &birthDate) :
+                User(name, std::move(nickName),std::move(password), birthDate) {
     if(age() <= minimumAge)
         throw RestrictedAgeException(name, (int) age(), minimumAge);
 

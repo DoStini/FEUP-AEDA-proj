@@ -10,7 +10,8 @@ userType Admin::getUserType() const {
     return admin;
 }
 
-Admin::Admin(std::string name, std::string nickName, const Date &birthDate) : User(std::move(name), std::move(nickName), birthDate) {
+Admin::Admin(std::string name, std::string nickName,std::string password, const Date &birthDate)
+    : User(std::move(name), std::move(nickName),std::move(password), birthDate) {
 }
 
 Admin::Admin() : User(){

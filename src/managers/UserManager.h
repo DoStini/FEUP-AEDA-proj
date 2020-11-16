@@ -26,11 +26,11 @@ public:
     UserManager(StreamZ *streamZ);
     /// @return If an admin is already registered
     /// Creates a viewer
-    void createViewer(const std::string& name, std::string nickName, const Date &birthDate);
+    void createViewer(const std::string& name, std::string nickName,const std::string& password, const Date &birthDate);
     /// Creates a streamer
-    void createStreamer(std::string name, std::string nickName, const Date &birthDate);
+    void createStreamer(std::string name, std::string nickName,const std::string& password, const Date &birthDate);
     /// Creates an admin
-    void createAdmin(std::string name, std::string nickName, const Date &birthDate);
+    void createAdmin(std::string name, std::string nickName,const std::string& password, const Date &birthDate);
     /// Removes a user
     void removeUser(std::string nickName);
     /**

@@ -24,9 +24,10 @@ public:
      * @throw RestrictedStreamException if the user is not whitelisted
      * @param name - Name of the user
      * @param nickName - Nickname
+     * @param password - User password
      * @param birthDate - Date of Birth
      */
-    Viewer(std::string name, std::string nickName, const Date &birthDate);
+    Viewer(std::string name, std::string nickName,std::string password, const Date &birthDate);
 
     ~Viewer();
 

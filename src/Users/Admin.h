@@ -9,7 +9,8 @@
 
 class Admin : public User{
 public:
-    Admin(std::string name, std::string nickName, const Date &birthDate);
+
+    Admin(std::string name, std::string nickName,std::string password, const Date &birthDate);
 
     Admin();
 

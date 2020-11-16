@@ -3,10 +3,12 @@
 //
 
 #include "User.h"
+
+#include <utility>
 #include "StreamZ.h"
 
-User::User( std::string name, std::string nickName, const Date &birthDate) :
-            name(std::move(name)), nickName(std::move(nickName)),birthDate(birthDate) {
+User::User( std::string name, std::string nickName,std::string password, const Date &birthDate) :
+            name(std::move(name)), nickName(std::move(nickName)),birthDate(birthDate), password(std::move(password)) {
     Date currDate; currDate.setSystemDate();
     joinedPlatformDate = currDate;
 }

@@ -21,9 +21,10 @@ public:
     * Throws a RestrictedAgeException if the user is not allowed to create an account
     * @param name - Name of the user
     * @param nickName - Nickname
+    * @param password - User password
     * @param birthDate - Date of Birth
     */
-    Streamer(std::string name, std::string nickName, const Date &birthDate);
+    Streamer(std::string name, std::string nickName,std::string password, const Date &birthDate);
 
 
     Streamer();
