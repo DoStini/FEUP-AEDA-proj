@@ -33,7 +33,7 @@ void UserManager::createAdmin(std::string name, std::string nickName,const std::
     if(streamZ->getSearchM()->adminExists()) throw AlreadyExists<std::string>("Admin");
     else if(streamZ->getSearchM()->userExists(nickName)) throw AlreadyExists<std::string>(nickName);
 
-    Viewer * ptr = new Viewer(name, nickName,password, birthDate);
+    Admin * ptr = new Admin(name, nickName,password, birthDate);
     ptr->setStreamZ(streamZ);
 
 
