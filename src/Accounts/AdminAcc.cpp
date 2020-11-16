@@ -190,9 +190,43 @@ void AdminAcc::viewsPerStream() {
     waitForKey();
 }
 
-// TODO THIS
 void AdminAcc::numStreamsType() {
+    print("What is the type of stream you wish to know the quantity of?");
+    print();
+    print("1. Public");
+    print("2. Private");
+    print();
+    uint16_t option;
 
+    while(!checkInput(option) || option <1 || option > 2) {
+        print("Invalid Input! Please try again: ", '\0');
+    }
+
+    std::pair<Date, Date> dateInterval;
+    bool validInterval = getTimeInterval(dateInterval);
+    long num;
+
+    print();
+
+    if(validInterval) {
+        print("Number of streams of that type between dates ",'\0');
+        print(dateInterval.first.getStringDate(),'\0');
+        print(" and ", '\0');
+        print(dateInterval.second.getStringDate(),'\0');
+        print(": ");
+
+        num = streamZ->getAdminOps()->numStreams((streamType) option, dateInterval.first, dateInterval.second);
+    } else {
+        print("Number of streams of that type: ", '\0');
+
+        num = streamZ->getAdminOps()->numStreams((streamType) option);
+    }
+
+    print();
+    print(num);
+    print();
+
+    waitForKey();
 }
 
 bool AdminAcc::getTimeInterval(std::pair<Date, Date> &dateInterval) {
@@ -200,23 +234,23 @@ bool AdminAcc::getTimeInterval(std::pair<Date, Date> &dateInterval) {
 
     do {
         try {
-            print("What is the date of the first interval limit? (empty for no interval)");
+            print("What is the date of the first interval limit? (0 for no interval)");
             print("(Format: YYYY/MM/DD or YYYY-MM-DD or YYYY MM DD) ", '\0');
 
-            getTruncatedString(date);
+            getString(date);
 
-            if(date.empty()) {
+            if(date == "0") {
                 return false;
             }
 
             dateInterval.first = Date(date);
 
-            print("What is the date of the second interval limit? (empty for no interval)");
+            print("What is the date of the second interval limit? (0 for no interval)");
             print("(Format: YYYY/MM/DD or YYYY-MM-DD or YYYY MM DD) ", '\0');
 
-            getTruncatedString(date);
+            getString(date);
 
-            if(date.empty()) {
+            if(date == "0") {
                 return false;
             }
 
@@ -235,9 +269,25 @@ bool AdminAcc::getTimeInterval(std::pair<Date, Date> &dateInterval) {
 }
 
 void AdminAcc::mostViewedType() {
-    print("The most viewed type of stream is: ",'\0');
+    try {
+        streamType type = streamZ->getAdminOps()->rankViewsTypes();
 
+        print("The most viewed type of stream is: ");
+        if(type == publicType) print("Public");
+        else print("Private");
 
+        type = streamZ->getAdminOps()->rankViewsTypes(true);
+
+        print("The least viewed type of stream is: ");
+        if(type == publicType) print("Public");
+        else print("Private");
+    } catch (EmptyDatabaseException &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    print();
+    waitForKey();
 }
 
 void AdminAcc::mostViewedStreamer() {

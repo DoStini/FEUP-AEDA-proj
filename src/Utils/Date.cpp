@@ -18,8 +18,6 @@ Date::Date(const std::string &date) {
                 fixDate();
                 return;
             }
-
-            throw InvalidDate();
         }
 
         dateStream = std::stringstream(date);
