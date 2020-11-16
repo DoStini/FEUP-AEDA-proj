@@ -72,7 +72,7 @@ public:
     void setStreamZ(StreamZ *streamZ);
 
     /**
-     * Function to read a User to the files
+     * Function to read a User from the files
      * @param ifstream
      */
     virtual void readFromFile(std::ifstream & ff ) = 0;

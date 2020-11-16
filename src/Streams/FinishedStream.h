@@ -36,8 +36,15 @@ public:
 
     /// @return - detailed info about stream
     std::string getLongDescription() const override;
-
+    /**
+     * Writing stream info to file
+     * @param ff Current file stream
+     */
     void writeToFile(std::ofstream &ff) override;
+    /**
+     * Reading stream info from file
+     * @param ff Current file stream
+     */
     void readFromFile(std::ifstream &ff) override;
 
 private:

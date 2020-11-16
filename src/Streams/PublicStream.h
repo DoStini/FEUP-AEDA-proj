@@ -29,7 +29,15 @@ public:
     * @param viewerNick - Nick name of the viewer
     */
     void addViewer(const std::string& viewerNick) override;
+    /**
+     * Reading stream info to file
+     * @param ff Current file stream
+     */
     void readFromFile(std::ifstream &ff) override;
+    /**
+     * Writing stream info to file
+     * @param ff Current file stream
+     */
     void writeToFile(std::ofstream &ff) override;
     /// @return - relevant info about stream
     std::string getShorDescription() const override;

@@ -120,7 +120,15 @@ public:
      * @param comment - The comment
      */
     void giveFeedBack(const std::string& comment);
+    /**
+     * Reading user info from file
+     * @param ff Current file stream
+     */
     void readFromFile(std::ifstream & ff ) override;
+    /**
+     * Writing user info to file
+     * @param ff Current file stream
+     */
     void writeToFile(std::ofstream  & ff ) override;
 
     /// @return - relevant info about user

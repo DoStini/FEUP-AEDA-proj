@@ -196,7 +196,7 @@ std::string Viewer::getFollowDetails() const {
 
 std::string Viewer::getHistoryDetails() const {
     std::stringstream  ss;
-    ss << "I have participate in the following streams: \n";
+    ss << "I have participated in the following streams: \n";
     for(const auto & it : streamHistory){
         ss << streamZ->getSearchM()->getStream(it)->getShorDescription() << std::endl;
     }

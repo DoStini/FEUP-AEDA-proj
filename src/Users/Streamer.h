@@ -116,8 +116,15 @@ public:
     ///Compare two streamers
     bool operator == (const Streamer & str);
 
-
+    /**
+     * Writing user info to file
+     * @param ff Current file stream
+     */
     void writeToFile(std::ofstream &ff) override;
+    /**
+     * Reading user info from file
+     * @param ff Current file stream
+    */
     void readFromFile(std::ifstream &ff) override;
 private:
     ///Age of the user
