@@ -8,7 +8,7 @@
 
 
 const char *AlreadyInStreamException::what() const noexcept {
-    return "User already in stream";
+    return "User already in streamer";
 }
 
 std::ostream &operator<<(std::ostream &os, const AlreadyInStreamException &exception) {

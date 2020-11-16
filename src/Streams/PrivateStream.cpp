@@ -174,7 +174,7 @@ void PrivateStream::readFromFile(std::ifstream &ff) {
 
     ff >> sep;
 
-    ss.str(std::string());    // Clearing the string stream
+    ss.str(std::string());    // Clearing the string streamer
 
     ff >> temp; ss << temp << " "; // Building date and hour/minute
     ff >> temp; ss << temp; // Building date and hour/minute
@@ -190,7 +190,7 @@ void PrivateStream::readFromFile(std::ifstream &ff) {
 
     unsigned int numViewers = 0;
 
-    // Reading stream viewers
+    // Reading streamer viewers
     ff >> numViewers >> sep;
 
     for(int i = 0; i < numViewers; i++){
@@ -221,7 +221,7 @@ void PrivateStream::readFromFile(std::ifstream &ff) {
         int numComments;
         ff >> numComments >> sep;
 
-        ss.str(std::string());    // Clearing the string stream
+        ss.str(std::string());    // Clearing the string streamer
         for (int j = 0; j < numComments; ++j) {
             ff >> temp;
             ss << temp << (j == num-1 ? "" : " ");

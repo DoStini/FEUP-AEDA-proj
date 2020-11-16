@@ -127,7 +127,7 @@ Streamer *AdminOps::mostViewed() {
 
         User * ptr = its->second;
 
-        if(ptr->getUserType() == userType::stream){
+        if(ptr->getUserType() == userType::streamer){
             if ( ammViews.find(ptr->getNickName()) != ammViews.end() )
                 ammViews[ptr->getNickName()] += dynamic_cast<Streamer *>(ptr)->getTotalViews();
             else

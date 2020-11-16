@@ -20,7 +20,7 @@ enum streamType{
 
 enum userType{
     viewer = 1,
-    stream,
+    streamer,
     admin,
 };
 

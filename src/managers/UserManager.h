@@ -34,8 +34,8 @@ public:
     /// Removes a user
     void removeUser(std::string nickName);
     /**
-     * Removes users the access of a finished stream
-     * Used when deleting a finished stream
+     * Removes users the access of a finished streamer
+     * Used when deleting a finished streamer
      * @param id
      */
     void removeHistoryElemFromUser(ID id);

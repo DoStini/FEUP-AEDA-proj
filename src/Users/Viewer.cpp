@@ -226,7 +226,7 @@ void Viewer::readFromFile(std::ifstream &ff) {
     birthDate = Date(temp);
     ff >> sep;
 
-    // Clearing the string stream
+    // Clearing the string streamer
     ss.str(std::string());
 
     ff >> temp; ss << temp << " "; // Building date and hour/minute

@@ -115,7 +115,7 @@ void StreamZ::readFromFile(std::string fileName) {
             case viewer:
                 newUser = new Viewer();
                 break;
-            case stream:
+            case streamer:
                 newUser = new Streamer();
                 break;
             case admin:

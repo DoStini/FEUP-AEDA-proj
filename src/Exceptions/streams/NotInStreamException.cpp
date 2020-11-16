@@ -7,11 +7,11 @@
 NotInStreamException::NotInStreamException(std::string userName) : userName(userName) {}
 
 const char *NotInStreamException::what() const noexcept {
-    return "User not in stream";
+    return "User not in streamer";
 }
 
 std::ostream &operator<<(std::ostream &os, const NotInStreamException &exception) {
-    os << "The operation wasn't executed because " << exception.userName << " isn't in any active stream.";
+    os << "The operation wasn't executed because " << exception.userName << " isn't in any active streamer.";
     return os;
 }
 

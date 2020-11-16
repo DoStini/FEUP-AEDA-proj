@@ -11,9 +11,9 @@ const char *InvalidDate::what() const throw() {
 /**
  * Outputs a detailed explanation to the user on why the exception was thrown
  *
- * @param os - Output stream
+ * @param os - Output streamer
  * @param exception - The exception thrown
- * @return Output stream reference
+ * @return Output streamer reference
  */
 std::ostream &operator<<(std::ostream &os, const InvalidDate &exception) {
     os << "Date was not valid";

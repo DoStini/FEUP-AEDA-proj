@@ -25,12 +25,12 @@ public:
     std::string getHistoryDetails() const override;
     /**
      * Writing user info to file
-     * @param ff Current file stream
+     * @param ff Current file streamer
      */
     void writeToFile(std::ofstream &ff) override;
     /**
      * Reading user info from file
-     * @param ff Current file stream
+     * @param ff Current file streamer
     */
     void readFromFile(std::ifstream &ff) override;
 };

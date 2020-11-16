@@ -14,35 +14,35 @@ public:
     /**
      * Constructor to Public Stream
      *
-     * @param title - Title of the stream
+     * @param title - Title of the streamer
      * @param language - Stream language
-     * @param minAge - Minimal age of the stream , 12 by default
+     * @param minAge - Minimal age of the streamer , 12 by default
      */
     PublicStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge);
 
-    ///@return - stream type = public type
+    ///@return - streamer type = public type
     streamType getStreamType() const override;
 
     /**
-    * Add viewers to the stream
+    * Add viewers to the streamer
     *
     * @param viewerNick - Nick name of the viewer
     */
     void addViewer(const std::string& viewerNick) override;
     /**
-     * Reading stream info to file
-     * @param ff Current file stream
+     * Reading streamer info to file
+     * @param ff Current file streamer
      */
     void readFromFile(std::ifstream &ff) override;
     /**
-     * Writing stream info to file
-     * @param ff Current file stream
+     * Writing streamer info to file
+     * @param ff Current file streamer
      */
     void writeToFile(std::ofstream &ff) override;
-    /// @return - relevant info about stream
+    /// @return - relevant info about streamer
     std::string getShorDescription() const override;
 
-    /// @return - detailed info about stream
+    /// @return - detailed info about streamer
     std::string getLongDescription() const override;
 };
 

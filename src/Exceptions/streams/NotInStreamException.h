@@ -10,13 +10,13 @@
 #include <ostream>
 
 /**
- * Object to be thrown when a user does something that requires to be in a stream
+ * Object to be thrown when a user does something that requires to be in a streamer
  */
 class NotInStreamException : public std::exception {
 public:
     /**
      * Constructor
-     * @param user - The user trying to join a new stream
+     * @param user - The user trying to join a new streamer
      */
     NotInStreamException(std::string userName);
     /**

@@ -48,7 +48,7 @@ public:
      * @return Most viewed genre among streams ( enum genre)
      */
     streamType rankViewsTypes(bool reversed = false);
-    /// @return The median views per stream
+    /// @return The median views per streamer
     float medianViewsStream();
 
     float medianViewsStream(Date d1, Date d2);
@@ -84,9 +84,9 @@ public:
      */
     void removeUser(std::string nickName);
     /**
-     * Removes a stream
+     * Removes a streamer
      * @throw DoesNotExist<ID>
-     * @param streamID ID of the stream
+     * @param streamID ID of the streamer
      */
     void removeStream(ID streamID);
 

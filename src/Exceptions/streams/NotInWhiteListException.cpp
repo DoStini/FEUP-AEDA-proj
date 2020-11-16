@@ -15,5 +15,5 @@ std::ostream &operator<<(std::ostream &os, const NotInWhiteListException &except
 }
 
 const char *NotInWhiteListException::what() const noexcept {
-    return "User not in stream whitelist";
+    return "User not in streamer whitelist";
 }

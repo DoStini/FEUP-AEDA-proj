@@ -81,7 +81,7 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
 
     ff >> sep;
 
-    ss.str(std::string());    // Clearing the string stream
+    ss.str(std::string());    // Clearing the string streamer
 
     ff >> temp; ss << temp << " "; // Building date and hour/minute
     ff >> temp; ss << temp; // Building date and hour/minute
@@ -96,7 +96,7 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
     streamLanguage = (language) lang;
     streamGenre = (genre) _genre;
 
-    ss.str(std::string());    // Clearing the string stream
+    ss.str(std::string());    // Clearing the string streamer
 
     ff >> temp; ss << temp << " "; // Building date and hour/minute
     ff >> temp; ss << temp; // Building date and hour/minute

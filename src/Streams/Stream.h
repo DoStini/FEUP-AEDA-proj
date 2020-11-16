@@ -24,46 +24,46 @@ class Stream {
 public:
     Stream();
     /**
-     * Constructor when creating a new stream
+     * Constructor when creating a new streamer
      *
-     * @param title - Title of the stream
+     * @param title - Title of the streamer
      * @param language - Stream language
-     * @param genre - genre of the stream
-     * @param minAge - Minimal age of the stream , 12 by default
+     * @param genre - genre of the streamer
+     * @param minAge - Minimal age of the streamer , 12 by default
      */
     Stream(std::string title, language language, genre genre, std::string streamerNick);
 
     virtual ~Stream(){};
 
-    ///@return - Title of the stream
+    ///@return - Title of the streamer
     const std::string &getTitle() const;
 
-    ///@return - stream language
+    ///@return - streamer language
     const language &getStreamLanguage() const;
 
-    ///@return - date when the stream begin
+    ///@return - date when the streamer begin
     const Date &getBeginDate() const;
 
-    ///@return - stream genre
+    ///@return - streamer genre
     genre getGenre() const;
 
-    ///@return - value that represent the stream id
+    ///@return - value that represent the streamer id
     ID getStreamId();
 
     /// @return - nick of the streamer
     const std::string &getStreamerNick() const;
 
-    /// @return - type of the stream
+    /// @return - type of the streamer
     virtual streamType getStreamType() const = 0;
 
-    /// @return - relevant info about stream
+    /// @return - relevant info about streamer
     virtual std::string getShorDescription() const = 0;
 
-    /// @return - detailed info about stream
+    /// @return - detailed info about streamer
     virtual std::string getLongDescription() const = 0;
 
     /**
-     * Set stream id to the given value
+     * Set streamer id to the given value
      * @param streamId - lastID value
      */
     void setStreamId(ID streamId);
@@ -85,7 +85,7 @@ public:
 protected:
     /// General class that have all the info
     StreamZ * streamZ = nullptr;
-    ///ID of the stream
+    ///ID of the streamer
     ID streamId;
     ///Stream title
     std::string title;
@@ -95,7 +95,7 @@ protected:
     language streamLanguage;
     ///Stream genre
     genre streamGenre;
-    /// NickName of the stream streamer
+    /// NickName of the streamer streamer
     std::string streamerNick;
 
 };
