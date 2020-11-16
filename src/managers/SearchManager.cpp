@@ -62,6 +62,7 @@ void SearchManager::listUsers(std::vector<User *> &users, const std::string& nam
 }
 
 void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const std::string &streamName,
+                                    unsigned minAge,
                                     const std::vector<genre> &genres, const std::vector<language> &langs) {
 
     // Empties the vector if not empty
@@ -80,9 +81,11 @@ void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const st
         Stream * ptr = (*it1).second; // Getting the current stream pointer
 
         // Is a livestream?
-        if(ptr->getStreamType() == privateType || ptr->getStreamType() == publicType){
+        if(ptr->getStreamType() != finishedType){
             // Checks if the current stream verifies all 3 requests (or those asked)
             if( (streamName.empty() || ptr->getTitle() == streamName) &&
+                // Verifies age restriction
+                dynamic_cast<LiveStream *>(ptr)->getMinAge() >= minAge &&
                 // Only verifies the vector if it is not empty (if the user wants to specify genre)
                 (!checkGenres || checkParam<genre>( genres,ptr->getGenre()) ) &&
                 // Only verifies the vector if it is not empty (if the user wants to specify genre)

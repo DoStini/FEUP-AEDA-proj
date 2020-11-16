@@ -81,6 +81,7 @@ public:
      * @param langs - Optional param specifying the language(s) of the streams to search
      */
     void listLiveStreams(std::vector<LiveStream *> & streams, const std::string& streamName = "",
+                                          unsigned minAge = VIEWER_MIN_AGE,
                                           const std::vector<genre> & genres = std::vector<genre>(),
                                           const std::vector<language> & langs = std::vector<language>());
 
