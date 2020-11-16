@@ -35,7 +35,7 @@ void UserManager::createAdmin(std::string name, std::string nickName,const std::
 
     Viewer * ptr = new Viewer(name, nickName,password, birthDate);
     ptr->setStreamZ(streamZ);
-    
+
 
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
