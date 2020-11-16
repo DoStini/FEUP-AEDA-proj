@@ -10,7 +10,6 @@
 
 class RestrictedStreamException : public std::exception {
 public:
-    // TODO INSERT ACTUAL AGES
     RestrictedStreamException(std::string streamName, std::string userName);
     const char * what() const noexcept override;
 

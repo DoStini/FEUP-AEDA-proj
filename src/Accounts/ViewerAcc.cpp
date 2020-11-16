@@ -288,7 +288,6 @@ void ViewerAcc::displayHistory() {
     print("Here are all the streams you have watched: ");
     print();
 
-    // TODO CHANGE TO FUNCTION IN TYPE.
     printPagedList(history, std::function<std::string(ID)>([this](ID streamID){
         Stream * stream = dynamic_cast<Stream *>(this->streamZ->getSearchM()->getStream(streamID));
         return stream->getShortDescription();

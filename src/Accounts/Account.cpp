@@ -188,8 +188,7 @@ void Account::deleteAccount() {
             return;
         }
 
-        // TODO CHANGE TO ACTUAL DELETE FUNCTION
-        delete user;
+        streamZ->getUserM()->removeUser(user->getNickName());
         print();
         print("User deleted. We hope you enjoyed your stay.");
 
@@ -287,8 +286,7 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
 
     if(age == 0) age = VIEWER_MIN_AGE;
 
-    // TODO UPDATE FUNCTION TO SEARCH WITH AGE
-    streamZ->getSearchM()->listLiveStreams(streams, streamName, genres, languages);
+    streamZ->getSearchM()->listLiveStreams(streams, streamName, age, genres, languages);
 }
 
 void Account::listStreams() {

@@ -42,7 +42,6 @@ void Viewer::joinStream(ID streamID) {
     Stream * stream = streamZ->getSearchM()->getStream(streamID);
 
     if (watching()) throw AlreadyInStreamException(nickName, "stream1"/* stream->getName()*/);
-    // TODO Is < or <= ???
     unsigned age = getAge();
 
     if(age < stream->getMinAge()) throw RestrictedAgeException(nickName, age, stream->getMinAge());
