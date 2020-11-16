@@ -33,6 +33,12 @@ public:
     void createAdmin(std::string name, std::string nickName, const Date &birthDate);
     /// Removes a user
     void removeUser(std::string nickName);
+    /**
+     * Removes users the access of a finished stream
+     * Used when deleting a finished stream
+     * @param id
+     */
+    void removeHistoryElemFromUser(ID id);
 private:
     StreamZ * streamZ;
 };

@@ -84,13 +84,13 @@ void Viewer::leaveStream() {
     if (!watching()) throw NotInStreamException(name);
     auto* stream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
     stream->removeViewer(nickName);
-    streamHistory.push_back(currWatching);
+    if(!isInStreamHistory(currWatching)) streamHistory.push_back(currWatching);
     currWatching = NULL_STREAM;
 }
 
 void Viewer::kickedStream() {
     if (!watching()) throw NotInStreamException(name);
-    streamHistory.push_back(currWatching);
+    if(!isInStreamHistory(currWatching)) streamHistory.push_back(currWatching);
     currWatching = NULL_STREAM;
 }
 

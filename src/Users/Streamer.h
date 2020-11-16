@@ -112,6 +112,19 @@ public:
      * Function to be used only when deleting a stream from the system deleting the stream pointer
      */
     void kickedStream();
+    /**
+     * Remove stream from the stream history
+     *
+     * @param streamID - stream to be removed from the history
+     */
+    void removeStreamHistory(ID streamID);
+
+    /**
+     * Checks if a stream is in the stream history
+     * @param streamID - id of the stream to be checked
+     * @return - true if it is, otherwise false
+     */
+    bool isInStreamHistory(ID streamID);
 
     ///Compare two streamers
     bool operator == (const Streamer & str);
@@ -135,6 +148,7 @@ private:
     ID currStreaming = NULL_STREAM;
     ///Streams that the streamer have ended
     std::vector<ID> finishedStreams;
+
 };
 
 

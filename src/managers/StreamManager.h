@@ -48,9 +48,14 @@ public:
      * @param streamID
      */
     void removeStream(ID streamID);
+    /**
+     * Used when deleting a viewers
+     * @param nick
+     */
     void removeViewerFromWhitelists(std::string nick);
     /**
      * Deletes all of the streams from a specified streamer from the database and from history of viewers
+     * Used when deleting a streamer
      * @throw DoesNotExist
      * @param streamerNick
      */

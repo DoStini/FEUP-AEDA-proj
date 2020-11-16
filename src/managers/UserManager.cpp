@@ -55,3 +55,21 @@ void UserManager::removeUser(std::string nickName) {
 
     delete ptr;
 }
+
+void UserManager::removeHistoryElemFromUser(ID id) {
+    if(!streamZ->getSearchM()->streamExists(id)) throw DoesNotExist<ID>(id);
+
+    auto & ref = streamZ->getDatabase().getUsers();
+
+    for(auto & user : ref){
+        User * ptr = user.second;
+        if(ptr->getUserType() == viewer){
+            auto * viewer = dynamic_cast<Viewer*>(user.second);
+            if(viewer->isInStreamHistory(id)) viewer->removeStreamHistory(id);
+        }
+        else if(ptr->getUserType() == stream){
+            auto * streamer = dynamic_cast<Streamer*>(user.second);
+            if(streamer->isInStreamHistory(id)) streamer->removeStreamHistory(id);
+        }
+    }
+}

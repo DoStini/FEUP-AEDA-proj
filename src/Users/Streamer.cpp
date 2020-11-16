@@ -16,6 +16,8 @@ Streamer::Streamer(std::string name, std::string nickName, const Date &birthDate
 
 
 Streamer::~Streamer() {
+
+
     if(streaming()){
         closeStream();
         // This moves the stream to finished stream, so it doesnt have problems in recursive deletion
@@ -131,6 +133,14 @@ std::string Streamer::getShorDescription() const {
     std::stringstream  ss;
     ss << name << " (Nickname: " << nickName << ")" << " ->Streamer";
     return ss.str();
+}
+
+void Streamer::removeStreamHistory(ID streamID) {
+    finishedStreams.erase(std::find(finishedStreams.begin(), finishedStreams.end(), streamID));
+}
+
+bool Streamer::isInStreamHistory(ID streamID) {
+    return !(find(finishedStreams.begin(),finishedStreams.end(),streamID) == finishedStreams.end());
 }
 
 std::string Streamer::getLongDescription() const {

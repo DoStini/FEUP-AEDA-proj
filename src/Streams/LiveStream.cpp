@@ -22,6 +22,7 @@ LiveStream::~LiveStream() {
         Viewer * ptr = (Viewer *) streamZ->getSearchM()->getUser(v);
         ptr->kickedStream();
     }
+    streamZ->getUserM()->removeHistoryElemFromUser(streamId);
 }
 
 void LiveStream::removeViewer(const std::string& viewerNick) {
@@ -39,7 +40,11 @@ unsigned int LiveStream::getMinAge() const {
 unsigned int LiveStream::closeStream() {
     unsigned nViewers = this->getNumViewers();
 
-    auto *fStream = new FinishedStream(this->getTitle(),this->getStreamLanguage(),this->getGenre(),nViewers,this->getStreamerNick(),streamId);
+    auto *fStream = new FinishedStream(this->getTitle(),this->getStreamLanguage(),
+                                       this->getGenre(),nViewers,
+                                       this->getStreamerNick(),streamId);
+
+    fStream->setStreamZ(streamZ);
     ID id =streamId;
     for (unsigned i = 0; i < streamViewers.size() ; i++) {
         Viewer * viewer = (Viewer *) streamZ->getSearchM()->getUser(streamViewers.at(i));

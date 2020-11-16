@@ -477,9 +477,23 @@ TEST(test, testDestructs){
     streamZ.getStreamManager()->removeStream(2);
     ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->streaming(), false);
     ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->watching(), false);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->isInStreamHistory(2), false);
     ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->watching(), false);
     ASSERT_THROW(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->watching(), DoesNotExist<std::string>);
     ASSERT_THROW(dynamic_cast<Viewer *>(streamZ.getSearchM()->getStream(2)), DoesNotExist<ID>);
+
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "user7", Date(2000, 1, 1));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer6", Date(1995, 2,3));
+
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer6"))->startPublicStream("S5", SPA, meetGreet);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user7"))->joinStream(6);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user7"))->getCurrWatching(), 6 );
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer6"))->closeStream();
+    ASSERT_TRUE(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user7"))->isInStreamHistory(6));
+    streamZ.getStreamManager()->removeStream(6);
+    ASSERT_FALSE(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user7"))->isInStreamHistory(6));
+
+
 }
 
 TEST(test, files1){
@@ -553,8 +567,6 @@ TEST(test, files1){
     streamZ.init();
     streamZ.run();
 
-
-
     ASSERT_EQ(streamZ.getDatabase().getUsers().size(), 11);
     ASSERT_EQ(streamZ.getDatabase().getStreams().size(), 5);
 
@@ -584,7 +596,6 @@ TEST(test, files1){
     ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->streaming(), true);
     ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->getNumFollowers(), 1);
 
-    streamZ.shutdown("DB.txt");
 }
 
 

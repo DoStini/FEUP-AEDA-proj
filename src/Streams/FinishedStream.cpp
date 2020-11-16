@@ -3,7 +3,7 @@
 //
 
 #include "FinishedStream.h"
-
+#include "StreamZ.h"
 #include <utility>
 
 
@@ -16,7 +16,7 @@ FinishedStream::FinishedStream(std::string title, language language, genre strea
 
 
 FinishedStream::~FinishedStream() {
-    
+    streamZ->getUserM()->removeHistoryElemFromUser(streamId);
 }
 
 streamType FinishedStream::getStreamType() const {
