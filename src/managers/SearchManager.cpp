@@ -81,7 +81,7 @@ void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const st
         Stream * ptr = (*it1).second; // Getting the current streamer pointer
 
         // Is a livestream?
-        if(ptr->getStreamType() != finishedType){
+        if(ptr->getStreamState() != livestream){
             // Checks if the current streamer verifies all 3 requests (or those asked)
             if( (streamName.empty() || ptr->getTitle() == streamName) &&
                 // Verifies age restriction

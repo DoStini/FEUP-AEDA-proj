@@ -18,6 +18,10 @@ streamType PrivateStream::getStreamType() const {
     return privateType;
 }
 
+streamFileType PrivateStream::getStreamFileType() const {
+    return privateFile;
+}
+
 bool PrivateStream::isValidUser(const std::string& userNick) {
     return (std::find(whitelist.begin(),whitelist.end(),userNick) != whitelist.end());
 }
@@ -247,3 +251,4 @@ void PrivateStream::readFromFile(std::ifstream &ff) {
     ff >> maxViewers >> sep;
 
 }
+

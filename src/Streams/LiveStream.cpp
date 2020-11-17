@@ -8,6 +8,9 @@
 
 ID LiveStream::lastId = NULL_STREAM;
 
+LiveStream::LiveStream() : Stream(){
+}
+
 LiveStream::LiveStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned int minAge):
                                 Stream(std::move(title),streamLanguage,streamGenre,std::move(streamerNick)),minAge(minAge) {
     streamId = ++lastId;
@@ -29,7 +32,7 @@ void LiveStream::removeViewer(const std::string& viewerNick) {
     streamViewers.erase(std::find(streamViewers.begin(),streamViewers.end(),viewerNick));
 }
 
-unsigned int LiveStream::getNumViewers() const {
+int LiveStream::getNumViewers() const {
     return streamViewers.size();
 }
 
@@ -38,7 +41,7 @@ unsigned int LiveStream::getMinAge() const {
 }
 
 unsigned int LiveStream::closeStream() {
-    unsigned nViewers = this->getNumViewers();
+    int nViewers = this->getNumViewers();
 
     auto *fStream = new FinishedStream(this->getTitle(),this->getStreamLanguage(),
                                        this->getGenre(),nViewers,
@@ -105,7 +108,11 @@ bool LiveStream::operator<(LiveStream *compStream) {
     return (minAge < compStream->getMinAge());
 }
 
-LiveStream::LiveStream() : Stream(){
 
+
+streamState LiveStream::getStreamState() const {
+    return livestream;
 }
+
+
 

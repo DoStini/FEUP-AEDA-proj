@@ -59,9 +59,10 @@ void Viewer::joinStream(ID streamID) {
 
     auto * stream =streamZ->getSearchM()->getStream(streamID);
 
+    streamState sState = stream->getStreamState();
     streamType type = stream->getStreamType();
 
-    if (type == finishedType)
+    if (sState == finished)
         throw RestrictedStreamException(stream->getTitle(), nickName);
 
     auto liveStream = (LiveStream *) stream;

@@ -44,6 +44,9 @@ public:
     ///@return - streamer type = private type
     streamType getStreamType() const override;
 
+    /// @return - Used to store the stream in the file
+    streamFileType getStreamFileType() const;
+
     /**
      * Function to add a user to a whitelisted streamer
      * @param userNick - nick of user to be added

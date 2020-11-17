@@ -136,3 +136,7 @@ void PublicStream::writeToFile(std::ofstream &ff) {
 PublicStream::PublicStream() : LiveStream() {
 }
 
+streamFileType PublicStream::getStreamFileType() const {
+    return publicFile;
+}
+

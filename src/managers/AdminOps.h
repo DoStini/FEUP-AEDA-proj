@@ -54,8 +54,13 @@ public:
     float medianViewsStream(Date d1, Date d2);
     /// @return The number of all of the streams ever created
     long int numStreamsAll();
-    /// @return The number of active streams
-    long int numStreams();
+
+    /**
+     * Returns the number of active (or inactive) streams in the system
+     * @param publicStr - Option: Indicates if wants the count of active or inactive
+     * @return
+     */
+    long int numStreams(bool activeStr = true);
     /**
      * @param streamType - The specific type (public, private or finished)
      * @return The number of streams of the specified type

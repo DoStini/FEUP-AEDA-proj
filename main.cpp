@@ -361,11 +361,11 @@ TEST(test, adminOps){
 
     ASSERT_EQ(streamZ.getAdminOps()->numStreamsAll(), 5);
 
-    ASSERT_EQ(streamZ.getAdminOps()->numStreams(finishedType), 0);
+    ASSERT_EQ(streamZ.getAdminOps()->numStreams(false), 0);
     dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->closeStream();
     dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->closeStream();
     dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->closeStream();
-    ASSERT_EQ(streamZ.getAdminOps()->numStreams(finishedType), 3);
+    ASSERT_EQ(streamZ.getAdminOps()->numStreams(false), 3);
     ASSERT_EQ(dynamic_cast<Viewer*>(streamZ.getSearchM()->getUser("user1"))->watching(), false);
     dynamic_cast<Viewer*>(streamZ.getSearchM()->getUser("user1"))->joinStream(4);
 
@@ -582,7 +582,7 @@ TEST(test, files1){
     ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->getNumFollowers(), 1);
     ASSERT_EQ(dynamic_cast<PublicStream *>(streamZ.getSearchM()->getStream(2))->getLikes(), 1);
     ASSERT_EQ(dynamic_cast<PublicStream *>(streamZ.getSearchM()->getStream(2))->getDislikes(), 2);
-    ASSERT_EQ(dynamic_cast<Stream *>(streamZ.getSearchM()->getStream(3))->getStreamType(), finishedType);
+    ASSERT_EQ(dynamic_cast<Stream *>(streamZ.getSearchM()->getStream(3))->getStreamState(), finished);
 
     ASSERT_EQ(dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(4))->getNumberComments(), 3);
     ASSERT_EQ(dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(4))->getNumViewers(), 2);

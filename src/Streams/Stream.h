@@ -50,11 +50,22 @@ public:
     ///@return - value that represent the streamer id
     ID getStreamId();
 
+
+
     /// @return - nick of the streamer
     const std::string &getStreamerNick() const;
 
     /// @return - type of the streamer
     virtual streamType getStreamType() const = 0;
+
+    /// @return - State of the stream
+    virtual streamState getStreamState() const = 0;
+
+    /// @return - Used to store the stream in the file
+    virtual streamFileType getStreamFileType() const = 0;
+
+    /// @return - Number of viewers
+    virtual int getNumViewers() const = 0;
 
     /// @return - relevant info about streamer
     virtual std::string getShorDescription() const = 0;

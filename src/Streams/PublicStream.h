@@ -23,6 +23,9 @@ public:
     ///@return - streamer type = public type
     streamType getStreamType() const override;
 
+    /// @return - Used to store the stream in the file
+    streamFileType getStreamFileType() const override;
+
     /**
     * Add viewers to the streamer
     *

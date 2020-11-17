@@ -19,16 +19,23 @@ public:
      */
     FinishedStream(std::string title, language language,genre streamGenre, int numViewers, std::string streamerNick, ID streamID);
     ~FinishedStream();
+
     /**
-     * get type of the streamer
-     *
+     * Get type of the streamer
      * @return - finished type
      */
     streamType getStreamType() const override;
 
+    /// @return - State of the stream
+    streamState getStreamState() const override;
+
      /// @return - Date when the streamer end
     const Date &getFinishedDate() const;
 
+    /// @return - Used to store the stream in the file
+    streamFileType getStreamFileType() const override;
+
+    /// @return - Number of viewers when stream ended
     int getNumViewers() const;
 
     /// @return - relevant info about streamer
@@ -48,6 +55,7 @@ public:
     void readFromFile(std::ifstream &ff) override;
 
 private:
+    streamType type;
     Date finishedDate;
     int numViewers;
 };

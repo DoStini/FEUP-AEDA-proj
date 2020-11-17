@@ -4,6 +4,7 @@
 
 #include <set>
 #include <numeric>
+#include <utility>
 #include "AdminOps.h"
 #include "StreamZ.h"
 
@@ -31,7 +32,7 @@ language AdminOps::rankViewsLang(bool reversed) {
     while(its != ite){
         lang = (*its).second->getStreamLanguage();
         Stream * ptr = (*its).second;
-        if(ptr->getStreamType() == streamType::finishedType ) views = dynamic_cast<FinishedStream *>(ptr)->getNumViewers();
+        if(ptr->getStreamState() == streamState::finished ) views = dynamic_cast<FinishedStream *>(ptr)->getNumViewers();
         else views = dynamic_cast<LiveStream *>(ptr)->getNumViewers();
 
         if ( ammViews.find(lang) != ammViews.end() )
@@ -64,7 +65,7 @@ genre AdminOps::rankViewsGenres(bool reversed) {
     while(its != ite){
         _genre = (*its).second->getGenre();
         Stream * ptr = (*its).second;
-        if(ptr->getStreamType() == streamType::finishedType ) views = dynamic_cast<FinishedStream *>(ptr)->getNumViewers();
+        if( ptr->getStreamState() == streamState::finished ) views = dynamic_cast<FinishedStream *>(ptr)->getNumViewers();
         else views = dynamic_cast<LiveStream *>(ptr)->getNumViewers();
 
         if ( ammViews.find(_genre) != ammViews.end() )
@@ -92,17 +93,22 @@ streamType AdminOps::rankViewsTypes(bool reversed) {
     auto ite = streamZ->getDatabase().getStreams().end();
 
     streamType type;
+    streamState state;
     int views;
 
     while(its != ite){
-        type = (*its).second->getStreamType();
-        its++;
-        if (type != finishedType) continue;
+        Stream * ptr = (*its).second;
+        type = ptr->getStreamType();
+        state = ptr->getStreamState();
+        views = ptr->getNumViewers();
 
         if ( ammViews.find(type) != ammViews.end() )
             ammViews[type] += views;
         else
             ammViews[type] = views;
+
+        its++;
+
     }
 
     if(ammViews.empty()) throw EmptyDatabaseException(false);
@@ -150,13 +156,16 @@ long int AdminOps::numStreamsAll() {
     return streamZ->getDatabase().getStreams().size();
 }
 
-long int AdminOps::numStreams() {
+long int AdminOps::numStreams(bool activeStr) {
     auto its = streamZ->getDatabase().getStreams().begin();
     auto ite = streamZ->getDatabase().getStreams().end();
+    // The state that the algorithm will
+    streamState searchingState = (activeStr ? livestream : finished);
     long int acc = std::count_if(its,
                                  ite,
-                                 [](const std::pair<ID, Stream *> & l1){
-                                     return l1.second->getStreamType() != finishedType;
+                                 [searchingState](const std::pair<ID, Stream *> & l1){
+                                     // Compares with livestream if that's the choice. Otherwise compares with finished
+                                     return l1.second->getStreamState() == searchingState;
                                  });
     return acc;
 }
@@ -180,7 +189,7 @@ long int AdminOps::numStreams(streamType streamType, Date d1, Date d2) {
                                  ite,
                                  [streamType,d1,d2](const std::pair<ID, Stream *> & l1){
                                      if(l1.second->getStreamType() == streamType){
-                                         if (l1.second->getStreamType() == finishedType){
+                                         if (l1.second->getStreamState() == finished){
                                              FinishedStream * ptr = (FinishedStream *) l1.second;
                                              return ptr->getBeginDate() >= d1 && ptr->getFinishedDate() <= d2;
                                          }
@@ -200,7 +209,7 @@ long int AdminOps::numStreams(Date d1, Date d2) {
     long int acc = std::count_if(its,
                                  ite,
                                  [d1, d2](const std::pair<ID, Stream *> & l1){
-                                     if(l1.second->getStreamType() == finishedType){
+                                     if(l1.second->getStreamState() == finished){
                                          FinishedStream * ptr = (FinishedStream *) l1.second;
                                          return ptr->getBeginDate() >= d1 && ptr->getFinishedDate() <= d2;
                                      }
@@ -218,15 +227,7 @@ float AdminOps::medianViewsStream() {
     auto ite = streamZ->getDatabase().getStreams().end();
     long int sum = 0;
     while(its != ite){
-        if( its->second->getStreamType() == finishedType ){
-            FinishedStream * ptr = dynamic_cast<FinishedStream *>(its->second) ;
-            sum += ptr->getNumViewers();
-
-        }
-        else{
-            LiveStream * ptr = dynamic_cast<LiveStream *>(its->second);
-            sum += ptr->getNumViewers();
-        }
+        sum += its->second->getNumViewers();
         its++;
     }
 
@@ -241,15 +242,15 @@ float AdminOps::medianViewsStream(Date d1, Date d2) {
     long int numStreams = 0, sum = 0;
 
     while(its != ite){
-        if( its->second->getStreamType() == finishedType ){
-            FinishedStream * ptr = dynamic_cast<FinishedStream *>(its->second);
+        if( its->second->getStreamState() == finished ){
+            auto * ptr = dynamic_cast<FinishedStream *>(its->second);
             if(ptr->getBeginDate() >= d1 && ptr->getFinishedDate() <= d2) {
                 sum += ptr->getNumViewers();
                 numStreams++;
             }
         }
         else{
-            LiveStream * ptr = dynamic_cast<LiveStream *>(its->second);
+            auto * ptr = dynamic_cast<LiveStream *>(its->second);
             if (ptr->getBeginDate() <= d2 && ptr->getBeginDate() >= d1) {
                 sum += ptr->getNumViewers();
                 numStreams++;
@@ -263,7 +264,7 @@ float AdminOps::medianViewsStream(Date d1, Date d2) {
 
 void AdminOps::removeUser(std::string nickName) {
     try{
-        streamZ->getUserM()->removeUser(nickName);
+        streamZ->getUserM()->removeUser(std::move(nickName));
     } catch (const DoesNotExist<std::string> &e) {
         throw e;
     }
