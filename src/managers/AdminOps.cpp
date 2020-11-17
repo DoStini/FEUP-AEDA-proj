@@ -183,6 +183,15 @@ long int AdminOps::numStreams(streamType streamType) {
 }
 
 long int AdminOps::numStreams(streamType streamType, Date d1, Date d2) {
+
+    // Swap dates if reversed
+    if(d2 < d1){
+        Date temp;
+        temp = d1;
+        d1 = d2;
+        d2 = temp;
+    }
+
     auto its = streamZ->getDatabase().getStreams().begin();
     auto ite = streamZ->getDatabase().getStreams().end();
     long int acc = std::count_if(its,
@@ -204,6 +213,15 @@ long int AdminOps::numStreams(streamType streamType, Date d1, Date d2) {
 }
 
 long int AdminOps::numStreams(Date d1, Date d2) {
+
+    // Swap dates if reversed
+    if(d2 < d1){
+        Date temp;
+        temp = d1;
+        d1 = d2;
+        d2 = temp;
+    }
+
     auto its = streamZ->getDatabase().getStreams().begin();
     auto ite = streamZ->getDatabase().getStreams().end();
     long int acc = std::count_if(its,
