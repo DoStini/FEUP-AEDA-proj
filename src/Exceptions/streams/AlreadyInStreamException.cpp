@@ -17,7 +17,6 @@ std::ostream &operator<<(std::ostream &os, const AlreadyInStreamException &excep
     return os;
 }
 
-AlreadyInStreamException::AlreadyInStreamException(std::string user,  ID streamWatching,bool viewer) : isViewer(viewer),
-                                                                                                       user(std::move(user)), currStream(std::move(streamWatching)){}
+AlreadyInStreamException::AlreadyInStreamException(std::string user,  ID streamWatching,bool viewer) : user(std::move(user)), currStream(std::move(streamWatching)), isViewer(viewer) {}
 
 

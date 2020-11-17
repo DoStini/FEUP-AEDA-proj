@@ -97,7 +97,7 @@ int Date::getYearDifference(const Date &otherDate) const {
     if(maxDate->dateStruct.tm_mon < minDate->dateStruct.tm_mon) {
         yearDiff--;
     } else if(maxDate->dateStruct.tm_mon == minDate->dateStruct.tm_mon) {
-        if(maxDate->dateStruct.tm_mday < maxDate->dateStruct.tm_mday) yearDiff--;
+        if(maxDate->dateStruct.tm_mday < minDate->dateStruct.tm_mday) yearDiff--;
     }
 
     return yearDiff;

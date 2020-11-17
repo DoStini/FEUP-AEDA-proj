@@ -173,12 +173,13 @@ std::string Viewer::getLongDescription() const {
        << "My password is " << password << " hope you enjoy my account :)\n"
        << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years\n"
        << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl;
-    if(!followingStreamers.empty())
+    if(!followingStreamers.empty()) {
         ss << "I Follow " << followingStreamers.size() << " streamers\n"
-        << "They are:\n";
-        for(const auto & it : followingStreamers){
+           << "They are:\n";
+        for (const auto &it : followingStreamers) {
             ss << it << std::endl;
         }
+    }
     if(currWatching == NULL_STREAM){
         ss << "Right now I am watching nothing.\n";
     }
