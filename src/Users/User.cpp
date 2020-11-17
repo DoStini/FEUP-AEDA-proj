@@ -10,7 +10,7 @@
 #include "StreamZ.h"
 
 User::User( std::string name, std::string nickName,std::string password, const Date &birthDate) :
-            name(std::move(name)), nickName(std::move(nickName)),birthDate(birthDate), password(std::move(password)) {
+            name(std::move(name)), nickName(std::move(nickName)),password(std::move(password)), birthDate(birthDate) {
     Date currDate; currDate.setSystemDate();
     joinedPlatformDate = currDate;
 }
@@ -44,6 +44,12 @@ bool User::changePassword(const std::string& newPassword) {
     }
 
     password = newPassword;
+
+    return true;
+}
+
+void User::changeName(const std::string & newName) {
+    name = newName;
 }
 
 void User::setStreamZ(StreamZ *streamZ) {

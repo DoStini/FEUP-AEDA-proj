@@ -127,7 +127,7 @@ public:
     bool isInStreamHistory(ID streamID);
 
     ///Compare two streamers
-    std::string getShorDescription() const override;
+    std::string getShortDescription() const override;
     bool operator == (const Streamer & str);
 
     /**

@@ -7,7 +7,7 @@
 
 LeaderBoard::LeaderBoard(StreamZ *streamZ) : streamZ(streamZ) {}
 
-void LeaderBoard::top10StreamViews(std::vector<LiveStream *> &streams) {
+void LeaderBoard::top10StreamViews(std::vector<LiveStream *> &streams) const{
 
     // Sort with specific genres or languages
     if(streams.empty()) streamZ->getSearchM()->listLiveStreams(streams);
@@ -19,7 +19,7 @@ void LeaderBoard::top10StreamViews(std::vector<LiveStream *> &streams) {
         streams.erase(streams.begin() + 10, streams.end());
 }
 
-void LeaderBoard::top10StreamLikes(std::vector<LiveStream *> &streams) {
+void LeaderBoard::top10StreamLikes(std::vector<LiveStream *> &streams) const{
     // Sort with specific genres or languages
     if(streams.empty()) streamZ->getSearchM()->listLiveStreams(streams);
 
@@ -30,7 +30,7 @@ void LeaderBoard::top10StreamLikes(std::vector<LiveStream *> &streams) {
         streams.erase(streams.begin() + 10, streams.end());
 }
 
-void LeaderBoard::top10StreamComments(std::vector<PrivateStream *> &streams) {
+void LeaderBoard::top10StreamComments(std::vector<PrivateStream *> &streams) const{
     // Sort with specific genres or languages
     if(streams.empty()) streamZ->getSearchM()->listPrivateLiveStreams(streams);
 
@@ -41,7 +41,7 @@ void LeaderBoard::top10StreamComments(std::vector<PrivateStream *> &streams) {
         streams.erase(streams.begin() + 10, streams.end());
 }
 
-void LeaderBoard::top10oldestUsersPlat(std::vector<User *> &streams) {
+void LeaderBoard::top10oldestUsersPlat(std::vector<User *> &streams) const{
     // Sort with specific genres or languages
     if(streams.empty()) streamZ->getSearchM()->listUsers(streams);
 

@@ -50,11 +50,8 @@ ID Streamer::getStreamID() {
     else return currStreaming;
 }
 
-}
-
 unsigned int Streamer::getTotalViews() {
-
-    unsigned int views;
+    unsigned int views = 0;
 
     Stream *ptr = streamZ->getSearchM()->getStream(currStreaming);
 
@@ -130,7 +127,7 @@ void Streamer::kickedStream() {
     currStreaming = NULL_STREAM;
 }
 
-std::string Streamer::getShorDescription() const {
+std::string Streamer::getShortDescription() const {
     std::stringstream  ss;
     ss << name << " (Nickname: " << nickName << ")" << " ->Streamer";
     return ss.str();
@@ -155,7 +152,7 @@ std::string Streamer::getLongDescription() const {
     }
     else{
         ss << "Right now i am streaming:\n"
-        << streamZ->getSearchM()->getStream(currStreaming)->getShorDescription() << std::endl;
+        << streamZ->getSearchM()->getStream(currStreaming)->getShortDescription() << std::endl;
     }
     ss << "I have streamed a total of " << finishedStreams.size() << " streams.\n";
     return ss.str();
@@ -174,7 +171,7 @@ std::string Streamer::getHistoryDetails() const {
     std::stringstream  ss;
     ss << "My finished streams are:\n";
     for(const auto & it : finishedStreams){
-        ss << streamZ->getSearchM()->getStream(it)->getShorDescription() << std::endl;
+        ss << streamZ->getSearchM()->getStream(it)->getShortDescription() << std::endl;
     }
     return ss.str();
 }

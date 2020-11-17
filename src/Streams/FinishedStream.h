@@ -36,13 +36,7 @@ public:
     streamFileType getStreamFileType() const override;
 
     /// @return - Number of viewers when stream ended
-    int getNumViewers() const;
-
-    /// @return - relevant info about streamer
-    std::string getShorDescription() const override;
-
-    /// @return - detailed info about streamer
-    std::string getLongDescription() const override;
+    unsigned int getNumViewers() const;
     /**
      * Writing streamer info to file
      * @param ff Current file streamer

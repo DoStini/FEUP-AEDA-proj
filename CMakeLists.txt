@@ -44,8 +44,8 @@ add_executable(FEUP_AEDA_proj
         src/Exceptions/streams/NotPrivateStreamException.cpp src/Exceptions/streams/NotPrivateStreamException.h
         src/Exceptions/accounts/WrongUserTypeException.cpp src/Exceptions/accounts/WrongUserTypeException.h 
         src/Exceptions/users/InvalidPassword.cpp src/Exceptions/users/InvalidPassword.h 
-        src/Exceptions/users/DoesNotExist.h
-        src/Exceptions/users/AlreadyExists.h 
+        src/Exceptions/DoesNotExist.h
+        src/Exceptions/users/AlreadyExists.h
         src/Exceptions/streams/AlreadyInWhiteListException.cpp src/Exceptions/streams/AlreadyInWhiteListException.h
         src/Exceptions/streams/NotInWhiteListException.cpp src/Exceptions/streams/NotInWhiteListException.h 
         src/Exceptions/EmptyDatabaseException.cpp src/Exceptions/EmptyDatabaseException.h

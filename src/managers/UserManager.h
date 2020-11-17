@@ -26,22 +26,19 @@ public:
     UserManager(StreamZ *streamZ);
     /// @return If an admin is already registered
     /// Creates a viewer
-    void createViewer(std::string userName, std::string nickName, Date date, std::string password) const;
+    void createViewer(const std::string& name, std::string nickName,const std::string& password, const Date &birthDate) const;
     /// Creates a streamer
-    void createStreamer(std::string userName, std::string nickName, Date date, std::string password) const;
+    void createStreamer(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const;
     /// Creates an admin
-    void createAdmin(std::string userName, std::string nickName, Date date, std::string password) const;
+    void createAdmin(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const;
     /// Removes a user
     void removeUser(std::string nickName) const;
-
-
-    void removeUser(std::string nickName);
     /**
      * Removes users the access of a finished streamer
      * Used when deleting a finished streamer
      * @param id
      */
-    void removeHistoryElemFromUser(ID id);
+    void removeHistoryElemFromUser(ID id) const;
 private:
     StreamZ * streamZ;
 };

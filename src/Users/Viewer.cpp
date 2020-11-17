@@ -160,7 +160,7 @@ bool Viewer::isFollowing(std::string &streamer) {
 
 Viewer::Viewer() {}
 
-std::string Viewer::getShorDescription() const {
+std::string Viewer::getShortDescription() const {
     std::stringstream  ss;
     ss << name << " (Nickname: " << nickName << ")" << " ->Viewer";
     return ss.str();
@@ -181,7 +181,7 @@ std::string Viewer::getLongDescription() const {
     }
     else{
         ss << "Right now i am watching:\n"
-           << streamZ->getSearchM()->getStream(currWatching)->getShorDescription() << std::endl;
+           << streamZ->getSearchM()->getStream(currWatching)->getShortDescription() << std::endl;
     }
     ss << "I have seen a total of " << streamHistory.size() << " streams.\n";
     return ss.str();
@@ -200,9 +200,17 @@ std::string Viewer::getHistoryDetails() const {
     std::stringstream  ss;
     ss << "I have participated in the following streams: \n";
     for(const auto & it : streamHistory){
-        ss << streamZ->getSearchM()->getStream(it)->getShorDescription() << std::endl;
+        ss << streamZ->getSearchM()->getStream(it)->getShortDescription() << std::endl;
     }
     return ss.str();
+}
+
+const std::vector<std::string> &Viewer::getFollowingStreamers() const {
+    return followingStreamers;
+}
+
+const std::vector<ID> &Viewer::getHistory() const {
+    return streamHistory;
 }
 
 void Viewer::readFromFile(std::ifstream &ff) {

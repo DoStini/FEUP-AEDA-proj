@@ -17,7 +17,7 @@ void PublicStream::addViewer(const std::string &viewerNick) {
     streamViewers.push_back(viewerNick);
 }
 
-std::string PublicStream::getShorDescription() const {
+std::string PublicStream::getShortDescription() const {
     std::stringstream ss;
     ss << title << " (Stream Id: " << streamId << ")" << " ->Public";
     return ss.str();
@@ -74,7 +74,7 @@ void PublicStream::readFromFile(std::ifstream &ff) {
     // Reading streamer viewers
     ff >> numViewers >> sep;
 
-    for(int i = 0; i < numViewers; i++){
+    for(unsigned int i = 0; i < numViewers; i++){
         ff >> temp >> sep;
         streamViewers.push_back(temp);
     }
@@ -113,7 +113,7 @@ void PublicStream::writeToFile(std::ofstream &ff) {
     // Write viewers to file
     ff << num << " , ";
 
-    for (int i = 0; i < getNumViewers(); ++i) {
+    for (unsigned int i = 0; i < getNumViewers(); ++i) {
         ff << streamViewers[i] << " , ";
     }
 
@@ -133,10 +133,11 @@ void PublicStream::writeToFile(std::ofstream &ff) {
 
 }
 
-PublicStream::PublicStream() : LiveStream() {
-}
-
 streamFileType PublicStream::getStreamFileType() const {
     return publicFile;
+}
+
+PublicStream::PublicStream() : LiveStream() {
+
 }
 

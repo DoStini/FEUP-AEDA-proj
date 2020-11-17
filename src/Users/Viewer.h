@@ -123,6 +123,18 @@ public:
      * @param comment - The comment
      */
     void giveFeedBack(const std::string& comment);
+
+    /**
+     * Gets the stream history of viewer
+     * @return stream history
+     */
+    const std::vector<ID> &getHistory() const;
+
+    /**
+     * Returns the streamers the user is following
+     * @return following streamers
+     */
+    const std::vector<std::string> &getFollowingStreamers() const;
     /**
      * Reading user info from file
      * @param ff Current file streamer
@@ -135,7 +147,7 @@ public:
     void writeToFile(std::ofstream  & ff ) override;
 
     /// @return - relevant info about user
-    std::string getShorDescription() const override;
+    std::string getShortDescription() const override;
 
     /// @return - detailed info about user
     std::string getLongDescription() const override;

@@ -126,7 +126,7 @@ void ViewerAcc::giveFeedback() {
 bool ViewerAcc::checkWatchingPrivate() const {
     if(!this->viewer->watching()) return false;
 
-    ID streamId = this->viewer->getStreamID();
+    ID streamId = this->viewer->getCurrWatching();
     Stream * stream = this->streamZ->getDatabase().getStreams()[streamId];
     return stream->getStreamType() == privateType;
 }

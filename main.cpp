@@ -354,7 +354,7 @@ TEST(test, adminOps){
     dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(4);
     dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(3);
 
-    ASSERT_EQ(streamZ.getAdminOps()->rankViewsLang(), PT_BR);
+    ASSERT_EQ((streamZ.getAdminOps()->rankViewsLang()), PT_BR);
     ASSERT_EQ(streamZ.getAdminOps()->rankViewsLang(true), SPA);
     ASSERT_EQ(streamZ.getAdminOps()->rankViewsGenres(), technology);
     ASSERT_EQ(streamZ.getAdminOps()->rankViewsGenres(true), meetGreet);
@@ -606,11 +606,11 @@ TEST(test, run) {
     manager.init();
 
 
-    manager.getUserM()->createAdmin("Admin","admin",Date(2001, 02, 25), "admin");
-    manager.getUserM()->createViewer("NUno","nuno",Date(2001, 02, 25), "admin");
-    manager.getUserM()->createViewer("roger","roger",Date(2001, 02, 25), "admin");
-    manager.getUserM()->createViewer("asd","asd",Date(2001, 02, 25), "admin");
-    manager.getUserM()->createStreamer("asd", "streamer", Date(2001, 02, 25),"streamer");
+    manager.getUserM()->createAdmin("Admin","admin", "admin",Date(2001, 02, 25));
+    manager.getUserM()->createViewer("NUno","nuno", "nuno", Date(2001, 02, 25));
+    manager.getUserM()->createViewer("roger","roger", "roger", Date(2001, 02, 25));
+    manager.getUserM()->createViewer("asd","asd", "asd", Date(2001, 02, 25));
+    manager.getUserM()->createStreamer("asd", "streamer", "streamer", Date(2001, 02, 25));
 
     manager.run();
 }

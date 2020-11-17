@@ -30,23 +30,23 @@ void StreamZ::shutdown(std::string fileName) {
     delete leaderboard;
 }
 
-const SortingManager *StreamZ::getSortM() {
+SortingManager *StreamZ::getSortM() {
     return sortingManager;
 }
 
-const SearchManager *StreamZ::getSearchM() {
+SearchManager *StreamZ::getSearchM() {
     return searchManager;
 }
 
-const UserManager *StreamZ::getUserM() {
+UserManager *StreamZ::getUserM() {
     return userManager;
 }
 
-const AdminOps *StreamZ::getAdminOps() {
+AdminOps * StreamZ::getAdminOps() {
     return adminOps;
 }
 
-const LeaderBoard *StreamZ::getLeaderBoard() {
+LeaderBoard *StreamZ::getLeaderBoard() {
     return leaderboard;
 }
 
@@ -55,7 +55,7 @@ Database &StreamZ::getDatabase() {
 }
 
 
-const StreamManager *StreamZ::getStreamManager(){
+StreamManager *StreamZ::getStreamManager(){
     return streamManager;
 }
 
@@ -117,19 +117,10 @@ void StreamZ::run() {
 void StreamZ::login() {
     std::string name;
     std::string password;
-    bool isUser = false;
-    while(!isUser) {
-        print("Nick Name: ", '\0');
+    print("Nick Name: ", '\0');
 
-        while(!checkInput(name)) {
-            print("Invalid Input! Please try again: " , '\0');
-        }
-
-        isUser = userManager->userExists(name);
-
-        if(!isUser) {
-            print("User does not exist! Please try again.");
-        }
+    while(!checkInput(name)) {
+        print("Invalid Input! Please try again: " , '\0');
     }
 
     User * user = nullptr;
@@ -248,9 +239,9 @@ void StreamZ::registerUser() {
     print();
     try {
         if(uType == viewer) {
-            userManager->createViewer(userName, nickName, dateObj, password);
+            userManager->createViewer(userName, nickName, password, dateObj);
         } else if(uType == streamer) {
-            userManager->createStreamer(userName, nickName, dateObj, password);
+            userManager->createStreamer(userName, nickName, password,dateObj);
         }
 
         print("Success!");
@@ -267,4 +258,119 @@ void StreamZ::registerUser() {
     }
 
     waitForKey();
+}
+
+void StreamZ::backupData(std::string fileName) {
+
+    std::ofstream ff("users_" + fileName, std::ofstream::trunc);
+
+    // TODO EXCEPTION
+    if (!ff.is_open()) throw "No file";
+
+    for (const auto & userPair : getDatabase().getUsers()){
+        ff << userPair.second->getUserType() << " : ";
+        userPair.second->writeToFile(ff);
+    }
+    ff.close();
+
+
+    ff.open("streams_" + fileName, std::ofstream::trunc);
+    // TODO EXCEPTION
+    if (!ff.is_open()) throw "No file";
+
+    ff << LiveStream::lastId << std::endl;
+
+    for (const auto & strPair : getDatabase().getStreams()){
+        ff << strPair.second->getStreamFileType() << " : ";
+        strPair.second->writeToFile(ff);
+    }
+    ff.close();
+
+}
+
+void StreamZ::readFromFile(std::string fileName) {
+    std::ifstream ff;
+    ff.open("users_" + fileName);
+
+    //usersRef.clear();
+
+    // TODO EXCEPTION
+    if (!ff.is_open()) throw std::string("No file");
+
+
+    int uType;
+    char sep;
+    while (ff.peek() != EOF){
+
+        ff >> uType >> sep;
+
+        if(ff.eof()) break;
+
+        User * newUser;
+
+        switch ((userType) uType ) {
+
+            case viewer:
+                newUser = new Viewer();
+                break;
+            case streamer:
+                newUser = new Streamer();
+                break;
+            case admin:
+                newUser = new Admin();
+                break;
+        }
+
+        newUser->readFromFile(ff);
+        newUser->setStreamZ(this);
+        dataBase.getUsers().insert(std::pair<std::string, User *>( newUser->getNickName(), newUser ));
+    }
+
+    ff.close();
+
+    ff.open("streams_" + fileName);
+
+    //usersRef.clear();
+
+    // TODO EXCEPTION
+    if (!ff.is_open()) throw std::string("No file");
+
+    ff >> LiveStream::lastId;
+
+    int sType;
+
+
+    while (ff.peek() != EOF){
+
+        ff >> sType >> sep;
+
+        if(ff.eof()) break;
+
+        Stream * newStream;
+
+        switch ((streamFileType) sType ) {
+
+            case finishedFile:
+                newStream = new FinishedStream();
+                break;
+            case publicFile:
+                newStream = new PublicStream();
+                break;
+            case privateFile:
+                newStream = new PrivateStream();
+                break;
+        }
+
+        newStream->readFromFile(ff);
+        newStream->setStreamZ(this);
+        dataBase.getStreams().insert(std::pair<ID, Stream *>( newStream->getStreamId(), newStream ));
+    }
+
+    ff.close();
+}
+
+void StreamZ::resetDatabase() {
+
+
+
 }

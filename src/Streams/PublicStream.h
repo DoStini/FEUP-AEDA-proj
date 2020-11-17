@@ -43,7 +43,7 @@ public:
      */
     void writeToFile(std::ofstream &ff) override;
     /// @return - relevant info about streamer
-    std::string getShorDescription() const override;
+    std::string getShortDescription() const override;
 
     /// @return - detailed info about streamer
     std::string getLongDescription() const override;

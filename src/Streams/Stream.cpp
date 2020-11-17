@@ -50,9 +50,3 @@ Stream::Stream() {
 
 }
 
-unsigned long long int Stream::getId() {
-    return streamId;
-}
-
-
-

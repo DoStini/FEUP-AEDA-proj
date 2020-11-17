@@ -6,10 +6,6 @@
 #include "StreamZ.h"
 #include <utility>
 
-
-FinishedStream::FinishedStream() : Stream() {
-}
-
 FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerNick,ID streamID)
                                 : Stream(std::move(title),language,streamGenre,std::move(streamerNick)), numViewers(numViewers){
     streamId = streamID;
@@ -39,11 +35,11 @@ const Date &FinishedStream::getFinishedDate() const {
     return finishedDate;
 }
 
-int FinishedStream::getNumViewers() const {
+unsigned int FinishedStream::getNumViewers() const {
     return numViewers;
 }
 
-std::string FinishedStream::getShorDescription() const {
+std::string FinishedStream::getShortDescription() const {
     std::stringstream ss;
     ss << title << " (Stream Id: " << streamId << ")" << " ->Finished";
     return ss.str();
@@ -117,6 +113,10 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
     finishedDate = Date(ss.str());
 
     ff >> sep >> numViewers >> sep;
+
+}
+
+FinishedStream::FinishedStream() : Stream(){
 
 }
 

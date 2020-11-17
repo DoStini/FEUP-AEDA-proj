@@ -59,12 +59,6 @@ public:
      * @param userNick - nick of user to be removed
      */
     void removeValidUser(const std::string& userNick);
-
-    /**
-     * Function to remove a user from the stream whitelist
-     * @param userNick - nick of user to be removed
-     */
-    void removeValidUser(const std::string& userNick);
     /**
      * Checks if the user is in the vector of valid users
      *
@@ -104,7 +98,7 @@ public:
      */
     void writeToFile(std::ofstream &ff) override;
     /// @return - relevant info about streamer
-    std::string getShorDescription() const override;
+    std::string getShortDescription() const override;
 
     /// @return - detailed info about streamer
     std::string getLongDescription() const override;

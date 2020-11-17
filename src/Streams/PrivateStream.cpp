@@ -69,8 +69,7 @@ void PrivateStream::addViewer(const std::string &viewerNick) {
         streamViewers.push_back(viewerNick);
 }
 
-PrivateStream::PrivateStream() : LiveStream(){}
-std::string PrivateStream::getShorDescription() const {
+std::string PrivateStream::getShortDescription() const {
     std::stringstream ss;
     ss << title << " (Stream Id: " << streamId << ")" << " ->Private";
     return ss.str();
@@ -111,7 +110,7 @@ void PrivateStream::writeToFile(std::ofstream &ff) {
     // Write viewers to file
     ff << num << " , ";
 
-    for (int i = 0; i < getNumViewers(); ++i) {
+    for (unsigned int i = 0; i < getNumViewers(); ++i) {
         ff << streamViewers[i] << " , ";
     }
 
@@ -197,7 +196,7 @@ void PrivateStream::readFromFile(std::ifstream &ff) {
     // Reading streamer viewers
     ff >> numViewers >> sep;
 
-    for(int i = 0; i < numViewers; i++){
+    for(unsigned int i = 0; i < numViewers; i++){
         ff >> temp >> sep;
         streamViewers.push_back(temp);
     }
@@ -249,6 +248,10 @@ void PrivateStream::readFromFile(std::ifstream &ff) {
         whitelist.push_back(temp);
     }
     ff >> maxViewers >> sep;
+
+}
+
+PrivateStream::PrivateStream() : LiveStream(){
 
 }
 
