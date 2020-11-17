@@ -168,9 +168,11 @@ std::string Viewer::getShortDescription() const {
 
 std::string Viewer::getLongDescription() const {
     std::stringstream  ss;
-    ss << "My password is " << password << " hope you enjoy my account :)\n"
+    ss << "My name is " << name << std::endl
+       << "My nickname is " << nickName << std::endl
+       << "My password is " << password << " hope you enjoy my account :)\n"
        << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
-       << "Have join StreamZ in: " << joinedPlatformDate.getStringDate()
+       << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl
        << "Follow " << followingStreamers.size() << " streamers.\n"
        << "They are:\n";
     for(const auto & it : followingStreamers){

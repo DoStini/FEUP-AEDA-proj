@@ -111,7 +111,7 @@ void printPagedList(std::vector<T> list, std::function<std::string(T)> printFunc
     std::stringstream ss;
     auto it = list.begin();
 
-    while(action != 'S' || it != list.end()) {
+    while(action != 'S' && it != list.end()) {
         ss.str("");
         ss << "Page " << page << ": ";
         print(ss.str());

@@ -59,7 +59,12 @@ void Admin::readFromFile(std::ifstream &ff) {
 }
 
 std::string Admin::getLongDescription() const {
-    return std::string();
+    std::stringstream  ss;
+      ss << "My name is " << name << std::endl
+         << "My nickname is " << nickName << std::endl
+         << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
+       << "Joined StreamZ in: " << joinedPlatformDate.getStringDate();
+    return ss.str();
 }
 
 std::string Admin::getFollowDetails() const {
@@ -71,5 +76,7 @@ std::string Admin::getHistoryDetails() const {
 }
 
 std::string Admin::getShortDescription() const {
-    return std::string();
+    std::stringstream  ss;
+    ss << name << " (Nickname: " << nickName << ")" << " ->Admin";
+    return ss.str();
 }

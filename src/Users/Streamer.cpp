@@ -143,15 +143,17 @@ bool Streamer::isInStreamHistory(ID streamID) {
 
 std::string Streamer::getLongDescription() const {
     std::stringstream  ss;
-    ss << "My password is " << password << " hope you enjoy my account :)\n"
+    ss << "My name is " << name << std::endl
+       << "My nickname is " << nickName << std::endl
+       << "My password is " << password << " hope you enjoy my account :)\n"
     << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
-    << "Have join StreamZ in: " << joinedPlatformDate.getStringDate()
-    << "Current have " << getNumFollowers() << " followers.\n";
+    << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl
+    << "Currently have " << getNumFollowers() << " followers.\n";
     if(currStreaming == NULL_STREAM){
         ss << "Right now i am not streaming.\n";
     }
     else{
-        ss << "Right now i am streaming:\n"
+        ss << "Right now i am streaming: "
         << streamZ->getSearchM()->getStream(currStreaming)->getShortDescription() << std::endl;
     }
     ss << "I have streamed a total of " << finishedStreams.size() << " streams.\n";
