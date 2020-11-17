@@ -34,12 +34,12 @@ Account::Account(User *user, StreamZ *streamZ) {
     this->streamZ = streamZ;
     nOptions = 5;
     options = {[](){},
-               std::bind(&Account::listStreams, this),
-               std::bind(&Account::listUsers, this),
-               std::bind(&Account::displayStreamInfo, this),
-               std::bind(&Account::displayUserInfo, this),
-               std::bind(&Account::leaderboard, this),
-               std::bind(&Account::accountOptions, this)
+               [this] { listStreams(); },
+               [this] { listUsers(); },
+               [this] { displayStreamInfo(); },
+               [this] { displayUserInfo(); },
+               [this] { leaderboard(); },
+               [this] { accountOptions(); }
     };
     optionDescriptions = {"Logout.",
                           "Search for current streams.",
@@ -304,6 +304,28 @@ void Account::listStreams() {
         return;
     }
 
+    std::vector<std::string> descriptions = {
+            "Sort by views descending",
+            "Sort by views ascending",
+            "Sort by likes descending",
+            "Sort by likes ascending",
+            "Sort by date started descending",
+            "Sort by date started ascending"
+    };
+
+    std::vector<Option> sorting = {
+            [this, &streams]{this->streamZ->getSortM()->sortStreamByViews(streams);},
+            [this, &streams]{this->streamZ->getSortM()->sortStreamByViews(streams, true);},
+            [this, &streams]{this->streamZ->getSortM()->sortStreamByLikes(streams);},
+            [this, &streams]{this->streamZ->getSortM()->sortStreamByLikes(streams, true);},
+            [this, &streams]{this->streamZ->getSortM()->sortStreamByDate(streams);},
+            [this, &streams]{this->streamZ->getSortM()->sortStreamByDate(streams, true);}
+    };
+
+    sortingMethods(streams, descriptions, sorting);
+
+    print();
+
     print("Here are all the current live streams: ");
     print();
 
@@ -346,14 +368,28 @@ void Account::listUsers() {
 
     streamZ->getSearchM()->listUsers(users, name);
 
+    std::vector<std::string> descriptions = {
+            "Sort by join date descending",
+            "Sort by join date ascending"
+    };
+
+    std::vector<Option> sorting = {
+            [this, &users]{this->streamZ->getSortM()->sortUserDatePlatform(users);},
+            [this, &users]{this->streamZ->getSortM()->sortUserDatePlatform(users, true);}
+    };
+
     print();
-    if(users.size() == 0) {
+    if(users.empty()) {
         print("There are no users that satisfy the selected parameters.");
 
         waitForKey();
 
         return;
     }
+
+    sortingMethods(users, descriptions, sorting);
+
+    print();
 
     print("Here are the results: ");
     print();
@@ -497,4 +533,41 @@ void Account::displayUserInfo() {
     }
 
     waitForKey();
+}
+
+template<typename T>
+void Account::sortingMethods(std::vector<T *> &toSort, std::vector<std::string> &sortDescriptions,
+                             std::vector<std::function<void()>> &sortingMethods) {
+    char option;
+    uint16_t sorting;
+    std::stringstream ss;
+
+    print("Would you like to sort the result? (Y/N) ", '\0');
+
+    getChar(option);
+    option = toupper(option);
+    size_t options = sortDescriptions.size();
+
+    if(option == 'Y') {
+        print();
+        print("Available sorting methods:");
+        print();
+
+        for(size_t i = 0; i < options; i++) {
+            ss.str("");
+
+            ss << i+1 << ". " << sortDescriptions[i];
+
+            print(ss.str());
+        }
+
+        print();
+        print("Choose an option: ", '\0');
+
+        while(!checkInput(sorting) || sorting < 1 || sorting > options) {
+            print("Invalid Input! Please try again: ", '\0');
+        }
+
+        sortingMethods[sorting - 1]();
+    }
 }
