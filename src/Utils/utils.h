@@ -126,9 +126,6 @@ void printPagedList(std::vector<T> list, std::function<std::string(T)> printFunc
         if(it == list.end()) {
             print();
             print("End of list.");
-
-            waitForKey();
-
             return;
         }
 

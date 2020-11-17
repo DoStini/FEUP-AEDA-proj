@@ -6,6 +6,10 @@
 #include "StreamZ.h"
 #include <utility>
 
+extern const char *languageTypes[];
+
+extern const char *genreTypes[];
+
 FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerNick,ID streamID)
                                 : Stream(std::move(title),language,streamGenre,std::move(streamerNick)), numViewers(numViewers){
     streamId = streamID;
@@ -47,12 +51,14 @@ std::string FinishedStream::getShortDescription() const {
 
 std::string FinishedStream::getLongDescription() const {
     std::stringstream ss;
-    ss << "Streamed by:" << streamerNick << std::endl
-       << "Star streaming: " << beginDate.getStringDate() << std::endl
-       << "Language: " << streamLanguage << std::endl
-       << "Genre: " << streamGenre << std::endl
-       << "Final viewers: " << numViewers << std::endl
-       << "Stream finished at: " << finishedDate.getStringDate();
+    ss << "Stream Title: " << title << std::endl
+       << "Streamed by:" << streamerNick << std::endl
+       << "Started streaming in: " << beginDate.getStringDate() << std::endl
+       << "Stream finished: " << finishedDate.getStringDate() << std::endl
+       << "Language: " << languageTypes[streamLanguage] << std::endl
+       << "Genre: " << genreTypes[streamGenre] << std::endl
+       << "Final viewers: " << numViewers << std::endl;
+
     return ss.str();
 }
 

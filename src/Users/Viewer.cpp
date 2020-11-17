@@ -171,18 +171,19 @@ std::string Viewer::getLongDescription() const {
     ss << "My name is " << name << std::endl
        << "My nickname is " << nickName << std::endl
        << "My password is " << password << " hope you enjoy my account :)\n"
-       << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
-       << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl
-       << "Follow " << followingStreamers.size() << " streamers.\n"
-       << "They are:\n";
-    for(const auto & it : followingStreamers){
-        ss << it << std::endl;
-    }
+       << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years\n"
+       << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl;
+    if(!followingStreamers.empty())
+        ss << "I Follow " << followingStreamers.size() << " streamers\n"
+        << "They are:\n";
+        for(const auto & it : followingStreamers){
+            ss << it << std::endl;
+        }
     if(currWatching == NULL_STREAM){
-        ss << "Right now i am watching nothing.\n";
+        ss << "Right now I am watching nothing.\n";
     }
     else{
-        ss << "Right now i am watching:\n"
+        ss << "Right now I am watching:\n"
            << streamZ->getSearchM()->getStream(currWatching)->getShortDescription() << std::endl;
     }
     ss << "I have seen a total of " << streamHistory.size() << " streams.\n";

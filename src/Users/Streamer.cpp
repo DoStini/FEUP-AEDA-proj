@@ -53,8 +53,6 @@ ID Streamer::getStreamID() {
 unsigned int Streamer::getTotalViews() {
     unsigned int views = 0;
 
-    unsigned int views = 0;
-
     Stream *ptr;
 
     if (streaming()) {

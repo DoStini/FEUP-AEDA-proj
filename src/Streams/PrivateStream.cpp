@@ -6,6 +6,10 @@
 #include <utility>
 #include "StreamZ.h"
 
+extern const char *languageTypes[];
+
+extern const char *genreTypes[];
+
 PrivateStream::PrivateStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick,
                                 unsigned int minAge, unsigned int maxViewers) : LiveStream(std::move(title),
                                     streamLanguage, streamGenre,std::move(streamerNick), minAge), maxViewers(maxViewers) {}
@@ -71,23 +75,24 @@ void PrivateStream::addViewer(const std::string &viewerNick) {
 
 std::string PrivateStream::getShortDescription() const {
     std::stringstream ss;
-    ss << title << " (Stream Id: " << streamId << ")" << " ->Private";
+    ss << title << " (Stream Id: " << streamId << ")" << " -> Private";
     return ss.str();
 }
 
 std::string PrivateStream::getLongDescription() const {
     std::stringstream ss;
-    ss << "Streamed by:" << streamerNick << std::endl
-       << "Star streaming: " << beginDate.getStringDate() << std::endl
-       << "Language: " << streamLanguage << std::endl
-       << "Genre: " << streamGenre << std::endl
+    ss << "Stream Title: " << title << std::endl
+       << "Streamed by: " << streamerNick << std::endl
+       << "Started streaming in: " << beginDate.getStringDate() << std::endl
+       << "Language: " << languageTypes[streamLanguage] << std::endl
+       << "Genre: " << genreTypes[streamGenre] << std::endl
        << "Necessary age to join: " << minAge << std::endl
-       << "Current watching: " << streamViewers.size() << std::endl
+       << "Currently watching: " << streamViewers.size() << std::endl
        << "Can only have a total of " << maxViewers << " viewers watching." << std::endl
        << "Likes: " << getLikes() << " Dislikes: " << getDislikes() << std::endl
-       << "My comments!";
+       << "My comments!" << std::endl;
     for(auto it=comments.begin(); it!=comments.end(); it++){
-        ss << (*it);
+        ss << (*it) << std::endl;
     }
     return ss.str();
 

@@ -4,6 +4,10 @@
 
 #include "PublicStream.h"
 
+extern const char *languageTypes[];
+
+extern const char *genreTypes[];
+
 #include <utility>
 
 PublicStream::PublicStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge) :
@@ -19,18 +23,19 @@ void PublicStream::addViewer(const std::string &viewerNick) {
 
 std::string PublicStream::getShortDescription() const {
     std::stringstream ss;
-    ss << title << " (Stream Id: " << streamId << ")" << " ->Public";
+    ss << title << " (Stream Id: " << streamId << ")" << " -> Public";
     return ss.str();
 }
 
 std::string PublicStream::getLongDescription() const {
     std::stringstream ss;
-    ss << "Streamed by:" << streamerNick << std::endl
-    << "Star streaming: " << beginDate.getStringDate() << std::endl
-    << "Language: " << streamLanguage << std::endl
-    << "Genre: " << streamGenre << std::endl
+    ss << "Stream Title: " << title << std::endl
+    << "Streamed by: " << streamerNick << std::endl
+    << "Started streaming in: " << beginDate.getStringDate() << std::endl
+    << "Language: " << languageTypes[streamLanguage] << std::endl
+    << "Genre: " << genreTypes[streamGenre] << std::endl
     << "Necessary age to join: " << minAge << std::endl
-    << "Current watching: " << streamViewers.size() << std::endl
+    << "Currently watching: " << streamViewers.size() << std::endl
     << "Likes: " << getLikes() << " Dislikes: " << getDislikes();
     return ss.str();
 

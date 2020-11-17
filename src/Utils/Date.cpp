@@ -94,14 +94,13 @@ int Date::getYearDifference(const Date &otherDate) const {
 
     int yearDiff = maxDate->dateStruct.tm_year - minDate->dateStruct.tm_year;
 
-    if(maxDate->dateStruct.tm_mon >= minDate->dateStruct.tm_mon &&
-       maxDate->dateStruct.tm_mday >= minDate->dateStruct.tm_mday &&
-       maxDate->dateStruct.tm_hour >= minDate->dateStruct.tm_hour &&
-       maxDate->dateStruct.tm_min >= minDate->dateStruct.tm_min) {
-        return yearDiff;
+    if(maxDate->dateStruct.tm_mon < minDate->dateStruct.tm_mon) {
+        yearDiff--;
+    } else if(maxDate->dateStruct.tm_mon == minDate->dateStruct.tm_mon) {
+        if(maxDate->dateStruct.tm_mday < maxDate->dateStruct.tm_mday) yearDiff--;
     }
 
-    return yearDiff - 1;
+    return yearDiff;
 }
 
 void Date::setSystemDate() {

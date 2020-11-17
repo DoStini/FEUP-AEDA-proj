@@ -19,7 +19,7 @@ struct Comment{
     std::string viewerNick;
     Comment(std::string text, std::string name): comment(std::move(text)),viewerNick(std::move(name)){}
     friend std::ostream &operator<<(std::ostream & out,const Comment& val){
-        out << std::endl <<  val.viewerNick << "-> " << val.comment;
+        out <<  val.viewerNick << " said: " << val.comment;
         return out;
     }
 

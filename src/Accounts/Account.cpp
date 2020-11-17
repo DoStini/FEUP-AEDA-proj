@@ -332,6 +332,9 @@ void Account::listStreams() {
     printPagedList(streams, std::function<std::string(LiveStream *)>([](LiveStream*stream){
         return stream->getShortDescription();
     }));
+
+    print();
+    waitForKey();
 }
 
 void Account::accountOptions() {
@@ -397,6 +400,9 @@ void Account::listUsers() {
     printPagedList(users, std::function<std::string(User *)>([](User*userPtr){
         return userPtr->getShortDescription();
     }));
+
+    print();
+    waitForKey();
 }
 
 void Account::top10StreamsViews() {
@@ -503,6 +509,7 @@ void Account::displayStreamInfo() {
         print(streamID);
     }
 
+    print();
     waitForKey();
 }
 
@@ -532,6 +539,7 @@ void Account::displayUserInfo() {
         print(nickName);
     }
 
+    print();
     waitForKey();
 }
 

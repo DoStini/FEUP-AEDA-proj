@@ -58,5 +58,5 @@ void User::setStreamZ(StreamZ *streamZ) {
 
 unsigned User::age() const{
     Date currDate; currDate.setSystemDate();
-    return currDate.getYearDifference(birthDate);;
+    return currDate.getYearDifference(birthDate);
 }
