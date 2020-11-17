@@ -78,11 +78,11 @@ void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const st
 
     // Loop to iterate over the map
     while(it1 != it2){
-        Stream * ptr = (*it1).second; // Getting the current stream pointer
+        Stream * ptr = (*it1).second; // Getting the current streamer pointer
 
         // Is a livestream?
-        if(ptr->getStreamType() != finishedType){
-            // Checks if the current stream verifies all 3 requests (or those asked)
+        if(ptr->getStreamState() != livestream){
+            // Checks if the current streamer verifies all 3 requests (or those asked)
             if( (streamName.empty() || ptr->getTitle() == streamName) &&
                 // Verifies age restriction
                 dynamic_cast<LiveStream *>(ptr)->getMinAge() >= minAge &&
@@ -106,7 +106,7 @@ void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &stream
     for( const auto & nick : streamerNick){
         Streamer * str = dynamic_cast<Streamer *>(getUser(nick));
         // Converting the user, if it is a viewer, str stores nullptr
-        // If the the streaming is currently streaming, finds and stores the respective stream
+        // If the the streaming is currently streaming, finds and stores the respective streamer
         if (str != nullptr && str->streaming())
             streams.push_back(dynamic_cast<LiveStream *>(getStream(str->getStreamID())));
     }
@@ -143,7 +143,7 @@ void SearchManager::listPrivateLiveStreams(std::vector<PrivateStream *> &streams
             it2 = streamZ->getDatabase().getStreams().end();
 
     while(it1 != it2){
-        Stream * ptr = (*it1).second; // Getting the current stream pointer
+        Stream * ptr = (*it1).second; // Getting the current streamer pointer
 
         // Is a livestream?
         if(ptr->getStreamType() == privateType){
@@ -172,9 +172,9 @@ void SearchManager::listAllowedLiveStreams(std::vector<LiveStream *> &streams, s
 
     // Loop to iterate over the map
     while(it1 != it2){
-        Stream * ptr = (*it1).second; // Getting the current stream pointer
+        Stream * ptr = (*it1).second; // Getting the current streamer pointer
 
-        // Variable that identifies if the user is allowed to join the stream or not
+        // Variable that identifies if the user is allowed to join the streamer or not
         bool valid = ptr->getStreamType() == publicType;
 
         if (!valid && ptr->getStreamType() == privateType){
@@ -182,7 +182,7 @@ void SearchManager::listAllowedLiveStreams(std::vector<LiveStream *> &streams, s
             valid = privateStream->isValidUser(viewerNick);
         }
 
-        // Checks if the current stream verifies all 3 requests (or those asked)
+        // Checks if the current streamer verifies all 3 requests (or those asked)
         if( valid &&
             (streamName.empty() || ptr->getTitle() == streamName) &&
             // Only verifies the vector if it is not empty (if the user wants to specify genre)

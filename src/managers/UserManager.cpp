@@ -61,7 +61,7 @@ void UserManager::removeHistoryElemFromUser(ID id) {
             auto * viewer = dynamic_cast<Viewer*>(user.second);
             if(viewer->isInStreamHistory(id)) viewer->removeStreamHistory(id);
         }
-        else if(ptr->getUserType() == stream){
+        else if(ptr->getUserType() == streamer){
             auto * streamer = dynamic_cast<Streamer*>(user.second);
             if(streamer->isInStreamHistory(id)) streamer->removeStreamHistory(id);
         }

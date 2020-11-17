@@ -11,14 +11,14 @@
 
 
 /**
- * Object to be thrown when a user tries to join a stream while watching some other
+ * Object to be thrown when a user tries to join a streamer while watching some other
  */
 class AlreadyInStreamException : public std::exception {
 public:
     /**
      * Constructor
      * @param user - The user that originated the error
-     * @param currStream - The stream
+     * @param currStream - The streamer
      * @param viewer - If the user is a viewer(true) or a streamer
      */
     AlreadyInStreamException(std::string user, ID streamWatching, bool viewer = true);

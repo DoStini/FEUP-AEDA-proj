@@ -59,9 +59,10 @@ void Viewer::joinStream(ID streamID) {
 
     auto * stream =streamZ->getSearchM()->getStream(streamID);
 
+    streamState sState = stream->getStreamState();
     streamType type = stream->getStreamType();
 
-    if (type == finishedType)
+    if (sState == finished)
         throw RestrictedStreamException(stream->getTitle(), nickName);
 
     auto liveStream = (LiveStream *) stream;
@@ -226,7 +227,7 @@ void Viewer::readFromFile(std::ifstream &ff) {
     birthDate = Date(temp);
     ff >> sep;
 
-    // Clearing the string stream
+    // Clearing the string streamer
     ss.str(std::string());
 
     ff >> temp; ss << temp << " "; // Building date and hour/minute

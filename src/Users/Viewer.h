@@ -34,10 +34,10 @@ public:
     ///@return - user type = viewer
     userType getUserType() const override;
 
-    ///@return - ID of current watching stream
+    ///@return - ID of current watching streamer
     ID getCurrWatching() const;
 
-    /// @return boolean indicating if the user is watching some stream or not
+    /// @return boolean indicating if the user is watching some streamer or not
     bool watching() const;
 
     /**
@@ -67,42 +67,42 @@ public:
     bool isFollowing(std::string & streamer);
 
     /**
-     * Join a stream
+     * Join a streamer
      * @throw DoesNotExist
      * @throw AlreadyInStreamException
      * @throw RestrictedAgeExpeption
      * @throw RestrictedStreamExpeption
-     * @param stream - Desired stream
+     * @param stream - Desired streamer
      */
     void joinStream(ID streamID);
 
-    /** Leave the current stream
+    /** Leave the current streamer
      * @throw NotInStreamException
      */
     void leaveStream();
 
     /**
-     * Function to be used only when deleting a stream from the system deleting the stream pointer
+     * Function to be used only when deleting a streamer from the system deleting the streamer pointer
      */
     void kickedStream();
 
     /**
-     * Add stream to the stream history
+     * Add streamer to the streamer history
      *
-     * @param streamID - stream to be added to the history
+     * @param streamID - streamer to be added to the history
      */
     void addStreamHistory(ID streamID);
 
     /**
-     * Remove stream from the stream history
+     * Remove streamer from the streamer history
      *
-     * @param streamID - stream to be removed from the history
+     * @param streamID - streamer to be removed from the history
      */
     void removeStreamHistory(ID streamID);
 
     /**
-     * Checks if a stream is in the stream history
-     * @param streamID - id of the stream to be checked
+     * Checks if a streamer is in the streamer history
+     * @param streamID - id of the streamer to be checked
      * @return - true if it is, otherwise false
      */
     bool isInStreamHistory(ID streamID);
@@ -115,7 +115,7 @@ public:
     void giveFeedBack(feedback fbValue);
 
     /**
-     * Leave a comment on the (private) stream currently watching
+     * Leave a comment on the (private) streamer currently watching
      * @throw NotInStreamException
      * @throw NotPrivateStreamException
      * @param comment - The comment
@@ -123,12 +123,12 @@ public:
     void giveFeedBack(const std::string& comment);
     /**
      * Reading user info from file
-     * @param ff Current file stream
+     * @param ff Current file streamer
      */
     void readFromFile(std::ifstream & ff ) override;
     /**
      * Writing user info to file
-     * @param ff Current file stream
+     * @param ff Current file streamer
      */
     void writeToFile(std::ofstream  & ff ) override;
 
@@ -141,7 +141,7 @@ public:
     /// @return - string with all the following
     std::string getFollowDetails() const override;
 
-    /// @return - string with all the stream history
+    /// @return - string with all the streamer history
     std::string getHistoryDetails() const override;
 
 private:

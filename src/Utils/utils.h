@@ -14,13 +14,23 @@
 
 enum streamType{
     publicType = 1,
-    privateType,
-    finishedType,
+    privateType
+};
+
+enum streamFileType{
+    publicFile = 1,
+    privateFile,
+    finishedFile
+};
+
+enum streamState{
+    livestream,
+    finished
 };
 
 enum userType{
     viewer = 1,
-    stream,
+    streamer,
     admin,
 };
 

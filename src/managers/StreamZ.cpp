@@ -83,7 +83,7 @@ void StreamZ::backupData(std::string fileName) {
     ff << LiveStream::lastId << std::endl;
 
     for (const auto & strPair : getDatabase().getStreams()){
-        ff << strPair.second->getStreamType() << " : ";
+        ff << strPair.second->getStreamFileType() << " : ";
         strPair.second->writeToFile(ff);
     }
     ff.close();
@@ -115,7 +115,7 @@ void StreamZ::readFromFile(std::string fileName) {
             case viewer:
                 newUser = new Viewer();
                 break;
-            case stream:
+            case streamer:
                 newUser = new Streamer();
                 break;
             case admin:
@@ -151,15 +151,15 @@ void StreamZ::readFromFile(std::string fileName) {
 
         Stream * newStream;
 
-        switch ((streamType) sType ) {
+        switch ((streamFileType) sType ) {
 
-            case finishedType:
+            case finishedFile:
                 newStream = new FinishedStream();
                 break;
-            case publicType:
+            case publicFile:
                 newStream = new PublicStream();
                 break;
-            case privateType:
+            case privateFile:
                 newStream = new PrivateStream();
                 break;
         }

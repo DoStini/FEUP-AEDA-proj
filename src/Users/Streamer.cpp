@@ -20,7 +20,7 @@ Streamer::~Streamer() {
 
     if(streaming()){
         closeStream();
-        // This moves the stream to finished stream, so it doesnt have problems in recursive deletion
+        // This moves the streamer to finished streamer, so it doesnt have problems in recursive deletion
     }
 
     for(const auto & curr : finishedStreams){
@@ -33,7 +33,7 @@ Streamer::~Streamer() {
 }
 
 userType Streamer::getUserType() const {
-    return stream;
+    return streamer;
 }
 
 bool Streamer::operator==(const Streamer &str) {
@@ -225,7 +225,7 @@ void Streamer::readFromFile(std::ifstream &ff) {
     birthDate = Date(temp);
     ff >> sep;
 
-    // Clearing the string stream
+    // Clearing the string streamer
     ss.str(std::string());
 
     ff >> temp; ss << temp << " "; // Building date and hour/minute

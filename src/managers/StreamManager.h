@@ -26,16 +26,16 @@ public:
     explicit StreamManager(StreamZ *streamZ);
 
     /**
-     * Function to create a public stream
-     * @param name - Desired name of the new stream
+     * Function to create a public streamer
+     * @param name - Desired name of the new streamer
      * @param streamLanguage - Stream language
      * @param streamGenre - Stream genre
      * @param minAge - Minimum age for a viewer to join
      */
     ID createPublicStream(std::string name, std::string streamerNick, language streamLanguage, genre streamGenre, unsigned minAge = VIEWER_MIN_AGE);
     /**
-     * Function to create a public stream
-     * @param name - Desired name of the new stream
+     * Function to create a public streamer
+     * @param name - Desired name of the new streamer
      * @param streamLanguage - Stream language
      * @param streamGenre - Stream genre
      * @param minAge - Minimum age for a viewer to join
@@ -43,7 +43,7 @@ public:
     ID createPrivateStream(std::string name, std::string streamerNick, language streamLanguage, genre streamGenre, int maxUsers, unsigned minAge = VIEWER_MIN_AGE);
 
     /**
-     * Removes a stream from the system
+     * Removes a streamer from the system
      * @throw DoestNotExist
      * @param streamID
      */

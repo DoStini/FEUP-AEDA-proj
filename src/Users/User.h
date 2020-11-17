@@ -82,7 +82,7 @@ public:
     /// @return - string with all the followers/following
     virtual std::string getFollowDetails() const = 0;
 
-    /// @return - string with all the stream history/finished
+    /// @return - string with all the streamer history/finished
     virtual std::string getHistoryDetails() const = 0;
 
     ///@param streamZ - pointer to streamZ

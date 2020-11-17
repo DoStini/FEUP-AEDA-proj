@@ -5,7 +5,7 @@
 #include "AlreadyInWhiteListException.h"
 
 const char *AlreadyInWhiteListException::what() const noexcept {
-    return "User already in stream whitelist";
+    return "User already in streamer whitelist";
 }
 
 std::ostream &operator<<(std::ostream &os, const AlreadyInWhiteListException &exception) {

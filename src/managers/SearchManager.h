@@ -48,15 +48,15 @@ public:
      */
     bool userExists(std::string nick);
     /**
-     * @param streamID - The id of the stream
-     * @return If a stream with that ID exists
+     * @param streamID - The id of the streamer
+     * @return If a streamer with that ID exists
      */
     bool streamExists(ID streamID);
     /// @return If an admin account was already created
     bool adminExists();
     /// @return Corresponding user to the nickname
     User * getUser(std::string userNick);
-    /// @return Corresponding stream to the streamID
+    /// @return Corresponding streamer to the streamID
     Stream * getStream(ID streamID);
     /**
      * @param name - Name of user to be searched

@@ -7,6 +7,9 @@
 #include <utility>
 
 
+FinishedStream::FinishedStream() : Stream() {
+}
+
 FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerNick,ID streamID)
                                 : Stream(std::move(title),language,streamGenre,std::move(streamerNick)), numViewers(numViewers){
     streamId = streamID;
@@ -20,7 +23,16 @@ FinishedStream::~FinishedStream() {
 }
 
 streamType FinishedStream::getStreamType() const {
-    return finishedType;
+    return type;
+}
+
+
+streamState FinishedStream::getStreamState() const {
+    return finished;
+}
+
+streamFileType FinishedStream::getStreamFileType() const {
+    return finishedFile;
 }
 
 const Date &FinishedStream::getFinishedDate() const {
@@ -56,7 +68,7 @@ void FinishedStream::writeToFile(std::ofstream &ff) {
     while (temp >> counter) num ++;
 
     ff << streamId << " , " << num << " , " << title << " , " << beginDate.getStringDateTime()
-       << " , " << streamLanguage << " , " << streamGenre
+       << " , " << streamLanguage << " , " << streamGenre << " , " << type
        << " , " << streamerNick << " , " << finishedDate.getStringDateTime()
        << " , " << numViewers << " , " << std::endl;
 
@@ -81,22 +93,23 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
 
     ff >> sep;
 
-    ss.str(std::string());    // Clearing the string stream
+    ss.str(std::string());    // Clearing the string streamer
 
     ff >> temp; ss << temp << " "; // Building date and hour/minute
     ff >> temp; ss << temp; // Building date and hour/minute
 
     beginDate = Date(ss.str());
 
-    int lang, _genre;
+    int lang, _genre, _type;
 
-    ff >> sep >> lang >> sep >> _genre >> sep >> streamerNick
+    ff >> sep >> lang >> sep >> _genre >> sep >> _type >> sep >> streamerNick
        >> sep;
 
     streamLanguage = (language) lang;
     streamGenre = (genre) _genre;
+    type = (streamType) _type;
 
-    ss.str(std::string());    // Clearing the string stream
+    ss.str(std::string());    // Clearing the string streamer
 
     ff >> temp; ss << temp << " "; // Building date and hour/minute
     ff >> temp; ss << temp; // Building date and hour/minute
@@ -107,6 +120,3 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
 
 }
 
-FinishedStream::FinishedStream() : Stream() {
-
-}

@@ -9,7 +9,7 @@ NotPrivateStreamException::NotPrivateStreamException(unsigned long long int stre
         : streamId(streamId) {}
 
 std::ostream &operator<<(std::ostream &os, const NotPrivateStreamException &exception) {
-    os << "Stream " << exception.streamId << " is not a private stream.";
+    os << "Stream " << exception.streamId << " is not a private streamer.";
     return os;
 }
 

@@ -36,8 +36,8 @@ TEST(test, createUsers){
 
 /*
 TEST(test, publicStream) {
-    PublicStream s1("Nice stream", PT_PT,gaming,"unknow",12);
-    ASSERT_EQ(s1.getTitle(), "Nice stream");
+    PublicStream s1("Nice streamer", PT_PT,gaming,"unknow",12);
+    ASSERT_EQ(s1.getTitle(), "Nice streamer");
     ASSERT_EQ(s1.getMinAge(), 12);
     ASSERT_EQ(s1.getNumViewers(), 0);
     Viewer v1("Andre Moreira", "gordoMan", Date(1999,3,9));
@@ -51,9 +51,9 @@ TEST(test, publicStream) {
 */
 
 /*TEST(test, user_private_stream) {
-    PublicStream sp("Nice open source stream", PT_PT,gaming,"unknow",12);
-    PrivateStream s1("Nice stream", PT_PT,gaming,"unknow",12,5);
-    ASSERT_EQ(s1.getTitle(), "Nice stream");
+    PublicStream sp("Nice open source streamer", PT_PT,gaming,"unknow",12);
+    PrivateStream s1("Nice streamer", PT_PT,gaming,"unknow",12,5);
+    ASSERT_EQ(s1.getTitle(), "Nice streamer");
     ASSERT_EQ(s1.getMinAge(), 12);
     ASSERT_EQ(s1.getNumViewers(), 0);
     Viewer v1("Andre Moreira", "gordoMan", Date(1999, 3, 9));
@@ -217,7 +217,7 @@ TEST(test, hourMinute) {
     Viewer v2("Jorge", "---___---", Date(1980, 1, 1));
 
     v1.joinStream(&s1);
-    EXPECT_THROW(v1.giveFeedBack("muito boa stream"),NotPrivateStreamException);
+    EXPECT_THROW(v1.giveFeedBack("muito boa streamer"),NotPrivateStreamException);
 
     s2.addValidUser(&v2);
     v2.joinStream(&s2);
@@ -361,11 +361,11 @@ TEST(test, adminOps){
 
     ASSERT_EQ(streamZ.getAdminOps()->numStreamsAll(), 5);
 
-    ASSERT_EQ(streamZ.getAdminOps()->numStreams(finishedType), 0);
+    ASSERT_EQ(streamZ.getAdminOps()->numStreams(false), 0);
     dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->closeStream();
     dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->closeStream();
     dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->closeStream();
-    ASSERT_EQ(streamZ.getAdminOps()->numStreams(finishedType), 3);
+    ASSERT_EQ(streamZ.getAdminOps()->numStreams(false), 3);
     ASSERT_EQ(dynamic_cast<Viewer*>(streamZ.getSearchM()->getUser("user1"))->watching(), false);
     dynamic_cast<Viewer*>(streamZ.getSearchM()->getUser("user1"))->joinStream(4);
 
@@ -543,7 +543,7 @@ TEST(test, files1){
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->giveFeedBack("Very cool");
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->giveFeedBack("Very cool 2");
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(4);
-        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->giveFeedBack("Fun stream!");
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->giveFeedBack("Fun streamer!");
 
 
         dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->followStreamer("streamer2");
@@ -582,7 +582,7 @@ TEST(test, files1){
     ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->getNumFollowers(), 1);
     ASSERT_EQ(dynamic_cast<PublicStream *>(streamZ.getSearchM()->getStream(2))->getLikes(), 1);
     ASSERT_EQ(dynamic_cast<PublicStream *>(streamZ.getSearchM()->getStream(2))->getDislikes(), 2);
-    ASSERT_EQ(dynamic_cast<Stream *>(streamZ.getSearchM()->getStream(3))->getStreamType(), finishedType);
+    ASSERT_EQ(dynamic_cast<Stream *>(streamZ.getSearchM()->getStream(3))->getStreamState(), finished);
 
     ASSERT_EQ(dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(4))->getNumberComments(), 3);
     ASSERT_EQ(dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(4))->getNumViewers(), 2);

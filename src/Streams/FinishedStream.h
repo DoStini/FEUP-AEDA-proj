@@ -10,44 +10,52 @@ class FinishedStream : public Stream{
 public:
     FinishedStream();
     /**
-     * Constructor for a finished stream
+     * Constructor for a finished streamer
      *
-     * @param title - Title of the stream
+     * @param title - Title of the streamer
      * @param language - Stream language
-     * @param numViewers - Number of viewers when the stream is closed
-     * @param streamerName - Streamer that had stream the stream
+     * @param numViewers - Number of viewers when the streamer is closed
+     * @param streamerName - Streamer that had streamer the streamer
      */
     FinishedStream(std::string title, language language,genre streamGenre, int numViewers, std::string streamerNick, ID streamID);
     ~FinishedStream();
+
     /**
-     * get type of the stream
-     *
+     * Get type of the streamer
      * @return - finished type
      */
     streamType getStreamType() const override;
 
-     /// @return - Date when the stream end
+    /// @return - State of the stream
+    streamState getStreamState() const override;
+
+     /// @return - Date when the streamer end
     const Date &getFinishedDate() const;
 
+    /// @return - Used to store the stream in the file
+    streamFileType getStreamFileType() const override;
+
+    /// @return - Number of viewers when stream ended
     int getNumViewers() const;
 
-    /// @return - relevant info about stream
+    /// @return - relevant info about streamer
     std::string getShorDescription() const override;
 
-    /// @return - detailed info about stream
+    /// @return - detailed info about streamer
     std::string getLongDescription() const override;
     /**
-     * Writing stream info to file
-     * @param ff Current file stream
+     * Writing streamer info to file
+     * @param ff Current file streamer
      */
     void writeToFile(std::ofstream &ff) override;
     /**
-     * Reading stream info from file
-     * @param ff Current file stream
+     * Reading streamer info from file
+     * @param ff Current file streamer
      */
     void readFromFile(std::ifstream &ff) override;
 
 private:
+    streamType type;
     Date finishedDate;
     int numViewers;
 };
