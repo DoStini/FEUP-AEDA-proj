@@ -48,8 +48,8 @@ void SortingManager::sortStreamByDate(std::vector<LiveStream *> &streams, bool r
               streams.end(),
               [reversed](LiveStream * ptr1, LiveStream * ptr2){
                   return !reversed
-                         ? ( ptr1->getBeginDate() > ptr2->getBeginDate() )
-                         : ( ptr1->getBeginDate() < ptr2->getBeginDate()  );
+                         ? ( ptr1->getBeginDate() < ptr2->getBeginDate() )
+                         : ( ptr1->getBeginDate() > ptr2->getBeginDate()  );
               });
 }
 
@@ -63,8 +63,8 @@ void SortingManager::sortUserDatePlatform(std::vector<User *> &users, bool rever
               users.end(),
               [reversed](User * ptr1, User * ptr2){
                   return !reversed
-                         ? ( ptr1->getJoinedPlatformDate() < ptr2->getJoinedPlatformDate() )
-                         : ( ptr1->getJoinedPlatformDate() > ptr2->getJoinedPlatformDate()  );
+                         ? ( ptr1->getJoinedPlatformDate() > ptr2->getJoinedPlatformDate() )
+                         : ( ptr1->getJoinedPlatformDate() < ptr2->getJoinedPlatformDate()  );
               });
 }
 

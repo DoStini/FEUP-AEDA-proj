@@ -46,14 +46,14 @@ public:
 
     /**
      * @param streams - Vector of livestreams - leave empty to sort the most recent data or send a filtered vector
-     * @param reversed - Defaults oldest streamer to most recent
+     * @param reversed - Defaults most recent stream to oldest stream
      * @return Returns by reference the desired vector of livestreams sorted by date
      */
     void sortStreamByDate(std::vector<LiveStream *> & streams, bool reversed = false);
 
     /**
      * @param users - Vector of users - leave empty to sort the most recent data or send a filtered vector
-     * @param reversed - Defaults oldest user on the platform to most recent
+     * @param reversed - Defaults most recent user on the platform to older
      * @return Returns by reference the desired vector of livestreams sorted by date
      */
     void sortUserDatePlatform(std::vector<User *> & users, bool reversed = false);
