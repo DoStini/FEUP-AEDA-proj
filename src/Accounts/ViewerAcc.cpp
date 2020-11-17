@@ -187,6 +187,9 @@ void ViewerAcc::findStreamFollowing() {
     printPagedList(streams, std::function<std::string(LiveStream *)>([](LiveStream*stream){
         return stream->getShortDescription();
     }));
+
+    print();
+    waitForKey();
 }
 
 void ViewerAcc::followStreamer() {
@@ -272,6 +275,9 @@ void ViewerAcc::listFollowingStreamers() {
         Streamer * streamer = dynamic_cast<Streamer *>(this->streamZ->getSearchM()->getUser(nick));
         return streamer->getShortDescription();
     }));
+
+    print();
+    waitForKey();
 }
 
 void ViewerAcc::displayHistory() {
@@ -292,4 +298,7 @@ void ViewerAcc::displayHistory() {
         auto * stream = dynamic_cast<Stream *>(this->streamZ->getSearchM()->getStream(streamID));
         return stream->getShortDescription();
     }));
+
+    print();
+    waitForKey();
 }

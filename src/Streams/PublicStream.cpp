@@ -22,9 +22,10 @@ void PublicStream::addViewer(const std::string &viewerNick) {
 }
 
 std::string PublicStream::getShortDescription() const {
-    std::stringstream ss;
-    ss << title << " (Stream Id: " << streamId << ")" << " -> Public";
-    return ss.str();
+    std::stringstream  ss1, ss2;
+    ss1 << "| id: " << streamId;
+    ss2 << std::setw(20) << std::left << title << std::setw(15) << std::left << ss1.str() << std::setw(15) << std::left << "| Public";
+    return ss2.str();
 }
 
 std::string PublicStream::getLongDescription() const {

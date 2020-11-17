@@ -424,7 +424,7 @@ void Account::top10StreamsViews() {
     print();
     for(size_t i = 0; i < streams.size(); i++) {
         ss.str("");
-        ss << i+1 << ". " << streams[i]->getShortDescription() << " Views: " << streams[i]->getNumViewers();
+        ss << i+1 << ". " << streams[i]->getShortDescription() << " | Views: " << streams[i]->getNumViewers();
 
         print(ss.str());
     }
@@ -437,6 +437,8 @@ void Account::top10StreamsLikes() {
     std::vector<LiveStream*> streams;
     std::stringstream ss;
 
+    streamZ->getLeaderBoard()->top10StreamLikes(streams);
+
     if(streams.empty()) {
         print("There are no streams currently airing.");
 
@@ -445,14 +447,12 @@ void Account::top10StreamsLikes() {
         return;
     }
 
-    streamZ->getLeaderBoard()->top10StreamLikes(streams);
-
     print("Here are the top 10 streams by likes: ");
 
     print();
     for(size_t i = 0; i < streams.size(); i++) {
         ss.str("");
-        ss << i+1 << ". " << streams[i]->getShortDescription() << " Likes: " << streams[i]->getLikes();
+        ss << i+1 << ". " << streams[i]->getShortDescription() << " | Likes: " << streams[i]->getLikes() << " | Dislikes: " << streams[i]->getDislikes();
 
         print(ss.str());
     }
@@ -472,7 +472,7 @@ void Account::top10OldestUsers() {
     print();
     for(size_t i = 0; i < users.size(); i++) {
         ss.str("");
-        ss << i+1 << ". " << users[i]->getShortDescription() << " Date Joined: " << users[i]->getJoinedPlatformDate().getStringDate();
+        ss << i+1 << ". " << users[i]->getShortDescription() << " | Date Joined: " << users[i]->getJoinedPlatformDate().getStringDate();
 
         print(ss.str());
     }

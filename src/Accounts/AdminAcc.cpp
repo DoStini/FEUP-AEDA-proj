@@ -120,7 +120,7 @@ void AdminAcc::statistics() {
             "Most/Least viewed type of stream.",
             "Most/Least viewed genre of stream.",
             "Most/Least viewed language.",
-            "Most/Least viewed streamer."
+            "Most viewed streamer."
     };
     print();
 
@@ -201,6 +201,7 @@ void AdminAcc::numStreamsType() {
         print("Invalid Input! Please try again: ", '\0');
     }
 
+    print();
     std::pair<Date, Date> dateInterval;
     bool validInterval = getTimeInterval(dateInterval);
     long num;
@@ -294,7 +295,7 @@ void AdminAcc::mostViewedStreamer() {
         Streamer * streamer = streamZ->getAdminOps()->mostViewed();
 
         print("The most viewed streamer is: ");
-        print(streamer->getLongDescription());
+        print(streamer->getShortDescription());
 
         waitForKey();
     } catch (EmptyDatabaseException &e) {

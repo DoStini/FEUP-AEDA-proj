@@ -254,10 +254,11 @@ void StreamerAcc::endStream() {
     char option;
     print("Do you want to end your stream? (Y/N) ", '\0');
 
-    while(!checkInput(option) || option != 'Y') {
+    while(!checkInput(option)) {
         print("Invalid Option! Please try again: ", '\0');
     }
 
+    if(toupper(option) != 'Y') return;
     print();
     try {
         streamer->closeStream();

@@ -4,9 +4,8 @@
 
 #include "Viewer.h"
 #include "StreamZ.h"
-
-#include <utility>
-#include "StreamZ.h"
+#include <iostream>
+#include <iomanip>
 
 Viewer::Viewer(std::string name, std::string nickName,std::string password, const Date &birthDate) :
                 User(name, std::move(nickName),std::move(password), birthDate) {
@@ -161,15 +160,17 @@ bool Viewer::isFollowing(std::string &streamer) {
 Viewer::Viewer() {}
 
 std::string Viewer::getShortDescription() const {
-    std::stringstream  ss;
-    ss << name << " (Nickname: " << nickName << ")" << " ->Viewer";
-    return ss.str();
+    std::stringstream  ss1, ss2;
+    ss1 << "| nick: " << nickName;
+    ss2 << std::setw(20) << std::left << name << std::setw(25) << std::left << ss1.str() << std::setw(12) << std::left <<"| Viewer";
+    return ss2.str();
 }
 
 std::string Viewer::getLongDescription() const {
     std::stringstream  ss;
     ss << "My name is " << name << std::endl
        << "My nickname is " << nickName << std::endl
+       << "I am a viewer" << std::endl
        << "My password is " << password << " hope you enjoy my account :)\n"
        << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years\n"
        << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl;
