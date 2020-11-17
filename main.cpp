@@ -1,5 +1,7 @@
 #include<iostream>
 #include <gtest/gtest.h>
+#include <chrono>
+#include <thread>
 
 #include "Viewer.h"
 #include "Date.h"
@@ -7,13 +9,14 @@
 #include "PublicStream.h"
 #include "StreamZ.h"
 
+
 using testing::Eq;
 
 /*TEST(test, createUsers){
 
-    EXPECT_THROW(Viewer("Andre Moreira", "gordoMan", Date(2009,3,9)), RestrictedAgeException);
+    EXPECT_THROW(Viewer("Andre Moreira", "gordoMan","random", Date(2009,3,9)), RestrictedAgeException);
     try{
-        Viewer v1("Andre Moreira", "gordoMan", Date(2009,3,9));
+        Viewer v1("Andre Moreira", "gordoMan","random", Date(2009,3,9));
     } catch (std::exception &ex) {
         std::cout << ex.what() << std::endl;
 
@@ -23,57 +26,58 @@ using testing::Eq;
         }
     }
 
-    EXPECT_THROW(Streamer("Andre Moreira", "gordoxgames", Date(2006,1,1)), RestrictedAgeException);
+    EXPECT_THROW(Streamer("Andre Moreira", "gordoxgames","random", Date(2006,1,1)), RestrictedAgeException);
 
-    Streamer sir("classy man", "classy-sir", Date(2001,1,1));
+    Streamer sir("classy man", "classy-sir","random", Date(2001,1,1));
     std::cout << "JCL JOINED: " << sir.getJoinedPlatformDate().getStringDateTime() << std::endl;
     EXPECT_EQ(sir.getBirthDate().getStringDate(), "01/01/2001");
     EXPECT_EQ(sir.getName(), "classy man");
 }*/
 
-
-/*TEST(test, publicStream) {
-    PublicStream s1("Nice stream", "PT");
-    ASSERT_EQ(s1.getTitle(), "Nice stream");
+/*
+TEST(test, publicStream) {
+    PublicStream s1("Nice streamer", PT_PT,gaming,"unknow",12);
+    ASSERT_EQ(s1.getTitle(), "Nice streamer");
     ASSERT_EQ(s1.getMinAge(), 12);
     ASSERT_EQ(s1.getNumViewers(), 0);
     Viewer v1("Andre Moreira", "gordoMan", Date(1999,3,9));
     Viewer v2("Andre Moreira", "gordox2", Date(1999,3,9));
-    s1.addViewer((User *) &v1);
+    s1.addViewer(v1.getNickName());
     ASSERT_EQ(s1.getNumViewers(), 1);
-    s1.addViewer((User *) &v2);
+    s1.addViewer(v2.getNickName());
     ASSERT_EQ(s1.getNumViewers(), 2);
 
-}*/
+}
+*/
 
 /*TEST(test, user_private_stream) {
-    PublicStream sp("Nice open source stream", "PT");
-    PrivateStream s1("Nice stream", "PT");
-    ASSERT_EQ(s1.getTitle(), "Nice stream");
+    PublicStream sp("Nice open source streamer", PT_PT,gaming,"unknow",12);
+    PrivateStream s1("Nice streamer", PT_PT,gaming,"unknow",12,5);
+    ASSERT_EQ(s1.getTitle(), "Nice streamer");
     ASSERT_EQ(s1.getMinAge(), 12);
     ASSERT_EQ(s1.getNumViewers(), 0);
     Viewer v1("Andre Moreira", "gordoMan", Date(1999, 3, 9));
     Viewer v2("Andre Moreira", "gordox2", Date(1999, 3, 9));
 
-    EXPECT_THROW(v1.joinStream(&s1), RestrictedStreamException);
-    EXPECT_THROW(v2.joinStream(&s1), RestrictedStreamException);
+    EXPECT_THROW(v1.joinStream(s1.getStreamId()), RestrictedStreamException);
+    EXPECT_THROW(v2.joinStream(s1.getStreamId()), RestrictedStreamException);
 
-    s1.addValidUser(&v1);
-    v1.joinStream(&s1);
+    s1.addValidUser(v1.getNickName());
+    v1.joinStream(s1.getStreamId());
     EXPECT_EQ(s1.getNumViewers(), 1);
 
     try{
-        v2.joinStream(&s1);
+        v2.joinStream(s1.getStreamId());
     } catch (std::exception & e) {
         if(strcmp(e.what(), "User not whitelisted"))
             std::cout << *( dynamic_cast<RestrictedStreamException *>(&e) ) << std::endl;
     }
 
-    EXPECT_THROW(v1.joinStream(&sp), AlreadyInStreamException);
+    EXPECT_THROW(v1.joinStream(sp.getStreamId()), AlreadyInStreamException);
 
 }*/
 
-
+/*
 TEST(test, createDateString){
     Date d1 = Date("2001/05/23");
     EXPECT_EQ(d1.getYear(), 2001);
@@ -169,7 +173,7 @@ TEST(test, hourMinute) {
     EXPECT_EQ(d4.getStringDateTime(), "03/05/2001 02:02");
 
     //EXPECT_THROW(Date("2010/04/23 25:00"), BadDateFormat);
-}
+}*/
 
 /*TEST(test, likeSystem){
     PublicStream s1("lolzadaAllDay","PT_PT",12);
@@ -213,7 +217,7 @@ TEST(test, hourMinute) {
     Viewer v2("Jorge", "---___---", Date(1980, 1, 1));
 
     v1.joinStream(&s1);
-    EXPECT_THROW(v1.giveFeedBack("muito boa stream"),NotPrivateStreamException);
+    EXPECT_THROW(v1.giveFeedBack("muito boa streamer"),NotPrivateStreamException);
 
     s2.addValidUser(&v2);
     v2.joinStream(&s2);
@@ -228,46 +232,374 @@ TEST(test, hourMinute) {
 
 }*/
 
-/*
+
 TEST(test, dataBase){
-    Create a test file
-    PublicStream *s1 = new PublicStream("lolzadaAllDay", "PT_PT", 12);
-    PublicStream *s2 = new PublicStream("lsadsolzadaAllDay", "PT_PT", 12);
-    PublicStream *s3 = new PublicStream("lolzadasdasdaAllDay", "PT_PT", 12);
-    PublicStream *s4 = new PublicStream("loasdsdalzadaAllDay", "PT_PT", 12);
-    PublicStream *s5 = new PublicStream("The stream", "PT_BR", 12);
 
-    Viewer *v1 = new Viewer("Rui", "user1", Date(2000, 1, 1));
-    Viewer *v2 = new Viewer("Rui", "user2", Date(2000, 1, 1));
-    Viewer *v3 = new Viewer("Rui", "user3", Date(2000, 1, 1));
-    Viewer *v4 = new Viewer("Rui", "user4", Date(2000, 1, 1));
-
-    dataBase.getUsers().insert(std::pair<std::string, User *>(  v1->getNickName(), (User *) v1  ) );
-    dataBase.getUsers().insert(std::pair<std::string, User *>(  v2->getNickName(), (User *) v2  ) );
-    dataBase.getUsers().insert(std::pair<std::string, User *>(  v3->getNickName(), (User *) v3  ) );
-    dataBase.getUsers().insert(std::pair<std::string, User *>(  v4->getNickName(), (User *) v4  ) );
-
-    dataBase.getStreams().insert(std::pair<ID, Stream *>(  1, (Stream *) s1  ) );
-    dataBase.getStreams().insert(std::pair<ID, Stream *>(  2, (Stream *) s2  ) );
-    dataBase.getStreams().insert(std::pair<ID, Stream *>(  3, (Stream *) s3  ) );
-    dataBase.getStreams().insert(std::pair<ID, Stream *>(  4, (Stream *) s4  ) );
-    dataBase.getStreams().insert(std::pair<ID, Stream *>(  5, (Stream *) s5  ) );
+    /*
+    PublicStream *s1 = new PublicStream("Stream 1", PT_PT, gaming);
+    PublicStream *s2 = new PublicStream("Stream 2", PT_BR, technology);
+    PublicStream *s3 = new PublicStream("Ok 1", PT_PT, cooking);
+    PublicStream *s4 = new PublicStream("S", PT_PT, music);
+    PublicStream *s5 = new PublicStream("S5", PT_PT, meetGreet);
+*/
 
 
+
+
+/*
+    StreamZ streamZ;
+    streamZ.init();
+    streamZ.run();
+    streamZ.getUserM()->createViewer("Rui", "user1", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Rui", "user2", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Rui", "user3", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Rui", "user4", Date(2000, 1, 1));
+
+    ASSERT_EQ(streamZ.getSearchM()->getUser("user1")->getName(), "Rui");
+    ASSERT_THROW(streamZ.getUserM()->createViewer("Rui", "user1", Date(2001, 1, 1)),
+                  AlreadyExists<std::string>);
+*/
+}
+
+/*
+TEST(test, testSorts){
 
     StreamZ streamZ;
     streamZ.init();
     streamZ.run();
 
-    ASSERT_EQ(streamZ.getSearchM()->getUser("user1")->getName(), "Rui");
-    Viewer * v1 = dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"));
-    ASSERT_THROW(v1->leaveStream(), NotInStreamException);
-    LiveStream * yeah = dynamic_cast<LiveStream *>( streamZ.getSearchM()->getStream(1) );
-    ASSERT_EQ(yeah->getMinAge(), 12);
-    ASSERT_EQ(streamZ.getSearchM()->getStream(2)->getTitle(), "lolzadasdasdaAllDay");
-    ASSERT_EQ(streamZ.getSearchM()->getStream(5)->getStreamLanguage(), "PT_BR");
+    streamZ.getUserM()->createViewer("Rui", "UsEr1", Date(2000, 1, 1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    streamZ.getUserM()->createViewer("Rui", "USER2", Date(2000, 1, 1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    streamZ.getUserM()->createViewer("Rui", "user3", Date(2000, 1, 1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    streamZ.getUserM()->createViewer("Rui", "user4", Date(2000, 1, 1));
+
+
+    streamZ.getStreamManager()->createPublicStream("Stream 1", PT_PT, gaming);
+    streamZ.getStreamManager()->createPublicStream("Stream 2", PT_BR, technology);
+    streamZ.getStreamManager()->createPublicStream("Ok 1", PT_PT, cooking);
+    streamZ.getStreamManager()->createPublicStream("S", PT_PT, music);
+    streamZ.getStreamManager()->createPublicStream("S5", PT_PT, meetGreet);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(
+            dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(0))
+            );
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(
+            dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(0))
+    );
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(
+            dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(1))
+    );
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(
+            dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(2))
+    );
+
+    std::vector<LiveStream *> streams;
+    streamZ.getSortM()->sortStreamByViews(streams);
+    ASSERT_EQ(streams[0]->getTitle(),"Stream 1");
+    ASSERT_EQ(streams[0]->getNumViewers(), 2);
+    ASSERT_EQ(streams[1]->getNumViewers(), 1);
+    ASSERT_EQ(streams[2]->getNumViewers(), 1);
+    streamZ.getSortM()->sortStreamByViews(streams, true);
+    ASSERT_EQ(streams[4]->getTitle(),"Stream 1");
+    ASSERT_EQ(streams[4]->getNumViewers(), 2);
+    ASSERT_EQ(streams[3]->getNumViewers(), 1);
+    ASSERT_EQ(streams[2]->getNumViewers(), 1);
+    ASSERT_EQ(streams[0]->getNumViewers(), 0);
+
+    std::vector<User *> users;
+    streamZ.getSortM()->sortUserDatePlatform(users);
+    ASSERT_EQ(users[0]->getNickName(), "user1");
+    ASSERT_EQ(users[1]->getNickName(), "user2");
+    ASSERT_EQ(users[2]->getNickName(), "user3");
+    ASSERT_EQ(users[3]->getNickName(), "user4");
+
+    std::vector<genre> _genres =  {gaming, technology, cooking};
+    streamZ.getSearchM()->listLiveStreams(streams, "", _genres);
+    streamZ.getSortM()->sortStreamByViews(streams);
+    ASSERT_EQ(streams[0]->getTitle(), "Stream 1");
 }
 */
+
+
+TEST(test, adminOps){
+    StreamZ streamZ;
+    streamZ.init();
+
+    streamZ.getUserM()->createViewer("Rui", "UsEr1","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Jacinto", "USER2","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Luis", "user3","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Alfredo", "user4","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe", "user5","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "user6","random", Date(2000, 1, 1));
+
+    streamZ.getUserM()->createStreamer("Streamer 1", "streamer1","random", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 2", "streamer2","random", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer3","random", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer4","random", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer5","random", Date(1995, 2,3));
+
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->startPublicStream("Stream 1", PT_PT, gaming);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->startPublicStream("Stream 2", PT_BR, technology);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->startPublicStream("Ok 1", PT_PT, cooking);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->startPublicStream("S", PT_PT, music);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->startPublicStream("S5", SPA, meetGreet);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(2);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(2);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(2);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(4);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(3);
+
+    ASSERT_EQ(streamZ.getAdminOps()->rankViewsLang(), PT_BR);
+    ASSERT_EQ(streamZ.getAdminOps()->rankViewsLang(true), SPA);
+    ASSERT_EQ(streamZ.getAdminOps()->rankViewsGenres(), technology);
+    ASSERT_EQ(streamZ.getAdminOps()->rankViewsGenres(true), meetGreet);
+
+    ASSERT_EQ(streamZ.getAdminOps()->numStreamsAll(), 5);
+
+    ASSERT_EQ(streamZ.getAdminOps()->numStreams(false), 0);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->closeStream();
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->closeStream();
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->closeStream();
+    ASSERT_EQ(streamZ.getAdminOps()->numStreams(false), 3);
+    ASSERT_EQ(dynamic_cast<Viewer*>(streamZ.getSearchM()->getUser("user1"))->watching(), false);
+    dynamic_cast<Viewer*>(streamZ.getSearchM()->getUser("user1"))->joinStream(4);
+
+    float val = streamZ.getAdminOps()->medianViewsStream();
+    std::stringstream ss;
+    ss << val;
+    ASSERT_EQ(ss.str(), "1.4");
+    ASSERT_EQ(streamZ.getAdminOps()->numStreams(), 2);
+}
+
+TEST(test, likeSystem){
+    StreamZ streamZ;
+    streamZ.init();
+    //streamZ.run();
+
+    streamZ.getUserM()->createViewer("Rui", "UsEr1","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Jacinto", "USER2","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Luis", "user3","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Alfredo", "user4","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe", "user5","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "user6","random", Date(2000, 1, 1));
+
+    streamZ.getUserM()->createStreamer("Streamer 1", "streamer1","random", Date(1995, 2,3));
+
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->startPublicStream("Stream 1", PT_PT, gaming);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(1);
+
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getNumViewers(),6);
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getDislikes(),0);
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),0);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->giveFeedBack(like);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->giveFeedBack(dislike);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->giveFeedBack(like);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->giveFeedBack(like);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->giveFeedBack(dislike);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->giveFeedBack(like);
+
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getDislikes(),2);
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),4);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->giveFeedBack(none);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->giveFeedBack(none);
+
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getDislikes(),1);
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),3);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->leaveStream();
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),3);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->giveFeedBack(like);
+    ASSERT_EQ(dynamic_cast<LiveStream * >(streamZ.getSearchM()->getStream(1))->getLikes(),3);
+
+
+}
+TEST(test, testDestructs){
+    StreamZ streamZ;
+    streamZ.init();
+    //streamZ.run();
+
+    streamZ.getUserM()->createViewer("Rui", "UsEr1","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Jacinto", "USER2","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Luis", "user3","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Alfredo", "user4","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe", "user5","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "user6","random", Date(2000, 1, 1));
+
+    streamZ.getUserM()->createStreamer("Streamer 1", "streamer1","random", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 2", "streamer2","random", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer3","random", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer4","random", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer5","random", Date(1995, 2,3));
+
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->startPublicStream("Stream 1", PT_PT, gaming);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->startPublicStream("Stream 2", PT_BR, technology);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->startPublicStream("Ok 1", PT_PT, cooking);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->startPublicStream("S", PT_PT, music);
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->startPublicStream("S5", SPA, meetGreet);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(2);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(1);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(2);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(2);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(4);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(3);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->followStreamer("streamer2");
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->followStreamer("streamer2");
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->followStreamer("streamer1");
+
+    ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->getNumFollowers(), 2);
+
+    ASSERT_EQ(dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(2))->getNumViewers(), 3);
+    streamZ.getUserM()->removeUser("streamer1");
+    ASSERT_THROW(streamZ.getSearchM()->getStream(1), DoesNotExist<ID>);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->watching(), false);
+    streamZ.getUserM()->removeUser("user1");
+
+    ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->getNumFollowers(), 1);
+
+    ASSERT_EQ(dynamic_cast<LiveStream *>(streamZ.getSearchM()->getStream(2))->getNumViewers(), 2);
+    streamZ.getStreamManager()->removeStream(2);
+    ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->streaming(), false);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->watching(), false);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->isInStreamHistory(2), false);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->watching(), false);
+    ASSERT_THROW(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->watching(), DoesNotExist<std::string>);
+    ASSERT_THROW(dynamic_cast<Viewer *>(streamZ.getSearchM()->getStream(2)), DoesNotExist<ID>);
+
+    streamZ.getUserM()->createViewer("Ganda cringe 2", "user7","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createStreamer("Streamer 3", "streamer6","random", Date(1995, 2,3));
+
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer6"))->startPublicStream("S5", SPA, meetGreet);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user7"))->joinStream(6);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user7"))->getCurrWatching(), 6 );
+    dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer6"))->closeStream();
+    ASSERT_TRUE(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user7"))->isInStreamHistory(6));
+    streamZ.getStreamManager()->removeStream(6);
+    ASSERT_FALSE(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user7"))->isInStreamHistory(6));
+
+
+}
+
+TEST(test, files1){
+    StreamZ streamZ;
+    streamZ.init();
+    streamZ.run();
+
+    try{
+        streamZ.getUserM()->createViewer("Rui", "UsEr1","random", Date(2000, 1, 1));
+        streamZ.getUserM()->createViewer("Jacinto", "USER2","random", Date(2000, 1, 1));
+        streamZ.getUserM()->createViewer("Luis", "user3","random", Date(2000, 1, 1));
+        streamZ.getUserM()->createViewer("Alfredo", "user4","random", Date(2000, 1, 1));
+        streamZ.getUserM()->createViewer("Ganda cringe", "user5","random", Date(2000, 1, 1));
+        streamZ.getUserM()->createViewer("Ganda cringe 2", "user6","random", Date(2000, 1, 1));
+
+        streamZ.getUserM()->createStreamer("Streamer 1", "streamer1","random", Date(1995, 2,3));
+        streamZ.getUserM()->createStreamer("Streamer 2", "streamer2","random", Date(1995, 2,3));
+        streamZ.getUserM()->createStreamer("Streamer 3", "streamer3","random", Date(1995, 2,3));
+        streamZ.getUserM()->createStreamer("Streamer 3", "streamer4","random", Date(1995, 2,3));
+        streamZ.getUserM()->createStreamer("Streamer 3", "streamer5","random", Date(1995, 2,3));
+
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->startPublicStream("Stream 1", PT_PT, gaming);
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->startPublicStream("Stream 2", PT_BR, technology);
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->startPublicStream("Ok 1", PT_PT, cooking);
+
+
+
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->startPrivateStream("S", PT_PT, music);
+        dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(4))->addValidUser("user4");
+        dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(4))->addValidUser("user5");
+        dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(4))->addValidUser("user6");
+
+
+
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->startPrivateStream("S5", SPA, meetGreet);
+
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->joinStream(2);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->giveFeedBack(like);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->joinStream(1);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->giveFeedBack(dislike);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->joinStream(2);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->giveFeedBack(dislike);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(2);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->giveFeedBack(dislike);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->joinStream(4);
+
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->giveFeedBack("Very cool");
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user5"))->giveFeedBack("Very cool 2");
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->joinStream(4);
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user6"))->giveFeedBack("Fun streamer!");
+
+
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->followStreamer("streamer2");
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->followStreamer("streamer2");
+        dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user3"))->followStreamer("streamer1");
+
+        //dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->closeStream();
+        //dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer2"))->closeStream();
+        dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer3"))->closeStream();
+
+        //dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer4"))->closeStream();
+        //dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer5"))->closeStream();
+
+    }
+    catch (AlreadyExists<std::string> & e) {
+        std::cout << "Exception: " << e.what() << std::endl;
+    }
+    streamZ.shutdown("DB.txt");
+
+
+    streamZ.init();
+    streamZ.run();
+
+    ASSERT_EQ(streamZ.getDatabase().getUsers().size(), 11);
+    ASSERT_EQ(streamZ.getDatabase().getStreams().size(), 5);
+
+
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->watching(), true);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->getCurrWatching(), 1);
+
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->getCurrWatching(), 2);
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->leaveStream();
+
+
+    ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->streaming(), true);
+    ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->getNumFollowers(), 1);
+    ASSERT_EQ(dynamic_cast<PublicStream *>(streamZ.getSearchM()->getStream(2))->getLikes(), 1);
+    ASSERT_EQ(dynamic_cast<PublicStream *>(streamZ.getSearchM()->getStream(2))->getDislikes(), 2);
+    ASSERT_EQ(dynamic_cast<Stream *>(streamZ.getSearchM()->getStream(3))->getStreamState(), finished);
+
+    ASSERT_EQ(dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(4))->getNumberComments(), 3);
+    ASSERT_EQ(dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(4))->getNumViewers(), 2);
+
+    dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user4"))->joinStream(4);
+
+    ASSERT_EQ(dynamic_cast<PrivateStream *>(streamZ.getSearchM()->getStream(4))->getNumViewers(), 3);
+
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->watching(), true);
+    ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->getCurrWatching(), 1);
+    ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->streaming(), true);
+    ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->getNumFollowers(), 1);
+
+}
+
+
+
 
 TEST(test, run) {
     StreamZ manager = StreamZ();

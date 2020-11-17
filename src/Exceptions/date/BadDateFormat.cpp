@@ -13,9 +13,9 @@ const char *BadDateFormat::what() const throw() {
 /**
  * Outputs a detailed explanation to the user on why the exception was thrown
  *
- * @param os - Output stream
+ * @param os - Output streamer
  * @param exception - The exception thrown
- * @return Output stream reference
+ * @return Output streamer reference
  */
 std::ostream &operator<<(std::ostream &os, const BadDateFormat &exception) {
     os << exception.date << " is not a valid date format.";

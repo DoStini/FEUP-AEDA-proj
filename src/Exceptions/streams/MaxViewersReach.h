@@ -15,8 +15,8 @@ class MaxViewersReach : public std::exception{
 public:
     /**
      * Constructor
-     * @param stream - The stream that is not private
-     * @param maxViewers - max number of viewers of the stream
+     * @param stream - The streamer that is not private
+     * @param maxViewers - max number of viewers of the streamer
      */
     MaxViewersReach(unsigned long long intstreamId, unsigned maxViewers);
     /**

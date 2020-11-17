@@ -1,5 +1,5 @@
 //
-// Created by Nuno Alves on 28/10/2020.
+// Created by adbp on 28/10/2020.
 //
 
 #ifndef FEUP_AEDA_PROJ_ADMIN_H
@@ -9,26 +9,31 @@
 
 class Admin : public User{
 public:
-    /**
-     * Constructor when creating a new user
-     * Throws a RestrictedAgeException if the user is not allowed to create an account
-     * @param name - Name of the user
-     * @param nickName - Nickename
-     * @param birthDate - Date of Birth
-     */
-    Admin(std::string name, std::string nickName, const Date &birthDate);
-    /**
-     * Info about the Admin
-     * @return UserType containing info about the admin
-     */
+
+    Admin(std::string name, std::string nickName,std::string password, const Date &birthDate);
+
+    Admin();
+
+    ///@return - user type = streamer
     userType getUserType() const override;
-
-    /// @return - relevant info about user
+    ///@return Short description
     std::string getShortDescription() const override;
-
-    /// @return - detailed info about user
+    ///@return Long description
     std::string getLongDescription() const override;
-
+    /// Not applicable
+    std::string getFollowDetails() const override;
+    /// Not applicable
+    std::string getHistoryDetails() const override;
+    /**
+     * Writing user info to file
+     * @param ff Current file streamer
+     */
+    void writeToFile(std::ofstream &ff) override;
+    /**
+     * Reading user info from file
+     * @param ff Current file streamer
+    */
+    void readFromFile(std::ifstream &ff) override;
 };
 
 

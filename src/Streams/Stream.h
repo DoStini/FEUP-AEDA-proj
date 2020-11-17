@@ -11,100 +11,103 @@
 #include <map>
 #include <utility>
 #include <sstream>
+#include <fstream>
 
 #include "utils.h"
 #include "Date.h"
 
 class User;
-class Viewer;
+class StreamZ;
 
 
 class Stream {
 public:
+    Stream();
     /**
-     * Constructor when creating a new stream
+     * Constructor when creating a new streamer
      *
-     * @param title - Title of the stream
+     * @param title - Title of the streamer
      * @param language - Stream language
-     * @param minAge - Minimal age of the stream , 12 by default
+     * @param genre - genre of the streamer
+     * @param minAge - Minimal age of the streamer , 12 by default
      */
-    Stream(std::string title, std::string language/*,genres genre REMOVE, unsigned minAge = VIEWER_MIN_AGE*/);
-    /**
-     * Give the title of the stream
-     *
-     * @return
-     */
+    Stream(std::string title, language language, genre genre, std::string streamerNick);
+
+    virtual ~Stream(){};
+
+    ///@return - Title of the streamer
     const std::string &getTitle() const;
-    /**
-     * Give us basic stream title, number of viewers, language and necessary age to join
-     *
-     * @return - string with all the info
-     */
-    virtual std::string getInfo() const = 0;
-    /// @return - type of the stream
+
+    ///@return - streamer language
+    const language &getStreamLanguage() const;
+
+    ///@return - date when the streamer begin
+    const Date &getBeginDate() const;
+
+    ///@return - streamer genre
+    genre getGenre() const;
+
+    ///@return - value that represent the streamer id
+    ID getStreamId();
+
+
+
+    /// @return - nick of the streamer
+    const std::string &getStreamerNick() const;
+
+    /// @return - type of the streamer
     virtual streamType getStreamType() const = 0;
-    /**
-     * Give us the stream language
-     *
-     * @return - stream language
-     */
-    const std::string &getStreamLanguage() const;
-    /**
-     * Add viewers to the stream
-     *
-     * @param viewer - pointer to viewer
-     */
-    void addViewer(User * viewer); // TO REMOVE
-    /**
-     * Remove viewer from the stream
-     *
-     * @param viewer - viewer pointer
-     */
-    void removeViewer(User * viewer); // TO REMOVE
-    /**
-     * Give the number of viewers in the stream
-     *
-     * @return - number of viewers
-     */
-    unsigned getNumViewers() const; // TO REMOVE
-    /**
-     * Give us the stream min age
-     *
-     * @return - stream min age
-     */
-    unsigned getMinAge() const; // TO REMOVE
-    /**
-     * Function used to end stream
-     *
-     * @return - corrent number of viewers
-     */
-    unsigned closeStream(); // TO REMOVE
-    /**
-     * Compare stream with there minAge
-     *
-     * @param compStream - stream to compare
-     * @return - stream that is being compared
-     */
-    // Change this operator later
-    bool operator<(Stream * compStream);
 
-    unsigned long long int getId();
+    /// @return - State of the stream
+    virtual streamState getStreamState() const = 0;
 
-    /// @return - relevant info about stream
-    virtual std::string getShortDescription() const = 0;
+    /// @return - Used to store the stream in the file
+    virtual streamFileType getStreamFileType() const = 0;
 
-    /// @return - detailed info about stream
+    /// @return - Number of viewers
+    virtual int getNumViewers() const = 0;
+
+    /// @return - relevant info about streamer
+    virtual std::string getShorDescription() const = 0;
+
+    /// @return - detailed info about streamer
     virtual std::string getLongDescription() const = 0;
 
-private:
+    /**
+     * Set streamer id to the given value
+     * @param streamId - lastID value
+     */
+    void setStreamId(ID streamId);
+
+    ///@param streamZ - pointer to the streamZ master class
+    void setStreamZ(StreamZ *streamZ);
+
+    /**
+     * Function to read a User from the files
+     * @param ifstream
+     */
+    virtual void readFromFile(std::ifstream & ff ) = 0;
+    /**
+     * Function to write a User to the files
+     * @param ofstream
+     */
+    virtual void writeToFile(std::ofstream  & ff ) = 0;
+
+protected:
+    /// General class that have all the info
+    StreamZ * streamZ = nullptr;
+    ///ID of the streamer
+    ID streamId;
+    ///Stream title
     std::string title;
+    ///Stream begin date
     Date beginDate;
-    std::string streamLanguage;
-    genre genre;
-    unsigned long long int streamId;
-    static unsigned long long int lastId ;
-    unsigned minAge; // to remove
-    std::vector<User *> streamViewers; // to remove
+    ///Stream language
+    language streamLanguage;
+    ///Stream genre
+    genre streamGenre;
+    /// NickName of the streamer streamer
+    std::string streamerNick;
 
 };
 

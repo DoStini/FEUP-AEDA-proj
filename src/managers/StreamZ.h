@@ -15,10 +15,12 @@
 #include "LeaderBoard.h"
 #include "utils.h"
 #include "Admin.h"
+#include "StreamManager.h"
 
 #include "User.h"
 #include "Viewer.h"
 #include "Streamer.h"
+#include "AdminOps.h"
 
 #include "Account.h"
 #include "ViewerAcc.h"
@@ -26,7 +28,6 @@
 #include "AdminAcc.h"
 
 
-#define ID unsigned long long int
 
 
 
@@ -34,12 +35,13 @@ class StreamZ {
     SortingManager * sortingManager;
     SearchManager * searchManager;
     UserManager * userManager;
+    StreamManager * streamManager;
     LeaderBoard * leaderboard;
     AdminOps * adminOps;
     Database dataBase;
 public:
     void init();
-    void shutdown();
+    void shutdown(std::string fileName);
     /**
      * Runs the program and prompts the user to login/register/exit the program.
      */

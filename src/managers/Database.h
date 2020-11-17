@@ -9,16 +9,22 @@ class User;
 class Stream;
 
 #include <string>
-#include <map>
+#include <unordered_map>
+#include "utils.h"
 
+/**
+ * Class to store the data from the application
+ */
 class Database {
 private:
-    std::map<std::string, User *> users;
-    std::map<long long int, Stream *> streams;
+    std::unordered_map<std::string, User *> users;
+    std::unordered_map<ID, Stream *> streams;
 public:
     Database() = default;
-    std::map<std::string, User *> & getUsers(){return users;};
-    std::map<long long int, Stream *> & getStreams() {return streams;};
+    /// @return A reference to the map containing the users
+    std::unordered_map<std::string, User *> & getUsers(){return users;};
+    /// @return A reference to the map containing the users
+    std::unordered_map<ID, Stream *> & getStreams() {return streams;};
 };
 
 

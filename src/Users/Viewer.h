@@ -7,8 +7,6 @@
 
 #include "User.h"
 #include "Streamer.h"
-#include "Stream.h"
-#include "LiveStream.h"
 #include "PrivateStream.h"
 #include "NotPrivateStreamException.h"
 
@@ -19,73 +17,141 @@
  */
 class Viewer : public User{
 public:
+    Viewer();
     /**
      * Constructor when creating a new user
-     * Throws a RestrictedAgeException if the user is not allowed to create an account
+     * @throw RestrictedAgeException if the user is not allowed to create an account
+     * @throw RestrictedStreamException if the user is not whitelisted
      * @param name - Name of the user
-     * @param nickName - Nickename
+     * @param nickName - Nickname
+     * @param password - User password
      * @param birthDate - Date of Birth
      *
      * @throws RestrictedAgeException if the user is not allowed to create an account
      */
-    Viewer(std::string name, std::string nickName, const Date &birthDate);
-    /**
-     * Info about the viewer
-     * @return UserType containing info about the viewer
-     */
+    Viewer(std::string name, std::string nickName,std::string password, const Date &birthDate);
+
+    ~Viewer();
+
+    ///@return - user type = viewer
     userType getUserType() const override;
-    /// @return boolean indicating if the user is watching some stream or not
-    bool watching();
+
+    ///@return - ID of current watching streamer
+    ID getCurrWatching() const;
+
+    /// @return boolean indicating if the user is watching some streamer or not
+    bool watching() const;
+
     /**
      * Follow a streamer
      * @param streamer - The desired streamer
      */
-    void followStreamer(std::string streamer);
+    void followStreamer(const std::string& streamer);
+
     /**
      * Unfollow a streamer
      * @param streamer - Desired streamer
      */
-    void unFollowStreamer(std::string streamer);
+    void unFollowStreamer(const std::string& streamer);
+
     /**
-     * Join a stream
-     * Might throw AlreadyInStreamException
-     * @param stream - Desired stream
-     *
-     * @throws DoesNotExist if live stream with stream id does not exist.
-     * @throws AlreadyInStreamException if user is already in a stream.
-     * @throws RestrictedAgeException if user is not old enough.
-     * @throws RestrictedStreamException if user is not allowed to join the stream.
+     * Removes a streamer from the vector
+     * Used only by streamer destructor
+     * @param streamer
+     */
+    void removeFollowStreamer(const std::string & streamer);
+
+    /**
+     * Checks if the viewers is following a streamer
+     * @param streamer - The streamer's nick
+     * @return
+     */
+    bool isFollowing(std::string & streamer);
+
+    /**
+     * Join a streamer
+     * @throw DoesNotExist
+     * @throw AlreadyInStreamException
+     * @throw RestrictedAgeExpeption
+     * @throw RestrictedStreamExpeption
+     * @param stream - Desired streamer
      */
     void joinStream(ID streamID);
-    /// Leave the current stream. @throws NotInStreamException if user is not in a stream.
+
+    /** Leave the current streamer
+     * @throw NotInStreamException
+     */
     void leaveStream();
-    /// Like the current stream
-    void giveFeedBack(feedback fbValue);
+
     /**
-     * Leave a comment on the (private) stream currently watching
+     * Function to be used only when deleting a streamer from the system deleting the streamer pointer
+     */
+    void kickedStream();
+
+    /**
+     * Add streamer to the streamer history
+     *
+     * @param streamID - streamer to be added to the history
+     */
+    void addStreamHistory(ID streamID);
+
+    /**
+     * Remove streamer from the streamer history
+     *
+     * @param streamID - streamer to be removed from the history
+     */
+    void removeStreamHistory(ID streamID);
+
+    /**
+     * Checks if a streamer is in the streamer history
+     * @param streamID - id of the streamer to be checked
+     * @return - true if it is, otherwise false
+     */
+    bool isInStreamHistory(ID streamID);
+
+    /**
+     * Gives feedback
+     * @throw NotInStreamException
+     * @param fbValue - Feedback value
+     */
+    void giveFeedBack(feedback fbValue);
+
+    /**
+     * Leave a comment on the (private) streamer currently watching
+     * @throw NotInStreamException
+     * @throw NotPrivateStreamException
      * @param comment - The comment
      */
-    void giveFeedBack(std::string comment);
-
-    const std::vector<ID> &getHistory() const;
-
-    const std::vector<std::string> &getFollowingStreamers() const;
-
-    unsigned long long int getStreamID() const;
+    void giveFeedBack(const std::string& comment);
+    /**
+     * Reading user info from file
+     * @param ff Current file streamer
+     */
+    void readFromFile(std::ifstream & ff ) override;
+    /**
+     * Writing user info to file
+     * @param ff Current file streamer
+     */
+    void writeToFile(std::ofstream  & ff ) override;
 
     /// @return - relevant info about user
-    std::string getShortDescription() const override;
+    std::string getShorDescription() const override;
 
     /// @return - detailed info about user
     std::string getLongDescription() const override;
 
+    /// @return - string with all the following
+    std::string getFollowDetails() const override;
+
+    /// @return - string with all the streamer history
+    std::string getHistoryDetails() const override;
 
 private:
     /// Minimum age to be able to create a viewer account
     static const unsigned minimumAge = VIEWER_MIN_AGE;
     /// Stream currently watching
-    Stream * currWatching = nullptr;
-    /// List of streamers the viewer follows
+    ID currWatching = 0;
+    /// List of streamers nicks the viewer follows
     std::vector<std::string> followingStreamers;
     /// Vector of streams that user have seen
     std::vector<ID> streamHistory;

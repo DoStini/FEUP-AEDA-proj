@@ -13,7 +13,7 @@ class NotPrivateStreamException : public std::exception {
 public:
     /**
      * Constructor
-     * @param stream - The stream that is not private
+     * @param stream - The streamer that is not private
      */
     NotPrivateStreamException(unsigned long long int streamId);
     /**

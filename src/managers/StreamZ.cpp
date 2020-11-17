@@ -7,26 +7,26 @@
 #include "utils.h"
 #include "InvalidPassword.h"
 #include "AlreadyExists.h"
-
+#include "LiveStream.h"
 
 
 void StreamZ::init() {
-
-    //readFromFile();
-
+    LiveStream::lastId = NULL_STREAM;
     sortingManager = new SortingManager(this);
     searchManager = new SearchManager(this);
     userManager = new UserManager(this);
-    leaderboard = new LeaderBoard(this);
+    streamManager = new StreamManager(this);
     adminOps = new AdminOps(this);
+    leaderboard = new LeaderBoard(this);
     dataBase = Database();
 }
 
-void StreamZ::shutdown() {
-    //backupData();
+void StreamZ::shutdown(std::string fileName) {
+    backupData(fileName);
     delete sortingManager;
     delete searchManager;
     delete userManager;
+    delete streamManager;
     delete leaderboard;
 }
 
@@ -48,6 +48,15 @@ const AdminOps *StreamZ::getAdminOps() {
 
 const LeaderBoard *StreamZ::getLeaderBoard() {
     return leaderboard;
+}
+
+Database &StreamZ::getDatabase() {
+    return dataBase;
+}
+
+
+const StreamManager *StreamZ::getStreamManager(){
+    return streamManager;
 }
 
 
@@ -183,11 +192,6 @@ void StreamZ::login() {
 
     account->run();
     delete account;
-}
-
-
-Database &StreamZ::getDatabase() {
-    return dataBase;
 }
 
 void StreamZ::registerUser() {

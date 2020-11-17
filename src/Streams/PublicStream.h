@@ -6,24 +6,46 @@
 #define FEUP_AEDA_PROJ_PUBLICSTREAM_H
 
 #include "LiveStream.h"
+#include <fstream>
 
 class PublicStream : public LiveStream {
 public:
+    PublicStream();
     /**
      * Constructor to Public Stream
      *
-     * @param title - Title of the stream
+     * @param title - Title of the streamer
      * @param language - Stream language
-     * @param minAge - Minimal age of the stream , 12 by default
+     * @param minAge - Minimal age of the streamer , 12 by default
      */
-    PublicStream(std::string title, std::string language, unsigned minAge = 12);
-    std::string getInfo() const override;
+    PublicStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge);
+
+    ///@return - streamer type = public type
     streamType getStreamType() const override;
 
-    /// @return - relevant info about stream
-    std::string getShortDescription() const override;
+    /// @return - Used to store the stream in the file
+    streamFileType getStreamFileType() const override;
 
-    /// @return - detailed info about stream
+    /**
+    * Add viewers to the streamer
+    *
+    * @param viewerNick - Nick name of the viewer
+    */
+    void addViewer(const std::string& viewerNick) override;
+    /**
+     * Reading streamer info to file
+     * @param ff Current file streamer
+     */
+    void readFromFile(std::ifstream &ff) override;
+    /**
+     * Writing streamer info to file
+     * @param ff Current file streamer
+     */
+    void writeToFile(std::ofstream &ff) override;
+    /// @return - relevant info about streamer
+    std::string getShorDescription() const override;
+
+    /// @return - detailed info about streamer
     std::string getLongDescription() const override;
 };
 

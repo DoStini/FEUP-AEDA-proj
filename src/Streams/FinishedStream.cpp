@@ -3,20 +3,120 @@
 //
 
 #include "FinishedStream.h"
+#include "StreamZ.h"
+#include <utility>
 
-FinishedStream::FinishedStream(std::string title, std::string language, int numViewers, std::string streamerName)
-                                :Stream(title,language), numViewers(numViewers), streamerName(streamerName) {
 
+FinishedStream::FinishedStream() : Stream() {
 }
 
-std::string FinishedStream::getInfo() const {
-    return "Finished stream";
+FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerNick,ID streamID)
+                                : Stream(std::move(title),language,streamGenre,std::move(streamerNick)), numViewers(numViewers){
+    streamId = streamID;
+    Date currDate; currDate.setSystemDate();
+    finishedDate = currDate;
 }
 
-std::string FinishedStream::getShortDescription() const {
-    return std::__cxx11::string();
+
+FinishedStream::~FinishedStream() {
+    streamZ->getUserM()->removeHistoryElemFromUser(streamId);
+}
+
+streamType FinishedStream::getStreamType() const {
+    return type;
+}
+
+
+streamState FinishedStream::getStreamState() const {
+    return finished;
+}
+
+streamFileType FinishedStream::getStreamFileType() const {
+    return finishedFile;
+}
+
+const Date &FinishedStream::getFinishedDate() const {
+    return finishedDate;
+}
+
+int FinishedStream::getNumViewers() const {
+    return numViewers;
+}
+
+std::string FinishedStream::getShorDescription() const {
+    std::stringstream ss;
+    ss << title << " (Stream Id: " << streamId << ")" << " ->Finished";
+    return ss.str();
 }
 
 std::string FinishedStream::getLongDescription() const {
-    return std::__cxx11::string();
+    std::stringstream ss;
+    ss << "Streamed by:" << streamerNick << std::endl
+       << "Star streaming: " << beginDate.getStringDate() << std::endl
+       << "Language: " << streamLanguage << std::endl
+       << "Genre: " << streamGenre << std::endl
+       << "Final viewers: " << numViewers << std::endl
+       << "Stream finished at: " << finishedDate.getStringDate();
+    return ss.str();
 }
+
+void FinishedStream::writeToFile(std::ofstream &ff) {
+
+    int num = 0;
+    std::string counter;
+    std::stringstream temp(title);
+    while (temp >> counter) num ++;
+
+    ff << streamId << " , " << num << " , " << title << " , " << beginDate.getStringDateTime()
+       << " , " << streamLanguage << " , " << streamGenre << " , " << type
+       << " , " << streamerNick << " , " << finishedDate.getStringDateTime()
+       << " , " << numViewers << " , " << std::endl;
+
+}
+
+void FinishedStream::readFromFile(std::ifstream &ff) {
+
+    int num;
+    char sep;
+
+    std::string temp;
+    std::stringstream ss;
+
+    ff >> streamId >> sep >> num >> sep;
+
+    for (int i = 0; i < num; ++i) {
+        ff >> temp;
+        ss << temp << (i == num-1 ? "" : " ");
+    }
+
+    title =  ss.str();
+
+    ff >> sep;
+
+    ss.str(std::string());    // Clearing the string streamer
+
+    ff >> temp; ss << temp << " "; // Building date and hour/minute
+    ff >> temp; ss << temp; // Building date and hour/minute
+
+    beginDate = Date(ss.str());
+
+    int lang, _genre, _type;
+
+    ff >> sep >> lang >> sep >> _genre >> sep >> _type >> sep >> streamerNick
+       >> sep;
+
+    streamLanguage = (language) lang;
+    streamGenre = (genre) _genre;
+    type = (streamType) _type;
+
+    ss.str(std::string());    // Clearing the string streamer
+
+    ff >> temp; ss << temp << " "; // Building date and hour/minute
+    ff >> temp; ss << temp; // Building date and hour/minute
+
+    finishedDate = Date(ss.str());
+
+    ff >> sep >> numViewers >> sep;
+
+}
+

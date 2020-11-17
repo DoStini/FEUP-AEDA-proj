@@ -12,7 +12,6 @@
 
 #define MAX_VIEWERS 10
 #define LINE_BREAK "\n#-----------------------------------#\n"
-typedef unsigned long long int ID;
 
 
 #include <iostream>
@@ -149,6 +148,28 @@ enum streamType{
     finishedType,
 };
 
+enum streamType{
+    publicType = 1,
+    privateType
+};
+
+enum streamFileType{
+    publicFile = 1,
+    privateFile,
+    finishedFile
+};
+
+enum streamState{
+    livestream,
+    finished
+};
+
+enum userType{
+    viewer = 1,
+    streamer,
+    admin,
+};
+
 enum language{
     PT_PT = 0,
     PT_BR,
@@ -162,6 +183,7 @@ enum language{
     LASTL
 };
 
+
 enum genre{
     gaming = 0,
     technology,
@@ -170,6 +192,8 @@ enum genre{
     meetGreet,
     LASTG
 };
+
+typedef unsigned long long int ID;
 
 
 #endif //FEUP_AEDA_PROJ_UTILS_H

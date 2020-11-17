@@ -14,7 +14,7 @@ class NotInWhiteListException : public std::exception{
     /**
    * Constructor
    * @param user - The user that originated the error
-   * @param streamWhilisted - id of the stream where de user is whitlisted
+   * @param streamWhilisted - id of the streamer where de user is whitlisted
    */
 public:
     NotInWhiteListException(std::string user, unsigned long long int streamWhilisted);

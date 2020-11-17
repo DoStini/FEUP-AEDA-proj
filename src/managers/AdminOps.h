@@ -10,6 +10,7 @@
 
 #include "utils.h"
 #include "Date.h"
+#include "EmptyDatabaseException.h"
 
 class StreamZ;
 class Streamer;
@@ -24,51 +25,75 @@ public:
      * @param streamZ - Main class pointer
      */
     AdminOps(StreamZ *streamZ);
-    /// @return Pointer to the most viewed streamer
-    Streamer * mostViewed() const;
+    /**
+     * @throw EmptyDatabase if the custom search doesn't find anything
+     * @return Pointer to the most viewed streamer
+     */
+    Streamer * mostViewed();
     /**
      * @param reversed - Optional: Set to true if you want the least viewed language
+     * @throw EmptyDatabase if the custom search doesn't find anything
      * @return Most viewed language among streams ( enum language)
      */
-    language rankViewsLang(bool reversed = false) const;
+    language rankViewsLang(bool reversed = false);
     /**
      * @param reversed - Optional: Set to true if you want the least viewed genre
+     * @throw EmptyDatabase if the custom search doesn't find anything
      * @return Most viewed genre among streams ( enum genre)
      */
-    genre rankViewsGenres(bool reversed = false) const;
+    genre rankViewsGenres(bool reversed = false);
     /**
      * @param reversed - Optional: Set to true if you want the least viewed genre
+     * @throw EmptyDatabase if the custom search doesn't find anything
      * @return Most viewed genre among streams ( enum genre)
      */
-    streamType rankViewsTypes(bool reversed = false) const;
-    /// @return The median views per stream
-    float medianViewsStream() const;
+    streamType rankViewsTypes(bool reversed = false);
+    /// @return The median views per streamer
+    float medianViewsStream();
 
-    float medianViewsStream(Date d1, Date d2) const;
+    float medianViewsStream(Date d1, Date d2);
     /// @return The number of all of the streams ever created
-    long int numStreamsAll() const;
-    /// @return The number of active streams
-    long int numStreams() const;
+    long int numStreamsAll();
+
+    /**
+     * Returns the number of active (or inactive) streams in the system
+     * @param publicStr - Option: Indicates if wants the count of active or inactive
+     * @return
+     */
+    long int numStreams(bool activeStr = true);
     /**
      * @param streamType - The specific type (public, private or finished)
      * @return The number of streams of the specified type
      */
-    long int numStreams(streamType streamType) const;
-    long int numStreams(Date d1, Date d2) const;
-    long int numStreams(streamType streamType, Date d1, Date d2) const;
+    long int numStreams(streamType streamType);
+    /**
+     * Number of streams between the specified dates
+     * @param d1 - Smaller date
+     * @param d2 - Bigger date
+     * @return Number of streams
+     */
+    long int numStreams(Date d1, Date d2);
+    /**
+     * Number of streams between the specified dates of the specified type
+     * @param streamType - The specific type (public, private or finished)
+     * @param d1 - Smaller date
+     * @param d2 - Bigger date
+     * @return
+     */
+    long int numStreams(streamType streamType, Date d1, Date d2);
 
     /**
      * Removes a user
      * @throw DoesNotExist<std::string>
      * @param nickName Nickname of the user
      */
-    void removeUser(std::string nickName) const;
+    void removeUser(std::string nickName);
     /**
-     * Removes a stream
+     * Removes a streamer
      * @throw DoesNotExist<ID>
-     * @param streamID ID of the stream
+     * @param streamID ID of the streamer
      */
-    void removeStream(ID streamID) const;
+    void removeStream(ID streamID);
 
 private:
     StreamZ * streamZ;
