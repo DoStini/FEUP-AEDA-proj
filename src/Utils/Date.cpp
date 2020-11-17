@@ -9,9 +9,9 @@ Date::Date(const std::string &date) {
     std::stringstream dateStream(date);
     const char* formats[5] = {"%Y/%m/%d %H:%M\0", "%Y/%m/%d %H\0", "%Y/%m/%d\0", "%Y-%m-%d\0", "%Y %m %d\0"};
 
-    for(short i = 0 ; i < 5; i++) {
+    for(auto & format : formats) {
         setToZero();
-        dateStream >> std::get_time(&dateStruct, formats[i]);
+        dateStream >> std::get_time(&dateStruct, format);
 
         if(!dateStream.fail()) {
             if(checkValidDate()) {

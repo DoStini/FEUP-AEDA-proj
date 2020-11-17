@@ -3,22 +3,21 @@
 //
 
 #include "AdminAcc.h"
-#include "Account.h"
 #include "Admin.h"
 #include "StreamZ.h"
 #include "EmptyDatabaseException.h"
 
 AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
-    if(Admin * ad = dynamic_cast<Admin*>(admin)) {
+    if(auto * ad = dynamic_cast<Admin*>(admin)) {
         this->admin = ad;
     } else {
         throw WrongUserTypeException(userType::admin);
     }
 
     options.insert(options.begin()+5, {
-        std::bind(&AdminAcc::statistics, this),
-        std::bind(&AdminAcc::removeUser, this),
-        std::bind(&AdminAcc::removeStream, this)
+        [this] { statistics(); },
+        [this] { removeUser(); },
+        [this] { removeStream(); }
     });
     optionDescriptions.insert(optionDescriptions.begin()+5, {
         "Display the statistics panel.",
@@ -103,14 +102,14 @@ void AdminAcc::statistics() {
     print("STATISTICS: ");
     std::vector<Option> sOptions = {
             [](){},
-            std::bind(&AdminAcc::numStreams, this),
-            std::bind(&AdminAcc::numStreamsAll, this),
-            std::bind(&AdminAcc::numStreamsType, this),
-            std::bind(&AdminAcc::viewsPerStream, this),
-            std::bind(&AdminAcc::mostViewedType, this),
-            std::bind(&AdminAcc::mostViewedGenre, this),
-            std::bind(&AdminAcc::mostViewedLanguage, this),
-            std::bind(&AdminAcc::mostViewedStreamer, this)
+            [this] { numStreams(); },
+            [this] { numStreamsAll(); },
+            [this] { numStreamsType(); },
+            [this] { viewsPerStream(); },
+            [this] { mostViewedType(); },
+            [this] { mostViewedGenre(); },
+            [this] { mostViewedLanguage(); },
+            [this] { mostViewedStreamer(); }
     };
     std::vector<std::string> descriptions = {
             "Exit statistics panel",

@@ -4,24 +4,23 @@
 
 #include "StreamerAcc.h"
 #include "Streamer.h"
-#include "Account.h"
 #include "StreamZ.h"
 #include "NotInWhiteListException.h"
 
 StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
-    if(Streamer * streamer = dynamic_cast<Streamer*>(user)) {
-        this->streamer = streamer;
+    if(auto * streamerPtr = dynamic_cast<Streamer*>(user)) {
+        this->streamer = streamerPtr;
     } else {
         throw WrongUserTypeException(userType::streamer);
     }
 
     options.insert(options.begin()+5, {
-        std::bind(&StreamerAcc::startStream, this),
-        std::bind(&StreamerAcc::checkNumViewers, this),
-        std::bind(&StreamerAcc::kickUserFromStream, this),
-        std::bind(&StreamerAcc::addUserToPrivate, this),
-        std::bind(&StreamerAcc::removeUserFromPrivate, this),
-        std::bind(&StreamerAcc::endStream, this)
+        [this] { startStream(); },
+        [this] { checkNumViewers(); },
+        [this] { kickUserFromStream(); },
+        [this] { addUserToPrivate(); },
+        [this] { removeUserFromPrivate(); },
+        [this] { endStream(); }
     });
     optionChecks[5] = [this](){return !this->streamer->streaming();};
     optionChecks[6] = optionChecks[7] = optionChecks[10] = [this](){return this->streamer->streaming();};
@@ -58,7 +57,7 @@ void StreamerAcc::startStream() {
     print("Available Stream Genres: ");
     print();
 
-    for(uint32_t i = (unsigned int) genre::gaming; i != genre::LASTG; i++) {
+    for(auto i = (unsigned int) genre::gaming; i != genre::LASTG; i++) {
         ss.str("");
         ss << i + 1 << ". " << genreTypes[i];
 
@@ -77,7 +76,7 @@ void StreamerAcc::startStream() {
     print("Available Stream Languages: ");
     print();
 
-    for(uint32_t i = (unsigned int) language::PT_PT; i != language::LASTL; i++) {
+    for(auto i = (unsigned int) language::PT_PT; i != language::LASTL; i++) {
         ss.str("");
         ss << i + 1 << ". " << languageTypes[i];
 
@@ -224,7 +223,7 @@ void StreamerAcc::addUserToPrivate() {
 
     try {
         streamID = streamer->getStreamID();
-        PrivateStream * privateStream = dynamic_cast<PrivateStream *>(streamZ->getSearchM()->getStream(streamID));
+        auto * privateStream = dynamic_cast<PrivateStream *>(streamZ->getSearchM()->getStream(streamID));
         if(!privateStream) {
             throw NotPrivateStreamException(streamID);
         }
@@ -291,7 +290,7 @@ void StreamerAcc::removeUserFromPrivate() {
 
     try {
         streamID = streamer->getStreamID();
-        PrivateStream * privateStream = dynamic_cast<PrivateStream *>(streamZ->getSearchM()->getStream(streamID));
+        auto * privateStream = dynamic_cast<PrivateStream *>(streamZ->getSearchM()->getStream(streamID));
         if(!privateStream) {
             throw NotPrivateStreamException(streamID);
         }

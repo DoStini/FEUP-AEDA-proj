@@ -9,23 +9,23 @@
 #include<functional>
 
 ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
-    if(Viewer * viewer = dynamic_cast<Viewer*>(user)) {
-        this->viewer = viewer;
+    if(auto * viewerPtr = dynamic_cast<Viewer*>(user)) {
+        this->viewer = viewerPtr;
     } else {
         throw WrongUserTypeException(userType::viewer);
     }
 
 
     options.insert(options.begin()+5, {
-        std::bind(&ViewerAcc::findStreamFollowing, this),
-        std::bind(&ViewerAcc::joinStreamById, this),
-        std::bind(&ViewerAcc::leaveStream, this),
-        std::bind(&ViewerAcc::giveFeedback, this),
-        std::bind(&ViewerAcc::giveComment, this),
-        std::bind(&ViewerAcc::listFollowingStreamers, this),
-        std::bind(&ViewerAcc::followStreamer, this),
-        std::bind(&ViewerAcc::unfollowStreamer, this),
-        std::bind(&ViewerAcc::displayHistory, this)
+        [this] { findStreamFollowing(); },
+        [this] { joinStreamById(); },
+        [this] { leaveStream(); },
+        [this] { giveFeedback(); },
+        [this] { giveComment(); },
+        [this] { listFollowingStreamers(); },
+        [this] { followStreamer(); },
+        [this] { unfollowStreamer(); },
+        [this] { displayHistory(); }
     });
     optionChecks[5] = optionChecks[10] = optionChecks[12] =
             [this]() {return !this->viewer->getFollowingStreamers().empty();};
@@ -173,7 +173,7 @@ void ViewerAcc::findStreamFollowing() {
     std::vector<LiveStream *> streams;
     streamZ->getSearchM()->listLiveStreamsByStreamers(streams, streamerNicks);
 
-    if(streams.size() == 0) {
+    if(streams.empty()) {
         print("There are no live streams airing from the streamers you follow.");
 
         waitForKey();
@@ -289,7 +289,7 @@ void ViewerAcc::displayHistory() {
     print();
 
     printPagedList(history, std::function<std::string(ID)>([this](ID streamID){
-        Stream * stream = dynamic_cast<Stream *>(this->streamZ->getSearchM()->getStream(streamID));
+        auto * stream = dynamic_cast<Stream *>(this->streamZ->getSearchM()->getStream(streamID));
         return stream->getShortDescription();
     }));
 }

@@ -235,7 +235,7 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
     print("Available Stream Genres: ");
     print();
 
-    for(uint32_t i = (unsigned int) genre::gaming; i != genre::LASTG; i++) {
+    for(auto i = (unsigned int) genre::gaming; i != genre::LASTG; i++) {
         ss.str("");
         ss << i + 1 << ". " << genreTypes[i];
 
@@ -258,7 +258,7 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
     print("Available Stream Languages: ");
     print();
 
-    for(uint32_t i = (unsigned int) language::PT_PT; i != language::LASTL; i++) {
+    for(auto i = (unsigned int) language::PT_PT; i != language::LASTL; i++) {
         ss.str("");
         ss << i + 1 << ". " << languageTypes[i];
 
@@ -296,7 +296,7 @@ void Account::listStreams() {
     searchParameters(streams);
 
     print();
-    if(streams.size() == 0) {
+    if(streams.empty()) {
         print("There are no live streams airing for the parameters selected.");
 
         waitForKey();
@@ -394,8 +394,8 @@ void Account::listUsers() {
     print("Here are the results: ");
     print();
 
-    printPagedList(users, std::function<std::string(User *)>([](User*user){
-        return user->getShortDescription();
+    printPagedList(users, std::function<std::string(User *)>([](User*userPtr){
+        return userPtr->getShortDescription();
     }));
 }
 
@@ -405,7 +405,7 @@ void Account::top10StreamsViews() {
 
     streamZ->getLeaderBoard()->top10StreamViews(streams);
 
-    if(streams.size() == 0) {
+    if(streams.empty()) {
         print("There are no streams currently airing.");
 
         waitForKey();
@@ -416,7 +416,7 @@ void Account::top10StreamsViews() {
     print("Here are the top 10 streams by views: ");
 
     print();
-    for(unsigned short i = 0; i < streams.size(); i++) {
+    for(size_t i = 0; i < streams.size(); i++) {
         ss.str("");
         ss << i+1 << ". " << streams[i]->getShortDescription() << " Views: " << streams[i]->getNumViewers();
 
@@ -431,7 +431,7 @@ void Account::top10StreamsLikes() {
     std::vector<LiveStream*> streams;
     std::stringstream ss;
 
-    if(streams.size() == 0) {
+    if(streams.empty()) {
         print("There are no streams currently airing.");
 
         waitForKey();
@@ -444,7 +444,7 @@ void Account::top10StreamsLikes() {
     print("Here are the top 10 streams by likes: ");
 
     print();
-    for(unsigned short i = 0; i < streams.size(); i++) {
+    for(size_t i = 0; i < streams.size(); i++) {
         ss.str("");
         ss << i+1 << ". " << streams[i]->getShortDescription() << " Likes: " << streams[i]->getLikes();
 
@@ -464,7 +464,7 @@ void Account::top10OldestUsers() {
     print("Here are the top 10 long standing users: ");
 
     print();
-    for(unsigned short i = 0; i < users.size(); i++) {
+    for(size_t i = 0; i < users.size(); i++) {
         ss.str("");
         ss << i+1 << ". " << users[i]->getShortDescription() << " Date Joined: " << users[i]->getJoinedPlatformDate().getStringDate();
 
@@ -523,9 +523,9 @@ void Account::displayUserInfo() {
     }
 
     try {
-        User * user = streamZ->getSearchM()->getUser(nickName);
+        User * userPtr = streamZ->getSearchM()->getUser(nickName);
 
-        print(user->getLongDescription());
+        print(userPtr->getLongDescription());
     } catch(DoesNotExist<std::string> &e) {
         print("Operation failed: ");
         print("No such user with nickname ", '\0');
@@ -546,14 +546,14 @@ void Account::sortingMethods(std::vector<T *> &toSort, std::vector<std::string> 
 
     getChar(option);
     option = toupper(option);
-    size_t options = sortDescriptions.size();
+    size_t sortOptions = sortDescriptions.size();
 
     if(option == 'Y') {
         print();
         print("Available sorting methods:");
         print();
 
-        for(size_t i = 0; i < options; i++) {
+        for(size_t i = 0; i < sortOptions; i++) {
             ss.str("");
 
             ss << i+1 << ". " << sortDescriptions[i];
@@ -564,7 +564,7 @@ void Account::sortingMethods(std::vector<T *> &toSort, std::vector<std::string> 
         print();
         print("Choose an option: ", '\0');
 
-        while(!checkInput(sorting) || sorting < 1 || sorting > options) {
+        while(!checkInput(sorting) || sorting < 1 || sorting > sortOptions) {
             print("Invalid Input! Please try again: ", '\0');
         }
 
