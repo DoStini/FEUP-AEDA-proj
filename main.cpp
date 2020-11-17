@@ -567,9 +567,13 @@ TEST(test, files1){
     streamZ.init();
     streamZ.run();
 
+
+
     ASSERT_EQ(streamZ.getDatabase().getUsers().size(), 11);
     ASSERT_EQ(streamZ.getDatabase().getStreams().size(), 5);
 
+    streamZ.getUserM()->createStreamer("Streamer 6", "streamer6","random", Date(1995, 2,3));
+    streamZ.getAdminOps()->mostViewed();
 
     ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user1"))->watching(), true);
     ASSERT_EQ(dynamic_cast<Viewer *>(streamZ.getSearchM()->getUser("user2"))->getCurrWatching(), 1);

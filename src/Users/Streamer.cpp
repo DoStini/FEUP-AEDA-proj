@@ -53,12 +53,14 @@ ID Streamer::getStreamID() {
 
 unsigned int Streamer::getTotalViews() {
 
-    unsigned int views;
+    unsigned int views = 0;
 
-    Stream *ptr = streamZ->getSearchM()->getStream(currStreaming);
+    Stream *ptr;
 
-    if (streaming()) views += dynamic_cast<LiveStream *>(ptr)->getNumViewers();
-
+    if (streaming()) {
+        ptr = streamZ->getSearchM()->getStream(currStreaming);
+        views += dynamic_cast<LiveStream *>(ptr)->getNumViewers();
+    }
     for (const auto &id : finishedStreams) {
         ptr = streamZ->getSearchM()->getStream(id);
         views += dynamic_cast<FinishedStream *>(ptr)->getNumViewers();
