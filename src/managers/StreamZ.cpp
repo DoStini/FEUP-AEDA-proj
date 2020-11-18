@@ -234,7 +234,9 @@ void StreamZ::registerUser() {
 
     print("What will be your password? ", '\0');
 
-    getString(password);
+    while (!checkInput(password)) {
+        print("Invalid Input! Please try again: " , '\0');
+    }
 
     print();
     try {
