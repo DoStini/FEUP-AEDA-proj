@@ -46,7 +46,7 @@ public:
     void removeViewer(const std::string& viewerNick);
 
     ///@return - number of viewers in the streamer
-    int getNumViewers() const;
+    unsigned int getNumViewers() const;
 
     ///@return - Stream min age
     unsigned getMinAge() const;

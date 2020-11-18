@@ -8,7 +8,7 @@
 #include "User.h"
 #include "Stream.h"
 #include "PrivateStream.h"
-#include "../Exceptions/DoesNotExist.h"
+#include "DoesNotExist.h"
 
 class StreamZ;
 
@@ -46,23 +46,23 @@ public:
      * @param nick - Nickname of the user
      * @return If a user with that nickname exists
      */
-    bool userExists(std::string nick);
+    bool userExists(std::string nick) const;
     /**
-     * @param streamID - The id of the streamer
-     * @return If a streamer with that ID exists
+     * @param streamID - The id of the stream
+     * @return If a stream with that ID exists
      */
-    bool streamExists(ID streamID);
+    bool streamExists(ID streamID) const;
     /// @return If an admin account was already created
-    bool adminExists();
+    bool adminExists() const;
     /// @return Corresponding user to the nickname
-    User * getUser(std::string userNick);
-    /// @return Corresponding streamer to the streamID
-    Stream * getStream(ID streamID);
+    User * getUser(std::string userNick) const;
+    /// @return Corresponding stream to the streamID
+    Stream * getStream(ID streamID) const;
     /**
      * @param name - Name of user to be searched
      * @return Vector of users with the specified name
      */
-    void listUsers(std::vector<User *> & users, const std::string& name = "");
+    void listUsers(std::vector<User *> & users, const std::string& name = "") const;
 
     /**
      * Function to list all streams the viewer is allowed to watch
@@ -73,7 +73,7 @@ public:
      */
     void listAllowedLiveStreams(std::vector<LiveStream *> & streams, std::string viewerNick,  const std::string& streamName = "",
                                 const std::vector<genre> & genres = std::vector<genre>(),
-                                const std::vector<language> & langs = std::vector<language>());
+                                const std::vector<language> & langs = std::vector<language>()) const;
     /**
      * @param Returns by reference the vector of streams corresponding to the specified params - Will be cleared if not empty
      * @param streamName - Optional param specifying the name of the streams to search
@@ -83,7 +83,7 @@ public:
     void listLiveStreams(std::vector<LiveStream *> & streams, const std::string& streamName = "",
                                           unsigned minAge = VIEWER_MIN_AGE,
                                           const std::vector<genre> & genres = std::vector<genre>(),
-                                          const std::vector<language> & langs = std::vector<language>());
+                                          const std::vector<language> & langs = std::vector<language>()) const;
 
     /**
      * List live streams corresponding to some streamers
@@ -91,12 +91,12 @@ public:
      * @param streams - Returns by reference the vector of livestreams from the streamers - Will be cleared if not empty
      * @param streamerID - Vector of streamer ID's
      */
-    void listLiveStreamsByStreamers(std::vector<LiveStream *> &streams, const std::vector<std::string> &streamerNick);
+    void listLiveStreamsByStreamers(std::vector<LiveStream *> &streams, const std::vector<std::string> &streamerNick) const;
     /**
      * Lists all private streams
      * @param streams
      */
-    void listPrivateLiveStreams(std::vector<PrivateStream *> & streams);
+    void listPrivateLiveStreams(std::vector<PrivateStream *> & streams) const;
 
 private:
     StreamZ * streamZ;
@@ -104,3 +104,4 @@ private:
 
 
 #endif //FEUP_AEDA_PROJ_SEARCHMANAGER_H
+

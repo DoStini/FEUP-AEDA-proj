@@ -10,14 +10,22 @@
 #include "Database.h"
 #include "SortingManager.h"
 #include "SearchManager.h"
+#include "AdminOps.h"
 #include "UserManager.h"
 #include "LeaderBoard.h"
+#include "utils.h"
+#include "Admin.h"
 #include "StreamManager.h"
 
 #include "User.h"
 #include "Viewer.h"
 #include "Streamer.h"
 #include "AdminOps.h"
+
+#include "Account.h"
+#include "ViewerAcc.h"
+#include "StreamerAcc.h"
+#include "AdminAcc.h"
 
 class StreamZ {
 private:
@@ -31,17 +39,28 @@ private:
 public:
     void init();
     void shutdown(std::string fileName);
+    /**
+     * Runs the program and prompts the user to login/register/exit the program.
+     */
     void run();
+    /**
+     * Asks the user to login and insert the correct credentials.
+     */
+    void login();
+    /**
+     * Asks the user to register.
+     */
+    void registerUser();
 
     void backupData(std::string fileName);
     void readFromFile(std::string fileName);
     void resetDatabase();
-
-    AdminOps *getAdminOps() const;
     SortingManager * getSortM();
     SearchManager * getSearchM();
     UserManager * getUserM();
-    StreamManager *getStreamManager();
+    LeaderBoard * getLeaderBoard();
+    AdminOps * getAdminOps();
+    StreamManager * getStreamManager();
     Database & getDatabase();
 };
 

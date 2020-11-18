@@ -74,7 +74,7 @@ public:
     virtual userType getUserType() const = 0;
 
     /// @return - relevant info about user
-    virtual std::string getShorDescription() const = 0;
+    virtual std::string getShortDescription() const = 0;
 
     /// @return - detailed info about user
     virtual std::string getLongDescription() const = 0;
@@ -95,6 +95,13 @@ public:
      * @return - true if succeed else false
      */
     bool changePassword(const std::string& newPassword);
+
+    /**
+     * Change name of the user
+     *
+     * @param newName
+     */
+    void changeName(const std::string &newName);
 
     /**
      * Function to read a User to the files

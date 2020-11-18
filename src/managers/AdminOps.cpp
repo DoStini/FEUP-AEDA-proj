@@ -93,13 +93,11 @@ streamType AdminOps::rankViewsTypes(bool reversed) {
     auto ite = streamZ->getDatabase().getStreams().end();
 
     streamType type;
-    streamState state;
     int views;
 
     while(its != ite){
         Stream * ptr = (*its).second;
         type = ptr->getStreamType();
-        state = ptr->getStreamState();
         views = ptr->getNumViewers();
 
         if ( ammViews.find(type) != ammViews.end() )

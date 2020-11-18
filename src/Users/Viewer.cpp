@@ -3,9 +3,9 @@
 //
 
 #include "Viewer.h"
-
-#include <utility>
 #include "StreamZ.h"
+#include <iostream>
+#include <iomanip>
 
 Viewer::Viewer(std::string name, std::string nickName,std::string password, const Date &birthDate) :
                 User(name, std::move(nickName),std::move(password), birthDate) {
@@ -158,28 +158,34 @@ bool Viewer::isFollowing(std::string &streamer) {
 
 Viewer::Viewer() {}
 
-std::string Viewer::getShorDescription() const {
-    std::stringstream  ss;
-    ss << name << " (Nickname: " << nickName << ")" << " ->Viewer";
-    return ss.str();
+std::string Viewer::getShortDescription() const {
+    std::stringstream  ss1, ss2;
+    ss1 << "| nick: " << nickName;
+    ss2 << std::setw(20) << std::left << name << std::setw(25) << std::left << ss1.str() << std::setw(12) << std::left <<"| Viewer";
+    return ss2.str();
 }
 
 std::string Viewer::getLongDescription() const {
     std::stringstream  ss;
-    ss << "My password is " << password << " hope you enjoy my account :)\n"
-       << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
-       << "Have join StreamZ in: " << joinedPlatformDate.getStringDate()
-       << "Follow " << followingStreamers.size() << " streamers.\n"
-       << "They are:\n";
-    for(const auto & it : followingStreamers){
-        ss << it << std::endl;
+    ss << "My name is " << name << std::endl
+       << "My nickname is " << nickName << std::endl
+       << "I am a viewer" << std::endl
+       << "My password is " << password << " hope you enjoy my account :)\n"
+       << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years\n"
+       << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl;
+    if(!followingStreamers.empty()) {
+        ss << "I Follow " << followingStreamers.size() << " streamers\n"
+           << "They are:\n";
+        for (const auto &it : followingStreamers) {
+            ss << it << std::endl;
+        }
     }
     if(currWatching == NULL_STREAM){
-        ss << "Right now i am watching nothing.\n";
+        ss << "Right now I am watching nothing.\n";
     }
     else{
-        ss << "Right now i am watching:\n"
-           << streamZ->getSearchM()->getStream(currWatching)->getShorDescription() << std::endl;
+        ss << "Right now I am watching:\n"
+           << streamZ->getSearchM()->getStream(currWatching)->getShortDescription() << std::endl;
     }
     ss << "I have seen a total of " << streamHistory.size() << " streams.\n";
     return ss.str();
@@ -198,9 +204,17 @@ std::string Viewer::getHistoryDetails() const {
     std::stringstream  ss;
     ss << "I have participated in the following streams: \n";
     for(const auto & it : streamHistory){
-        ss << streamZ->getSearchM()->getStream(it)->getShorDescription() << std::endl;
+        ss << streamZ->getSearchM()->getStream(it)->getShortDescription() << std::endl;
     }
     return ss.str();
+}
+
+const std::vector<std::string> &Viewer::getFollowingStreamers() const {
+    return followingStreamers;
+}
+
+const std::vector<ID> &Viewer::getHistory() const {
+    return streamHistory;
 }
 
 void Viewer::readFromFile(std::ifstream &ff) {

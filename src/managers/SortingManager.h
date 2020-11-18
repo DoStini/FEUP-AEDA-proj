@@ -28,35 +28,35 @@ public:
      * @param reversed - Defaults to highest views to lower
      * @return Returns by reference the desired vector of livestreams sorted by views
      */
-    void sortStreamByViews(std::vector<LiveStream *> & streams, bool reversed = false);
+    void sortStreamByViews(std::vector<LiveStream *> & streams, bool reversed = false) const;
 
     /**
      * @param streams - Vector of livestreams - leave empty to sort the most recent data or send a filtered vector
      * @param reversed - Defaults to highest likes to lower
      * @return Returns by reference the desired vector of livestreams sorted by likes
      */
-    void sortStreamByLikes(std::vector<LiveStream *> & streams, bool reversed = false);
+    void sortStreamByLikes(std::vector<LiveStream *> & streams, bool reversed = false) const;
 
     /**
      * @param streams - Vector of livestreams - leave empty to sort the most recent data or send a filtered vector
      * @param reversed - Defaults to highest likes to lower
      * @return Returns by reference the desired vector of livestreams sorted by likes
      */
-    void sortStreamByComments(std::vector<PrivateStream *> & streams, bool reversed = false);
+    void sortStreamByComments(std::vector<PrivateStream *> & streams, bool reversed = false) const;
 
     /**
      * @param streams - Vector of livestreams - leave empty to sort the most recent data or send a filtered vector
      * @param reversed - Defaults most recent stream to oldest stream
      * @return Returns by reference the desired vector of livestreams sorted by date
      */
-    void sortStreamByDate(std::vector<LiveStream *> & streams, bool reversed = false);
+    void sortStreamByDate(std::vector<LiveStream *> & streams, bool reversed = false) const;
 
     /**
      * @param users - Vector of users - leave empty to sort the most recent data or send a filtered vector
      * @param reversed - Defaults most recent user on the platform to older
      * @return Returns by reference the desired vector of livestreams sorted by date
      */
-    void sortUserDatePlatform(std::vector<User *> & users, bool reversed = false);
+    void sortUserDatePlatform(std::vector<User *> & users, bool reversed = false) const;
 
 private:
     StreamZ * streamZ;

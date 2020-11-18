@@ -1,5 +1,5 @@
 //
-// Created by andre on 10/17/2020.
+// Created by Nuno Alves on 10/17/2020.
 //
 
 #ifndef FEUP_AEDA_PROJ_DATE_H
@@ -34,6 +34,7 @@ public:
      * Constructor for date. Uses a string with a date to initialize.
      * @param date - String with a date
      * @throws BadDateFormat when using a bad date format
+     * @throws InvalidDate when using an invalid date
      */
     explicit Date(const std::string &date);
     /**
@@ -44,6 +45,8 @@ public:
      * @param day - Day of the month
      * @param hour - Hour
      * @param minute - Minute
+     *
+     * @throws InvalidDate when using an invalid date
      */
     explicit Date(int year, int month, int day, int hour = 0, int minute = 0);
     /**

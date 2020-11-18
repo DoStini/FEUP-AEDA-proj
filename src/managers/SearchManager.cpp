@@ -10,18 +10,18 @@
 SearchManager::SearchManager(StreamZ *streamZ) : streamZ(streamZ) {}
 
 
-User *SearchManager::getUser(std::string userNick) {
+User *SearchManager::getUser(std::string userNick) const {
     User * val;
     std::transform(userNick.begin(), userNick.end(), userNick.begin(), ::tolower);
     try{
         val = streamZ->getDatabase().getUsers().at(userNick);
-    } catch (const std::exception &e) {
+    } catch (const std::out_of_range &e) {
         throw DoesNotExist<std::string>(userNick);
     }
     return val;
 }
 
-Stream *SearchManager::getStream(ID streamID) {
+Stream *SearchManager::getStream(ID streamID) const {
     Stream * val;
     try{
         val = streamZ->getDatabase().getStreams().at(streamID);
@@ -48,7 +48,7 @@ void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams) {
     }
 }
 */
-void SearchManager::listUsers(std::vector<User *> &users, const std::string& name) {
+void SearchManager::listUsers(std::vector<User *> &users, const std::string& name) const {
 
     if(!users.empty()) users.clear();
 
@@ -64,7 +64,7 @@ void SearchManager::listUsers(std::vector<User *> &users, const std::string& nam
 
 void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const std::string &streamName,
                                     unsigned minAge,
-                                    const std::vector<genre> &genres, const std::vector<language> &langs) {
+                                    const std::vector<genre> &genres, const std::vector<language> &langs)  const{
 
     // Empties the vector if not empty
     if(!streams.empty()) streams.clear();
@@ -100,7 +100,7 @@ void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const st
 }
 
 void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &streams,
-                                               const std::vector<std::string> &streamerNick) {
+                                               const std::vector<std::string> &streamerNick) const {
     // Empties the vector if not empty
     if(!streams.empty()) streams.clear();
 
@@ -113,19 +113,19 @@ void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &stream
     }
 }
 
-bool SearchManager::userExists(std::string nick) {
+bool SearchManager::userExists(std::string nick) const {
     std::transform(nick.begin(), nick.end(), nick.begin(), ::tolower);
     std::unordered_map<std::string, User *> map = streamZ->getDatabase().getUsers();
     bool fuck = map.find(nick) != map.end();
     return fuck;
 }
 
-bool SearchManager::streamExists(ID streamID) {
+bool SearchManager::streamExists(ID streamID) const {
     std::unordered_map<ID, Stream *> map = streamZ->getDatabase().getStreams();
     return map.find(streamID) != map.end();
 }
 
-bool SearchManager::adminExists() {
+bool SearchManager::adminExists() const {
     std::unordered_map<std::string, User *> userDB = streamZ->getDatabase().getUsers();
 
     return std::find_if(userDB.begin(),
@@ -135,7 +135,7 @@ bool SearchManager::adminExists() {
                         }) != userDB.end();
 }
 
-void SearchManager::listPrivateLiveStreams(std::vector<PrivateStream *> &streams) {
+void SearchManager::listPrivateLiveStreams(std::vector<PrivateStream *> &streams) const {
     // Empties the vector if not empty
     if(!streams.empty()) streams.clear();
 
@@ -157,7 +157,7 @@ void SearchManager::listPrivateLiveStreams(std::vector<PrivateStream *> &streams
 
 void SearchManager::listAllowedLiveStreams(std::vector<LiveStream *> &streams, std::string viewerNick,
                                            const std::string &streamName,
-                                           const std::vector<genre> &genres, const std::vector<language> &langs) {
+                                           const std::vector<genre> &genres, const std::vector<language> &langs) const{
 
 
     // Empties the vector if not empty

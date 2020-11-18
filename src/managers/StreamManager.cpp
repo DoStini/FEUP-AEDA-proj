@@ -7,7 +7,7 @@
 #include <utility>
 #include "StreamZ.h"
 
-void StreamManager::removeStream(ID streamID) {
+void StreamManager::removeStream(ID streamID) const{
     if(!streamZ->getSearchM()->streamExists(streamID)) throw DoesNotExist<ID>(streamID);
 
     Stream * ptr = streamZ->getSearchM()->getStream(streamID);
@@ -18,7 +18,7 @@ void StreamManager::removeStream(ID streamID) {
 
 }
 
-void StreamManager::removeStreamByStreamer(std::string streamerNick) {
+void StreamManager::removeStreamByStreamer(std::string streamerNick) const{
     if(!streamZ->getSearchM()->userExists(streamerNick)) throw DoesNotExist<std::string>(streamerNick);
     std::unordered_map<ID, Stream *> mapRef = streamZ->getDatabase().getStreams();
     /*
@@ -33,7 +33,7 @@ void StreamManager::removeStreamByStreamer(std::string streamerNick) {
 StreamManager::StreamManager(StreamZ *streamZ) : streamZ(streamZ) {}
 
 ID StreamManager::createPublicStream(std::string name, std::string streamerNick, language streamLanguage,
-                                     genre streamGenre, unsigned int minAge) {
+                                     genre streamGenre, unsigned int minAge) const{
     auto * ptr = new PublicStream(std::move(name), streamLanguage, streamGenre,std::move(streamerNick), minAge);
     ptr->setStreamZ(streamZ);
     streamZ->getDatabase().getStreams().insert(std::pair<ID, Stream *>(ptr->getStreamId(), (Stream *) ptr ));
@@ -41,7 +41,7 @@ ID StreamManager::createPublicStream(std::string name, std::string streamerNick,
 }
 
 ID StreamManager::createPrivateStream(std::string name, std::string streamerNick, language streamLanguage,
-                                      genre streamGenre, int maxUsers, unsigned int minAge) {
+                                      genre streamGenre, int maxUsers, unsigned int minAge) const{
     auto * ptr = new PrivateStream(std::move(name), streamLanguage, streamGenre,std::move(streamerNick), minAge);
     ptr->setStreamZ(streamZ);
     streamZ->getDatabase().getStreams().insert(
@@ -50,7 +50,7 @@ ID StreamManager::createPrivateStream(std::string name, std::string streamerNick
     return ptr->getStreamId();
 }
 
-void StreamManager::removeViewerFromWhitelists(std::string nick) {
+void StreamManager::removeViewerFromWhitelists(std::string nick) const{
     auto it1 = streamZ->getDatabase().getStreams().begin(),
             ite = streamZ->getDatabase().getStreams().end();
 

@@ -65,10 +65,10 @@ public:
     virtual streamFileType getStreamFileType() const = 0;
 
     /// @return - Number of viewers
-    virtual int getNumViewers() const = 0;
+    virtual unsigned int getNumViewers() const = 0;
 
     /// @return - relevant info about streamer
-    virtual std::string getShorDescription() const = 0;
+    virtual std::string getShortDescription() const = 0;
 
     /// @return - detailed info about streamer
     virtual std::string getLongDescription() const = 0;

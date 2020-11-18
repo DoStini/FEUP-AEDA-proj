@@ -6,9 +6,9 @@
 #include "StreamZ.h"
 #include <utility>
 
+extern const char *languageTypes[];
 
-FinishedStream::FinishedStream() : Stream() {
-}
+extern const char *genreTypes[];
 
 FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers,
                                std::string streamerNick,ID streamID, streamType type)
@@ -42,24 +42,27 @@ const Date &FinishedStream::getFinishedDate() const {
     return finishedDate;
 }
 
-int FinishedStream::getNumViewers() const {
+unsigned int FinishedStream::getNumViewers() const {
     return numViewers;
 }
 
-std::string FinishedStream::getShorDescription() const {
-    std::stringstream ss;
-    ss << title << " (Stream Id: " << streamId << ")" << " ->Finished";
-    return ss.str();
+std::string FinishedStream::getShortDescription() const {
+    std::stringstream  ss1, ss2;
+    ss1 << "| id: " << streamId;
+    ss2 << std::setw(20) << std::left << title << std::setw(15) << std::left << ss1.str() <<std::setw(15) << std::left <<  "| Finished";
+    return ss2.str();
 }
 
 std::string FinishedStream::getLongDescription() const {
     std::stringstream ss;
-    ss << "Streamed by:" << streamerNick << std::endl
-       << "Star streaming: " << beginDate.getStringDate() << std::endl
-       << "Language: " << streamLanguage << std::endl
-       << "Genre: " << streamGenre << std::endl
-       << "Final viewers: " << numViewers << std::endl
-       << "Stream finished at: " << finishedDate.getStringDate();
+    ss << "Stream Title: " << title << std::endl
+       << "Streamed by:" << streamerNick << std::endl
+       << "Started streaming in: " << beginDate.getStringDate() << std::endl
+       << "Stream finished: " << finishedDate.getStringDate() << std::endl
+       << "Language: " << languageTypes[streamLanguage] << std::endl
+       << "Genre: " << genreTypes[streamGenre] << std::endl
+       << "Final viewers: " << numViewers << std::endl;
+
     return ss.str();
 }
 
@@ -120,6 +123,10 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
     finishedDate = Date(ss.str());
 
     ff >> sep >> numViewers >> sep;
+
+}
+
+FinishedStream::FinishedStream() : Stream(){
 
 }
 

@@ -17,7 +17,7 @@ public:
     ///@return - user type = streamer
     userType getUserType() const override;
     ///@return Short description
-    std::string getShorDescription() const override;
+    std::string getShortDescription() const override;
     ///@return Long description
     std::string getLongDescription() const override;
     /// Not applicable

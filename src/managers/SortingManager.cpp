@@ -9,7 +9,7 @@
 
 SortingManager::SortingManager(StreamZ *streamZ) : streamZ(streamZ) {}
 
-void SortingManager::sortStreamByViews(std::vector<LiveStream *> &streams, bool reversed) {
+void SortingManager::sortStreamByViews(std::vector<LiveStream *> &streams, bool reversed) const {
     // If the streams vector is empty it gets the currently stored in the system
     // Otherwise it sorts the vector sent
     if(streams.empty()) streamZ->getSearchM()->listLiveStreams(streams);
@@ -24,7 +24,7 @@ void SortingManager::sortStreamByViews(std::vector<LiveStream *> &streams, bool 
 
 }
 
-void SortingManager::sortStreamByLikes(std::vector<LiveStream *> &streams, bool reversed) {
+void SortingManager::sortStreamByLikes(std::vector<LiveStream *> &streams, bool reversed) const{
     // If the streams vector is empty it gets the currently stored in the system
     // Otherwise it sorts the vector sent
     if(streams.empty()) streamZ->getSearchM()->listLiveStreams(streams);
@@ -39,7 +39,7 @@ void SortingManager::sortStreamByLikes(std::vector<LiveStream *> &streams, bool 
 }
 
 
-void SortingManager::sortStreamByDate(std::vector<LiveStream *> &streams, bool reversed) {
+void SortingManager::sortStreamByDate(std::vector<LiveStream *> &streams, bool reversed) const {
     // If the streams vector is empty it gets the currently stored in the system
     // Otherwise it sorts the vector sent
     if(streams.empty()) streamZ->getSearchM()->listLiveStreams(streams);
@@ -54,7 +54,7 @@ void SortingManager::sortStreamByDate(std::vector<LiveStream *> &streams, bool r
 }
 
 
-void SortingManager::sortUserDatePlatform(std::vector<User *> &users, bool reversed) {
+void SortingManager::sortUserDatePlatform(std::vector<User *> &users, bool reversed) const{
     // If the users vector is empty it gets the currently stored in the system
     // Otherwise it sorts the vector sent
     if(users.empty()) streamZ->getSearchM()->listUsers(users);
@@ -68,7 +68,7 @@ void SortingManager::sortUserDatePlatform(std::vector<User *> &users, bool rever
               });
 }
 
-void SortingManager::sortStreamByComments(std::vector<PrivateStream *> &streams, bool reversed) {
+void SortingManager::sortStreamByComments(std::vector<PrivateStream *> &streams, bool reversed) const{
     // If the streams vector is empty it gets the currently stored in the system
     // Otherwise it sorts the vector sent
     if(streams.empty()) streamZ->getSearchM()->listPrivateLiveStreams(streams);

@@ -19,7 +19,7 @@ struct Comment{
     std::string viewerNick;
     Comment(std::string text, std::string name): comment(std::move(text)),viewerNick(std::move(name)){}
     friend std::ostream &operator<<(std::ostream & out,const Comment& val){
-        out << std::endl <<  val.viewerNick << "-> " << val.comment;
+        out <<  val.viewerNick << " said: " << val.comment;
         return out;
     }
 
@@ -59,7 +59,6 @@ public:
      * @param userNick - nick of user to be removed
      */
     void removeValidUser(const std::string& userNick);
-
     /**
      * Checks if the user is in the vector of valid users
      *
@@ -99,7 +98,7 @@ public:
      */
     void writeToFile(std::ofstream &ff) override;
     /// @return - relevant info about streamer
-    std::string getShorDescription() const override;
+    std::string getShortDescription() const override;
 
     /// @return - detailed info about streamer
     std::string getLongDescription() const override;

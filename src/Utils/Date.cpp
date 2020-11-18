@@ -1,5 +1,5 @@
 //
-// Created by andre on 10/17/2020.
+// Created by Nuno Alves on 10/17/2020.
 //
 
 #include "Date.h"
@@ -16,9 +16,9 @@ Date::Date(const std::string &date) {
                               "%Y-%m-%d\0",
                               "%Y %m %d\0"};
 
-    for(short i = 0 ; i < 7; i++) {
+    for(auto & format : formats) {
         setToZero();
-        dateStream >> std::get_time(&dateStruct, formats[i]);
+        dateStream >> std::get_time(&dateStruct, format);
 
         if(!dateStream.fail()) {
             if(checkValidDate()) {
@@ -92,14 +92,13 @@ int Date::getYearDifference(const Date &otherDate) const {
 
     int yearDiff = maxDate->dateStruct.tm_year - minDate->dateStruct.tm_year;
 
-    if(maxDate->dateStruct.tm_mon >= minDate->dateStruct.tm_mon &&
-       maxDate->dateStruct.tm_mday >= minDate->dateStruct.tm_mday &&
-       maxDate->dateStruct.tm_hour >= minDate->dateStruct.tm_hour &&
-       maxDate->dateStruct.tm_min >= minDate->dateStruct.tm_min) {
-        return yearDiff;
+    if(maxDate->dateStruct.tm_mon < minDate->dateStruct.tm_mon) {
+        yearDiff--;
+    } else if(maxDate->dateStruct.tm_mon == minDate->dateStruct.tm_mon) {
+        if(maxDate->dateStruct.tm_mday < minDate->dateStruct.tm_mday) yearDiff--;
     }
 
-    return yearDiff - 1;
+    return yearDiff;
 }
 
 void Date::setSystemDate() {
@@ -109,9 +108,6 @@ void Date::setSystemDate() {
 
 bool Date::checkValidDate() {
     int year = getYear(), month = getMonth(), day = getDay();
-    uint16_t month_to_days[13] = {
-            0, 31,30,31,30,31,30,31,31,30,31,30,31
-    };
 
     if(day < 0) return false;
     if(month < 0 || month > 12) return false;

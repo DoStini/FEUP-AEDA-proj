@@ -56,7 +56,6 @@ public:
     ID getStreamID();
 
     /// @return - relevant info about user
-    std::string getShorDescription() const override;
 
     /// @return - detailed info about user
     std::string getLongDescription() const override;
@@ -128,6 +127,7 @@ public:
     bool isInStreamHistory(ID streamID);
 
     ///Compare two streamers
+    std::string getShortDescription() const override;
     bool operator == (const Streamer & str);
 
     /**

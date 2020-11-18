@@ -4,6 +4,10 @@
 
 #include "PublicStream.h"
 
+extern const char *languageTypes[];
+
+extern const char *genreTypes[];
+
 #include <utility>
 
 PublicStream::PublicStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge) :
@@ -17,20 +21,22 @@ void PublicStream::addViewer(const std::string &viewerNick) {
     streamViewers.push_back(viewerNick);
 }
 
-std::string PublicStream::getShorDescription() const {
-    std::stringstream ss;
-    ss << title << " (Stream Id: " << streamId << ")" << " ->Public";
-    return ss.str();
+std::string PublicStream::getShortDescription() const {
+    std::stringstream  ss1, ss2;
+    ss1 << "| id: " << streamId;
+    ss2 << std::setw(20) << std::left << title << std::setw(15) << std::left << ss1.str() << std::setw(15) << std::left << "| Public";
+    return ss2.str();
 }
 
 std::string PublicStream::getLongDescription() const {
     std::stringstream ss;
-    ss << "Streamed by:" << streamerNick << std::endl
-    << "Star streaming: " << beginDate.getStringDate() << std::endl
-    << "Language: " << streamLanguage << std::endl
-    << "Genre: " << streamGenre << std::endl
+    ss << "Stream Title: " << title << std::endl
+    << "Streamed by: " << streamerNick << std::endl
+    << "Started streaming in: " << beginDate.getStringDate() << std::endl
+    << "Language: " << languageTypes[streamLanguage] << std::endl
+    << "Genre: " << genreTypes[streamGenre] << std::endl
     << "Necessary age to join: " << minAge << std::endl
-    << "Current watching: " << streamViewers.size() << std::endl
+    << "Currently watching: " << streamViewers.size() << std::endl
     << "Likes: " << getLikes() << " Dislikes: " << getDislikes();
     return ss.str();
 
@@ -74,7 +80,7 @@ void PublicStream::readFromFile(std::ifstream &ff) {
     // Reading streamer viewers
     ff >> numViewers >> sep;
 
-    for(int i = 0; i < numViewers; i++){
+    for(unsigned int i = 0; i < numViewers; i++){
         ff >> temp >> sep;
         streamViewers.push_back(temp);
     }
@@ -113,7 +119,7 @@ void PublicStream::writeToFile(std::ofstream &ff) {
     // Write viewers to file
     ff << num << " , ";
 
-    for (int i = 0; i < getNumViewers(); ++i) {
+    for (unsigned int i = 0; i < getNumViewers(); ++i) {
         ff << streamViewers[i] << " , ";
     }
 
@@ -133,10 +139,11 @@ void PublicStream::writeToFile(std::ofstream &ff) {
 
 }
 
-PublicStream::PublicStream() : LiveStream() {
-}
-
 streamFileType PublicStream::getStreamFileType() const {
     return publicFile;
+}
+
+PublicStream::PublicStream() : LiveStream() {
+
 }
 

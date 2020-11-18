@@ -3,12 +3,14 @@
 //
 
 #include "User.h"
+#include "InvalidPassword.h"
+#include "StreamZ.h"
 
 #include <utility>
 #include "StreamZ.h"
 
 User::User( std::string name, std::string nickName,std::string password, const Date &birthDate) :
-            name(std::move(name)), nickName(std::move(nickName)),birthDate(birthDate), password(std::move(password)) {
+            name(std::move(name)), nickName(std::move(nickName)),password(std::move(password)), birthDate(birthDate) {
     Date currDate; currDate.setSystemDate();
     joinedPlatformDate = currDate;
 }
@@ -40,8 +42,14 @@ bool User::changePassword(const std::string& newPassword) {
     if(newPassword == password || newPassword.empty()){
         return false; // Later throw an exception
     }
+
     password = newPassword;
+
     return true;
+}
+
+void User::changeName(const std::string & newName) {
+    name = newName;
 }
 
 void User::setStreamZ(StreamZ *streamZ) {
@@ -50,5 +58,5 @@ void User::setStreamZ(StreamZ *streamZ) {
 
 unsigned User::age() const{
     Date currDate; currDate.setSystemDate();
-    return currDate.getYearDifference(birthDate);;
+    return currDate.getYearDifference(birthDate);
 }

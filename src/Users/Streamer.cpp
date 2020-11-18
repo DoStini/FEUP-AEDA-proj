@@ -6,6 +6,8 @@
 
 #include <utility>
 #include "StreamZ.h"
+#include <iomanip>
+#include <iostream>
 
 
 Streamer::Streamer(std::string name, std::string nickName,std::string password, const Date &birthDate) :
@@ -50,9 +52,7 @@ ID Streamer::getStreamID() {
     else return currStreaming;
 }
 
-
 unsigned int Streamer::getTotalViews() {
-
     unsigned int views = 0;
 
     Stream *ptr;
@@ -131,10 +131,11 @@ void Streamer::kickedStream() {
     currStreaming = NULL_STREAM;
 }
 
-std::string Streamer::getShorDescription() const {
-    std::stringstream  ss;
-    ss << name << " (Nickname: " << nickName << ")" << " ->Streamer";
-    return ss.str();
+std::string Streamer::getShortDescription() const {
+    std::stringstream  ss1, ss2;
+    ss1 << "| nick: " << nickName;
+    ss2 << std::setw(20) << std::left << name << std::setw(25) << std::left << ss1.str() << std::setw(12) << std::left <<  "| Streamer";
+    return ss2.str();
 }
 
 void Streamer::removeStreamHistory(ID streamID) {
@@ -147,16 +148,19 @@ bool Streamer::isInStreamHistory(ID streamID) {
 
 std::string Streamer::getLongDescription() const {
     std::stringstream  ss;
-    ss << "My password is " << password << " hope you enjoy my account :)\n"
+    ss << "My name is " << name << std::endl
+       << "My nickname is " << nickName << std::endl
+       << "I am a streamer" << std::endl
+       << "My password is " << password << " hope you enjoy my account :)\n"
     << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
-    << "Have join StreamZ in: " << joinedPlatformDate.getStringDate()
-    << "Current have " << getNumFollowers() << " followers.\n";
+    << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl
+    << "Currently have " << getNumFollowers() << " followers.\n";
     if(currStreaming == NULL_STREAM){
-        ss << "Right now i am not streaming.\n";
+        ss << "Right now I am not streaming.\n";
     }
     else{
-        ss << "Right now i am streaming:\n"
-        << streamZ->getSearchM()->getStream(currStreaming)->getShorDescription() << std::endl;
+        ss << "Right now I am streaming: "
+        << streamZ->getSearchM()->getStream(currStreaming)->getShortDescription() << std::endl;
     }
     ss << "I have streamed a total of " << finishedStreams.size() << " streams.\n";
     return ss.str();
@@ -175,7 +179,7 @@ std::string Streamer::getHistoryDetails() const {
     std::stringstream  ss;
     ss << "My finished streams are:\n";
     for(const auto & it : finishedStreams){
-        ss << streamZ->getSearchM()->getStream(it)->getShorDescription() << std::endl;
+        ss << streamZ->getSearchM()->getStream(it)->getShortDescription() << std::endl;
     }
     return ss.str();
 }

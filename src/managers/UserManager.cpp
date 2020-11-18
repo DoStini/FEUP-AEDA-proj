@@ -3,11 +3,12 @@
 //
 
 #include "UserManager.h"
+#include "Viewer.h"
 #include "StreamZ.h"
 
 UserManager::UserManager(StreamZ *streamZ) : streamZ(streamZ) {}
 
-void UserManager::createViewer(const std::string& name, std::string nickName,const std::string& password, const Date &birthDate) {
+void UserManager::createViewer(const std::string& name, std::string nickName,const std::string& password, const Date &birthDate) const {
     if(streamZ->getSearchM()->userExists(nickName)) throw AlreadyExists<std::string>(nickName);
 
     std::transform(nickName.begin(), nickName.end(), nickName.begin(), ::tolower);
@@ -19,7 +20,7 @@ void UserManager::createViewer(const std::string& name, std::string nickName,con
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
-void UserManager::createStreamer(std::string name, std::string nickName,const std::string& password, const Date &birthDate) {
+void UserManager::createStreamer(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const {
     if(streamZ->getSearchM()->userExists(nickName)) throw AlreadyExists<std::string>(nickName);
 
     Streamer * ptr = new Streamer(name, nickName,password, birthDate);
@@ -28,7 +29,7 @@ void UserManager::createStreamer(std::string name, std::string nickName,const st
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
-void UserManager::createAdmin(std::string name, std::string nickName,const std::string& password, const Date &birthDate) {
+void UserManager::createAdmin(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const {
     if(streamZ->getSearchM()->adminExists()) throw AlreadyExists<std::string>("Admin");
     else if(streamZ->getSearchM()->userExists(nickName)) throw AlreadyExists<std::string>(nickName);
 
@@ -39,7 +40,7 @@ void UserManager::createAdmin(std::string name, std::string nickName,const std::
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
-void UserManager::removeUser(std::string nickName) {
+void UserManager::removeUser(std::string nickName) const{
     if(!streamZ->getSearchM()->userExists(nickName)) throw DoesNotExist<std::string>(nickName);
 
     User * ptr = streamZ->getSearchM()->getUser(nickName);
@@ -49,7 +50,7 @@ void UserManager::removeUser(std::string nickName) {
     delete ptr;
 }
 
-void UserManager::removeHistoryElemFromUser(ID id) {
+void UserManager::removeHistoryElemFromUser(ID id) const {
     if(!streamZ->getSearchM()->streamExists(id)) throw DoesNotExist<ID>(id);
 
     auto & ref = streamZ->getDatabase().getUsers();

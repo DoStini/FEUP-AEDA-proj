@@ -3,6 +3,8 @@
 //
 
 #include "Admin.h"
+#include <iomanip>
+#include <iostream>
 
 #include <utility>
 
@@ -58,12 +60,14 @@ void Admin::readFromFile(std::ifstream &ff) {
     joinedPlatformDate = Date(ss.str());
 }
 
-std::string Admin::getShorDescription() const {
-    return std::string();
-}
-
 std::string Admin::getLongDescription() const {
-    return std::string();
+    std::stringstream  ss;
+      ss << "My name is " << name << std::endl
+         << "My nickname is " << nickName << std::endl
+         << "I am an admin" << std::endl
+         << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
+       << "Joined StreamZ in: " << joinedPlatformDate.getStringDate();
+    return ss.str();
 }
 
 std::string Admin::getFollowDetails() const {
@@ -72,4 +76,11 @@ std::string Admin::getFollowDetails() const {
 
 std::string Admin::getHistoryDetails() const {
     return std::string();
+}
+
+std::string Admin::getShortDescription() const {
+    std::stringstream  ss1, ss2;
+    ss1 << "| nick: " << nickName;
+    ss2 << std::setw(20) << std::left << name << std::setw(25) << std::left << ss1.str() << std::setw(12) << std::left << "| Admin";
+    return ss2.str();
 }
