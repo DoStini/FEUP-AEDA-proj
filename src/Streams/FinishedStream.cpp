@@ -10,11 +10,14 @@
 FinishedStream::FinishedStream() : Stream() {
 }
 
-FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers, std::string streamerNick,ID streamID)
-                                : Stream(std::move(title),language,streamGenre,std::move(streamerNick)), numViewers(numViewers){
+FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers,
+                               std::string streamerNick,ID streamID, streamType type)
+                                : Stream(std::move(title),language,streamGenre,std::move(streamerNick)),
+                                numViewers(numViewers), type(type){
     streamId = streamID;
     Date currDate; currDate.setSystemDate();
     finishedDate = currDate;
+
 }
 
 

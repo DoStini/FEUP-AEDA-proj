@@ -17,7 +17,8 @@ public:
      * @param numViewers - Number of viewers when the streamer is closed
      * @param streamerName - Streamer that had streamer the streamer
      */
-    FinishedStream(std::string title, language language,genre streamGenre, int numViewers, std::string streamerNick, ID streamID);
+    FinishedStream(std::string title, language language,genre streamGenre, int numViewers, std::string streamerNick,
+                   ID streamID, streamType type);
     ~FinishedStream();
 
     /**

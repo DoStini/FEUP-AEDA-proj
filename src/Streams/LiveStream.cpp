@@ -45,7 +45,7 @@ unsigned int LiveStream::closeStream() {
 
     auto *fStream = new FinishedStream(this->getTitle(),this->getStreamLanguage(),
                                        this->getGenre(),nViewers,
-                                       this->getStreamerNick(),streamId);
+                                       this->getStreamerNick(),streamId, this->getStreamType());
 
     fStream->setStreamZ(streamZ);
     ID id =streamId;

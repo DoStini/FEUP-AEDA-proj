@@ -83,8 +83,7 @@ void Viewer::joinStream(ID streamID) {
 
 void Viewer::leaveStream() {
     if (!watching()) throw NotInStreamException(name);
-    auto* stream = (LiveStream*) streamZ->getSearchM()->getStream(currWatching);
-    stream->removeViewer(nickName);
+
     if(!isInStreamHistory(currWatching)) streamHistory.push_back(currWatching);
     currWatching = NULL_STREAM;
 }
