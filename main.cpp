@@ -813,6 +813,12 @@ void buildTestData(){
                 dynamic_cast<Viewer *>(
                         sm->getUser("random_viewer_public" + std::to_string(i) + "_" + std::to_string(j)))->
                         joinStream(currId);
+
+                if(rand()%3)
+                    dynamic_cast<Viewer *>(
+                            sm->getUser("random_viewer_public" + std::to_string(i) + "_" + std::to_string(j)))->
+                                giveFeedBack(rand()%2 ? like : dislike);
+
             } catch (const RestrictedAgeException & e) {}
 
         }
@@ -859,6 +865,14 @@ void buildTestData(){
 
             try{
                 dynamic_cast<Viewer *>( sm->getUser("random_viewer_private" + std::to_string(i) + "_" + std::to_string(j)))->joinStream(currId);
+                if(rand()%3)
+                    dynamic_cast<Viewer *>(
+                            sm->getUser("random_viewer_private" + std::to_string(i) + "_" + std::to_string(j)))->
+                            giveFeedBack(rand()%2 ? like : dislike);
+                if(rand()%3)
+                    dynamic_cast<Viewer *>(
+                            sm->getUser("random_viewer_private" + std::to_string(i) + "_" + std::to_string(j)))->
+                            giveFeedBack(randomChars());
             } catch (const RestrictedAgeException & e) {}
             catch (const MaxViewersReach & e) {}
         }

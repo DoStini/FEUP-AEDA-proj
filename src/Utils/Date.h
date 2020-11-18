@@ -18,6 +18,11 @@
 #include "InvalidDate.h"
 #include <cstdio>
 
+constexpr static const uint16_t month_to_days[13] = {
+        0, 31,28,31,30,31,30,31,31,30,31,30,31
+};
+
+
 /**
  * Class that stores a date in a simple, straightforward way.
  * @author Nuno Alves
@@ -67,7 +72,7 @@ public:
      * @return returns an int32 of the difference in years.
      */
     int getYearDifference(const Date &otherDate) const;
-    Date sumDate(Date date);
+
     /**
      * Gets the tm struct.
      *
@@ -75,6 +80,9 @@ public:
      */
     std::tm getTimeStruct() const;
 
+    Date operator+(const std::tm &rhs) const;
+
+    bool operator==(const Date &rhs) const;
 
     bool operator<(const Date &rhs) const;
 
@@ -83,8 +91,8 @@ public:
     bool operator<=(const Date &rhs) const;
 
     bool operator>=(const Date &rhs) const;
-
 private:
+
     std::tm dateStruct;
     /// Sets all date values to zero.
     void setToZero();
@@ -93,10 +101,12 @@ private:
      * @return returns true if valid, false if invalid
      */
     bool checkValidDate();
+
     /**
-     * Fixes missing information in the dateStruct
+     * Checks if year (after 1900) is a leap year
+     * @return true if leap-year
      */
-    void fixDate();
+    bool isLeapYear() const;
 };
 
 
