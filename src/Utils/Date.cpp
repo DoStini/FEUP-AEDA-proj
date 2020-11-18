@@ -182,12 +182,12 @@ Date Date::operator+(const std::tm &rhs) const {
         if(result.dateStruct.tm_mon == 1) {
             if(isLeapYear()) {
                 if(result.dateStruct.tm_mday > 29) {
-                    result.dateStruct.tm_mday - 29; continue;
+                    result.dateStruct.tm_mday -= 29; continue;
                 } else break;
             }
         }
 
-        result.dateStruct.tm_mday - month_to_days[result.dateStruct.tm_mon];
+        result.dateStruct.tm_mday -= month_to_days[result.dateStruct.tm_mon];
     }
 
 

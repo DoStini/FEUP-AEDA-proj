@@ -10,6 +10,7 @@
 #include "utils.h"
 
 const char *languageTypes[] = {
+        "",
     "Portuguese (Portugal)",
     "Portuguese (Brazil)",
     "English",
@@ -22,6 +23,7 @@ const char *languageTypes[] = {
 };
 
 const char *genreTypes[] = {
+        "",
         "Gaming",
         "Technology",
         "Music",
