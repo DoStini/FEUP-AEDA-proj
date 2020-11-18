@@ -115,10 +115,9 @@ bool Date::checkValidDate() {
 
     if(day < 0) return false;
     if(month < 0 || month > 12) return false;
-    if(year < 1900) return false;
+    if(year < 0) return false;
     if(month == 2) {
-        if((year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
-            && day > 29) return false;
+        if(isLeapYear() && day > 29) return false;
         if(day > 28) return false;
     }
     if(month > month_to_days[month]) return false;
@@ -128,6 +127,17 @@ bool Date::checkValidDate() {
 
 void Date::setToZero() {
     dateStruct = {0};
+}
+
+bool Date::operator==(const Date &rhs) const {
+    std::tm tmLhs = getTimeStruct(); std::tm tmRhs = rhs.getTimeStruct();
+
+    if(tmLhs.tm_year == tmRhs.tm_year && tmLhs.tm_mon == tmRhs.tm_mon && tmLhs.tm_mday == tmRhs.tm_mday
+                                                                           && tmLhs.tm_hour == tmRhs.tm_hour
+                                                                              && tmLhs.tm_min == tmRhs.tm_min)
+        return true;
+
+    return false;
 }
 
 bool Date::operator<(const Date &rhs) const {
@@ -160,4 +170,35 @@ bool Date::operator<=(const Date &rhs) const {
 
 bool Date::operator>=(const Date &rhs) const {
     return !(*this < rhs);
-};
+}
+
+Date Date::operator+(const std::tm &rhs) const {
+    Date result = *this;
+    int rest, div;
+
+    result.dateStruct.tm_min += rhs.tm_min;
+    div = result.dateStruct.tm_min / 60; result.dateStruct.tm_min %= 60;
+    result.dateStruct.tm_hour += rhs.tm_hour + div;
+    div = result.dateStruct.tm_hour / 24; result.dateStruct.tm_hour %= 24;
+    result.dateStruct.tm_mday += rhs.tm_mday + div;
+
+    while(result.dateStruct.tm_mday > month_to_days[result.dateStruct.tm_mon + 1]) {
+        if(result.dateStruct.tm_mon == 1) {
+            if(isLeapYear()) {
+                if(result.dateStruct.tm_mday > 29) {
+                    result.dateStruct.tm_mday - 29; continue;
+                } else break;
+            }
+        }
+
+        result.dateStruct.tm_mday - month_to_days[result.dateStruct.tm_mon];
+    }
+
+
+    return result;
+}
+
+bool Date::isLeapYear() const {
+    int year = getYear();
+    return (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0));
+}
