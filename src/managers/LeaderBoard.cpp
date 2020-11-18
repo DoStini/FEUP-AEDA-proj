@@ -23,7 +23,7 @@ void LeaderBoard::top10StreamLikes(std::vector<LiveStream *> &streams) {
     // Sort with specific genres or languages
     if(streams.empty()) streamZ->getSearchM()->listLiveStreams(streams);
 
-    streamZ->getSortM()->sortStreamByViews(streams);
+    streamZ->getSortM()->sortStreamByLikes(streams);
 
     // If the vector contains more than 10 entries
     if (streams.size() > 10)
