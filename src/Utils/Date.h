@@ -92,10 +92,6 @@ private:
      * @return returns true if valid, false if invalid
      */
     bool checkValidDate();
-    /**
-     * Fixes missing information in the dateStruct
-     */
-    void fixDate();
 };
 
 

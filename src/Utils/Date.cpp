@@ -3,6 +3,7 @@
 //
 
 #include "Date.h"
+#include "unordered_map"
 
 Date::Date(const std::string &date) {
     dateStruct = {0};
@@ -21,7 +22,6 @@ Date::Date(const std::string &date) {
 
         if(!dateStream.fail()) {
             if(checkValidDate()) {
-                fixDate();
                 return;
             }
         }
@@ -41,8 +41,6 @@ Date::Date(int year, int month, int day, int hour, int minute) {
     dateStruct.tm_min = minute;
 
     if(!checkValidDate()) throw InvalidDate();
-
-    fixDate();
 }
 
 Date::Date() {
@@ -110,20 +108,20 @@ void Date::setSystemDate() {
 }
 
 bool Date::checkValidDate() {
-    std::tm copy = dateStruct;
+    int year = getYear(), month = getMonth(), day = getDay();
+    uint16_t month_to_days[13] = {
+            0, 31,30,31,30,31,30,31,31,30,31,30,31
+    };
 
-    time_t result = mktime(&copy);
-    if(copy.tm_isdst) {
-        dateStruct.tm_isdst = 1;
-
-        copy = dateStruct;
-        time_t result = mktime(&copy);
+    if(day < 0) return false;
+    if(month < 0 || month > 12) return false;
+    if(year < 1900) return false;
+    if(month == 2) {
+        if((year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+            && day > 29) return false;
+        if(day > 28) return false;
     }
-    if(result < 0) return false;
-    else if(copy.tm_year != dateStruct.tm_year || copy.tm_mday != dateStruct.tm_mday ||
-            copy.tm_mon != dateStruct.tm_mon || copy.tm_hour != dateStruct.tm_hour ||
-            copy.tm_min != dateStruct.tm_min)
-        return false;
+    if(month > month_to_days[month]) return false;
 
     return true;
 }
@@ -132,18 +130,24 @@ void Date::setToZero() {
     dateStruct = {0};
 }
 
-;
-;
-void Date::fixDate() {
-    mktime(&dateStruct);
-}
-
-
 bool Date::operator<(const Date &rhs) const {
     std::tm tmLhs = getTimeStruct(); std::tm tmRhs = rhs.getTimeStruct();
-    time_t tLhs = mktime(&tmLhs), tRhs = mktime(&tmRhs);
 
-    return difftime(tLhs, tRhs) < 0;
+    if(tmLhs.tm_year < tmRhs.tm_year) return true;
+    else if(tmLhs.tm_year == tmRhs.tm_year){
+        if(tmLhs.tm_mon < tmRhs.tm_mon) return true;
+        else if(tmLhs.tm_mon == tmRhs.tm_mon) {
+            if(tmLhs.tm_mday < tmRhs.tm_mday) return true;
+            else if(tmLhs.tm_mday == tmRhs.tm_mday) {
+                if(tmLhs.tm_hour < tmRhs.tm_hour) return true;
+                else if(tmLhs.tm_hour == tmRhs.tm_hour) {
+                    if(tmLhs.tm_min < tmRhs.tm_min) return true;
+                }
+            }
+        }
+    }
+
+    return false;
 }
 
 bool Date::operator>(const Date &rhs) const {
