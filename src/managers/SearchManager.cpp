@@ -12,6 +12,7 @@ SearchManager::SearchManager(StreamZ *streamZ) : streamZ(streamZ) {}
 
 User *SearchManager::getUser(std::string userNick) {
     User * val;
+    std::transform(userNick.begin(), userNick.end(), userNick.begin(), ::tolower);
     try{
         val = streamZ->getDatabase().getUsers().at(userNick);
     } catch (const std::exception &e) {

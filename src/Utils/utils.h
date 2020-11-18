@@ -24,7 +24,7 @@ enum streamFileType{
 };
 
 enum streamState{
-    livestream,
+    livestream = 1,
     finished
 };
 
@@ -35,7 +35,7 @@ enum userType{
 };
 
 enum language{
-    PT_PT,
+    PT_PT = 1,
     PT_BR,
     ENG,
     SPA,
@@ -48,7 +48,7 @@ enum language{
 
 
 enum genre{
-    gaming,
+    gaming = 1,
     technology,
     music,
     cooking,
