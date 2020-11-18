@@ -602,10 +602,294 @@ TEST(test, files1){
 
 }
 
+std::string randomChars(){
+    std::string chars = " abcdefghijklmnopqrstuvwxyz";
+    std::stringstream ss;
+    int size = rand()%15;
+
+    for (int i = 0; i < size; ++i) {
+        ss << chars[rand()%chars.length()];
+    }
+
+    return ss.str();
+
+}
+
+
+void buildTestData(){
+
+    StreamZ streamZ;
+    streamZ.init();
+    streamZ.run();
+
+    streamZ.getUserM()->createAdmin("Super User", "admin_of_streamz", "super_strong_password", Date(1990, 12, 25));
+
+    streamZ.getUserM()->createViewer("Rui", "UsEr1","pass1123", Date(1992, 2, 5));
+    streamZ.getUserM()->createViewer("Jacinto", "USER2","raasdasd", Date(1980, 3, 9));
+    streamZ.getUserM()->createViewer("Luis", "usEr3","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Alfredo", "user4","random", Date(2002, 6, 1));
+    streamZ.getUserM()->createViewer("Brocolo", "user5","random", Date(2000, 2, 9));
+    streamZ.getUserM()->createViewer("Alberto Martins", "user6","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Andre Julio Moreira", "watching_memes","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Rodado", "sir_sir","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Andre Pereira", "crocodile_crazy","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Nuno Alves", "idkwhat","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Andre 2", "clear_head","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Rolando", "ronaldo","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Aleatoriamente valido com 6 nomes fixes", "music_finder","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer(" No name man", "cristiano","random", Date(2000, 1, 1));
+    streamZ.getUserM()->createViewer("Opa hello", "pedro1254","random", Date(2000, 1, 1));
+
+    streamZ.getUserM()->createStreamer("Pewdipie", "streamer1","random", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Michael VSauce", "streamer2","random", Date(1995, 1,3));
+    streamZ.getUserM()->createStreamer("AEFEUP", "streamer3","random", Date(1985, 2,6));
+    streamZ.getUserM()->createStreamer("Nobody games", "streamer4","random", Date(2000, 7,20));
+    streamZ.getUserM()->createStreamer("Fine talks", "streamer5","random", Date(1991, 8,29));
+    streamZ.getUserM()->createStreamer("Gordon Ramsay Cooks", "streamer6","random", Date(1995, 2,3));
+    streamZ.getUserM()->createStreamer("Something", "whateve1r","random", Date(1971, 10,8));
+    streamZ.getUserM()->createStreamer("Something 2", "whatever2","random", Date(1971, 10,8));
+    streamZ.getUserM()->createStreamer("Something 3", "something","random", Date(1971, 10,8));
+    streamZ.getUserM()->createStreamer("Crazy man", "crazy_games","random", Date(1971, 10,8));
+    streamZ.getUserM()->createStreamer("Something 6", "its_fine_dude","random", Date(1971, 10,8));
+    streamZ.getUserM()->createStreamer("Something Seven times big name", "its_not_fine_dude","random", Date(1971, 10,8));
+
+    SearchManager * sm = streamZ.getSearchM();
+
+    dynamic_cast<Streamer *>( sm->getUser("streamer1"))->startPublicStream("First stream", PT_PT, meetGreet);
+
+    dynamic_cast<Viewer *>( sm->getUser("user1"))->joinStream(1);
+    dynamic_cast<Viewer *>( sm->getUser("user2"))->joinStream(1);
+    dynamic_cast<Viewer *>( sm->getUser("user3"))->joinStream(1);
+    dynamic_cast<Viewer *>( sm->getUser("user4"))->joinStream(1);
+
+    dynamic_cast<Streamer *>( sm->getUser("streamer1"))->closeStream();
 
 
 
-int main() {
-    testing::InitGoogleTest();
-    return RUN_ALL_TESTS();
+    dynamic_cast<Streamer *>( sm->getUser("whateve1r"))->startPrivateStream("Jamming to the vibe", ENG, music);
+    ID id1 = dynamic_cast<Streamer *>( sm->getUser("whateve1r"))->getStreamID();
+
+    dynamic_cast<PrivateStream *>( sm->getStream(id1) )->addValidUser("crocodile_crazy");
+    dynamic_cast<PrivateStream *>( sm->getStream(id1) )->addValidUser("clear_head");
+    dynamic_cast<PrivateStream *>( sm->getStream(id1) )->addValidUser("user2");
+    dynamic_cast<PrivateStream *>( sm->getStream(id1) )->addValidUser("user1");
+    dynamic_cast<PrivateStream *>( sm->getStream(id1) )->addValidUser("ronaldo");
+
+    dynamic_cast<Viewer *>( sm->getUser("crocodile_crazy"))->joinStream(id1);
+    dynamic_cast<Viewer *>( sm->getUser("clear_head"))->joinStream(id1);
+    dynamic_cast<Viewer *>( sm->getUser("USER2"))->joinStream(id1);
+    dynamic_cast<Viewer *>( sm->getUser("UsEr1"))->joinStream(id1);
+
+    dynamic_cast<Streamer *>( sm->getUser("whatever2"))->startPrivateStream("Give away stream", GER, technology);
+    ID id2 = dynamic_cast<Streamer *>( sm->getUser("whatever2"))->getStreamID();
+
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("crocodile_crazy");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("clear_head");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("user4");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("user3");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("user1");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("user6");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("watching_memes");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("sir_sir");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("idkwhat");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("cristiano");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("pedro1254");
+    dynamic_cast<PrivateStream *>( sm->getStream(id2) )->addValidUser("ronaldo");
+
+
+    dynamic_cast<Viewer *>( sm->getUser("user3"))->joinStream(id2);
+    dynamic_cast<Viewer *>( sm->getUser("user4"))->joinStream(id2);
+    dynamic_cast<Viewer *>( sm->getUser("ronaldo"))->joinStream(id2);
+    dynamic_cast<Viewer *>( sm->getUser("user6"))->joinStream(id2);
+    dynamic_cast<Viewer *>( sm->getUser("watching_memes"))->joinStream(id2);
+    dynamic_cast<Viewer *>( sm->getUser("sir_sir"))->joinStream(id2);
+    dynamic_cast<Viewer *>( sm->getUser("idkwhat"))->joinStream(id2);
+    dynamic_cast<Viewer *>( sm->getUser("cristiano"))->joinStream(id2);
+    dynamic_cast<Viewer *>( sm->getUser("pedro1254"))->joinStream(id2);
+
+
+    dynamic_cast<Streamer *>( sm->getUser("streamer2"))->startPublicStream("Second stream - Minecraft", PT_PT, gaming);
+    ID id3 = dynamic_cast<Streamer *>( sm->getUser("streamer2"))->getStreamID();
+
+    for (int i = 0; i < 20; ++i) {
+        streamZ.getUserM()->createViewer("New name " + std::to_string(i), "new_user_" + std::to_string(i),"pass1123", Date(1992, 2, 5));
+        dynamic_cast<Viewer *>( sm->getUser("new_user_" + std::to_string(i)))->joinStream(id3);
+    }
+
+    for (int i = 0; i < 5; ++i) {
+        dynamic_cast<Viewer *>( sm->getUser("new_user_" + std::to_string(i)))->leaveStream();
+    }
+
+    dynamic_cast<Streamer *>( sm->getUser("streamer3"))->startPublicStream("Second stream - Minecraft", PT_PT, gaming);
+    ID id4 = dynamic_cast<Streamer *>( sm->getUser("streamer3"))->getStreamID();
+
+    for (int i = 0; i < 5; ++i) {
+        dynamic_cast<Viewer *>( sm->getUser("new_user_" + std::to_string(i)))->joinStream(id4);
+    }
+
+    for (int i = 20; i < 50; ++i) {
+        streamZ.getUserM()->createViewer("New user " + std::to_string(i), "new_user_" + std::to_string(i),"pass1123", Date(1992, 2, 5));
+        dynamic_cast<Viewer *>( sm->getUser("new_user_" + std::to_string(i)))->joinStream(id4);
+    }
+
+    for (int i = 0; i < 10; ++i) {
+        dynamic_cast<Viewer *>( sm->getUser("new_user_" + std::to_string(i)))->leaveStream();
+    }
+
+
+
+    dynamic_cast<Streamer *>( sm->getUser("streamer4"))->startPublicStream("Cooking french fries", language::FRE, cooking);
+    ID id5 = dynamic_cast<Streamer *>( sm->getUser("streamer4"))->getStreamID();
+
+    for (int i = 0; i < 10; ++i) {
+        dynamic_cast<Viewer *>( sm->getUser("new_user_" + std::to_string(i)))->joinStream(id5);
+    }
+
+    for (int i = 50; i < 90; ++i) {
+        streamZ.getUserM()->createViewer("Cristiano Ronaldo " + std::to_string(i), "new_user_" + std::to_string(i),"pass1123", Date(1992, 2, 5));
+        dynamic_cast<Viewer *>( sm->getUser("new_user_" + std::to_string(i)))->joinStream(id5);
+    }
+
+    for (int i = 55; i < 75; ++i) {
+        dynamic_cast<Viewer *>( sm->getUser("new_user_" + std::to_string(i)))->leaveStream();
+    }
+
+
+
+    dynamic_cast<Streamer *>( sm->getUser("streamer5"))->startPublicStream("Russian cars", language::RUS, genre::technology);
+    ID id6 = dynamic_cast<Streamer *>( sm->getUser("streamer5"))->getStreamID();
+
+
+    for (int i = 55; i < 75; ++i) {
+        dynamic_cast<Viewer *>( sm->getUser("new_user_" + std::to_string(i)))->joinStream(id6);
+    }
+
+    for (int i = 90; i < 120; ++i) {
+        streamZ.getUserM()->createViewer("No name dude " + std::to_string(i), "new_user_" + std::to_string(i),"pass1123", Date(1992, 2, 5));
+        dynamic_cast<Viewer *>( sm->getUser("new_user_" + std::to_string(i)))->joinStream(id6);
+    }
+
+
+    ///     GENERATING SOME KINDA RANDOM DATA
+
+
+    srand(time(nullptr)); // Seed 0
+
+    int numStreams = (rand() % 30) + 20;
+
+    for (int i = 0; i < numStreams; ++i) {
+        streamZ.getUserM()->createStreamer(randomChars(),
+                                         "osvaldo" + std::to_string(i),"nopass",
+                                         Date(rand()%(2000 - 1971)+1971,rand()%12+1, rand()%27+1));
+
+
+
+
+        dynamic_cast<Streamer *>( sm->getUser("osvaldo" + std::to_string(i)))->
+                startPublicStream(randomChars(), (language)(rand()%10+1),
+                                  (genre)(rand()%6+1));
+        ID currId = dynamic_cast<Streamer *>( sm->getUser("osvaldo" + std::to_string(i)))->getStreamID();
+
+        int numViewers = rand()%40 + 10;
+        double timesum = 0;
+        std::cout << "NEW ITERATION" << std::endl;
+        for (int j = 0; j < numViewers; ++j) {
+            auto t1 = std::chrono::high_resolution_clock::now();
+
+            streamZ.getUserM()->createViewer(randomChars(),
+                                             "random_viewer_public" + std::to_string(i) + "_" + std::to_string(j),
+                                             randomChars(),
+                                             Date(rand()%(2000 - 1971)+1971,rand()%12+1, rand()%27+1));
+
+            auto t2 = std::chrono::high_resolution_clock::now();
+            double time = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+            timesum += time;
+            double avrg = timesum/(j+1);
+
+            std::cout << "Size - " << streamZ.getDatabase().getUsers().size() << " -- Time - " <<
+            time << "us -- Average - " << avrg << "us" << std::endl << std::endl;
+
+            try{
+                dynamic_cast<Viewer *>(
+                        sm->getUser("random_viewer_public" + std::to_string(i) + "_" + std::to_string(j)))->
+                        joinStream(currId);
+            } catch (const RestrictedAgeException & e) {}
+
+        }
+
+    }
+
+    std::cout << "ENDS HERE" << std::endl;
+
+    numStreams = (rand() % 10) + 5;
+
+    for (int i = 0; i < numStreams; ++i) {
+        streamZ.getUserM()->createStreamer(randomChars(),
+                                           "ramiro" + std::to_string(i),"nopass",
+                                           Date(rand()%(2000 - 1971)+1971,rand()%12+1, rand()%27+1));
+
+        int maxViewers = rand()%10 + 10;
+
+        dynamic_cast<Streamer *>( sm->getUser("ramiro" + std::to_string(i)))->
+                startPrivateStream(randomChars(), (language)(rand()%10+1),
+                                  (genre)(rand()%6+1), maxViewers);
+        ID currId = dynamic_cast<Streamer *>( sm->getUser("ramiro" + std::to_string(i)))->getStreamID();
+
+        int numViewers = rand()%maxViewers;
+        double timesum = 0;
+        for (int j = 0; j < numViewers; ++j) {
+            auto t1 = std::chrono::high_resolution_clock::now();
+
+            streamZ.getUserM()->createViewer(randomChars(),
+                                             "random_viewer_private" + std::to_string(i) + "_" + std::to_string(j),
+                                             randomChars(),
+                                             Date(rand()%(2000 - 1971)+1971,rand()%12+1, rand()%27+1));
+
+
+            auto t2 = std::chrono::high_resolution_clock::now();
+            double time = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+            timesum += time;
+            double avrg = timesum/(j+1);
+
+            std::cout << "Size - " << streamZ.getDatabase().getUsers().size() << " -- Time - " <<
+                      time << "us -- Average - " << avrg << "us" << std::endl << std::endl;
+
+            dynamic_cast<PrivateStream *>(sm->getStream(currId))->
+                addValidUser("random_viewer_private" + std::to_string(i) + "_" + std::to_string(j));
+
+            try{
+                dynamic_cast<Viewer *>( sm->getUser("random_viewer_private" + std::to_string(i) + "_" + std::to_string(j)))->joinStream(currId);
+            } catch (const RestrictedAgeException & e) {}
+            catch (const MaxViewersReach & e) {}
+        }
+
+    }
+
+    // Finish some random streams
+
+    numStreams = rand()%10+10;
+
+    auto it1 = streamZ.getDatabase().getUsers().begin();
+    auto it2 = streamZ.getDatabase().getUsers().end();
+
+    for (int i = 0; i < numStreams; ++i) {
+        if(it1->second->getUserType() == streamer && dynamic_cast<Streamer *>(it1->second)->streaming()){
+            dynamic_cast<Streamer *>(it1->second)->closeStream();
+        }
+        it1++;
+    }
+
+    streamZ.shutdown("final_data.txt");
+
+}
+
+
+int main(int argc, char** argv) {
+
+    buildTestData();
+
+    //testing::InitGoogleTest(&argc, argv);
+    //return RUN_ALL_TESTS();
+
+
 }

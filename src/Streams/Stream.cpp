@@ -10,7 +10,8 @@
 Stream::Stream(std::string title, language language, genre genre, std::string streamerNick ) :
             title(std::move(title)), streamLanguage(language), streamGenre(genre), streamerNick(std::move(streamerNick)){
     Date currDate; currDate.setSystemDate();
-    beginDate = currDate;
+    //beginDate = currDate;
+    beginDate = Date(rand()%(2020 - 2017)+2017,rand()%12+1, rand()%27+1, rand()%24, rand()%60);
 }
 
 

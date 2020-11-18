@@ -10,7 +10,9 @@
 User::User( std::string name, std::string nickName,std::string password, const Date &birthDate) :
             name(std::move(name)), nickName(std::move(nickName)),birthDate(birthDate), password(std::move(password)) {
     Date currDate; currDate.setSystemDate();
-    joinedPlatformDate = currDate;
+    //joinedPlatformDate = currDate;
+    joinedPlatformDate = Date(rand()%(2020 - 2017)+2017,rand()%12+1, rand()%27+1, rand()%24, rand()%60);
+
 }
 
 

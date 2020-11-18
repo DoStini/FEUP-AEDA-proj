@@ -67,13 +67,14 @@ public:
      * @return returns an int32 of the difference in years.
      */
     int getYearDifference(const Date &otherDate) const;
-
+    Date sumDate(Date date);
     /**
      * Gets the tm struct.
      *
      * @return returns the tm struct dateStruct.
      */
     std::tm getTimeStruct() const;
+
 
     bool operator<(const Date &rhs) const;
 

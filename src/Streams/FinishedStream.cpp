@@ -16,8 +16,9 @@ FinishedStream::FinishedStream(std::string title, language language, genre strea
                                 numViewers(numViewers), type(type){
     streamId = streamID;
     Date currDate; currDate.setSystemDate();
-    finishedDate = currDate;
-
+    Date sum(0,0, rand()%3, rand()%24, rand()%60);
+    //finishedDate = currDate;
+    finishedDate = beginDate + sum;
 }
 
 
