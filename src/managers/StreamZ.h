@@ -38,7 +38,6 @@ private:
     Database dataBase;
 public:
     void init();
-    void init(std::string fileName);
     void shutdown(std::string fileName);
     /**
      * Runs the program and prompts the user to login/register/exit the program.

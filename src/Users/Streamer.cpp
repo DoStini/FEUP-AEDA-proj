@@ -191,14 +191,8 @@ void Streamer::writeToFile(std::ofstream &ff) {
     std::stringstream temp(name);
     while (temp >> counter) numNames ++;
 
-    ff << numNames << " , " << name << " , " << nickName << " , ";
 
-    numNames = 0;
-    temp = std::stringstream(password);
-    while (temp >> counter) numNames ++;
-
-
-    ff << numNames <<" , " << " , " << password << " , "
+    ff << numNames << " , " << name << " , " << nickName << " , " << password << " , "
        << birthDate.getStringDate() << " , " << joinedPlatformDate.getStringDateTime()
        << " , " << currStreaming << " , "
        << followedBy.size() << " , ";
@@ -226,24 +220,14 @@ void Streamer::readFromFile(std::ifstream &ff) {
 
     for (int i = 0; i < numNames; ++i) {
         ff >> temp;
-        ss << ((i != numNames -1) ? " " : "") << temp;
+        ss << temp << " ";
     }
 
     name = ss.str();
 
-    ff >> sep >> nickName >> sep >> numNames >> sep;
+    ff >> sep >> nickName >> sep >> password >> sep;
 
-    ss = std::stringstream(std::string());
-
-    for (int i = 0; i < numNames; ++i) {
-        ff >> temp;
-        ss << ((i != numNames -1) ? " " : "") << temp;
-    }
-
-    password = ss.str();
-
-    ff >> sep >> temp;
-
+    ff >> temp;
     birthDate = Date(temp);
     ff >> sep;
 

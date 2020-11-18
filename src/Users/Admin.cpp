@@ -21,19 +21,11 @@ Admin::Admin() : User(){
 }
 
 void Admin::writeToFile(std::ofstream &ff) {
-
     int numNames = 0;
     std::string counter;
     std::stringstream temp(name);
     while (temp >> counter) numNames ++;
-
-    ff << numNames << " , " << name << " , " << nickName << " , ";
-
-    numNames = 0;
-    temp = std::stringstream(password);
-    while (temp >> counter) numNames ++;
-
-    ff << numNames << " , " << password << " , "
+    ff << numNames << " , " << name << " , " << nickName << " , " << password << " , "
        << birthDate.getStringDate() << " , " << joinedPlatformDate.getStringDateTime() << " , " << std::endl;
 }
 
@@ -45,26 +37,17 @@ void Admin::readFromFile(std::ifstream &ff) {
     std::stringstream ss;
 
     ff >> numNames >> sep;
+
     for (int i = 0; i < numNames; ++i) {
         ff >> temp;
-        ss << ((i != numNames -1) ? " " : "") << temp;
+        ss << temp << " ";
     }
 
     name = ss.str();
 
-    ff >> sep >> nickName >> sep >> numNames >> sep;
+    ff >> sep >> nickName >> sep >> password >> sep;
 
-    ss = std::stringstream(std::string());
-
-    for (int i = 0; i < numNames; ++i) {
-        ff >> temp;
-        ss << ((i != numNames -1) ? " " : "") << temp;
-    }
-
-    password = ss.str();
-
-    ff >> sep >> temp;
-
+    ff >> temp;
     birthDate = Date(temp);
     ff >> sep;
 
