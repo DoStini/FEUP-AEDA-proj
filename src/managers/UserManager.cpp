@@ -25,7 +25,6 @@ void UserManager::createStreamer(std::string name, std::string nickName,const st
     Streamer * ptr = new Streamer(name, nickName,password, birthDate);
     ptr->setStreamZ(streamZ);
 
-
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 

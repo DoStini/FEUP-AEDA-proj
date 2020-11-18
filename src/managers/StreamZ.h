@@ -20,16 +20,13 @@
 #include "AdminOps.h"
 
 class StreamZ {
+private:
     SortingManager * sortingManager;
     SearchManager * searchManager;
     UserManager * userManager;
     StreamManager * streamManager;
     LeaderBoard * leaderboard;
     AdminOps * adminOps;
-public:
-    AdminOps *getAdminOps() const;
-
-private:
     Database dataBase;
 public:
     void init();
@@ -40,7 +37,7 @@ public:
     void readFromFile(std::string fileName);
     void resetDatabase();
 
-
+    AdminOps *getAdminOps() const;
     SortingManager * getSortM();
     SearchManager * getSearchM();
     UserManager * getUserM();
