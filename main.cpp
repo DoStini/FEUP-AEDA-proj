@@ -615,6 +615,19 @@ std::string randomChars(){
 
 }
 
+std::string randomPass(){
+    std::string chars = "abcdefghijklmnopqrstuvwxyz_-.1234567890";
+    std::stringstream ss;
+    int size = rand()%15+1;
+
+    for (int i = 0; i < size; ++i) {
+        ss << chars[rand()%chars.length()];
+    }
+
+    return ss.str();
+
+}
+
 
 void buildTestData(){
 
@@ -779,7 +792,7 @@ void buildTestData(){
 
     for (int i = 0; i < numStreams; ++i) {
         streamZ.getUserM()->createStreamer(randomChars(),
-                                         "osvaldo" + std::to_string(i),"nopass",
+                                         "osvaldo" + std::to_string(i),randomPass(),
                                          Date(rand()%(2000 - 1971)+1971,rand()%12+1, rand()%27+1));
 
 
@@ -798,7 +811,7 @@ void buildTestData(){
 
             streamZ.getUserM()->createViewer(randomChars(),
                                              "random_viewer_public" + std::to_string(i) + "_" + std::to_string(j),
-                                             randomChars(),
+                                             randomPass(),
                                              Date(rand()%(2000 - 1971)+1971,rand()%12+1, rand()%27+1));
 
             auto t2 = std::chrono::high_resolution_clock::now();
@@ -831,7 +844,7 @@ void buildTestData(){
 
     for (int i = 0; i < numStreams; ++i) {
         streamZ.getUserM()->createStreamer(randomChars(),
-                                           "ramiro" + std::to_string(i),"nopass",
+                                           "ramiro" + std::to_string(i),randomPass(),
                                            Date(rand()%(2000 - 1971)+1971,rand()%12+1, rand()%27+1));
 
         int maxViewers = rand()%10 + 10;
@@ -848,7 +861,7 @@ void buildTestData(){
 
             streamZ.getUserM()->createViewer(randomChars(),
                                              "random_viewer_private" + std::to_string(i) + "_" + std::to_string(j),
-                                             randomChars(),
+                                             randomPass(),
                                              Date(rand()%(2000 - 1971)+1971,rand()%12+1, rand()%27+1));
 
 
