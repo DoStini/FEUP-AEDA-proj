@@ -77,7 +77,7 @@ public:
     virtual std::string getShortDescription() const = 0;
 
     /// @return - detailed info about user
-    virtual std::string getLongDescription() const = 0;
+    virtual std::string getLongDescription(bool seePassword = false) const = 0;
 
     /// @return - string with all the followers/following
     virtual std::string getFollowDetails() const = 0;

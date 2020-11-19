@@ -166,12 +166,12 @@ std::string Viewer::getShortDescription() const {
     return ss2.str();
 }
 
-std::string Viewer::getLongDescription() const {
+std::string Viewer::getLongDescription(bool seePassword) const {
     std::stringstream  ss;
     ss << "My name is " << name << std::endl
        << "My nickname is " << nickName << std::endl
        << "I am a viewer" << std::endl
-       << "My password is " << password << " hope you enjoy my account :)\n"
+       << "My password is " << (seePassword ? password : "*****") << " hope you enjoy my account :)\n"
        << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years\n"
        << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl;
     if(!followingStreamers.empty()) {

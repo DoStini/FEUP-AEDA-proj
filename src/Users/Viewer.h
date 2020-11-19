@@ -150,7 +150,7 @@ public:
     std::string getShortDescription() const override;
 
     /// @return - detailed info about user
-    std::string getLongDescription() const override;
+    std::string getLongDescription(bool seePassword = false) const override;
 
     /// @return - string with all the following
     std::string getFollowDetails() const override;

@@ -19,7 +19,7 @@ public:
     ///@return Short description
     std::string getShortDescription() const override;
     ///@return Long description
-    std::string getLongDescription() const override;
+    std::string getLongDescription(bool seePassword = false) const override;
     /// Not applicable
     std::string getFollowDetails() const override;
     /// Not applicable

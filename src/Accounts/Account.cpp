@@ -570,7 +570,7 @@ void Account::sortingMethods(std::vector<T *> &toSort, std::vector<std::string> 
 }
 
 void Account::displaySelfInfo() {
-    print(user->getLongDescription());
+    print(user->getLongDescription(true));
 
     print();
     waitForKey();

@@ -146,12 +146,12 @@ bool Streamer::isInStreamHistory(ID streamID) {
     return !(find(finishedStreams.begin(),finishedStreams.end(),streamID) == finishedStreams.end());
 }
 
-std::string Streamer::getLongDescription() const {
+std::string Streamer::getLongDescription(bool seePassword) const {
     std::stringstream  ss;
     ss << "My name is " << name << std::endl
        << "My nickname is " << nickName << std::endl
        << "I am a streamer" << std::endl
-       << "My password is " << password << " hope you enjoy my account :)\n"
+       << "My password is " << (seePassword ? password : "*****") << " hope you enjoy my account :)\n"
     << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
     << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl
     << "Currently have " << getNumFollowers() << " followers.\n";

@@ -60,7 +60,7 @@ void Admin::readFromFile(std::ifstream &ff) {
     joinedPlatformDate = Date(ss.str(), true);
 }
 
-std::string Admin::getLongDescription() const {
+std::string Admin::getLongDescription(bool seePassword) const {
     std::stringstream  ss;
       ss << "My name is " << name << std::endl
          << "My nickname is " << nickName << std::endl
