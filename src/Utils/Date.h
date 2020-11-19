@@ -36,7 +36,7 @@ public:
      * @throws BadDateFormat when using a bad date format
      * @throws InvalidDate when using an invalid date
      */
-    explicit Date(const std::string &date);
+    explicit Date(const std::string &date, bool reversed = false);
     /**
      * Constructor for Date. If empty, sets the date to the current system date.
      *

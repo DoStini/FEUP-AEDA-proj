@@ -5,20 +5,25 @@
 #include "Date.h"
 #include "unordered_map"
 
-Date::Date(const std::string &date) {
+
+Date::Date(const std::string &date, bool reversed) {
+
     dateStruct = {0};
     std::stringstream dateStream(date);
-    const char* formats[7] = {"%Y/%m/%d %H:%M\0",
-                              "%d/%m/%Y %H:%M\0",
-                              "%Y/%m/%d %H\0",
-                              "%d/%m/%Y\0",
-                              "%Y/%m/%d\0",
-                              "%Y-%m-%d\0",
-                              "%Y %m %d\0"};
+    const char* formatsY[5] = {"%Y/%m/%d %H:%M\0",
+                               "%Y/%m/%d %H\0",
+                               "%Y/%m/%d\0",
+                               "%Y-%m-%d\0",
+                               "%Y %m %d\0"};
+    const char* formatsD[2] = {
+            "%d/%m/%Y %H:%M\0",
+            "%d/%m/%Y\0"};
+    const char ** formats = reversed ? formatsD : formatsY;
+    size_t size = reversed? 2 : 5;
 
-    for(auto & format : formats) {
+    for(size_t i = 0; i < size; i++) {
         setToZero();
-        dateStream >> std::get_time(&dateStruct, format);
+        dateStream >> std::get_time(&dateStruct, formats[i]);
 
         if(!dateStream.fail()) {
             if(checkValidDate()) {
@@ -30,6 +35,7 @@ Date::Date(const std::string &date) {
     }
 
     throw BadDateFormat(date);
+
 }
 
 Date::Date(int year, int month, int day, int hour, int minute) {

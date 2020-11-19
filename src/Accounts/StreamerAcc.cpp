@@ -296,7 +296,7 @@ void StreamerAcc::removeUserFromPrivate() {
             throw NotPrivateStreamException(streamID);
         }
 
-        privateStream->removeValidUser(nickName);
+        privateStream->kickValidUser(nickName);
 
         print("Operation success!");
     } catch (NotInStreamException &e) {

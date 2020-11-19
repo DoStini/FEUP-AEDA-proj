@@ -48,7 +48,7 @@ void Admin::readFromFile(std::ifstream &ff) {
     ff >> sep >> nickName >> sep >> password >> sep;
 
     ff >> temp;
-    birthDate = Date(temp);
+    birthDate = Date(temp, true);
     ff >> sep;
 
     // Clearing the string streamer
@@ -57,7 +57,7 @@ void Admin::readFromFile(std::ifstream &ff) {
     ff >> temp; ss << temp << " "; // Building date and hour/minute
     ff >> temp >> sep; ss << temp; // Building date and hour/minute
 
-    joinedPlatformDate = Date(ss.str());
+    joinedPlatformDate = Date(ss.str(), true);
 }
 
 std::string Admin::getLongDescription() const {

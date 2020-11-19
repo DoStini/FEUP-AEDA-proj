@@ -54,11 +54,17 @@ public:
     void addValidUser(const std::string& userNick);
 
     /**
-     * Function to remove a user from the streamer whitelist
+     * Function to remove a user from the stream whitelist and kick him from the stream
      * @throw NotInStreamException
      * @param userNick - nick of user to be removed
      */
-    void removeValidUser(const std::string& userNick);
+    void kickValidUser(const std::string& userNick);
+    /**
+     * Function to remove a user from the stream whitelist
+     * @throw NotInStreamException
+     * @param userNick - nick of user to be removed
+     */
+    void removeUserFromWhitelist(const std::string& userNick);
     /**
      * Checks if the user is in the vector of valid users
      *

@@ -55,12 +55,13 @@ void StreamManager::removeViewerFromWhitelists(std::string nick) const{
             ite = streamZ->getDatabase().getStreams().end();
 
     while(it1 != ite){
-        if(it1->second->getStreamType() == privateType){
-            PrivateStream * ptr = dynamic_cast<PrivateStream *>(it1->second);
+        Stream * str = it1->second;
+        if(str->getStreamType() == privateType && str->getStreamState() == livestream){
+            PrivateStream * ptr = dynamic_cast<PrivateStream *>(str);
 
             try {
-                ptr->removeValidUser(nick);
-            } catch (const std::exception & e) {
+                ptr->removeUserFromWhitelist(nick);
+            } catch (const NotInStreamException & e) {
             }
         }
         it1++;

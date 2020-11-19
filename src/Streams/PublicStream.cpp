@@ -67,7 +67,7 @@ void PublicStream::readFromFile(std::ifstream &ff) {
     ff >> temp; ss << temp << " "; // Building date and hour/minute
     ff >> temp; ss << temp; // Building date and hour/minute
 
-    beginDate = Date(ss.str());
+    beginDate = Date(ss.str(), true);
 
     int lang, _genre;
 

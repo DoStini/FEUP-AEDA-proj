@@ -22,7 +22,7 @@ Streamer::~Streamer() {
 
     if(streaming()){
         closeStream();
-        // This moves the streamer to finished streamer, so it doesnt have problems in recursive deletion
+        // This moves the stream to finished stream, so it doesnt have problems in recursive deletion
     }
 
     for(const auto & curr : finishedStreams){
@@ -228,7 +228,7 @@ void Streamer::readFromFile(std::ifstream &ff) {
     ff >> sep >> nickName >> sep >> password >> sep;
 
     ff >> temp;
-    birthDate = Date(temp);
+    birthDate = Date(temp, true);
     ff >> sep;
 
     // Clearing the string streamer
@@ -238,7 +238,7 @@ void Streamer::readFromFile(std::ifstream &ff) {
     ff >> temp; ss << temp; // Building date and hour/minute
 
 
-    joinedPlatformDate = Date(ss.str());
+    joinedPlatformDate = Date(ss.str(), true);
 
     int size;
     ID id;

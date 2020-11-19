@@ -40,9 +40,9 @@ void PrivateStream::addValidUser(const std::string& userNick) {
     whitelist.push_back(userNick);
 }
 
-void PrivateStream::removeValidUser(const std::string &userNick) {
+void PrivateStream::kickValidUser(const std::string &userNick) {
 
-    auto it = find(whitelist.begin(),whitelist.end(),userNick);
+    auto it = std::find(whitelist.begin(),whitelist.end(),userNick);
     if(it == whitelist.end())
         throw NotInStreamException(userNick);
     else {
@@ -52,6 +52,14 @@ void PrivateStream::removeValidUser(const std::string &userNick) {
         if (viewer->getCurrWatching() == streamId)
             viewer->leaveStream();
     }
+}
+
+void PrivateStream::removeUserFromWhitelist(const std::string &userNick) {
+    auto it = std::find(whitelist.begin(),whitelist.end(),userNick);
+    if(it == whitelist.end())
+        throw NotInStreamException(userNick);
+    else
+        whitelist.erase(it);
 }
 
 int PrivateStream::getWhitelistSize() const {
@@ -189,7 +197,7 @@ void PrivateStream::readFromFile(std::ifstream &ff) {
     ff >> temp; ss << temp << " "; // Building date and hour/minute
     ff >> temp; ss << temp; // Building date and hour/minute
 
-    beginDate = Date(ss.str());
+    beginDate = Date(ss.str(), true);
 
     int lang, _genre;
 
@@ -261,4 +269,6 @@ void PrivateStream::readFromFile(std::ifstream &ff) {
 PrivateStream::PrivateStream() : LiveStream(){
 
 }
+
+
 

@@ -105,7 +105,7 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
     ff >> temp; ss << temp << " "; // Building date and hour/minute
     ff >> temp; ss << temp; // Building date and hour/minute
 
-    beginDate = Date(ss.str());
+    beginDate = Date(ss.str(), true);
 
     int lang, _genre, _type;
 
@@ -121,7 +121,7 @@ void FinishedStream::readFromFile(std::ifstream &ff) {
     ff >> temp; ss << temp << " "; // Building date and hour/minute
     ff >> temp; ss << temp; // Building date and hour/minute
 
-    finishedDate = Date(ss.str());
+    finishedDate = Date(ss.str(), true);
 
     ff >> sep >> numViewers >> sep;
 
