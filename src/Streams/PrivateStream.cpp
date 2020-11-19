@@ -12,7 +12,7 @@ extern const char *languageTypes[];
 extern const char *genreTypes[];
 
 PrivateStream::PrivateStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick,
-                                unsigned int minAge, unsigned int maxViewers) : LiveStream(std::move(title),
+                                unsigned int minAge, unsigned maxViewers) : LiveStream(std::move(title),
                                     streamLanguage, streamGenre,std::move(streamerNick), minAge), maxViewers(maxViewers) {}
 
 unsigned PrivateStream::getNumberComments() {

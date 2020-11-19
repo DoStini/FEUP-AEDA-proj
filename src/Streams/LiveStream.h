@@ -17,6 +17,10 @@ enum feedback{
     none
 };
 
+/**
+ *
+ * LiveStream inherited from Stream to handle streams while streaming
+ */
 class LiveStream : public Stream {
 public:
     LiveStream();

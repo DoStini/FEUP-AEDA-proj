@@ -27,6 +27,10 @@
 #include "StreamerAcc.h"
 #include "AdminAcc.h"
 
+/**
+ *
+ * StreamZ general class of all program used to link all the parts
+ */
 class StreamZ {
 private:
     SortingManager * sortingManager;

@@ -8,6 +8,11 @@
 #include "LiveStream.h"
 #include <fstream>
 
+
+/**
+ *
+ * PublicStream inherited from LiveStream to handle changes in publicStream elements
+ */
 class PublicStream : public LiveStream {
 public:
     PublicStream();

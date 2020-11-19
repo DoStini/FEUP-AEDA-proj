@@ -12,8 +12,8 @@
 
 
 /**
- * Viewer class
- * Specific type of user that can watch streams and interact with them
+ * Admin class
+ * Specific type of user that can see statistic about the streams that are/where streamed
  */
 class Viewer : public User{
 public:

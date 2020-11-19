@@ -11,7 +11,9 @@
 AdminOps::AdminOps(StreamZ *streamZ) : streamZ(streamZ) {}
 
 
-
+/**
+ * Struct used to compare two given arguments
+ */
 struct comparator{
     template<class T>
     bool operator()(const T& t1, const T& t2){

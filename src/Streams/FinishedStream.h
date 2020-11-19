@@ -6,6 +6,11 @@
 #define FEUP_AEDA_PROJ_FINISHEDSTREAM_H
 
 #include "Stream.h"
+
+/**
+ *
+ * PublicStream inherited from Stream to handle changes in finishStream elements
+ */
 class FinishedStream : public Stream{
 public:
     FinishedStream();
