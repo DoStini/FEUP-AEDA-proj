@@ -294,8 +294,10 @@ void StreamZ::backupData(std::string fileName) {
 
     std::ofstream ff("../users_" + fileName, std::ofstream::trunc);
 
-    // TODO EXCEPTION
-    if (!ff.is_open()) throw "No file";
+    if (!ff.is_open()){
+        ff.open("users_" + fileName, std::ofstream::trunc);
+        if(!ff.is_open()) throw "No file";
+    }
 
     for (const auto & userPair : getDatabase().getUsers()){
         ff << userPair.second->getUserType() << " : ";
@@ -306,7 +308,10 @@ void StreamZ::backupData(std::string fileName) {
 
     ff.open("../streams_" + fileName, std::ofstream::trunc);
     // TODO EXCEPTION
-    if (!ff.is_open()) throw "No file";
+    if (!ff.is_open()){
+        ff.open("streams_" + fileName, std::ofstream::trunc);
+        if(!ff.is_open()) throw "No file";
+    }
 
     ff << LiveStream::lastId << std::endl;
 
@@ -322,10 +327,11 @@ void StreamZ::readFromFile(std::string fileName) {
     std::ifstream ff;
     ff.open("../users_" + fileName);
 
-    //usersRef.clear();
+    if (!ff.is_open()){
+        ff.open("users_" + fileName);
+        if(!ff.is_open()) throw "No file";
+    }
 
-    // TODO EXCEPTION
-    if (!ff.is_open()) throw std::string("No file");
 
 
     int uType;
@@ -360,9 +366,10 @@ void StreamZ::readFromFile(std::string fileName) {
 
     ff.open("../streams_" + fileName);
 
-
-    // TODO EXCEPTION
-    if (!ff.is_open()) throw std::string("No file");
+    if (!ff.is_open()){
+        ff.open("streams_" + fileName);
+        if(!ff.is_open()) throw "No file";
+    }
 
     ff >> LiveStream::lastId;
 
