@@ -221,7 +221,7 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
 
     for(auto i = (unsigned int) genre::gaming; i != genre::LASTG; i++) {
         ss.str("");
-        ss << i + 1 << ". " << genreTypes[i];
+        ss << i << ". " << genreTypes[i];
 
         print(ss.str());
     }
@@ -230,13 +230,13 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
     do {
         print("Choose a genre (0 to stop): ", '\0');
 
-        while(!checkInput(option) || option < 0 || option > LASTG) {
+        while(!checkInput(option) || option < 0 || option >= LASTG) {
             print("Invalid input! Please try again: ", '\0');
         }
 
         if(option == 0) break;
 
-        genres.push_back((genre) (option - 1));
+        genres.push_back((genre) (option));
     } while(option != 0);
 
     print("Available Stream Languages: ");
@@ -244,7 +244,7 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
 
     for(auto i = (unsigned int) language::PT_PT; i != language::LASTL; i++) {
         ss.str("");
-        ss << i + 1 << ". " << languageTypes[i];
+        ss << i << ". " << languageTypes[i];
 
         print(ss.str());
     }
@@ -253,13 +253,13 @@ void Account::searchParameters(std::vector<LiveStream *> &streams) {
     do {
         print("Choose a language (0 to stop): ", '\0');
 
-        while(!checkInput(option) || option < 0 || option > LASTL) {
+        while(!checkInput(option) || option < 0 || option >= LASTL) {
             print("Invalid input! Please try again: ", '\0');
         }
 
         if(option == 0) break;
 
-        languages.push_back((language) (option - 1));
+        languages.push_back((language) (option));
     } while(option != 0);
 
     print("Minimum age of stream: (0 for default) ", '\0');

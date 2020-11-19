@@ -59,7 +59,7 @@ void StreamerAcc::startStream() {
 
     for(auto i = (unsigned int) genre::gaming; i != genre::LASTG; i++) {
         ss.str("");
-        ss << i + 1 << ". " << genreTypes[i];
+        ss << i << ". " << genreTypes[i];
 
         print(ss.str());
     }
@@ -67,18 +67,18 @@ void StreamerAcc::startStream() {
     print();
     print("Choose the genre: ", '\0');
 
-    while(!checkInput(option) || option < 1 || option > LASTG) {
+    while(!checkInput(option) || option < 1 || option >= LASTG) {
         print("Invalid input! Please try again: ", '\0');
     }
 
-    genreT = (genre) (option - 1);
+    genreT = (genre) (option);
 
     print("Available Stream Languages: ");
     print();
 
     for(auto i = (unsigned int) language::PT_PT; i != language::LASTL; i++) {
         ss.str("");
-        ss << i + 1 << ". " << languageTypes[i];
+        ss << i << ". " << languageTypes[i];
 
         print(ss.str());
     }
@@ -86,11 +86,11 @@ void StreamerAcc::startStream() {
     print();
     print("Choose the stream language: ", '\0');
 
-    while(!checkInput(option) || option < 1 || option > LASTL) {
+    while(!checkInput(option) || option < 1 || option >= LASTL) {
         print("Invalid input! Please try again: ", '\0');
     }
 
-    languageT = (language) (option - 1);
+    languageT = (language) (option);
 
     print("Available Stream types: ");
     print();
