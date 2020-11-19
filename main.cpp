@@ -674,5 +674,7 @@ int main() {
     streamZ.init("final_data.txt");
     streamZ.run();
 
+    streamZ.shutdown("final_data.txt");
+
     return 0;
 }
