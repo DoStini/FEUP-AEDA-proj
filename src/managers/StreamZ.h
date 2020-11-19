@@ -37,8 +37,20 @@ private:
     AdminOps * adminOps;
     Database dataBase;
 public:
+    /**
+     * Initialize with clean data
+     * Used for testing
+     */
     void init();
+    /**
+     * Initialize the program with a specified database file path
+     * @param fileName
+     */
     void init(std::string fileName);
+    /**
+     * Shutdown the system and save the data
+     * @param fileName
+     */
     void shutdown(std::string fileName);
     /**
      * Runs the program and prompts the user to login/register/exit the program.
@@ -53,15 +65,35 @@ public:
      */
     void registerUser();
 
+    /**
+     * Backup data to file
+     * File will be stored as users_fileName and streams_fileName
+     * @param fileName - Name of the database file name
+     */
     void backupData(std::string fileName);
+    /**
+     * Read data from file
+     * Files will be read as users_fileName and streams_fileName
+     * @param fileName - Name of the database file name
+     */
     void readFromFile(std::string fileName);
+    /**
+     * Clean the database
+     */
     void resetDatabase();
+    /// @return Pointer to active the sorting manager
     SortingManager * getSortM();
+    /// @return Pointer to active the sorting manager
     SearchManager * getSearchM();
+    /// @return Pointer to active the user manager
     UserManager * getUserM();
+    /// @return Pointer to active the leaderboard
     LeaderBoard * getLeaderBoard();
+    /// @return Pointer to active the admin operations manager
     AdminOps * getAdminOps();
+    /// @return Pointer to active the stream manager
     StreamManager * getStreamManager();
+    /// @return Reference to the database manager
     Database & getDatabase();
 };
 

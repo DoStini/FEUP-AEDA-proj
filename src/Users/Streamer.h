@@ -58,7 +58,7 @@ public:
     /// @return - relevant info about user
 
     /// @return - detailed info about user
-    std::string getLongDescription() const override;
+    std::string getLongDescription(bool seePassword = false) const override;
 
     /// @return - string with all the followers
     std::string getFollowDetails() const override;

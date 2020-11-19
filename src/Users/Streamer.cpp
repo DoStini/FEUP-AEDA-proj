@@ -134,7 +134,7 @@ void Streamer::kickedStream() {
 std::string Streamer::getShortDescription() const {
     std::stringstream  ss1, ss2;
     ss1 << "| nick: " << nickName;
-    ss2 << std::setw(20) << std::left << name << std::setw(25) << std::left << ss1.str() << std::setw(12) << std::left <<  "| Streamer";
+    ss2 << std::setw(20) << std::left << name << std::setw(45) << std::left << ss1.str() << std::setw(12) << std::left <<  "| Streamer";
     return ss2.str();
 }
 
@@ -146,12 +146,12 @@ bool Streamer::isInStreamHistory(ID streamID) {
     return !(find(finishedStreams.begin(),finishedStreams.end(),streamID) == finishedStreams.end());
 }
 
-std::string Streamer::getLongDescription() const {
+std::string Streamer::getLongDescription(bool seePassword) const {
     std::stringstream  ss;
     ss << "My name is " << name << std::endl
        << "My nickname is " << nickName << std::endl
        << "I am a streamer" << std::endl
-       << "My password is " << password << " hope you enjoy my account :)\n"
+       << "My password is " << (seePassword ? password : "*****") << " hope you enjoy my account :)\n"
     << "I was born in " << birthDate.getStringDate() << " so i have " << age() << " years.\n"
     << "Joined StreamZ in: " << joinedPlatformDate.getStringDate() << std::endl
     << "Currently have " << getNumFollowers() << " followers.\n";

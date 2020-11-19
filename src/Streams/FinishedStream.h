@@ -57,9 +57,9 @@ public:
 
 
 private:
-    streamType type;
     Date finishedDate;
     int numViewers;
+    streamType type;
 };
 
 

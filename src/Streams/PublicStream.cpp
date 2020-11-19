@@ -9,8 +9,6 @@ extern const char *languageTypes[];
 
 extern const char *genreTypes[];
 
-#include <utility>
-
 PublicStream::PublicStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge) :
                         LiveStream(std::move(title), streamLanguage, streamGenre,std::move(streamerNick), minAge) {}
 
@@ -32,7 +30,9 @@ std::string PublicStream::getShortDescription() const {
 std::string PublicStream::getLongDescription() const {
     std::stringstream ss;
     ss << "Stream Title: " << title << std::endl
+    << "Stream ID: " << streamId << std::endl
     << "Streamed by: " << streamerNick << std::endl
+    << "Public stream" << std::endl
     << "Started streaming in: " << beginDate.getStringDate() << std::endl
     << "Language: " << languageTypes[streamLanguage] << std::endl
     << "Genre: " << genreTypes[streamGenre] << std::endl

@@ -48,7 +48,7 @@ unsigned int LiveStream::closeStream() {
     ID id =streamId;
     for (unsigned i = 0; i < streamViewers.size() ; i++) {
         Viewer * viewer = (Viewer *) streamZ->getSearchM()->getUser(streamViewers.at(i));
-        viewer->leaveStream();
+        viewer->kickedStream();
     }
     streamZ->getDatabase().getStreams().erase(id);
     streamZ->getDatabase().getStreams().insert(std::pair<ID, Stream *> (id, fStream));
