@@ -48,7 +48,7 @@ public:
      * @return Most viewed genre among streams ( enum genre)
      */
     streamType rankViewsTypes(bool reversed = false);
-    /// @return The median views per streamer
+    /// @return The median views per stream
     float medianViewsStream();
 
     float medianViewsStream(Date d1, Date d2);

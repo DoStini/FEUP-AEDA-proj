@@ -669,8 +669,10 @@ TEST(test, run) {
 }
 
 int main() {
-    testing::InitGoogleTest();
 
+    StreamZ streamZ;
+    streamZ.init("final_data.txt");
+    streamZ.run();
 
-    return RUN_ALL_TESTS();
+    return 0;
 }

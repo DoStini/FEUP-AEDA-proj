@@ -21,6 +21,18 @@ void StreamZ::init() {
     dataBase = Database();
 }
 
+void StreamZ::init(std::string fileName) {
+    LiveStream::lastId = NULL_STREAM;
+    sortingManager = new SortingManager(this);
+    searchManager = new SearchManager(this);
+    userManager = new UserManager(this);
+    streamManager = new StreamManager(this);
+    adminOps = new AdminOps(this);
+    leaderboard = new LeaderBoard(this);
+    dataBase = Database();
+    readFromFile(fileName);
+}
+
 void StreamZ::shutdown(std::string fileName) {
     backupData(fileName);
     delete sortingManager;
