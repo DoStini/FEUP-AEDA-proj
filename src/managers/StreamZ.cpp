@@ -218,11 +218,12 @@ void StreamZ::registerUser() {
     print("What type of user are you?");
     print("1. Viewer");
     print("2. Streamer");
+    print("3. Admin");
 
     print();
     print("Choose an option: ", '\0');
 
-    while (!checkInput(type) || type < 1 || type > 2) {
+    while (!checkInput(type) || type < 1 || type > 3) {
         print("Invalid Option! Please try again: " , '\0');
     }
 
@@ -268,7 +269,10 @@ void StreamZ::registerUser() {
         } else if(uType == streamer) {
             userManager->createStreamer(userName, nickName, password,dateObj);
             print("Success!");
-        } else{
+        } else if(uType == admin){
+            userManager->createAdmin(userName, nickName, password,dateObj);
+            print("Success!");
+        } else {
             print("Operation failed: ");
         }
 
