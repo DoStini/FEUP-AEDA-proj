@@ -30,7 +30,14 @@ void StreamZ::init(std::string fileName) {
     adminOps = new AdminOps(this);
     leaderboard = new LeaderBoard(this);
     dataBase = Database();
-    readFromFile(fileName);
+
+    try{
+        readFromFile(fileName);
+    }
+    catch (const std::string & e) {
+        print(e);
+        print();
+    }
 }
 
 void StreamZ::shutdown(std::string fileName) {
@@ -119,6 +126,9 @@ void StreamZ::run() {
 
         print(LINE_BREAK);
     }
+
+    print();
+    print("Saving state of database...");
 
     print();
     print("Thank you for choosing StreamZ!");
