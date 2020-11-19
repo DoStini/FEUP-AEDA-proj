@@ -115,7 +115,6 @@ void Viewer::giveFeedBack(feedback fbValue) {
         currStream->giveDislike(nickName);
     else if (fbValue == none)
         currStream->removeFeedBack(nickName);
-
 }
 
 void Viewer::giveFeedBack(const std::string& comment) {
