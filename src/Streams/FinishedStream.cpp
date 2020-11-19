@@ -5,6 +5,7 @@
 #include "FinishedStream.h"
 #include "StreamZ.h"
 #include <utility>
+#include "utils.h"
 
 extern const char *languageTypes[];
 

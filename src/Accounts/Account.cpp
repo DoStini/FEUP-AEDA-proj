@@ -9,28 +9,6 @@
 #include "InvalidPassword.h"
 #include "utils.h"
 
-const char *languageTypes[] = {
-        "",
-    "Portuguese (Portugal)",
-    "Portuguese (Brazil)",
-    "English",
-    "Spanish",
-    "French",
-    "German",
-    "Russian",
-    "Chinese",
-    "Hindi"
-};
-
-const char *genreTypes[] = {
-        "",
-        "Gaming",
-        "Technology",
-        "Music",
-        "Cooking",
-        "Meet & Greet"
-};
-
 Account::Account(User *user, StreamZ *streamZ) {
     this->user = user;
     this->streamZ = streamZ;
@@ -58,6 +36,10 @@ void Account::run() {
     uint16_t option = 1;
 
     while(option != 0 && user != nullptr) {
+        ss.str("");
+        ss << "Hello " << user->getName() << "!";
+        print(ss.str());
+        print();
         print("Available Options:");
         for(unsigned i = 0; i < nOptions; i++) {
             auto optionCheckIt = optionChecks.find(i);
@@ -345,22 +327,24 @@ void Account::accountOptions() {
     print();
 
     print("0. Exit options panel");
-    print("1. Change your name.");
-    print("2. Change your password.");
-    print("3. Delete account.");
+    print("1. View account info.");
+    print("2. Change your name.");
+    print("3. Change your password.");
+    print("4. Delete account.");
     print();
 
     print("Choose an option: ", '\0');
 
-    while (!checkInput(option) || option < 0 || option > 3) {
+    while (!checkInput(option) || option < 0 || option > 4) {
         print("Invalid Option! Please try again: " , '\0');
     }
 
     print();
 
-    if(option==1) changeName();
-    else if(option==2) changePassword();
-    else if(option==3) deleteAccount();
+    if(option == 1) displaySelfInfo();
+    else if(option==2) changeName();
+    else if(option==3) changePassword();
+    else if(option==4) deleteAccount();
 }
 
 void Account::listUsers() {
@@ -581,3 +565,11 @@ void Account::sortingMethods(std::vector<T *> &toSort, std::vector<std::string> 
         sortingMethods[sorting - 1]();
     }
 }
+
+void Account::displaySelfInfo() {
+    print(user->getLongDescription());
+
+    print();
+    waitForKey();
+}
+

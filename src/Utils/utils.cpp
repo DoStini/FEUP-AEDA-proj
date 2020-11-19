@@ -4,6 +4,28 @@
 
 #include "utils.h"
 
+const char *languageTypes[] = {
+        "",
+        "Portuguese (Portugal)",
+        "Portuguese (Brazil)",
+        "English",
+        "Spanish",
+        "French",
+        "German",
+        "Russian",
+        "Chinese",
+        "Hindi"
+};
+
+const char *genreTypes[] = {
+        "",
+        "Gaming",
+        "Technology",
+        "Music",
+        "Cooking",
+        "Meet & Greet"
+};
+
 void print(char end) {
     std::cout << end;
 }

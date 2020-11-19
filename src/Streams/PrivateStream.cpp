@@ -5,6 +5,7 @@
 #include "PrivateStream.h"
 #include <utility>
 #include "StreamZ.h"
+#include "utils.h"
 
 extern const char *languageTypes[];
 

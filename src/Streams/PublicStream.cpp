@@ -3,6 +3,7 @@
 //
 
 #include "PublicStream.h"
+#include "utils.h"
 
 extern const char *languageTypes[];
 

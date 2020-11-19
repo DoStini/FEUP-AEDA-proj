@@ -296,8 +296,6 @@ void AdminAcc::mostViewedStreamer() {
 
         print("The most viewed streamer is: ");
         print(streamer->getShortDescription());
-
-        waitForKey();
     } catch (EmptyDatabaseException &e) {
         print("Operation failed: ");
         print(e);

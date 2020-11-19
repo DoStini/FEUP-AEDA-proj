@@ -52,6 +52,11 @@ protected:
     void deleteAccount();
 
     /**
+     * Displays the user's info.
+     */
+    void displaySelfInfo();
+
+    /**
      * Searches for current streams for their title/genre/language and prompts the user (if viewer) to join them.
      */
     void virtual listStreams();
