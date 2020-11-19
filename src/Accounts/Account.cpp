@@ -438,7 +438,10 @@ void Account::top10StreamsLikes() {
     print();
     for(size_t i = 0; i < streams.size(); i++) {
         ss.str("");
-        ss << i+1 << ". " << streams[i]->getShortDescription() << " | Likes: " << streams[i]->getLikes() << " | Dislikes: " << streams[i]->getDislikes();
+        ss << i+1 << ". " << streams[i]->getShortDescription() << " | Likes: " <<
+        std::setw(5) << std::left << streams[i]->getLikes() << " | Dislikes: " <<
+        std::setw(5) << std::left << streams[i]->getDislikes() << " | Total: " <<
+        std::setw(5) << std::left << ((long long)streams[i]->getLikes() - streams[i]->getDislikes());
 
         print(ss.str());
     }

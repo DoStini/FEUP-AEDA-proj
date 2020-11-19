@@ -7,10 +7,6 @@
 #include <utility>
 #include "utils.h"
 
-extern const char *languageTypes[];
-
-extern const char *genreTypes[];
-
 FinishedStream::FinishedStream(std::string title, language language, genre streamGenre, int numViewers,
                                std::string streamerNick,ID streamID, streamType type)
                                 : Stream(std::move(title),language,streamGenre,std::move(streamerNick)),
@@ -57,6 +53,7 @@ std::string FinishedStream::getShortDescription() const {
 std::string FinishedStream::getLongDescription() const {
     std::stringstream ss;
     ss << "Stream Title: " << title << std::endl
+        << "Stream ID: " << streamId << std::endl
        << "Streamed by:" << streamerNick << std::endl
        << "Started streaming in: " << beginDate.getStringDate() << std::endl
        << "Stream finished: " << finishedDate.getStringDate() << std::endl

@@ -176,7 +176,7 @@ bool Date::operator>=(const Date &rhs) const {
 
 Date Date::operator+(const std::tm &rhs) const {
     Date result = *this;
-    int rest, div;
+    int div;
 
     result.dateStruct.tm_min += rhs.tm_min;
     div = result.dateStruct.tm_min / 60; result.dateStruct.tm_min %= 60;

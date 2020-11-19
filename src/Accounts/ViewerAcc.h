@@ -32,6 +32,11 @@ public:
      * Prompts the viewer to join a stream if they have their id.
      */
     void joinStreamById();
+
+    /**
+     * Display info about the currently watching stream.
+     */
+    void displayWatchingInfo();
     /**
      * Prompts the viewer to leave the stream they are watching.
      */

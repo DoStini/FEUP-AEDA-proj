@@ -48,7 +48,7 @@ public:
     genre getGenre() const;
 
     ///@return - value that represent the streamer id
-    ID getStreamId();
+    ID getStreamId() const;
 
 
 
@@ -75,12 +75,12 @@ public:
 
     /**
      * Set streamer id to the given value
-     * @param streamId - lastID value
+     * @param id - lastID value
      */
-    void setStreamId(ID streamId);
+    void setStreamId(ID id);
 
-    ///@param streamZ - pointer to the streamZ master class
-    void setStreamZ(StreamZ *streamZ);
+    ///@param pStreamZ - pointer to the streamZ master class
+    void setStreamZ(StreamZ *pStreamZ);
 
     /**
      * Function to read a User from the files

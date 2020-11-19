@@ -3,8 +3,6 @@
 //
 
 #include "Stream.h"
-
-#include <utility>
 #include "StreamZ.h"
 
 Stream::Stream(std::string title, language language, genre genre, std::string streamerNick ) :
@@ -30,23 +28,21 @@ genre Stream::getGenre() const {
     return streamGenre;
 }
 
-ID Stream::getStreamId(){
+ID Stream::getStreamId() const{
     return streamId;
 }
 
-void Stream::setStreamId(ID streamId) {
-    this->streamId = streamId;
+void Stream::setStreamId(ID id) {
+    this->streamId = id;
 }
 
-void Stream::setStreamZ(StreamZ *streamZ) {
-    this->streamZ = streamZ;
+void Stream::setStreamZ(StreamZ *pStreamZ) {
+    this->streamZ = pStreamZ;
 }
 
 const std::string &Stream::getStreamerNick() const {
     return streamerNick;
 }
 
-Stream::Stream() {
-
-}
+Stream::Stream() = default;
 

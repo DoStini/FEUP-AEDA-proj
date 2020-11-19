@@ -92,7 +92,9 @@ std::string PrivateStream::getShortDescription() const {
 std::string PrivateStream::getLongDescription() const {
     std::stringstream ss;
     ss << "Stream Title: " << title << std::endl
+        << "Stream ID: " << streamId << std::endl
        << "Streamed by: " << streamerNick << std::endl
+       << "Private stream" << std::endl
        << "Started streaming in: " << beginDate.getStringDate() << std::endl
        << "Language: " << languageTypes[streamLanguage] << std::endl
        << "Genre: " << genreTypes[streamGenre] << std::endl
