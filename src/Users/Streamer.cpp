@@ -30,7 +30,7 @@ Streamer::~Streamer() {
     }
     for(const auto & curr : followedBy){
         Viewer * ptr = (Viewer *) streamZ->getSearchM()->getUser(curr);
-        ptr->removeFollowStreamer(nickName);
+        ptr->unFollowStreamer(nickName);
     }
 }
 

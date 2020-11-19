@@ -55,13 +55,6 @@ public:
     void unFollowStreamer(const std::string& streamer);
 
     /**
-     * Removes a streamer from the vector
-     * Used only by streamer destructor
-     * @param streamer
-     */
-    void removeFollowStreamer(const std::string & streamer);
-
-    /**
      * Checks if the viewers is following a streamer
      * @param streamer - The streamer's nick
      * @return
