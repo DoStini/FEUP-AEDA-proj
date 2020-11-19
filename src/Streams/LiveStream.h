@@ -52,7 +52,7 @@ public:
     unsigned getMinAge() const;
 
     ///@return - return type of the streamer
-    streamType getStreamType() const override = 0;
+    streamType getStreamType() const = 0;
 
     /// @return - State of the stream
     streamState getStreamState() const final;
