@@ -18,9 +18,9 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
 
     options.insert(options.begin()+5, {
         [this] { findStreamFollowing(); },
+        [this] { displayWatchingInfo();},
         [this] { joinStreamById(); },
         [this] { leaveStream(); },
-        [this] { displayWatchingInfo();},
         [this] { giveFeedback(); },
         [this] { giveComment(); },
         [this] { listFollowingStreamers(); },
@@ -30,14 +30,14 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
     });
     optionChecks[5] = optionChecks[11] = optionChecks[13] =
             [this]() {return !this->viewer->getFollowingStreamers().empty();};
-    optionChecks[6] = [this]() {return !this->viewer->watching();};
-    optionChecks[7] = optionChecks[9] = optionChecks[8] = [this]() {return this->viewer->watching();};
+    optionChecks[7] = [this]() {return !this->viewer->watching();};
+    optionChecks[8] = optionChecks[9] = optionChecks[6] = [this]() {return this->viewer->watching();};
     optionChecks[10] = [this]() { return this->checkWatchingPrivate();};
     optionDescriptions.insert(optionDescriptions.begin()+5,{
         "List all live streams from the streamers you follow.",
+        "Display information about the stream you are watching",
         "Join a stream with a stream ID.",
         "Leave the stream you are currently watching.",
-        "Display information about the stream you are watching",
         "Give feedback to current stream.",
         "Write a comment to the current stream.",
         "List all the streamers you follow.",
@@ -309,6 +309,10 @@ void ViewerAcc::displayWatchingInfo() {
     if(!viewer->watching()) {
         print("Operation failed:");
         print("You aren't watching any stream!");
+
+        print();
+        waitForKey();
+        return;
     }
 
     Stream * watching = streamZ->getSearchM()->getStream(viewer->getCurrWatching());
