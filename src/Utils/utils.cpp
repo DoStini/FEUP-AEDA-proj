@@ -27,7 +27,7 @@ const char *genreTypes[] = {
 };
 
 void print(char end) {
-    std::cout << end;
+    std::cout << end << std::flush;
 }
 
 std::string stringToLower(std::string string) {

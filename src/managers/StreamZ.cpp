@@ -216,7 +216,7 @@ void StreamZ::registerUser() {
         print("Invalid Option! Please try again: " , '\0');
     }
 
-    userType uType = (userType) (type - 1);
+    userType uType = (userType) type;
 
     print("What will be your nick name? (used to login) ", '\0');
 
@@ -254,11 +254,13 @@ void StreamZ::registerUser() {
     try {
         if(uType == viewer) {
             userManager->createViewer(userName, nickName, password, dateObj);
+            print("Success!");
         } else if(uType == streamer) {
             userManager->createStreamer(userName, nickName, password,dateObj);
+            print("Success!");
+        } else{
+            print("Operation failed: ");
         }
-
-        print("Success!");
 
     } catch (RestrictedAgeException &ex) {
         print("Operation failed: ");
