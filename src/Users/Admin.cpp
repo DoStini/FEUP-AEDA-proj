@@ -81,6 +81,6 @@ std::string Admin::getHistoryDetails() const {
 std::string Admin::getShortDescription() const {
     std::stringstream  ss1, ss2;
     ss1 << "| nick: " << nickName;
-    ss2 << std::setw(20) << std::left << name << std::setw(25) << std::left << ss1.str() << std::setw(12) << std::left << "| Admin";
+    ss2 << std::setw(20) << std::left << name << std::setw(45) << std::left << ss1.str() << std::setw(12) << std::left << "| Admin";
     return ss2.str();
 }

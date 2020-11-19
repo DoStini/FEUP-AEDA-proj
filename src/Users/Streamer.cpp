@@ -134,7 +134,7 @@ void Streamer::kickedStream() {
 std::string Streamer::getShortDescription() const {
     std::stringstream  ss1, ss2;
     ss1 << "| nick: " << nickName;
-    ss2 << std::setw(20) << std::left << name << std::setw(25) << std::left << ss1.str() << std::setw(12) << std::left <<  "| Streamer";
+    ss2 << std::setw(20) << std::left << name << std::setw(45) << std::left << ss1.str() << std::setw(12) << std::left <<  "| Streamer";
     return ss2.str();
 }
 
