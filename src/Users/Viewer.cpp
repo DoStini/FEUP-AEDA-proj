@@ -84,6 +84,8 @@ void Viewer::joinStream(ID streamID) {
 void Viewer::leaveStream() {
     if (!watching()) throw NotInStreamException(name);
 
+    dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currWatching))->removeViewer(nickName);
+
     if(!isInStreamHistory(currWatching)) streamHistory.push_back(currWatching);
     currWatching = NULL_STREAM;
 }
