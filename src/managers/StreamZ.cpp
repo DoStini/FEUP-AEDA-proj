@@ -292,7 +292,7 @@ void StreamZ::registerUser() {
 
 void StreamZ::backupData(std::string fileName) {
 
-    std::ofstream ff("users_" + fileName, std::ofstream::trunc);
+    std::ofstream ff("../users_" + fileName, std::ofstream::trunc);
 
     // TODO EXCEPTION
     if (!ff.is_open()) throw "No file";
@@ -304,7 +304,7 @@ void StreamZ::backupData(std::string fileName) {
     ff.close();
 
 
-    ff.open("streams_" + fileName, std::ofstream::trunc);
+    ff.open("../streams_" + fileName, std::ofstream::trunc);
     // TODO EXCEPTION
     if (!ff.is_open()) throw "No file";
 
@@ -320,7 +320,7 @@ void StreamZ::backupData(std::string fileName) {
 
 void StreamZ::readFromFile(std::string fileName) {
     std::ifstream ff;
-    ff.open("users_" + fileName);
+    ff.open("../users_" + fileName);
 
     //usersRef.clear();
 
@@ -358,9 +358,8 @@ void StreamZ::readFromFile(std::string fileName) {
 
     ff.close();
 
-    ff.open("streams_" + fileName);
+    ff.open("../streams_" + fileName);
 
-    //usersRef.clear();
 
     // TODO EXCEPTION
     if (!ff.is_open()) throw std::string("No file");
