@@ -13,9 +13,15 @@
  */
 class Admin : public User{
 public:
-
+    /**
+     * Admin Constructor
+     * @param name Name of the admin
+     * @param nickName Nickname of the admin
+     * @param password Password of the admin
+     * @param birthDate Birth Date of the admin
+     */
     Admin(std::string name, std::string nickName,std::string password, const Date &birthDate);
-
+    /// Empty constructor - Use when reading from file
     Admin();
     /// Returns the user type
     ///@return - user type = admin

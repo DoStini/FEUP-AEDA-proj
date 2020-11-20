@@ -16,9 +16,9 @@ class NotInStreamException : public std::exception {
 public:
     /**
      * Constructor
-     * @param user - The user trying to join a new streamer
+     * @param userName - The user trying to join a new streamer
      */
-    NotInStreamException(std::string userName);
+    explicit NotInStreamException(std::string userName);
     /**
      * Brief info about exception
      * @return

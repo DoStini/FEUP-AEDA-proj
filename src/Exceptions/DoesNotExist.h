@@ -10,9 +10,18 @@
 #include <string>
 #include <ostream>
 
+
+/**
+ * Class to be throw when something does not exist in the database
+ * @tparam T - User or Streamer
+ */
 template<class T>
 class DoesNotExist : public std::exception {
 public:
+    /**
+     * Exception constructor
+     * @param value User nick or Stream ID that doesn't exist
+     */
     explicit DoesNotExist(const T &value) : value(value) {};
     friend std::ostream &operator<<(std::ostream &os, const DoesNotExist &exist){
         os << exist.value << " does not exist in the database.";

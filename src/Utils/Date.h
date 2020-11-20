@@ -33,6 +33,7 @@ public:
     /**
      * Constructor for date. Uses a string with a date to initialize.
      * @param date - String with a date
+     * @param reversed - Indicates if the date is read from a reversed format
      * @throws BadDateFormat when using a bad date format
      * @throws InvalidDate when using an invalid date
      */

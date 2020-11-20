@@ -20,11 +20,13 @@ public:
      * @param title - Title of the streamer
      * @param language - Stream language
      * @param numViewers - Number of viewers when the streamer is closed
-     * @param streamerName - Streamer that had streamer the streamer
+     * @param streamerNick - Streamer nick that was streaming
+     * @param streamID - The id of the stream
+     * @param type - The type of the stream (public or private)
      */
     FinishedStream(std::string title, language language,genre streamGenre, int numViewers, std::string streamerNick,
                    ID streamID, streamType type);
-    ~FinishedStream();
+    ~FinishedStream() override;
 
     /**
      * Get type of the streamer

@@ -7,9 +7,16 @@
 
 #include <ostream>
 
-template <class T>
-class AlreadyExists : std::exception {
+/**
+ * Exception to be thrown when a user or stream already exists in the database
+ * @tparam T - User or Streamer
+ */
+template <class T>class AlreadyExists : std::exception {
 public:
+    /**
+     * Exception constructor
+     * @param value - The value that tried to be added again
+     */
     explicit AlreadyExists(const T &value) : value(value) {};
     friend std::ostream &operator<<(std::ostream &os, const AlreadyExists &exist){
         os << exist.value << " already exists in the database.";

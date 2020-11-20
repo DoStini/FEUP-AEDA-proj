@@ -13,7 +13,11 @@
  */
 class BadDateFormat : public std::exception{
 public:
-    BadDateFormat(const std::string &date);
+    /**
+     * Exception constructor´
+     * @param date The string that tried to be converted to a date object
+     */
+    explicit BadDateFormat(const std::string &date);
     /**
      * Brief info about exception
      * @return

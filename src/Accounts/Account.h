@@ -94,7 +94,6 @@ protected:
      * @param toSort the vector to sort, passed by reference
      * @param sortDescriptions descriptions to be printed (MUST BE SAME SIZE AS SORTING METHODS)
      * @param sortingMethods the functions that sort the vector (MUST BE SAME SIZE AS SORT DESCRIPTIONS)
-     * @param reversed reverses the output if true.
      */
     template<typename T>
     void sortingMethods(std::vector<T*> & toSort,

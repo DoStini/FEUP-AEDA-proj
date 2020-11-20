@@ -8,6 +8,9 @@
 #include <string>
 #include <ostream>
 
+/**
+ * Exception to be thrown when a viewer tries to join a private stream
+ */
 class RestrictedStreamException : public std::exception {
 public:
     RestrictedStreamException(std::string streamName, std::string userName);

@@ -57,7 +57,7 @@ public:
 
     /**
      * Returns the number of active (or inactive) streams in the system
-     * @param publicStr - Option: Indicates if wants the count of active or inactive
+     * @param activeStr - Option: Indicates if wants the count of active or inactive
      * @return
      */
     long int numStreams(bool activeStr = true);

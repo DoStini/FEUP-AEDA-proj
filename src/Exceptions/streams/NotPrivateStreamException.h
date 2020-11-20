@@ -9,13 +9,16 @@
 #include <string>
 #include <ostream>
 
+/**
+ * Exception to be thrown when an operation specific to private streams is done on a public stream
+ */
 class NotPrivateStreamException : public std::exception {
 public:
     /**
      * Constructor
-     * @param stream - The streamer that is not private
+     * @param streamId - The streamer that is not private
      */
-    NotPrivateStreamException(unsigned long long int streamId);
+    explicit NotPrivateStreamException(unsigned long long int streamId);
     /**
      * Brief info about exception
      * @return

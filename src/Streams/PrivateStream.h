@@ -34,13 +34,16 @@ struct Comment{
  */
 class PrivateStream : public LiveStream {
 public:
+    /// Empty constructor - Use when reading from files
     PrivateStream();
     /**
-     * Constructor to private streamer
-     *
-     * @param title - Title of the streamer
-     * @param language - Stream language
-     * @param minAge - Minimal age of the streamer , 12 by default
+     * PrivateStream constructor
+     * @param title Title of the stream
+     * @param streamLanguage Stream language
+     * @param streamGenre Stream genre
+     * @param streamerNick Streamer nickname
+     * @param minAge Stream's minimum age
+     * @param maxViewers Stream's maximum viewers
      */
     PrivateStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick,
                   unsigned minAge = VIEWER_MIN_AGE, unsigned maxViewers = MAX_VIEWERS);
@@ -84,10 +87,9 @@ public:
     int getWhitelistSize() const;
 
     /**
-     * save a comment in the streamer
-     *
+     * Save a comment in the stream
      * @param text - text that the user write
-     * @param viewer - viewer that make the comment
+     * @param userNick - viewer that make the comment
      */
     void addComment(const std::string & text, const std::string & userNick);
 

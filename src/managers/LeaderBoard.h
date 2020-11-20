@@ -22,13 +22,13 @@ public:
      * @param streamZ - Main class pointer
      */
     explicit LeaderBoard(StreamZ *streamZ);
-    /// @param Returns by reference Vector of stream pointers containing the top 10 streams according to the number of views
+    /// @param streams Returns by reference Vector of stream pointers containing the top 10 streams according to the number of views
     void top10StreamViews(std::vector<LiveStream *> & streams) const;
-    /// @param Returns by reference  Vector of stream pointers containing the top 10 streams according to the number of likes
+    /// @param streams Returns by reference  Vector of stream pointers containing the top 10 streams according to the number of likes minus dislikes
     void top10StreamLikes(std::vector<LiveStream *> & streams) const;
-    /// @param Returns by reference Vector of stream pointers containing the top 10 streams according to the number of comments (private streams only)
+    /// @param streams Returns by reference Vector of stream pointers containing the top 10 streams according to the number of comments (private streams only)
     void top10StreamComments(std::vector<PrivateStream *> & streams) const;
-    /// @param Returns by reference Vector of users pointers containing the top 10 oldest users in the platform (by time joined)
+    /// @param streams Returns by reference Vector of users pointers containing the top 10 oldest users in the platform (by time joined)
     void top10oldestUsersPlat(std::vector<User *> & streams) const;
 
 private:

@@ -28,8 +28,8 @@ public:
      * Constructor of a LiveStream
      *
      * @param title - title of the streamer
-     * @param language - language of the streamer
-     * @param genre - genre of the streamer
+     * @param streamLanguage - language of the streamer
+     * @param streamGenre - genre of the streamer
      * @param minAge - min age of the streamer
      */
     LiveStream(std::string title, language streamLanguage, genre streamGenre, std::string streamerNick, unsigned minAge = VIEWER_MIN_AGE);
@@ -93,14 +93,17 @@ public:
     * @param viewerNick - Nick name of the viewer
     */
     void removeFeedBack(const std::string& viewerNick);
-
+    /// Writes livestream to a file
+    /// @param ff File stream
+    virtual void writeToFile(std::ofstream &ff) = 0;
+    /// Writes livestream to a file
+    /// @param ff File stream
+    virtual void readFromFile(std::ifstream &ff) = 0;
     /**
-    * Compare streamer with there minAge
-    *
+    * Compare streamer with the minAge
     * @param compStream - streamer to compare
-    * @return - streamer that is being compared
+    * @return bool
     */
-    // Change this operator later
     bool operator<(LiveStream * compStream);
 
     /// Static variable that stores the last id of the streamer ( Not allowing repeated id's )f
@@ -115,8 +118,7 @@ protected:
     std::map<std::string,feedback> likeSystem;
     /// Number of like and dislikes of the streamer
     std::pair<unsigned,unsigned> nLikes_Dislikes;
-    virtual void writeToFile(std::ofstream &ff) = 0;
-    virtual void readFromFile(std::ifstream &ff) = 0;
+
 
 };
 

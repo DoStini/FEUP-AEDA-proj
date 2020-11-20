@@ -10,7 +10,9 @@
 
 #include "utils.h"
 
-
+/**
+ * Exception to be thrown when a user is already in the whitelist and tries to be added again
+ */
 class AlreadyInWhiteListException: public std::exception{
 public:
     /**

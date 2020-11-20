@@ -73,15 +73,16 @@ public:
     ///@return - give us the user type
     virtual userType getUserType() const = 0;
 
-    /// @return - relevant info about user
+    /// Returns a short description with info about the user
+    ///@return Short description
     virtual std::string getShortDescription() const = 0;
-
-    /// @return - detailed info about user
+    /// Returns a long description with info about the user
+    ///@return Long description
     virtual std::string getLongDescription(bool seePassword = false) const = 0;
-
+    /// Info about the streamer/viewer's following details
     /// @return - string with all the followers/following
     virtual std::string getFollowDetails() const = 0;
-
+    /// Info about the streamer/viewer's
     /// @return - string with all the streamer history/finished
     virtual std::string getHistoryDetails() const = 0;
 
@@ -122,7 +123,7 @@ protected:
     std::string nickName;
     /// Used to login
     std::string password;
-
+    /// Birth date
     Date birthDate;
     /// Date when user joined Streamz
     Date joinedPlatformDate;
