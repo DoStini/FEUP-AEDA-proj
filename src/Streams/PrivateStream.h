@@ -13,7 +13,9 @@
 #include "LiveStream.h"
 
 
-// struct used to save comments in the streamer
+/**
+ * struct used to save comments from the users
+ */
 struct Comment{
     std::string comment;
     std::string viewerNick;
@@ -25,6 +27,11 @@ struct Comment{
 
 };
 
+
+/**
+ *
+ * PrivateStream inherited from LiveStream to handle changes in privateStream elements
+ */
 class PrivateStream : public LiveStream {
 public:
     PrivateStream();

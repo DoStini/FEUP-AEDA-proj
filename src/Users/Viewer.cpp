@@ -43,19 +43,11 @@ void Viewer::unFollowStreamer(const std::string& streamerNick) {
 }
 
 
-void Viewer::removeFollowStreamer(const std::string & streamerNick) {
-    auto it = std::find(followingStreamers.begin(), followingStreamers.end(), streamerNick);
-
-    followingStreamers.erase(it);
-}
 
 void Viewer::joinStream(ID streamID) {
     if(!streamZ->getSearchM()->streamExists(streamID))
         throw DoesNotExist<ID>(streamID);
     else if(watching()) throw AlreadyInStreamException(nickName, currWatching);
-
-
-    // TODO Is < or <= ???
 
     auto * stream =streamZ->getSearchM()->getStream(streamID);
 
@@ -153,7 +145,8 @@ Viewer::~Viewer() {
 }
 
 bool Viewer::isFollowing(std::string &streamer) {
-    return false;
+    auto  it = find(followingStreamers.begin(),followingStreamers.end(),streamer);
+    return it != followingStreamers.end();
 }
 
 

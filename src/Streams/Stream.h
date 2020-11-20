@@ -19,7 +19,9 @@
 class User;
 class StreamZ;
 
-
+/**
+ * Streams master class
+ */
 class Stream {
 public:
     Stream();

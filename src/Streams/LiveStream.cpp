@@ -8,7 +8,7 @@
 
 ID LiveStream::lastId = NULL_STREAM;
 
-LiveStream::LiveStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned int minAge):
+LiveStream::LiveStream(std::string title, language streamLanguage, genre streamGenre,std::string streamerNick, unsigned minAge):
                                 Stream(std::move(title),streamLanguage,streamGenre,std::move(streamerNick)),minAge(minAge) {
     streamId = ++lastId;
     nLikes_Dislikes.first = 0;

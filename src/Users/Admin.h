@@ -7,6 +7,10 @@
 
 #include "User.h"
 
+/**
+ * Viewer class
+ * Specific type of user that can watch streams and interact with them
+ */
 class Admin : public User{
 public:
 

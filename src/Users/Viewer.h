@@ -12,8 +12,8 @@
 
 
 /**
- * Viewer class
- * Specific type of user that can watch streams and interact with them
+ * Admin class
+ * Specific type of user that can see statistic about the streams that are/where streamed
  */
 class Viewer : public User{
 public:
@@ -53,13 +53,6 @@ public:
      * @param streamer - Desired streamer
      */
     void unFollowStreamer(const std::string& streamer);
-
-    /**
-     * Removes a streamer from the vector
-     * Used only by streamer destructor
-     * @param streamer
-     */
-    void removeFollowStreamer(const std::string & streamer);
 
     /**
      * Checks if the viewers is following a streamer
