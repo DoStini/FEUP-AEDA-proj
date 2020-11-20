@@ -32,9 +32,14 @@ void SortingManager::sortStreamByLikes(std::vector<LiveStream *> &streams, bool 
     std::sort(streams.begin(),
               streams.end(),
               [reversed](LiveStream * ptr1, LiveStream * ptr2){
-                  return !reversed
-                         ? ( ptr1->getLikes() - ptr1->getDislikes() > ptr2->getLikes() - ptr2->getDislikes() )
-                         : ( ptr1->getLikes() - ptr1->getDislikes() < ptr2->getLikes() - ptr2->getDislikes() );
+                    int v1 = (int)ptr1->getLikes() - (int)ptr1->getDislikes(),
+                        v2 = (int)ptr2->getLikes() - (int)ptr2->getDislikes();
+                    if(v1 > v2) return !reversed;
+                    else if(v1 < v2) return reversed;
+                    else return !reversed
+                                    ? (int)ptr1->getLikes() > (int)ptr2->getLikes()
+                                    : (int)ptr1->getLikes() < (int)ptr2->getLikes();
+                                // In case of tie, appears the on with more likes first
               });
 }
 
