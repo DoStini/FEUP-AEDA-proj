@@ -13,25 +13,27 @@ public:
     Admin(std::string name, std::string nickName,std::string password, const Date &birthDate);
 
     Admin();
-
-    ///@return - user type = streamer
+    /// Returns the user type
+    ///@return - user type = admin
     userType getUserType() const override;
+    /// Returns a short description with info about the user
     ///@return Short description
     std::string getShortDescription() const override;
+    /// Returns a long description with info about the user
     ///@return Long description
     std::string getLongDescription(bool seePassword = false) const override;
-    /// Not applicable
+    /// Not applicable to admin
     std::string getFollowDetails() const override;
-    /// Not applicable
+    /// Not applicable to admin
     std::string getHistoryDetails() const override;
     /**
      * Writing user info to file
-     * @param ff Current file streamer
+     * @param ff Current file stream
      */
     void writeToFile(std::ofstream &ff) override;
     /**
      * Reading user info from file
-     * @param ff Current file streamer
+     * @param ff Current file stream
     */
     void readFromFile(std::ifstream &ff) override;
 };

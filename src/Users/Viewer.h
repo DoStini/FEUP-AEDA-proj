@@ -146,15 +146,17 @@ public:
      */
     void writeToFile(std::ofstream  & ff ) override;
 
-    /// @return - relevant info about user
+    /// Returns a short description with info about the user
+    ///@return Short description
     std::string getShortDescription() const override;
 
-    /// @return - detailed info about user
+    /// Returns a long description with info about the user
+    ///@return Long description
     std::string getLongDescription(bool seePassword = false) const override;
-
+    /// Info about the viewer's following streamers
     /// @return - string with all the following
     std::string getFollowDetails() const override;
-
+    /// Info about the history of the viewer's past streams
     /// @return - string with all the streamer history
     std::string getHistoryDetails() const override;
 

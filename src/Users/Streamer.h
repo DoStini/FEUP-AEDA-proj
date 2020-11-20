@@ -30,7 +30,7 @@ public:
     Streamer();
 
     ~Streamer() override;
-
+    /// Returns the user type
     ///@return - user type = streamer
     userType getUserType() const override;
 
@@ -55,14 +55,17 @@ public:
     /// @return - The current streamer, or 0 if none
     ID getStreamID();
 
-    /// @return - relevant info about user
+    /// Returns a short description with info about the user
+    ///@return Short description
+    std::string getShortDescription() const override;
 
-    /// @return - detailed info about user
+    /// Returns a long description with info about the user
+    ///@return Long description
     std::string getLongDescription(bool seePassword = false) const override;
-
+    /// Info about all of the streamer followers
     /// @return - string with all the followers
     std::string getFollowDetails() const override;
-
+    /// Info about all of the streams done in the past
     /// @return - string with all the streams finished
     std::string getHistoryDetails() const override;
 
@@ -88,11 +91,11 @@ public:
     void startPrivateStream(std::string title, language streamLanguage, genre streamGenre,
                             unsigned minAge = VIEWER_MIN_AGE, unsigned int maxNumberViewers = MAX_VIEWERS);
 
-
+    /// Total views of the stremer
     ///@return - total number of views
     unsigned int getTotalViews();
-
-    ///@return - number of viewers in the streamer
+    /// Number of viewers in the current stream
+    ///@return - number of viewers in the stream
     unsigned int getStreamViewers();
 
     /**
@@ -127,7 +130,6 @@ public:
     bool isInStreamHistory(ID streamID);
 
     ///Compare two streamers
-    std::string getShortDescription() const override;
     bool operator == (const Streamer & str);
 
     /**
