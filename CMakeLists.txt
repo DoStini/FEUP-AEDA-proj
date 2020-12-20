@@ -66,7 +66,7 @@ add_executable(FEUP_AEDA_proj
         src/managers/AdminOps.cpp src/managers/AdminOps.h 
         src/managers/StreamManager.cpp
         src/managers/StreamManager.h
-        src/Utils/BST.h)
+        src/Utils/BST.h src/Streams/Donation.cpp src/Streams/Donation.h)
 
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
