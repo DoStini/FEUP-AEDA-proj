@@ -65,7 +65,8 @@ add_executable(FEUP_AEDA_proj
         src/Accounts/StreamerAcc.cpp src/Accounts/StreamerAcc.h
         src/managers/AdminOps.cpp src/managers/AdminOps.h 
         src/managers/StreamManager.cpp
-        src/managers/StreamManager.h)
+        src/managers/StreamManager.h
+        src/Utils/BST.h)
 
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)
