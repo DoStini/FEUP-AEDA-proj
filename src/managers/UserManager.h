@@ -33,6 +33,8 @@ public:
     void createAdmin(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const;
     /// Removes a user
     void removeUser(std::string nickName) const;
+    size_t getOrdersSize() const;
+    void setOrdersSize(size_t size);
     /**
      * Removes users the access of a finished streamer
      * Used when deleting a finished streamer
@@ -41,6 +43,7 @@ public:
     void removeHistoryElemFromUser(ID id) const;
 private:
     StreamZ * streamZ;
+    size_t maxOrdersSize;
 };
 
 

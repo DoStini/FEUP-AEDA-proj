@@ -261,3 +261,12 @@ void Streamer::readFromFile(std::ifstream &ff) {
 Streamer::Streamer() {
 
 }
+
+bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
+    return false;
+}
+
+MerchandisingOrder::MerchandisingOrder(const std::string &userName, unsigned int num, unsigned int avail) :
+        viewerName(userName), numMerch(num), availability(avail){
+
+}

@@ -8,6 +8,17 @@
 #define FEUP_AEDA_PROJ_STREAMER_H
 
 #include "User.h"
+#include <queue>
+
+class MerchandisingOrder {
+private:
+    std::string viewerName;
+    unsigned numMerch;
+    unsigned availability;
+public:
+    MerchandisingOrder(const std::string & userName, unsigned num, unsigned avail);
+    bool operator<(const MerchandisingOrder& merchandisingOrder) const;
+};
 
 /**
  * Class Streamer
@@ -121,6 +132,7 @@ public:
      * @param streamID - streamer to be removed from the history
      */
     void removeStreamHistory(ID streamID);
+    void dispatchOrder();
 
     /**
      * Checks if a streamer is in the streamer history
@@ -151,7 +163,7 @@ private:
     ID currStreaming = NULL_STREAM;
     ///Streams that the streamer have ended
     std::vector<ID> finishedStreams;
-
+    std::priority_queue<MerchandisingOrder> orders;
 };
 
 

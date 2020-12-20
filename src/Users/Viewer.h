@@ -138,6 +138,8 @@ public:
      * @param ff Current file streamer
      */
     void writeToFile(std::ofstream  & ff ) override;
+    void orderMerch();
+    void removeOrder();
 
     /// Returns a short description with info about the user
     ///@return Short description
