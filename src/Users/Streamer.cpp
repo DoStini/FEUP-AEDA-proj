@@ -105,6 +105,12 @@ void Streamer::startPublicStream(std::string title, language streamLanguage, gen
     if(streaming()) throw AlreadyInStreamException(nickName, currStreaming);
     ID streamID = streamZ->getStreamManager()->createPublicStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
 
+    if(status == 1){
+        auto * str = dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(streamID));
+        str->addBonusLikes(50);
+        status++;
+    }
+
     currStreaming = streamID;
 }
 
