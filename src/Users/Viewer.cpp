@@ -284,3 +284,15 @@ void Viewer::writeToFile(std::ofstream &ff) {
     }
     ff << std::endl;
 }
+
+void Viewer::orderMerch(const std::string &streamerNick, unsigned int num, unsigned int availability) {
+    auto streamer = dynamic_cast<Streamer*>(streamZ->getSearchM()->getUser(streamerNick));
+
+    streamer->addOrder(nickName, num, availability);
+}
+
+MerchandisingOrder Viewer::removeOrder(const std::string &streamerNick) {
+    auto streamer = dynamic_cast<Streamer*>(streamZ->getSearchM()->getUser(streamerNick));
+
+    return streamer->removeOrder(nickName);
+}

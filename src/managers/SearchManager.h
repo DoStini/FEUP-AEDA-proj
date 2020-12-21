@@ -54,7 +54,11 @@ public:
     bool streamExists(ID streamID) const;
     /// @return If an admin account was already created
     bool adminExists() const;
-    /// @return Corresponding user to the nickname
+    /**
+     * @throws DoesNotExist if user does not exist
+     *  @return Corresponding user to the nickname
+     */
+
     User * getUser(std::string userNick) const;
     /// @return Corresponding stream to the streamID
     Stream * getStream(ID streamID) const;
