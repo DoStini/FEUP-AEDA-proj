@@ -412,8 +412,4 @@ void StreamZ::readFromFile(std::string fileName) {
     ff.close();
 }
 
-void StreamZ::resetDatabase() {
-
-
-
-}
+void StreamZ::resetDatabase() {}

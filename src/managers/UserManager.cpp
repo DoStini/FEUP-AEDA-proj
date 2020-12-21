@@ -27,7 +27,6 @@ void UserManager::createStreamer(std::string name, std::string nickName,const st
     ptr->setStreamZ(streamZ);
 
     streamZ->getDatabase().getStreamers().insert(ptr);
-    streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
 void UserManager::createAdmin(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const {
@@ -62,9 +61,11 @@ void UserManager::removeHistoryElemFromUser(ID id) const {
             auto * viewer = dynamic_cast<Viewer*>(user.second);
             if(viewer->isInStreamHistory(id)) viewer->removeStreamHistory(id);
         }
-        else if(ptr->getUserType() == streamer){
-            auto * streamer = dynamic_cast<Streamer*>(user.second);
-            if(streamer->isInStreamHistory(id)) streamer->removeStreamHistory(id);
-        }
+    }
+
+    // TODO - NO LONGER EFFICIENT!!!
+    for (User * ptr : streamZ->getDatabase().getStreamers()){
+        auto * streamer = dynamic_cast<Streamer*>(ptr);
+        if(streamer->isInStreamHistory(id)) streamer->removeStreamHistory(id);
     }
 }
