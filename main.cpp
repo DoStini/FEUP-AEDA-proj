@@ -680,12 +680,12 @@ TEST(test, bst_donation) {
     DonationItem found = streamZ.getDatabase().donations.findMax();
     EXPECT_EQ(found.getStreamerNick(), "falca");
     EXPECT_EQ(found.getAmount(), 120);
-    EXPECT_EQ(found.getAvaliation(), 4);
+    EXPECT_EQ(found.getEvaluation(), 4);
 
     found = streamZ.getDatabase().donations.findMin();
     EXPECT_EQ(found.getStreamerNick(), "falca");
     EXPECT_EQ(found.getAmount(), 120);
-    EXPECT_EQ(found.getAvaliation(), 4);
+    EXPECT_EQ(found.getEvaluation(), 4);
 
 
     streamZ.getDonationManager()->creatDonation("boas",250,3);
@@ -693,13 +693,38 @@ TEST(test, bst_donation) {
     found = streamZ.getDatabase().donations.findMax();
     EXPECT_EQ(found.getStreamerNick(), "boas");
     EXPECT_EQ(found.getAmount(), 250);
-    EXPECT_EQ(found.getAvaliation(), 3);
+    EXPECT_EQ(found.getEvaluation(), 3);
 
     streamZ.getDonationManager()->creatDonation("boas",250,4);
     found = streamZ.getDatabase().donations.findMax();
     EXPECT_EQ(found.getStreamerNick(), "boas");
     EXPECT_EQ(found.getAmount(), 250);
-    EXPECT_EQ(found.getAvaliation(), 4);
+    EXPECT_EQ(found.getEvaluation(), 4);
+
+    vector<Donation*> vec;
+
+    streamZ.getSearchM()->listDonations(vec);
+    EXPECT_EQ(vec.size(), 3);
+
+    streamZ.getSearchM()->listDonations(vec,vector<std::string>(),130);
+    EXPECT_EQ(vec.size(), 2);
+
+    streamZ.getSearchM()->listDonations(vec,vector<std::string>(),130,200);
+    EXPECT_EQ(vec.size(), 0);
+
+    vector<unsigned > eval;
+    eval.push_back(4);
+    streamZ.getSearchM()->listDonations(vec,vector<std::string>(),0,1000,eval);
+    EXPECT_EQ(vec.size(), 2);
+
+    vector<unsigned> eval2;
+    eval2.push_back(1);
+    streamZ.getSearchM()->listDonations(vec,vector<std::string>(),0,1000,eval2);
+    EXPECT_EQ(vec.size(), 0);
+
+    eval2.push_back(3);
+    streamZ.getSearchM()->listDonations(vec,vector<std::string>(),0,1000,eval2);
+    EXPECT_EQ(vec.size(), 1);
 
 }
 

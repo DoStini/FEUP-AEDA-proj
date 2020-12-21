@@ -25,7 +25,7 @@ public:
      * @param amount - donation value
      * @param avaliation - avaliation of the donation from 1 to 5
      */
-    void creatDonation(const std::string &streamerNick, int amount, int avaliation);
+    void creatDonation(const std::string &streamerNick, int amount, int evaluation);
 
     /**
      * delete a donation from the BST
@@ -33,7 +33,7 @@ public:
      * @param amount - donation value
      * @param avaliation - avaliation of the donation from 1 to 5
      */
-    void deleteDonation(const std::string &streamerNick, int amount, int avaliation);
+    void deleteDonation(const std::string &streamerNick, int amount, int evaluation);
 
 private:
     StreamZ* streamZ;

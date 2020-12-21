@@ -15,9 +15,9 @@ public:
      *
      * @param streamerNick - nick of the streamer that the donation is for
      * @param amount - value of the donation
-     * @param avaliation - avaliation given by donator from 1 to 5
+     * @param evaluation - evaluation given by donator from 1 to 5
      */
-    Donation(const std::string &streamerNick, int amount, unsigned avaliation);
+    Donation(const std::string &streamerNick, unsigned amount, unsigned evaluation);
 
     /**
      * Get streamer Nick
@@ -29,13 +29,13 @@ public:
      * Value of the donation
      * @return - amount of the donation
      */
-    int getAmount() const;
+    unsigned getAmount() const;
 
     /**
-     * Get avaliation
-     * @return - avaliation value 1-5
+     * Get evaluation
+     * @return - evaluation value 1-5
      */
-    int getAvaliation() const;
+    unsigned getEvaluation() const;
 
     /**
      * Class used as node od the BST
@@ -52,8 +52,8 @@ public:
 
 private:
     std::string streamerNick;
-    int amount;
-    unsigned avaliation;
+    unsigned amount;
+    unsigned evaluation;
 };
 
 
@@ -63,16 +63,16 @@ public:
      * Constructor to create a donation node from a already existing donation
      * @param donationItem
      */
-    DonationItem(Donation* donationItem);
+    explicit DonationItem(Donation* donationItem);
 
     /**
      * Constructor to create a donation node completely new
      *
      * @param streamerNick - nick of the streamer that the donation is for
      * @param amount - value of the donation
-     * @param avaliation - avaliation given by donator from 1 to 5
+     * @param evaluation - evaluation given by donator from 1 to 5
      */
-    DonationItem(const std::string &streamerNick, int amount, unsigned avaliation);
+    DonationItem(const std::string &streamerNick, unsigned amount, unsigned evaluation);
 
     /**
      * Get pointer to the donation
@@ -90,13 +90,13 @@ public:
      * Value of the donation
      * @return - amount of the donation
      */
-    int getAmount() const;
+    unsigned getAmount() const;
 
     /**
-     * Get avaliation
-     * @return - avaliation value 1-5
+     * Get evaluation
+     * @return - evaluation value 1-5
      */
-    int getAvaliation() const;
+    unsigned getEvaluation() const;
 
     /**
      * Operator used to compare nodes

@@ -5,35 +5,35 @@
 #include "Donation.h"
 #include "iostream"
 
-Donation::Donation(const std::string &streamerNick, int amount, unsigned avaliation_p) : streamerNick(streamerNick),amount(amount) {
-    if(avaliation_p == 0 || avaliation_p > 5){
-        throw NoInRangeValue("Donation avaliation", avaliation_p );
+Donation::Donation(const std::string &streamerNick, unsigned amount, unsigned evaluation_p) : streamerNick(streamerNick),amount(amount) {
+    if(evaluation_p == 0 || evaluation_p > 5){
+        throw NoInRangeValue("Donation evaluation", evaluation_p );
     }
-    this->avaliation = avaliation_p;
+    this->evaluation = evaluation_p;
 }
 
 const std::string &Donation::getStreamerNick() const {
     return streamerNick;
 }
 
-int Donation::getAmount() const {
+unsigned Donation::getAmount() const {
     return amount;
 }
 
-int Donation::getAvaliation() const {
-    return avaliation;
+unsigned Donation::getEvaluation() const {
+    return evaluation;
 }
 
 std::ostream &operator<<(std::ostream &os, const Donation &p) {
-    os << "Donation is to " << p.getStreamerNick() << " whit the amount: " << p.getAmount() << " and avaliation: " << p.getAvaliation();
+    os << "Donation is to " << p.getStreamerNick() << " whit the amount: " << p.getAmount() << " and evaluation: " << p.getEvaluation();
     return os;
 }
 
 
 DonationItem::DonationItem(Donation *donationItem): donationItem(donationItem) {}
 
-DonationItem::DonationItem(const std::string &streamerNick, int amount, unsigned avaliation) {
-    donationItem = new Donation(streamerNick,amount,avaliation);
+DonationItem::DonationItem(const std::string &streamerNick, unsigned amount, unsigned evaluation) {
+    donationItem = new Donation(streamerNick,amount,evaluation);
 }
 
 Donation *DonationItem::getDonation() const {
@@ -44,31 +44,31 @@ const std::string &DonationItem::getStreamerNick() const {
     return donationItem->getStreamerNick();
 }
 
-int DonationItem::getAmount() const {
+unsigned DonationItem::getAmount() const {
     return  donationItem->getAmount();
 }
 
-int DonationItem::getAvaliation() const {
-    return donationItem->getAvaliation();
+unsigned DonationItem::getEvaluation() const {
+    return donationItem->getEvaluation();
 }
 
 bool DonationItem::operator<(const DonationItem &comp) const {
     if(this->getAmount() == comp.getAmount()){
-        if(this->getAvaliation() == comp.getAvaliation()){
+        if(this->getEvaluation() == comp.getEvaluation()){
             return this->getStreamerNick() < comp.getStreamerNick();
         }
-        return this->getAvaliation() < comp.getAvaliation();
+        return this->getEvaluation() < comp.getEvaluation();
     }
     return this->getAmount() < comp.getAmount();
 }
 
 bool DonationItem::operator==(const DonationItem &comp) const {
     return ((this->getStreamerNick() == comp.getStreamerNick()) && (this->getDonation() == comp.getDonation())
-        && (this->getAvaliation() == comp.getAvaliation()));
+        && (this->getEvaluation() == comp.getEvaluation()));
 }
 
 std::ostream &operator<<(std::ostream &os, const DonationItem &p) {
-    os << "Donation is to " << p.getStreamerNick() << " whit the amount: " << p.getAmount() << " and avaliation: " << p.getAvaliation();
+    os << "Donation is to " << p.getStreamerNick() << " whit the amount: " << p.getAmount() << " and evaluation: " << p.getEvaluation();
     return os;
 }
 
