@@ -9,6 +9,7 @@
 #include "PublicStream.h"
 #include "OrdersEmptyException.h"
 #include "OrdersFullException.h"
+#include "NoSuchOrderException.h"
 #include "StreamZ.h"
 
 
@@ -702,6 +703,19 @@ TEST(test, run) {
     EXPECT_EQ(merchandisingOrder.getAvailability(), 2);
     EXPECT_THROW(reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer"))->dispatchOrder(), OrdersEmptyException);
     EXPECT_THROW(reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer1"))->dispatchOrder(), OrdersEmptyException);
+
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->orderMerch("streamer",2,0);
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->orderMerch("streamer",2,10);
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->orderMerch("streamer",2,3);
+
+    merchandisingOrder = reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->removeOrder("streamer");
+    EXPECT_EQ(merchandisingOrder.getAvailability(), 5);
+    merchandisingOrder = reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->removeOrder("streamer");
+    merchandisingOrder = reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->removeOrder("streamer");
+    EXPECT_EQ(merchandisingOrder.getAvailability(), 1);
+    EXPECT_THROW(reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->removeOrder("streamer"), NoSuchOrderException);
+    EXPECT_THROW(reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->removeOrder("asd"), DoesNotExist<std::string>);
+    EXPECT_THROW(reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer"))->dispatchOrder(), OrdersEmptyException);
 
 
     //streamZ.run();

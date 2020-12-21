@@ -312,6 +312,8 @@ bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
 
 MerchandisingOrder::MerchandisingOrder(std::string userName, unsigned int num, unsigned int avail) :
         viewerName(std::move(userName)), numMerch(num), availability(avail){
+    if(availability > 5) availability = 5;
+    else if(availability < 1) availability = 1;
 
 }
 
