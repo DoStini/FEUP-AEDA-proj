@@ -40,14 +40,19 @@ void UserManager::createAdmin(std::string name, std::string nickName,const std::
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
-void UserManager::removeUser(std::string nickName) const{
+void UserManager::removeUser(std::string nickName,  bool permanent) const{
     if(!streamZ->getSearchM()->userExists(nickName)) throw DoesNotExist<std::string>(nickName);
 
     User * ptr = streamZ->getSearchM()->getUser(nickName);
 
-    streamZ->getDatabase().getUsers().erase(nickName);
     if(ptr->getUserType() != streamer)
-        delete ptr;
+        streamZ->getDatabase().getUsers().erase(nickName);
+    else{
+        if(permanent){
+            streamZ->getDatabase().getStreamers().erase(ptr);
+            delete ptr;
+        }
+    }
 }
 
 void UserManager::removeHistoryElemFromUser(ID id) const {
