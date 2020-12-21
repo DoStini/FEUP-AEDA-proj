@@ -46,9 +46,9 @@ void UserManager::removeUser(std::string nickName) const{
 
     User * ptr = streamZ->getSearchM()->getUser(nickName);
 
-    streamZ->getDatabase().getUsers().erase(nickName);
-
     delete ptr;
+
+    streamZ->getDatabase().getUsers().erase(nickName);
 }
 
 void UserManager::removeHistoryElemFromUser(ID id) const {
@@ -91,7 +91,7 @@ void UserManager::removeMerchFromStreamers(const std::string viewerNick) const {
                     streamer->removeOrder(viewerNick);
                 }
             } catch (NoSuchOrderException & ex) {
-                break;
+
             }
         }
 

@@ -291,8 +291,7 @@ void Viewer::orderMerch(const std::string &streamerNick, unsigned int num, unsig
         auto streamer = dynamic_cast<Streamer*>(user);
 
         streamer->addOrder(nickName, num, availability);
-    }
-
+    } else throw DoesNotExist<std::string>(streamerNick);
 }
 
 MerchandisingOrder Viewer::removeOrder(const std::string &streamerNick) {
@@ -300,6 +299,6 @@ MerchandisingOrder Viewer::removeOrder(const std::string &streamerNick) {
     if(user->getUserType() == userType::streamer) {
         auto streamer = dynamic_cast<Streamer*>(user);
 
-        streamer->removeOrder(nickName);
-    }
+        return streamer->removeOrder(nickName);
+    } else throw DoesNotExist<std::string>(streamerNick);
 }

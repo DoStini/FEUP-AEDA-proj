@@ -305,7 +305,7 @@ MerchandisingOrder Streamer::removeOrder(const std::string &viewerNick) {
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
     if(pci.numMerch < numMerch) return true;
     else if(pci.numMerch == numMerch) {
-        return(availability > pci.availability);
+        return(availability < pci.availability);
     }
     return false;
 }

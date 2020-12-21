@@ -7,6 +7,8 @@
 #include "Date.h"
 #include "PrivateStream.h"
 #include "PublicStream.h"
+#include "OrdersEmptyException.h"
+#include "OrdersFullException.h"
 #include "StreamZ.h"
 
 
@@ -665,11 +667,50 @@ TEST(test, run) {
     streamZ.getUserM()->createViewer("asd","asd", "asd", Date(2001, 02, 25));
     streamZ.getUserM()->createStreamer("asd", "streamer", "streamer", Date(2001, 02, 25));
 
-    streamZ.run();
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->orderMerch("streamer",3,2);
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->orderMerch("streamer",3,3);
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("asd"))->orderMerch("streamer",2,2);
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("asd"))->orderMerch("streamer1",2,2);
+
+
+    MerchandisingOrder merchandisingOrder = reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer"))->dispatchOrder();
+    EXPECT_EQ(merchandisingOrder.getViewerName(), "asd");
+    merchandisingOrder = reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer"))->dispatchOrder();
+    EXPECT_EQ(merchandisingOrder.getViewerName(), "nuno");
+    EXPECT_EQ(merchandisingOrder.getAvailability(), 3);
+    merchandisingOrder = reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer"))->dispatchOrder();
+    EXPECT_EQ(merchandisingOrder.getAvailability(), 2);
+
+    EXPECT_THROW(reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer"))->dispatchOrder(), OrdersEmptyException);
+
+    streamZ.getUserM()->setOrdersSize(5);
+
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("asd"))->orderMerch("streamer",2,2);
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("asd"))->orderMerch("streamer",2,2);
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("asd"))->orderMerch("streamer",2,2);
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("nuno"))->orderMerch("streamer",2,2);
+    reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("asd"))->orderMerch("streamer",2,2);
+
+    EXPECT_THROW(reinterpret_cast<Viewer*>(streamZ.getDatabase().getUsers().at("asd"))->orderMerch("streamer",3,3), OrdersFullException);
+
+    merchandisingOrder = reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer"))->dispatchOrder();
+    EXPECT_EQ(merchandisingOrder.getAvailability(), 2);
+
+    streamZ.getUserM()->removeUser("asd");
+
+    merchandisingOrder = reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer"))->dispatchOrder();
+    EXPECT_EQ(merchandisingOrder.getAvailability(), 2);
+    EXPECT_THROW(reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer"))->dispatchOrder(), OrdersEmptyException);
+    EXPECT_THROW(reinterpret_cast<Streamer*>(streamZ.getDatabase().getUsers().at("streamer1"))->dispatchOrder(), OrdersEmptyException);
+
+
+    //streamZ.run();
 }
 
-int main() {
-
+int main(int argc, char* argv[]) {
+    testing::InitGoogleTest(&argc, argv);
+    std::cout << "AEDA 2020/2021 - Practical 5" << std::endl;
+    return RUN_ALL_TESTS();
     StreamZ streamZ;
     streamZ.init("final_data.txt");
     streamZ.run();
