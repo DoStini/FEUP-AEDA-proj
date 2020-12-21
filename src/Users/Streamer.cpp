@@ -272,7 +272,17 @@ Streamer::Streamer() {
 }
 
 void Streamer::disableAccount() {
+    if(streaming()){
+        closeStream();
+    }
     active = false;
+}
+
+void Streamer::reenableAccount() {
+    active = true;
+    // Should receive bonus likes next time he starts a stream
+    if(status == 0)
+        status ++;
 }
 
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {

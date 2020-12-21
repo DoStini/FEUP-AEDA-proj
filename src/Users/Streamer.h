@@ -44,7 +44,15 @@ public:
     /// Returns the user type
     ///@return - user type = streamer
     userType getUserType() const override;
+    /**
+     * Disables the account
+     */
     void disableAccount();
+    /**
+     * Reactivates the account
+     * Updates account status
+     */
+    void reenableAccount();
     /**
      * Add viewer to the followers vector
      * @param viewerNick - nick of the viewer
