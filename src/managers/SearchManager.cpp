@@ -63,6 +63,9 @@ void SearchManager::listUsers(std::vector<User *> &users, const std::string& nam
             users.push_back(((*p1).second));
         p1++;
     }
+    for(auto * ptr : streamZ->getDatabase().getStreamers())
+        if(ptr->getName() == name || name.empty())
+            users.push_back(ptr);
 }
 
 void SearchManager::listLiveStreams(std::vector<LiveStream *> &streams, const std::string &streamName,
