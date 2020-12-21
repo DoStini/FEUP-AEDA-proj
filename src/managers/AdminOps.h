@@ -95,6 +95,12 @@ public:
      */
     void removeStream(ID streamID);
 
+    /**
+     * @brief changes the max size of orders each streamer can have
+     * @param size the new max size
+     */
+    void changeMaxOrdersSize(size_t size);
+
 private:
     StreamZ * streamZ;
 };

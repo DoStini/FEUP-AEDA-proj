@@ -4,6 +4,8 @@
 
 #include "Streamer.h"
 #include "OrdersEmptyException.h"
+#include "OrdersFullException.h"
+#include "NoSuchOrderException.h"
 #include <utility>
 #include "StreamZ.h"
 #include <iomanip>
@@ -40,7 +42,7 @@ bool Streamer::operator==(const Streamer &str) {
     return nickName == str.nickName;
 }
 
-bool Streamer::streaming() {
+bool Streamer::streaming() const {
     return currStreaming != NULL_STREAM;
 }
 
@@ -266,6 +268,40 @@ MerchandisingOrder Streamer::dispatchOrder() {
     return merchandisingOrder;
 }
 
+void Streamer::addOrder(const std::string &viewerNick, unsigned int num, unsigned int availability) {
+    if(streamZ->getUserM()->getOrdersSize() == orders.size()) throw OrdersFullException();
+
+    MerchandisingOrder merchandisingOrder(viewerNick, num, availability);
+    orders.push(merchandisingOrder);
+}
+
+MerchandisingOrder Streamer::removeOrder(const std::string &viewerNick) {
+    std::priority_queue<MerchandisingOrder> copy;
+    MerchandisingOrder merchandisingOrder("",0,0);
+    bool found = false;
+
+    if(orders.empty()) throw NoSuchOrderException(viewerNick);
+
+    while(!orders.empty()) {
+        merchandisingOrder = orders.top();
+        orders.pop();
+        if(merchandisingOrder.getViewerName() == viewerNick) {
+            found = true;
+            break;
+        }
+        copy.push(merchandisingOrder);
+    }
+
+    while(!copy.empty()) {
+        orders.push(copy.top());
+        copy.pop();
+    }
+
+    if(!found) throw NoSuchOrderException(viewerNick);
+
+    return merchandisingOrder;
+}
+
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
     if(pci.numMerch < numMerch) return true;
     else if(pci.numMerch == numMerch) {
@@ -277,4 +313,8 @@ bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
 MerchandisingOrder::MerchandisingOrder(std::string userName, unsigned int num, unsigned int avail) :
         viewerName(std::move(userName)), numMerch(num), availability(avail){
 
+}
+
+bool MerchandisingOrder::operator==(const MerchandisingOrder& merchandisingOrder) const {
+    return viewerName == merchandisingOrder.viewerName;
 }
