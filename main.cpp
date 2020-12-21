@@ -722,11 +722,10 @@ TEST(test, run) {
 }
 
 int main(int argc, char* argv[]) {
-    testing::InitGoogleTest(&argc, argv);
-    std::cout << "AEDA 2020/2021 - Practical 5" << std::endl;
-    return RUN_ALL_TESTS();
     StreamZ streamZ;
     streamZ.init("final_data.txt");
+    //TODO: CHANGE THIS BACK
+    streamZ.getUserM()->setOrdersSize(2);
     streamZ.run();
 
     streamZ.shutdown("final_data.txt");

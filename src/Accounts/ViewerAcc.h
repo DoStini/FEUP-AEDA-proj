@@ -72,6 +72,11 @@ public:
     void unfollowStreamer();
 
     void displayHistory();
+
+    /**
+     * @brief Prompts the viewer to buy merch from a streamer.
+     */
+    void orderMerch();
 };
 
 

@@ -5,6 +5,9 @@
 #include "ViewerAcc.h"
 #include "Viewer.h"
 #include "StreamZ.h"
+#include "OrdersEmptyException.h"
+#include "OrdersFullException.h"
+#include "NoSuchOrderException.h"
 #include <sstream>
 #include<functional>
 
@@ -26,7 +29,8 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         [this] { listFollowingStreamers(); },
         [this] { followStreamer(); },
         [this] { unfollowStreamer(); },
-        [this] { displayHistory(); }
+        [this] { displayHistory(); },
+        [this] { orderMerch(); }
     });
     optionChecks[5] = optionChecks[11] = optionChecks[13] =
             [this]() {return !this->viewer->getFollowingStreamers().empty();};
@@ -43,7 +47,8 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         "List all the streamers you follow.",
         "Follow a streamer.",
         "Unfollow a streamer.",
-        "Display your watch history."
+        "Display your watch history.",
+        "Order Merch."
     });
     nOptions = options.size();
 }
@@ -319,5 +324,52 @@ void ViewerAcc::displayWatchingInfo() {
     print(watching->getLongDescription());
 
     print();
+    waitForKey();
+}
+
+void ViewerAcc::orderMerch() {
+    std::string nickName;
+
+    print("What is the nickname of the streamer you wish to buy merch from? (empty to cancel) ", '\0');
+
+    getTruncatedString(nickName);
+
+    print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    unsigned num, availability;
+
+    print("What is the number of merch you wish to buy? ", '\0');
+
+    while (!checkInput(num)) {
+        print("Invalid input! Please try again: ", '\0');
+    }
+
+    print("What is your purchase availability? ", '\0');
+
+    while (!checkInput(availability)) {
+        print("Invalid input! Please try again: ", '\0');
+    }
+
+    print();
+    try {
+        viewer->orderMerch(nickName, num, availability);
+
+        print("Operation success!");
+    } catch (OrdersFullException & e) {
+        print("Operation failed: ");
+        print(e);
+    } catch (DoesNotExist<std::string> & e) {
+        print("Operation failed: ");
+        print("No such streamer with nickname: ", '\0');
+        print(e);
+    }
+
     waitForKey();
 }
