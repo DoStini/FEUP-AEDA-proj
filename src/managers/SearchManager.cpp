@@ -116,7 +116,6 @@ void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &stream
     }
 }
 
-// TODO - MAKE A SEPARATE FUNCTION FOR VIEWER AND JOIN THEM TOGETHER IN USER EXISTS
 
 bool SearchManager::viewerExists(std::string nick) const {
     std::transform(nick.begin(), nick.end(), nick.begin(), ::tolower);

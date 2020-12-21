@@ -303,11 +303,14 @@ void StreamZ::backupData(std::string fileName) {
         ff << userPair.second->getUserType() << " : ";
         userPair.second->writeToFile(ff);
     }
+    for (const auto & streamer : getDatabase().getStreamers()){
+        ff << streamer->getUserType() << " : ";
+        streamer->writeToFile(ff);
+    }
     ff.close();
 
 
     ff.open("../streams_" + fileName, std::ofstream::trunc);
-    // TODO EXCEPTION
     if (!ff.is_open()){
         ff.open("streams_" + fileName, std::ofstream::trunc);
         if(!ff.is_open()) throw "No file";
@@ -359,9 +362,11 @@ void StreamZ::readFromFile(std::string fileName) {
 
         newUser->readFromFile(ff);
         newUser->setStreamZ(this);
-        dataBase.getUsers().insert(std::pair<std::string, User *>( newUser->getNickName(), newUser ));
+
         if(newUser->getUserType() == streamer)
             dataBase.getStreamers().insert(newUser);
+        else
+            dataBase.getUsers().insert(std::pair<std::string, User *>( newUser->getNickName(), newUser ));
     }
 
     ff.close();
