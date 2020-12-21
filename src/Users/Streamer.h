@@ -169,11 +169,11 @@ private:
 struct streamerHash{
     int operator()(const void * ptr) const{
         int sum = 1;
-        for (int i = 0; i < (int)((Streamer*) ptr)->getName().size(); ++i) sum += sum*37*((Streamer*) ptr)->getName()[i];
+        for (int i = 0; i < (int)((Streamer*) ptr)->getNickName().size(); ++i) sum += sum*37*((Streamer*) ptr)->getNickName()[i];
         return sum;
     }
     bool operator()(const void * ptr1, const void * ptr2) const{
-        return ((Streamer*) ptr1)->getName() == ((Streamer*) ptr2)->getName();
+        return ((Streamer*) ptr1)->getNickName() == ((Streamer*) ptr2)->getNickName();
     }
 };
 

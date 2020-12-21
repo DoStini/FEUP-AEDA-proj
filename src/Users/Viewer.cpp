@@ -19,7 +19,7 @@ userType Viewer::getUserType() const {
 }
 
 void Viewer::followStreamer(const std::string& streamerNick) {
-    if(!streamZ->getSearchM()->userExists(streamerNick))
+    if(!streamZ->getSearchM()->streamerExists(streamerNick))
         throw DoesNotExist<std::string>(streamerNick);
 
     if (std::find(followingStreamers.begin(), followingStreamers.end(), streamerNick) != followingStreamers.end())

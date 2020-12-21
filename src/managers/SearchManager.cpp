@@ -11,14 +11,17 @@ SearchManager::SearchManager(StreamZ *streamZ) : streamZ(streamZ) {}
 
 
 User *SearchManager::getUser(std::string userNick) const {
-    User * val;
     std::transform(userNick.begin(), userNick.end(), userNick.begin(), ::tolower);
-    try{
-        val = streamZ->getDatabase().getUsers().at(userNick);
-    } catch (const std::out_of_range &e) {
-        throw DoesNotExist<std::string>(userNick);
+    auto sm = streamZ->getSearchM();
+    if(sm->streamerExists(userNick))
+    {
+        Streamer temp(userNick);
+        return *streamZ->getDatabase().getStreamers().find(&temp);
     }
-    return val;
+    else if(sm->viewerExists(userNick))
+        return streamZ->getDatabase().getUsers().at(userNick);
+    else
+        throw DoesNotExist<std::string>(userNick);
 }
 
 Stream *SearchManager::getStream(ID streamID) const {
@@ -113,14 +116,20 @@ void SearchManager::listLiveStreamsByStreamers(std::vector<LiveStream *> &stream
     }
 }
 
-bool SearchManager::userExists(std::string nick) const {
+// TODO - MAKE A SEPARATE FUNCTION FOR VIEWER AND JOIN THEM TOGETHER IN USER EXISTS
+
+bool SearchManager::viewerExists(std::string nick) const {
     std::transform(nick.begin(), nick.end(), nick.begin(), ::tolower);
     std::unordered_map<std::string, User *> map = streamZ->getDatabase().getUsers();
-    bool fuck = map.find(nick) != map.end();
-    return fuck;
+    return map.find(nick) != map.end();
+}
+
+bool SearchManager::userExists(std::string nick) const {
+    return viewerExists(nick) || streamerExists(nick);
 }
 
 bool SearchManager::streamerExists(std::string nick) const {
+    std::transform(nick.begin(), nick.end(), nick.begin(), ::tolower);
     auto & db = streamZ->getDatabase().getStreamers();
     Streamer temp = Streamer(nick);
     return db.find(&temp) != db.end();

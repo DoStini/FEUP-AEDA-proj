@@ -118,7 +118,7 @@ void Streamer::kickUser(std::string viewerNick) {
     if(!streaming())
         throw NotInStreamException(nickName);
 
-    if(!streamZ->getSearchM()->userExists(viewerNick))
+    if(!streamZ->getSearchM()->viewerExists(viewerNick))
         throw DoesNotExist<std::string>(viewerNick);
 
     auto viewer = (Viewer*) streamZ->getSearchM()->getUser(viewerNick);

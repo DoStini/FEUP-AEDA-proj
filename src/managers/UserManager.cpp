@@ -21,7 +21,7 @@ void UserManager::createViewer(const std::string& name, std::string nickName,con
 }
 
 void UserManager::createStreamer(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const {
-    if(streamZ->getSearchM()->streamerExists(nickName)) throw AlreadyExists<std::string>(nickName);
+    if(streamZ->getSearchM()->userExists(nickName)) throw AlreadyExists<std::string>(nickName);
 
     Streamer * ptr = new Streamer(name, nickName,password, birthDate);
     ptr->setStreamZ(streamZ);
