@@ -26,6 +26,7 @@ void UserManager::createStreamer(std::string name, std::string nickName,const st
     Streamer * ptr = new Streamer(name, nickName,password, birthDate);
     ptr->setStreamZ(streamZ);
 
+    streamZ->getDatabase().getStreamers().insert(ptr);
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
@@ -46,8 +47,8 @@ void UserManager::removeUser(std::string nickName) const{
     User * ptr = streamZ->getSearchM()->getUser(nickName);
 
     streamZ->getDatabase().getUsers().erase(nickName);
-
-    delete ptr;
+    if(ptr->getUserType() != streamer)
+        delete ptr;
 }
 
 void UserManager::removeHistoryElemFromUser(ID id) const {

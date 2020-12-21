@@ -28,6 +28,8 @@ public:
     std::unordered_map<std::string, User *> & getUsers(){return users;};
     /// @return A reference to the map containing the users
     std::unordered_map<ID, Stream *> & getStreams() {return streams;};
+    /// @return A reference to the unordered_set containing the streamers
+    std::unordered_set<User *, streamerHash, streamerHash> & getStreamers(){return streamers;};
 };
 
 
