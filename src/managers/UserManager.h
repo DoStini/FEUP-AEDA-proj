@@ -33,7 +33,14 @@ public:
     void createAdmin(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const;
     /// Removes a user
     void removeUser(std::string nickName) const;
+    /**
+     * @brief Gets the maximum size of orders per streamer
+     */
     size_t getOrdersSize() const;
+    /**
+     * @brief Sets the maximum size of orders per streamer
+     * @param size new size of orders per streamer
+     */
     void setOrdersSize(size_t size);
     /**
      * Removes users the access of a finished streamer

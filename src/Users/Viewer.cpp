@@ -133,6 +133,7 @@ ID Viewer::getCurrWatching() const {
 }
 
 Viewer::~Viewer() {
+    //TODO: DELETE ORDER
     if(watching()){
         auto * ptr =  dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currWatching));
         ptr->removeViewer(nickName);

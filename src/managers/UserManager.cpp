@@ -6,7 +6,7 @@
 #include "Viewer.h"
 #include "StreamZ.h"
 
-UserManager::UserManager(StreamZ *streamZ) : streamZ(streamZ) {}
+UserManager::UserManager(StreamZ *streamZ) : streamZ(streamZ), maxOrdersSize(10){}
 
 void UserManager::createViewer(const std::string& name, std::string nickName,const std::string& password, const Date &birthDate) const {
     if(streamZ->getSearchM()->userExists(nickName)) throw AlreadyExists<std::string>(nickName);
@@ -66,4 +66,12 @@ void UserManager::removeHistoryElemFromUser(ID id) const {
             if(streamer->isInStreamHistory(id)) streamer->removeStreamHistory(id);
         }
     }
+}
+
+void UserManager::setOrdersSize(size_t size) {
+    maxOrdersSize = size;
+}
+
+size_t UserManager::getOrdersSize() const {
+    return maxOrdersSize;
 }

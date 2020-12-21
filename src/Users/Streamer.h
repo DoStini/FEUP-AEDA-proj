@@ -16,7 +16,7 @@ private:
     unsigned numMerch;
     unsigned availability;
 public:
-    MerchandisingOrder(const std::string & userName, unsigned num, unsigned avail);
+    MerchandisingOrder(std::string userName, unsigned num, unsigned avail);
     bool operator<(const MerchandisingOrder& merchandisingOrder) const;
 };
 
@@ -35,7 +35,7 @@ public:
     * @param password - User password
     * @param birthDate - Date of Birth
     */
-    Streamer(std::string name, std::string nickName,std::string password, const Date &birthDate);
+    Streamer(const std::string& name, std::string nickName,std::string password, const Date &birthDate);
 
 
     Streamer();
@@ -132,7 +132,19 @@ public:
      * @param streamID - streamer to be removed from the history
      */
     void removeStreamHistory(ID streamID);
-    void dispatchOrder();
+
+    /**
+     * @brief Dispatches an order and returns (top of queue)
+     * @return the order that was dispatched
+     */
+    MerchandisingOrder dispatchOrder();
+    /**
+     * @brief Adds an order to the queue
+     * @param viewerNick
+     * @param num
+     * @param availability
+     */
+    void addOrder(const std::string& viewerNick, unsigned num, unsigned availability);
 
     /**
      * Checks if a streamer is in the streamer history

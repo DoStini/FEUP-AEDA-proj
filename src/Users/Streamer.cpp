@@ -3,14 +3,14 @@
 //
 
 #include "Streamer.h"
-
+#include "OrdersEmptyException.h"
 #include <utility>
 #include "StreamZ.h"
 #include <iomanip>
 #include <iostream>
 
 
-Streamer::Streamer(std::string name, std::string nickName,std::string password, const Date &birthDate) :
+Streamer::Streamer(const std::string& name, std::string nickName,std::string password, const Date &birthDate) :
         User(name, std::move(nickName),std::move(password), birthDate) {
     if(age() <= minimumAge)
         throw RestrictedAgeException(name, (int) age(), minimumAge);
@@ -18,8 +18,6 @@ Streamer::Streamer(std::string name, std::string nickName,std::string password, 
 
 
 Streamer::~Streamer() {
-
-
     if(streaming()){
         closeStream();
         // This moves the stream to finished stream, so it doesnt have problems in recursive deletion
@@ -258,15 +256,25 @@ void Streamer::readFromFile(std::ifstream &ff) {
     }
 }
 
-Streamer::Streamer() {
+Streamer::Streamer() = default;
 
+MerchandisingOrder Streamer::dispatchOrder() {
+    if(orders.empty()) throw OrdersEmptyException();
+    MerchandisingOrder merchandisingOrder = orders.top();
+    orders.pop();
+
+    return merchandisingOrder;
 }
 
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
+    if(pci.numMerch < numMerch) return true;
+    else if(pci.numMerch == numMerch) {
+        return(availability > pci.availability);
+    }
     return false;
 }
 
-MerchandisingOrder::MerchandisingOrder(const std::string &userName, unsigned int num, unsigned int avail) :
-        viewerName(userName), numMerch(num), availability(avail){
+MerchandisingOrder::MerchandisingOrder(std::string userName, unsigned int num, unsigned int avail) :
+        viewerName(std::move(userName)), numMerch(num), availability(avail){
 
 }
