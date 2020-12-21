@@ -5,15 +5,124 @@
 #define FEUP_AEDA_PROJ_DONATION_H
 
 #include <string>
-
+#include "NotInRangeValue.h"
+#include "ostream"
 
 class Donation {
 public:
+    /**
+     * Constructor for the donations
+     *
+     * @param streamerNick - nick of the streamer that the donation is for
+     * @param amount - value of the donation
+     * @param avaliation - avaliation given by donator from 1 to 5
+     */
+    Donation(const std::string &streamerNick, int amount, unsigned avaliation);
+
+    /**
+     * Get streamer Nick
+     * @return - nick of the streamer that the donation is for
+     */
+    const std::string &getStreamerNick() const;
+
+    /**
+     * Value of the donation
+     * @return - amount of the donation
+     */
+    int getAmount() const;
+
+    /**
+     * Get avaliation
+     * @return - avaliation value 1-5
+     */
+    int getAvaliation() const;
+
+    /**
+     * Class used as node od the BST
+     */
+    friend class DonationItem;
+
+    /**
+     * Used to print info about the donation
+     * @param os - output stream
+     * @param p - parameter
+     * @return - output stream
+     */
+    friend std::ostream& operator<<(std::ostream& os, const Donation& p);
 
 private:
     std::string streamerNick;
     int amount;
-    int avaliation;
+    unsigned avaliation;
+};
+
+
+class DonationItem {
+public:
+    /**
+     * Constructor to create a donation node from a already existing donation
+     * @param donationItem
+     */
+    DonationItem(Donation* donationItem);
+
+    /**
+     * Constructor to create a donation node completely new
+     *
+     * @param streamerNick - nick of the streamer that the donation is for
+     * @param amount - value of the donation
+     * @param avaliation - avaliation given by donator from 1 to 5
+     */
+    DonationItem(const std::string &streamerNick, int amount, unsigned avaliation);
+
+    /**
+     * Get pointer to the donation
+     * @return - donation pointer
+     */
+    Donation* getDonation() const;
+
+    /**
+     * Get streamer Nick
+     * @return - nick of the streamer that the donation is for
+     */
+    const std::string &getStreamerNick() const;
+
+    /**
+     * Value of the donation
+     * @return - amount of the donation
+     */
+    int getAmount() const;
+
+    /**
+     * Get avaliation
+     * @return - avaliation value 1-5
+     */
+    int getAvaliation() const;
+
+    /**
+     * Operator used to compare nodes
+     * @param comp - item to be compared with
+     * @return - comparation value
+     */
+    bool operator<(const DonationItem& comp) const;
+
+    /**
+     * Operator used to compare nodes
+     * @param comp - item to be compared with
+     * @return - comparation value
+     */
+    bool operator==(const DonationItem& comp) const;
+
+    /**
+     * Used to print info about the donation
+     * @param os - output stream
+     * @param p - parameter
+     * @return - output stream
+     */
+    friend std::ostream& operator<<(std::ostream& os, const DonationItem& p);
+
+
+private:
+    Donation* donationItem; /// pointer to the donation element
 };
 
 

@@ -18,6 +18,7 @@ void StreamZ::init() {
     streamManager = new StreamManager(this);
     adminOps = new AdminOps(this);
     leaderboard = new LeaderBoard(this);
+    donationManager = new DonationManager(this);
     dataBase = Database();
 }
 
@@ -29,6 +30,7 @@ void StreamZ::init(std::string fileName) {
     streamManager = new StreamManager(this);
     adminOps = new AdminOps(this);
     leaderboard = new LeaderBoard(this);
+    donationManager = new DonationManager(this);
     dataBase = Database();
 
     try{
@@ -47,6 +49,7 @@ void StreamZ::shutdown(std::string fileName) {
     delete userManager;
     delete streamManager;
     delete leaderboard;
+    delete donationManager;
 }
 
 SortingManager *StreamZ::getSortM() {
@@ -409,4 +412,8 @@ void StreamZ::resetDatabase() {
 
 
 
+}
+
+DonationManager *StreamZ::getDonationManager() const {
+    return donationManager;
 }

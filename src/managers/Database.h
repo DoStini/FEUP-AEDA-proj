@@ -11,6 +11,8 @@ class Stream;
 #include <string>
 #include <unordered_map>
 #include "utils.h"
+#include "BST.h"
+#include "Donation.h"
 
 /**
  * Class to store the data from the application
@@ -20,12 +22,12 @@ private:
     std::unordered_map<std::string, User *> users;
     std::unordered_map<ID, Stream *> streams;
 public:
-    Database() = default;
+    BST<DonationItem> donations;
+    Database();
     /// @return A reference to the map containing the users
     std::unordered_map<std::string, User *> & getUsers(){return users;};
     /// @return A reference to the map containing the users
     std::unordered_map<ID, Stream *> & getStreams() {return streams;};
 };
-
 
 #endif //FEUP_AEDA_PROJ_DATABASE_H

@@ -425,7 +425,8 @@ TEST(test, likeSystem){
 
 
 }
-TEST(test, testDestructs){
+
+/*TEST(test, testDestructs){
     StreamZ streamZ;
     streamZ.init();
     //streamZ.run();
@@ -599,6 +600,7 @@ TEST(test, files1){
 
 }
 
+
 TEST(test, run) {
     StreamZ streamZ = StreamZ();
     streamZ.init();
@@ -666,15 +668,48 @@ TEST(test, run) {
     streamZ.getUserM()->createStreamer("asd", "streamer", "streamer", Date(2001, 02, 25));
 
     streamZ.run();
+}*/
+
+TEST(test, bst_donation) {
+    StreamZ streamZ = StreamZ();
+    streamZ.init();
+    streamZ.getUserM()->createStreamer("falca","falca","123",Date(2001,1,3));
+    streamZ.getUserM()->createStreamer("boas","boas","456",Date(2001,1,3));
+
+    streamZ.getDonationManager()->creatDonation("falca",120,4);
+    DonationItem found = streamZ.getDatabase().donations.findMax();
+    EXPECT_EQ(found.getStreamerNick(), "falca");
+    EXPECT_EQ(found.getAmount(), 120);
+    EXPECT_EQ(found.getAvaliation(), 4);
+
+    found = streamZ.getDatabase().donations.findMin();
+    EXPECT_EQ(found.getStreamerNick(), "falca");
+    EXPECT_EQ(found.getAmount(), 120);
+    EXPECT_EQ(found.getAvaliation(), 4);
+
+
+    streamZ.getDonationManager()->creatDonation("boas",250,3);
+
+    found = streamZ.getDatabase().donations.findMax();
+    EXPECT_EQ(found.getStreamerNick(), "boas");
+    EXPECT_EQ(found.getAmount(), 250);
+    EXPECT_EQ(found.getAvaliation(), 3);
+
+    streamZ.getDonationManager()->creatDonation("boas",250,4);
+    found = streamZ.getDatabase().donations.findMax();
+    EXPECT_EQ(found.getStreamerNick(), "boas");
+    EXPECT_EQ(found.getAmount(), 250);
+    EXPECT_EQ(found.getAvaliation(), 4);
+
 }
 
 int main() {
-
-    StreamZ streamZ;
+    testing::InitGoogleTest();
+    /*StreamZ streamZ;
     streamZ.init("final_data.txt");
     streamZ.run();
 
-    streamZ.shutdown("final_data.txt");
+    streamZ.shutdown("final_data.txt");*/
 
-    return 0;
+    return RUN_ALL_TESTS();
 }

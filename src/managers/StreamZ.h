@@ -16,6 +16,7 @@
 #include "utils.h"
 #include "Admin.h"
 #include "StreamManager.h"
+#include "DonationManager.h"
 
 #include "User.h"
 #include "Viewer.h"
@@ -33,6 +34,7 @@
  */
 class StreamZ {
 private:
+    DonationManager * donationManager;
     SortingManager * sortingManager;
     SearchManager * searchManager;
     UserManager * userManager;
@@ -99,6 +101,8 @@ public:
     StreamManager * getStreamManager();
     /// @return Reference to the database manager
     Database & getDatabase();
+
+    DonationManager *getDonationManager() const;
 };
 
 

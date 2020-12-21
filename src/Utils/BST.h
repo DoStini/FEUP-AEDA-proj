@@ -108,7 +108,7 @@ void BST<Comparable>::insert( const Comparable & x )
 }
 
 template <class Comparable>
-void BST<Comparable>::remove( const Comparable & x )
+void BST<Comparable>::remove( const Comparable &x )
 {
   remove( x, root );
 }
