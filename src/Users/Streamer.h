@@ -166,16 +166,15 @@ private:
     std::priority_queue<MerchandisingOrder> orders;
 };
 
-typedef struct streamHash{
-    int operator()(const Streamer * ptr){
+struct streamerHash{
+    int operator()(const void * ptr) const{
         int sum = 1;
-        for (int i = 0; i < ptr->getName().size(); ++i) sum += sum*37*ptr->getName()[i];
+        for (int i = 0; i < (int)((Streamer*) ptr)->getName().size(); ++i) sum += sum*37*((Streamer*) ptr)->getName()[i];
         return sum;
     }
-    bool operator()(const Streamer * ptr1, const Streamer * ptr2){
-        return ptr1->getName() == ptr2->getName();
+    bool operator()(const void * ptr1, const void * ptr2) const{
+        return ((Streamer*) ptr1)->getName() == ((Streamer*) ptr2)->getName();
     }
-} streamHash;
-
+};
 
 #endif //FEUP_AEDA_PROJ_STREAMER_H
