@@ -291,6 +291,10 @@ void Streamer::reenableAccount() {
         status ++;
 }
 
+bool Streamer::isActive() const {
+    return active;
+}
+
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
     return false;
 }
@@ -299,3 +303,5 @@ MerchandisingOrder::MerchandisingOrder(const std::string &userName, unsigned int
         viewerName(userName), numMerch(num), availability(avail){
 
 }
+
+
