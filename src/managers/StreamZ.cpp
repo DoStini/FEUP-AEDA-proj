@@ -149,8 +149,8 @@ void StreamZ::login() {
 
     try {
         user = searchManager->getUser(name);
-        if(user->getUserType() == streamer && !dynamic_cast<Streamer *>(user)->isActive()){
-
+        if(user->getUserType() == streamer && !dynamic_cast<Streamer *>(user)->isActive())
+        {
             print("That streamer's account is disabled. Please reactive it in the appropriate menu.");
             return;
         }
