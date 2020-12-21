@@ -44,7 +44,7 @@ public:
     /// Returns the user type
     ///@return - user type = streamer
     userType getUserType() const override;
-
+    void disableAccount();
     /**
      * Add viewer to the followers vector
      * @param viewerNick - nick of the viewer
@@ -161,6 +161,16 @@ private:
     std::vector<std::string> followedBy;
     ///Stream that streamer is streaming
     ID currStreaming = NULL_STREAM;
+    /// Active account or disabled
+    bool active;
+    /// Indicates if its the first that recovers the account
+    /**
+     * Prevents abuse to get likes
+     * 0 - Nothing
+     * 1 - Should receive likes in the next stream
+     * 2 - Already received likes for reactivating his account
+     */
+    char status;
     ///Streams that the streamer have ended
     std::vector<ID> finishedStreams;
     std::priority_queue<MerchandisingOrder> orders;

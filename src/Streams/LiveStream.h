@@ -63,9 +63,15 @@ public:
     /**
     * Function used to end streamer
     *
-    * @return - corrent number of viewers
+    * @return - current number of viewers
     */
     unsigned closeStream();
+
+    /**
+     * Adds bonus likes to the stream
+     * @param likes Number of likes to add
+     */
+    void addBonusLikes(int likes);
 
     ///@return - number of likes of the streamer
     unsigned int getLikes() const;

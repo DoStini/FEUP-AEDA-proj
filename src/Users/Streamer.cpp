@@ -14,6 +14,8 @@ Streamer::Streamer(std::string name, std::string nickName,std::string password, 
         User(name, std::move(nickName),std::move(password), birthDate) {
     if(age() <= minimumAge)
         throw RestrictedAgeException(name, (int) age(), minimumAge);
+    status = 0;
+    active = true;
 }
 
 Streamer::Streamer(const std::string & nick) : User(nick) {}
@@ -109,7 +111,13 @@ void Streamer::startPublicStream(std::string title, language streamLanguage, gen
 void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge,
                                   unsigned int maxNumberViewers) {
     if(streaming()) throw AlreadyInStreamException(nickName, currStreaming);
+
     ID streamID = streamZ->getStreamManager()->createPrivateStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
+    if(status == 1){
+        auto * str = dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(streamID));
+        str->addBonusLikes(50);
+        status++;
+    }
 
     currStreaming = streamID;
 }
@@ -261,6 +269,10 @@ void Streamer::readFromFile(std::ifstream &ff) {
 
 Streamer::Streamer() {
 
+}
+
+void Streamer::disableAccount() {
+    active = false;
 }
 
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
