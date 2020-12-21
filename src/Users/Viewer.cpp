@@ -133,7 +133,6 @@ ID Viewer::getCurrWatching() const {
 }
 
 Viewer::~Viewer() {
-    //TODO: DELETE ORDER
     if(watching()){
         auto * ptr =  dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(currWatching));
         ptr->removeViewer(nickName);
@@ -143,6 +142,7 @@ Viewer::~Viewer() {
         ptr->leaveFollower(nickName);
     }
     streamZ->getStreamManager()->removeViewerFromWhitelists(nickName);
+    streamZ->getUserM()->removeMerchFromStreamers(nickName);
 }
 
 bool Viewer::isFollowing(std::string &streamer) {
@@ -286,13 +286,20 @@ void Viewer::writeToFile(std::ofstream &ff) {
 }
 
 void Viewer::orderMerch(const std::string &streamerNick, unsigned int num, unsigned int availability) {
-    auto streamer = dynamic_cast<Streamer*>(streamZ->getSearchM()->getUser(streamerNick));
+    User * user = streamZ->getSearchM()->getUser(streamerNick);
+    if(user->getUserType() == userType::streamer) {
+        auto streamer = dynamic_cast<Streamer*>(user);
 
-    streamer->addOrder(nickName, num, availability);
+        streamer->addOrder(nickName, num, availability);
+    }
+
 }
 
 MerchandisingOrder Viewer::removeOrder(const std::string &streamerNick) {
-    auto streamer = dynamic_cast<Streamer*>(streamZ->getSearchM()->getUser(streamerNick));
+    User * user = streamZ->getSearchM()->getUser(streamerNick);
+    if(user->getUserType() == userType::streamer) {
+        auto streamer = dynamic_cast<Streamer*>(user);
 
-    return streamer->removeOrder(nickName);
+        streamer->removeOrder(nickName);
+    }
 }

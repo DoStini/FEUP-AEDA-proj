@@ -43,11 +43,17 @@ public:
      */
     void setOrdersSize(size_t size);
     /**
-     * Removes users the access of a finished streamer
-     * Used when deleting a finished streamer
+     * Removes users the access of a finished stream
+     * Used when deleting a finished stream
      * @param id
      */
     void removeHistoryElemFromUser(ID id) const;
+
+    /**
+     * @brief Removes merch from streamers orders queue when deleting a user
+     * @param viewerNick nickname of the viewer
+     */
+    void removeMerchFromStreamers(const std::string viewerNick) const;
 private:
     StreamZ * streamZ;
     size_t maxOrdersSize;

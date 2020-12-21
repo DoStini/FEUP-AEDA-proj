@@ -4,6 +4,7 @@
 
 #include "UserManager.h"
 #include "Viewer.h"
+#include "NoSuchOrderException.h"
 #include "StreamZ.h"
 
 UserManager::UserManager(StreamZ *streamZ) : streamZ(streamZ), maxOrdersSize(10){}
@@ -74,4 +75,26 @@ void UserManager::setOrdersSize(size_t size) {
 
 size_t UserManager::getOrdersSize() const {
     return maxOrdersSize;
+}
+
+void UserManager::removeMerchFromStreamers(const std::string viewerNick) const {
+    auto it1 = streamZ->getDatabase().getUsers().begin(),
+    it2 = streamZ->getDatabase().getUsers().end();
+    Streamer * streamer;
+
+    while(it1 != it2) {
+        if(it1->second->getUserType() == userType::streamer) {
+            streamer = reinterpret_cast<Streamer *>(it1->second);
+
+            try {
+                while(true) {
+                    streamer->removeOrder(viewerNick);
+                }
+            } catch (NoSuchOrderException & ex) {
+                break;
+            }
+        }
+
+        it1++;
+    }
 }
