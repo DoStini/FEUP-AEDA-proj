@@ -120,6 +120,12 @@ bool SearchManager::userExists(std::string nick) const {
     return fuck;
 }
 
+bool SearchManager::streamerExists(std::string nick) const {
+    auto & db = streamZ->getDatabase().getStreamers();
+    Streamer temp = Streamer(nick);
+    return db.find(&temp) != db.end();
+}
+
 bool SearchManager::streamExists(ID streamID) const {
     std::unordered_map<ID, Stream *> map = streamZ->getDatabase().getStreams();
     return map.find(streamID) != map.end();
@@ -197,6 +203,8 @@ void SearchManager::listAllowedLiveStreams(std::vector<LiveStream *> &streams, s
         it1++;
     }
 }
+
+
 
 
 

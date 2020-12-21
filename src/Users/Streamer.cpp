@@ -16,6 +16,7 @@ Streamer::Streamer(std::string name, std::string nickName,std::string password, 
         throw RestrictedAgeException(name, (int) age(), minimumAge);
 }
 
+Streamer::Streamer(const std::string & nick) : User(nick) {}
 
 Streamer::~Streamer() {
 

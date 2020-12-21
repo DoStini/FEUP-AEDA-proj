@@ -37,8 +37,8 @@ public:
     */
     Streamer(std::string name, std::string nickName,std::string password, const Date &birthDate);
 
-
     Streamer();
+    explicit Streamer(const std::string & nick);
 
     ~Streamer() override;
     /// Returns the user type
