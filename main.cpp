@@ -724,8 +724,6 @@ TEST(test, run) {
 int main(int argc, char* argv[]) {
     StreamZ streamZ;
     streamZ.init("final_data.txt");
-    //TODO: CHANGE THIS BACK
-    streamZ.getUserM()->setOrdersSize(2);
     streamZ.run();
 
     streamZ.shutdown("final_data.txt");

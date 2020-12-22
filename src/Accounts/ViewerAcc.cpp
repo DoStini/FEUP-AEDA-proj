@@ -345,17 +345,17 @@ void ViewerAcc::orderMerch() {
         return;
     }
 
-    unsigned num, availability;
+    int num, availability;
 
     print("What is the number of merch you wish to buy? ", '\0');
 
-    while (!checkInput(num)) {
+    while (!checkInput(num) || num <= 0) {
         print("Invalid input! Please try again: ", '\0');
     }
 
     print("What is your purchase availability? ", '\0');
 
-    while (!checkInput(availability)) {
+    while (!checkInput(availability) || availability < 0) {
         print("Invalid input! Please try again: ", '\0');
     }
 

@@ -17,12 +17,14 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
     options.insert(options.begin()+5, {
         [this] { statistics(); },
         [this] { removeUser(); },
-        [this] { removeStream(); }
+        [this] { removeStream(); },
+        [this] { changeMaxOrders();}
     });
     optionDescriptions.insert(optionDescriptions.begin()+5, {
         "Display the statistics panel.",
         "Delete a user from the platform.",
-        "Delete a stream from the platform."
+        "Delete a stream from the platform.",
+        "Change the maximum number of orders per streamer."
     });
     nOptions=options.size();
 }
@@ -342,5 +344,21 @@ void AdminAcc::mostViewedLanguage() {
     }
 
     print();
+    waitForKey();
+}
+
+void AdminAcc::changeMaxOrders() {
+    int num;
+
+    print("What is the new max size of orders per streamer? (0 to leave unchanged) ", '\0');
+
+    while (!checkInput(num) || num < 0) {
+        print("Invalid input! Please try again: ", '\0');
+    }
+
+    if(num > 0) streamZ->getAdminOps()->changeMaxOrdersSize(num);
+
+    print();
+    print("Operation Success!");
     waitForKey();
 }

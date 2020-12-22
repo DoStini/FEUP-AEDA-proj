@@ -84,6 +84,11 @@ public:
      * Displays the statistics panel.
      */
     void statistics();
+
+    /**
+     * @brief Prompts the admin to change orders size
+     */
+    void changeMaxOrders();
 };
 
 
