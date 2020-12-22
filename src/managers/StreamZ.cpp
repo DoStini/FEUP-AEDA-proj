@@ -105,16 +105,17 @@ void StreamZ::run() {
     print("Welcome to StreamZ!");
 
     print();
-    while (option!=3) {
+    while (option!=4) {
         print("Available Options:");
         print("1. Login");
         print("2. Register");
-        print("3. Exit");
+        print("3. Recover Account");
+        print("4. Exit");
 
         print();
         print("Choose an option: ", '\0');
 
-        while (!checkInput(option) || option < 1 || option > 3) {
+        while (!checkInput(option) || option < 1 || option > 4) {
             print("Invalid Option! Please try again: " , '\0');
         }
 
@@ -122,6 +123,7 @@ void StreamZ::run() {
 
         if(option == 1) login();
         else if(option == 2) registerUser();
+        else if(option == 3) recoverAccount();
         else break;
 
         print(LINE_BREAK);
@@ -152,6 +154,7 @@ void StreamZ::login() {
         if(user->getUserType() == streamer && !dynamic_cast<Streamer *>(user)->isActive())
         {
             print("That streamer's account is disabled. Please reactive it in the appropriate menu.");
+            waitForKey();
             return;
         }
     } catch (DoesNotExist<std::string> &ex) {
@@ -292,6 +295,63 @@ void StreamZ::registerUser() {
         print(e);
     }
 
+    waitForKey();
+}
+
+void StreamZ::recoverAccount() {
+    std::string name;
+    std::string password;
+    print("Nick Name: ", '\0');
+
+    while(!checkInput(name)) {
+        print("Invalid Input! Please try again: " , '\0');
+    }
+
+    User * user = nullptr;
+
+    try {
+        user = searchManager->getUser(name);
+        if(user->getUserType() != streamer || dynamic_cast<Streamer *>(user)->isActive())
+        {
+            print("That streamer's account is not disabled. Login in the appropriate menu.");
+            waitForKey();
+            return;
+        }
+    } catch (DoesNotExist<std::string> &ex) {
+        print();
+        print("That user does not exist.");
+
+        waitForKey();
+
+        return;
+    }
+
+    std::string realPassword = user->getPassword();
+
+    print("Password: ", '\0');
+
+    getString(password);
+
+    if(realPassword != password) {
+        print();
+        print("Wrong password! Login failed.");
+        print();
+
+        waitForKey();
+
+        return;
+    }
+
+    auto * str = dynamic_cast<Streamer *>(user);
+
+    str->reenableAccount();
+
+    print("Your account was reactivated successfully!");
+
+    if(str->getStatus() == 1)
+        print("You will receive 50 likes on your next stream as a welcome back gift...");
+
+    print(LINE_BREAK);
     waitForKey();
 }
 

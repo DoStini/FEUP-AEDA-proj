@@ -186,7 +186,7 @@ void Account::disableAccount(){
     char action;
     std::string nickName, password;
 
-    print("Are you sure you want to delete your account? (Y/N) ", '\0');
+    print("Are you sure you want to deactivate your account? (Y/N) ", '\0');
 
     getChar(action);
     action = toupper(action);
@@ -388,7 +388,7 @@ void Account::accountOptions() {
 
     print("Choose an option: ", '\0');
 
-    while (!checkInput(option) || option < 0 || option > 4 || (us == streamer && option != 5)) {
+    while (!checkInput(option) || option < 0 || option > (us != streamer ? 4 : 5)) {
         print("Invalid Option! Please try again: " , '\0');
     }
 

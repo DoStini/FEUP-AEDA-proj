@@ -297,6 +297,10 @@ bool Streamer::isActive() const {
     return active;
 }
 
+char Streamer::getStatus() const {
+    return status;
+}
+
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
     return false;
 }

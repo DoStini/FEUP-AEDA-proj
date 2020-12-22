@@ -55,6 +55,7 @@ public:
     void reenableAccount();
     /// @return If the account is activated or disabled
     bool isActive() const;
+    char getStatus() const;
     /**
      * Add viewer to the followers vector
      * @param viewerNick - nick of the viewer
