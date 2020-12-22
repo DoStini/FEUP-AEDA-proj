@@ -164,7 +164,6 @@ public:
      * @param ff Current file streamer
     */
     void readFromFile(std::ifstream &ff) override;
-    char status;
 
 private:
     ///Age of the user
@@ -175,13 +174,13 @@ private:
     ID currStreaming = NULL_STREAM;
     /// Active account or disabled
     bool active;
-    /// Indicates if its the first that recovers the account
     /**
      * Prevents abuse to get likes
      * 0 - Nothing
      * 1 - Should receive likes in the next stream
      * 2 - Already received likes for reactivating his account
      */
+    char status;
     ///Streams that the streamer have ended
     std::vector<ID> finishedStreams;
     std::priority_queue<MerchandisingOrder> orders;

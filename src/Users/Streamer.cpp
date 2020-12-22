@@ -239,8 +239,10 @@ void Streamer::readFromFile(std::ifstream &ff) {
     }
 
     name = ss.str();
+    int st;
+    ff >> sep >> nickName >> sep >> password >> sep >> active >> sep >> st >> sep;
 
-    ff >> sep >> nickName >> sep >> password >> sep;
+    status = (char) st;
 
     ff >> temp;
     birthDate = Date(temp, true);
