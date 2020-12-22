@@ -271,13 +271,13 @@ MerchandisingOrder Streamer::dispatchOrder() {
 void Streamer::addOrder(const std::string &viewerNick, unsigned int num, unsigned int availability) {
     if(streamZ->getUserM()->getOrdersSize() == orders.size()) throw OrdersFullException();
 
-    MerchandisingOrder merchandisingOrder(viewerNick, num, availability);
+    MerchandisingOrder merchandisingOrder(viewerNick, nickName, num, availability);
     orders.push(merchandisingOrder);
 }
 
 MerchandisingOrder Streamer::removeOrder(const std::string &viewerNick) {
     std::priority_queue<MerchandisingOrder> copy;
-    MerchandisingOrder merchandisingOrder("",0,0);
+    MerchandisingOrder merchandisingOrder("","",0,0);
     bool found = false;
 
     if(orders.empty()) throw NoSuchOrderException(viewerNick);
@@ -302,6 +302,12 @@ MerchandisingOrder Streamer::removeOrder(const std::string &viewerNick) {
     return merchandisingOrder;
 }
 
+MerchandisingOrder Streamer::getOrder() {
+    if(orders.empty()) throw OrdersEmptyException();
+
+    return orders.top();
+}
+
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
     if(pci.numMerch < numMerch) return true;
     else if(pci.numMerch == numMerch) {
@@ -310,8 +316,8 @@ bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
     return false;
 }
 
-MerchandisingOrder::MerchandisingOrder(std::string userName, unsigned int num, unsigned int avail) :
-        viewerName(std::move(userName)), numMerch(num), availability(avail){
+MerchandisingOrder::MerchandisingOrder(std::string userName, std::string streamerName, unsigned int num, unsigned int avail) :
+        viewerName(std::move(userName)), streamerName(std::move(streamerName)), numMerch(num), availability(avail){
     if(availability > 5) availability = 5;
     else if(availability < 1) availability = 1;
 
@@ -319,4 +325,10 @@ MerchandisingOrder::MerchandisingOrder(std::string userName, unsigned int num, u
 
 bool MerchandisingOrder::operator==(const MerchandisingOrder& merchandisingOrder) const {
     return viewerName == merchandisingOrder.viewerName;
+}
+
+std::ostream &operator<<(std::ostream &os, const MerchandisingOrder &order) {
+    os << "Order from viewer " << order.viewerName << " to streamer "<< order.streamerName << " with " << order.numMerch
+       << " products and of availability of " << order.availability;
+    return os;
 }

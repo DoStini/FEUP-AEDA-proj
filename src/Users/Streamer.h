@@ -13,15 +13,17 @@
 class MerchandisingOrder {
 private:
     std::string viewerName;
+    std::string streamerName;
     unsigned numMerch;
     unsigned availability;
 public:
-    MerchandisingOrder(std::string userName, unsigned num, unsigned avail);
+    MerchandisingOrder(std::string userName, std::string streamerName, unsigned num, unsigned avail);
     std::string getViewerName() const {return viewerName;};
     unsigned getNumMerch() const {return numMerch;};
     unsigned getAvailability() const {return availability;};
     bool operator<(const MerchandisingOrder& merchandisingOrder) const;
     bool operator==(const MerchandisingOrder& merchandisingOrder) const;
+    friend std::ostream &operator<<(std::ostream &os, const MerchandisingOrder &order);
 };
 
 /**
@@ -161,6 +163,14 @@ public:
      * @throws NoSuchOrderException if no order with the nickname given exists.
      */
     MerchandisingOrder removeOrder(const std::string & viewerNick);
+
+    /**
+     * @brief Gets the top order from the priority queue.
+     * @return the order
+     *
+     * @throws OrdersEmptyException if there are no orders in the queue
+     */
+    MerchandisingOrder getOrder();
 
     /**
      * Checks if a streamer is in the streamer history

@@ -398,8 +398,7 @@ void ViewerAcc::removeOrder() {
         MerchandisingOrder merchandisingOrder = viewer->removeOrder(nickName);
 
         print("Operation success!");
-        ss << "Order from streamer " << nickName << " with " << merchandisingOrder.getNumMerch()
-        << " products and of availability of " << merchandisingOrder.getAvailability() << " removed.";
+        ss << merchandisingOrder << " removed.";
         print(ss.str());
     } catch (NoSuchOrderException & e) {
         print("Operation failed: ");

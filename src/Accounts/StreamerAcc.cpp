@@ -6,6 +6,7 @@
 #include "Streamer.h"
 #include "StreamZ.h"
 #include "NotInWhiteListException.h"
+#include "OrdersEmptyException.h"
 
 StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
     if(auto * streamerPtr = dynamic_cast<Streamer*>(user)) {
@@ -20,7 +21,10 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
         [this] { kickUserFromStream(); },
         [this] { addUserToPrivate(); },
         [this] { removeUserFromPrivate(); },
-        [this] { endStream(); }
+        [this] { endStream(); },
+        [this] { displayOrder(); },
+        [this] { dispatchOrder(); }
+
     });
     optionChecks[5] = [this](){return !this->streamer->streaming();};
     optionChecks[6] = optionChecks[7] = optionChecks[10] = [this](){return this->streamer->streaming();};
@@ -36,7 +40,9 @@ StreamerAcc::StreamerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ)
         "Kick viewer from the stream.",
         "Add user to stream whitelist.",
         "Remove user from stream whitelist.",
-        "End stream."
+        "End stream.",
+        "Display top order.",
+        "Dispatch top order."
     });
     nOptions = options.size();
 }
@@ -311,6 +317,40 @@ void StreamerAcc::removeUserFromPrivate() {
         print("No such user with nickname ", '\0');
         print(nickName);
     } catch (NotInWhiteListException &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    waitForKey();
+}
+
+void StreamerAcc::dispatchOrder() {
+    std::stringstream ss;
+
+    try {
+        MerchandisingOrder merchandisingOrder = streamer->dispatchOrder();
+
+        print("Operation success!");
+        ss << merchandisingOrder << " dispatched.";
+        print(ss.str());
+    } catch (OrdersEmptyException & e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    waitForKey();
+}
+
+void StreamerAcc::displayOrder() {
+    std::stringstream ss;
+
+    try {
+        MerchandisingOrder merchandisingOrder = streamer->getOrder();
+
+        print("Operation success!");
+        ss << merchandisingOrder << " is next up.";
+        print(ss.str());
+    } catch (OrdersEmptyException & e) {
         print("Operation failed: ");
         print(e);
     }

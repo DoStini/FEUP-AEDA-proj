@@ -59,6 +59,16 @@ public:
      * Displays the number of followers
      */
     void checkNumFollowers();
+
+    /**
+     * @brief Displays the top Order
+     */
+    void displayOrder();
+
+    /**
+     * @brief Dispatches and shows an order
+     */
+    void dispatchOrder();
 };
 
 
