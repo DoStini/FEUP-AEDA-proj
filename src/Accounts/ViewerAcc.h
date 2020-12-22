@@ -77,6 +77,11 @@ public:
      * @brief Prompts the viewer to buy merch from a streamer.
      */
     void orderMerch();
+
+    /**
+     * @brief Prompts the viewer to remove merch from a streamer.
+     */
+    void removeOrder();
 };
 
 

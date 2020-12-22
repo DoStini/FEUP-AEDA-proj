@@ -30,7 +30,8 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         [this] { followStreamer(); },
         [this] { unfollowStreamer(); },
         [this] { displayHistory(); },
-        [this] { orderMerch(); }
+        [this] { orderMerch(); },
+        [this] { removeOrder(); }
     });
     optionChecks[5] = optionChecks[11] = optionChecks[13] =
             [this]() {return !this->viewer->getFollowingStreamers().empty();};
@@ -48,7 +49,8 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         "Follow a streamer.",
         "Unfollow a streamer.",
         "Display your watch history.",
-        "Order Merch."
+        "Order Merch.",
+        "Remove a placed order."
     });
     nOptions = options.size();
 }
@@ -363,6 +365,43 @@ void ViewerAcc::orderMerch() {
 
         print("Operation success!");
     } catch (OrdersFullException & e) {
+        print("Operation failed: ");
+        print(e);
+    } catch (DoesNotExist<std::string> & e) {
+        print("Operation failed: ");
+        print("No such streamer with nickname: ", '\0');
+        print(e);
+    }
+
+    waitForKey();
+}
+
+void ViewerAcc::removeOrder() {
+    std::string nickName;
+    std::stringstream  ss;
+
+    print("What is the nickname of the streamer you wish to buy merch from? (empty to cancel) ", '\0');
+
+    getTruncatedString(nickName);
+
+    print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    print();
+    try {
+        MerchandisingOrder merchandisingOrder = viewer->removeOrder(nickName);
+
+        print("Operation success!");
+        ss << "Order from streamer " << nickName << " with " << merchandisingOrder.getNumMerch()
+        << " products and of availability of " << merchandisingOrder.getAvailability() << " removed.";
+        print(ss.str());
+    } catch (NoSuchOrderException & e) {
         print("Operation failed: ");
         print(e);
     } catch (DoesNotExist<std::string> & e) {
