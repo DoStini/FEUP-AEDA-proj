@@ -207,7 +207,7 @@ void Streamer::writeToFile(std::ofstream &ff) {
     while (temp >> counter) numNames ++;
 
 
-    ff << numNames << " , " << name << " , " << nickName << " , " << password << " , "
+    ff << numNames << " , " << name << " , " << nickName << " , " << password << " , " << active << " , " << (int)status << " , "
        << birthDate.getStringDate() << " , " << joinedPlatformDate.getStringDateTime()
        << " , " << currStreaming << " , "
        << followedBy.size() << " , ";

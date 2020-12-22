@@ -164,6 +164,8 @@ public:
      * @param ff Current file streamer
     */
     void readFromFile(std::ifstream &ff) override;
+    char status;
+
 private:
     ///Age of the user
     static const unsigned minimumAge = STREAMER_MIN_AGE;
@@ -180,7 +182,6 @@ private:
      * 1 - Should receive likes in the next stream
      * 2 - Already received likes for reactivating his account
      */
-    char status;
     ///Streams that the streamer have ended
     std::vector<ID> finishedStreams;
     std::priority_queue<MerchandisingOrder> orders;

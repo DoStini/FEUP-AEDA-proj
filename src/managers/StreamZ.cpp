@@ -368,8 +368,11 @@ void StreamZ::readFromFile(std::string fileName) {
         newUser->readFromFile(ff);
         newUser->setStreamZ(this);
 
-        if(newUser->getUserType() == streamer)
+        if(newUser->getUserType() == streamer){
             dataBase.getStreamers().insert(newUser);
+            //((Streamer*)newUser)->reenableAccount();
+            //((Streamer*)newUser)->status = 0;
+        }
         else
             dataBase.getUsers().insert(std::pair<std::string, User *>( newUser->getNickName(), newUser ));
     }
