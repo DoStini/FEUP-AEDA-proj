@@ -726,15 +726,25 @@ TEST(test, bst_donation) {
     streamZ.getSearchM()->listDonations(vec,vector<std::string>(),0,1000,eval2);
     EXPECT_EQ(vec.size(), 1);
 
+    streamZ.getDonationManager()->creatDonation("falca",130,4);
+    streamZ.getDonationManager()->creatDonation("falca",135,4);
+    streamZ.getDonationManager()->deleteAllDonationsByNick("boas");
+    streamZ.getSearchM()->listDonations(vec);
+    EXPECT_EQ(vec.size(), 3);
+
+    streamZ.getDonationManager()->deleteAllDonationsByNick("falca");
+    streamZ.getSearchM()->listDonations(vec);
+    EXPECT_EQ(vec.size(), 0);
+
 }
 
 int main() {
-    //testing::InitGoogleTest();
-    StreamZ streamZ;
+    testing::InitGoogleTest();
+    /*StreamZ streamZ;
     streamZ.init("final_data.txt");
     streamZ.run();
 
-    streamZ.shutdown("final_data.txt");
+    streamZ.shutdown("final_data.txt");*/
 
-    return 0;//RUN_ALL_TESTS();
+    return RUN_ALL_TESTS();
 }

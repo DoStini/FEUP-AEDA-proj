@@ -28,3 +28,21 @@ void DonationManager::deleteDonation(const string &streamerNick, int amount, int
 }
 
 DonationManager::DonationManager(StreamZ *streamZ): streamZ(streamZ){}
+
+void DonationManager::deleteAllDonationsByNick(const string &streamerNick) {
+    bool endReach = false;
+    while (!endReach) {
+        endReach = true;
+        BSTItrIn<DonationItem> it(streamZ->getDatabase().donations);
+        while (!it.isAtEnd()) {
+            if (it.retrieve().getStreamerNick() == streamerNick) {
+                DonationItem temp = it.retrieve();
+                streamZ->getDatabase().donations.remove(temp);
+                endReach = false;
+                break;
+            }
+            it.advance();
+        }
+    }
+
+}

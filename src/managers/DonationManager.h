@@ -35,6 +35,12 @@ public:
      */
     void deleteDonation(const std::string &streamerNick, int amount, int evaluation);
 
+    /**
+     * delete all the donations for a streamer with the specified nick
+     * @param streamerNick - nick of the streamer to be removed
+     */
+    void deleteAllDonationsByNick(const std::string &streamerNick);
+
 private:
     StreamZ* streamZ;
 };
