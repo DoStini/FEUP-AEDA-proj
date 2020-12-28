@@ -4,10 +4,11 @@
 
 #include "Donation.h"
 #include "iostream"
+#include <sstream>
 
 Donation::Donation(const std::string &streamerNick, unsigned amount, unsigned evaluation_p) : streamerNick(streamerNick),amount(amount) {
     if(evaluation_p == 0 || evaluation_p > 5){
-        throw NoInRangeValue("Donation evaluation", evaluation_p );
+        throw NotInRangeValue("Donation evaluation", evaluation_p );
     }
     this->evaluation = evaluation_p;
 }
@@ -70,6 +71,12 @@ bool DonationItem::operator==(const DonationItem &comp) const {
 std::ostream &operator<<(std::ostream &os, const DonationItem &p) {
     os << "Donation is to " << p.getStreamerNick() << " whit the amount: " << p.getAmount() << " and evaluation: " << p.getEvaluation();
     return os;
+}
+
+std::string Donation::getShortDescription() const {
+    std::stringstream  ss1;
+    ss1 << (*this);
+    return ss1.str();
 }
 
 

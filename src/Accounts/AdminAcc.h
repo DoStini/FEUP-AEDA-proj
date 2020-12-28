@@ -81,9 +81,19 @@ public:
     void removeStream();
 
     /**
+     * Removes a donation from the database
+     */
+    void removeDonation();
+
+    /**
      * Displays the statistics panel.
      */
     void statistics();
+
+    /**
+     * Displays a list of the chosen donations parameters
+     */
+    void listDonations();
 };
 
 

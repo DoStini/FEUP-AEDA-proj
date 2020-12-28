@@ -8,6 +8,7 @@
 #include "InvalidPassword.h"
 #include "AlreadyExists.h"
 #include "LiveStream.h"
+#include "BST.h"
 
 
 void StreamZ::init() {
@@ -324,6 +325,22 @@ void StreamZ::backupData(std::string fileName) {
     }
     ff.close();
 
+
+
+    ff.open("../donation_" + fileName, std::ofstream::trunc);
+    if (!ff.is_open()){
+        ff.open("donation_" + fileName, std::ofstream::trunc);
+        if(!ff.is_open()) throw "No file";
+    }
+
+    BSTItrPre<DonationItem> it(getDatabase().donations);
+    while (!it.isAtEnd())
+    {
+        ff << it.retrieve().getStreamerNick() << " : " << it.retrieve().getAmount() << " : " << it.retrieve().getEvaluation();
+        it.advance();
+    }
+    ff.close();
+
 }
 
 void StreamZ::readFromFile(std::string fileName) {
@@ -334,8 +351,6 @@ void StreamZ::readFromFile(std::string fileName) {
         ff.open("users_" + fileName);
         if(!ff.is_open()) throw "No file";
     }
-
-
 
     int uType;
     char sep;
@@ -403,6 +418,29 @@ void StreamZ::readFromFile(std::string fileName) {
         newStream->readFromFile(ff);
         newStream->setStreamZ(this);
         dataBase.getStreams().insert(std::pair<ID, Stream *>( newStream->getStreamId(), newStream ));
+    }
+
+    ff.close();
+
+
+    ff.open("../donation_" + fileName);
+
+    if (!ff.is_open()){
+        ff.open("donation_" + fileName);
+        if(!ff.is_open()) throw "No file";
+    }
+
+    while (ff.peek() != EOF){
+
+        if(ff.eof()) break;
+        std::string  nick;
+        unsigned amount, evaluation;
+        char trash;
+        ff >> nick >> trash >> amount >> trash >> evaluation;
+
+        DonationItem newDonation(nick,amount,evaluation);
+
+        dataBase.donations.insert(newDonation);
     }
 
     ff.close();

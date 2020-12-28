@@ -13,14 +13,14 @@
 /**
  * Class to be throw when some value is not supported by some parameter
  */
-class NoInRangeValue : public std::exception {
+class NotInRangeValue : public std::exception {
 public:
     /**
      * Exception constructor
      * @param value parameter and the given invalid number
      */
-    explicit NoInRangeValue(const std::string parameter, unsigned number) : parameter(parameter), number(number) {};
-    friend std::ostream &operator<<(std::ostream &os, const NoInRangeValue &outOfRange){
+    explicit NotInRangeValue(const std::string parameter, unsigned number) : parameter(parameter), number(number) {};
+    friend std::ostream &operator<<(std::ostream &os, const NotInRangeValue &outOfRange){
         os << outOfRange.parameter << " does not support the number " << outOfRange.number;
         return os;
     };

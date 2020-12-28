@@ -23,7 +23,7 @@ void DonationManager::creatDonation(const string &streamerNick, int amount, int 
 }
 
 void DonationManager::deleteDonation(const string &streamerNick, int amount, int evaluation) {
-    DonationItem donation(streamerNick,amount, evaluation);
+    DonationItem donation(streamerNick,amount,evaluation);
     streamZ->getDatabase().donations.remove(donation);
 }
 

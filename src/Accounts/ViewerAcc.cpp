@@ -26,7 +26,8 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         [this] { listFollowingStreamers(); },
         [this] { followStreamer(); },
         [this] { unfollowStreamer(); },
-        [this] { displayHistory(); }
+        [this] { displayHistory(); },
+        [this] { makeDonation();}
     });
     optionChecks[5] = optionChecks[11] = optionChecks[13] =
             [this]() {return !this->viewer->getFollowingStreamers().empty();};
@@ -43,7 +44,8 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         "List all the streamers you follow.",
         "Follow a streamer.",
         "Unfollow a streamer.",
-        "Display your watch history."
+        "Display your watch history.",
+        "Make new donation"
     });
     nOptions = options.size();
 }
@@ -319,5 +321,55 @@ void ViewerAcc::displayWatchingInfo() {
     print(watching->getLongDescription());
 
     print();
+    waitForKey();
+}
+
+void ViewerAcc::makeDonation() {
+    std::string nickName;
+    int amount, evaluation;
+
+    print("What is the nickname of the streamer you wish to donate? (empty to cancel) ", '\0');
+
+    getTruncatedString(nickName);
+
+    print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    print("What is the amount of money to donate? ", '\0');
+
+    while (!checkInput(amount)) {
+        print("Invalid input! Please try again: ", '\0');
+    }
+
+
+    print("What is the evaluation? ", '\0');
+
+    while (!checkInput(evaluation)) {
+        print("Invalid input! Please try again: ", '\0');
+    }
+
+    try {
+        streamZ->getDonationManager()->creatDonation(nickName,amount,evaluation);
+
+        print("Operation success!");
+
+    } catch (AlreadyExists<DonationItem> &e) {
+        print("Operation failed: ");
+        print(e);
+    } catch (DoesNotExist<std::string> &e) {
+        print("Operation failed: ");
+        print("No such streamer with nickname: ", '\0');
+        print(nickName);
+    } catch (NotInRangeValue &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
     waitForKey();
 }

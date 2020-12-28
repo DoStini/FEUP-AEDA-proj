@@ -729,12 +729,12 @@ TEST(test, bst_donation) {
 }
 
 int main() {
-    testing::InitGoogleTest();
-    /*StreamZ streamZ;
+    //testing::InitGoogleTest();
+    StreamZ streamZ;
     streamZ.init("final_data.txt");
     streamZ.run();
 
-    streamZ.shutdown("final_data.txt");*/
+    streamZ.shutdown("final_data.txt");
 
-    return RUN_ALL_TESTS();
+    return 0;//RUN_ALL_TESTS();
 }

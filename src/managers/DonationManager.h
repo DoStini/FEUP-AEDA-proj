@@ -20,7 +20,7 @@ public:
 
     /**
      * Create a new donation in the BST
-     * throw DoesNotExsit if user does not exist, AlreadyExist if equal donation exists, NotInRangeValue if avaliation is not valid
+     * throw DoesNotExsit if user does not exist, AlreadyExist if equal donation exists, NotInRangeValue if evaluation is not valid
      * @param streamerNick - streamer nick
      * @param amount - donation value
      * @param avaliation - avaliation of the donation from 1 to 5

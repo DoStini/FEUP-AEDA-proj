@@ -71,7 +71,15 @@ public:
      */
     void unfollowStreamer();
 
+    /**
+     * Displays Streams history of the viewer
+     */
     void displayHistory();
+
+    /**
+     * Makes a donation to a chosen streamer
+     */
+    void makeDonation();
 };
 
 

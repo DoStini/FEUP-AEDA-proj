@@ -50,6 +50,12 @@ public:
      */
     friend std::ostream& operator<<(std::ostream& os, const Donation& p);
 
+    /**
+     * Gives shot description about the donation
+     * @return
+     */
+    std::string getShortDescription() const;
+
 private:
     std::string streamerNick;
     unsigned amount;
@@ -119,7 +125,6 @@ public:
      * @return - output stream
      */
     friend std::ostream& operator<<(std::ostream& os, const DonationItem& p);
-
 
 private:
     Donation* donationItem; /// pointer to the donation element

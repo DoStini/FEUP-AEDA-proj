@@ -17,12 +17,16 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
     options.insert(options.begin()+5, {
         [this] { statistics(); },
         [this] { removeUser(); },
-        [this] { removeStream(); }
+        [this] { removeStream(); },
+        [this] { removeDonation(); },
+        [this] { listDonations(); }
     });
     optionDescriptions.insert(optionDescriptions.begin()+5, {
         "Display the statistics panel.",
         "Delete a user from the platform.",
-        "Delete a stream from the platform."
+        "Delete a stream from the platform.",
+        "Delete a donation from the platform.",
+        "List donations of platform."
     });
     nOptions=options.size();
 }
@@ -343,4 +347,124 @@ void AdminAcc::mostViewedLanguage() {
 
     print();
     waitForKey();
+}
+
+void AdminAcc::removeDonation() {
+    std::string nickName;
+    int amount, evaluation;
+
+    print("What is the nickname of the streamer you wish to remove donation? (empty to cancel) ", '\0');
+
+    getTruncatedString(nickName);
+
+    print();
+    if(nickName.empty()) {
+        print("Operation cancelled.");
+
+        waitForKey();
+
+        return;
+    }
+
+    print("What is the amount of money to remove donation? ", '\0');
+
+    while (!checkInput(amount)) {
+        print("Invalid input! Please try again: ", '\0');
+    }
+
+
+    print("What is the evaluation? ", '\0');
+
+    while (!checkInput(evaluation)) {
+        print("Invalid input! Please try again: ", '\0');
+    }
+
+    try {
+        streamZ->getDonationManager()->deleteDonation(nickName,amount,evaluation);
+
+        print("Operation success!");
+
+    } catch (AlreadyExists<DonationItem> &e) {
+        print("Operation failed: ");
+        print(e);
+    } catch (DoesNotExist<std::string> &e) {
+        print("Operation failed: ");
+        print("No such streamer with nickname: ", '\0');
+        print(nickName);
+    } catch (NotInRangeValue &e) {
+        print("Operation failed: ");
+        print(e);
+    }
+
+    waitForKey();
+}
+
+void AdminAcc::listDonations() {
+
+    std::vector<Donation*> donations;
+    std::stringstream ss;
+
+
+    std::vector<std::string> streamerNicks;
+    vector<unsigned int> evaluations;
+    unsigned int eval;
+    std::string streamer;
+    unsigned minAmount;
+    unsigned maxAmount;
+
+    do {
+        print("Stream Nick (empty for all streams/to stop): ", '\0');
+        getString(streamer);
+        if(!streamer.empty()) {
+            streamerNicks.push_back(streamer);
+        }
+    } while(!streamer.empty());
+
+
+
+    do {
+        print("Chose evaluations from 1 to 5 (0 to stop, empty for all)");
+        while(!checkInput(eval)) {
+            print("Invalid Input! Please try again: ", '\0');
+        }
+        if(eval >= 1 && eval <= 5) {
+            evaluations.push_back(eval);
+        }
+    } while(eval != 0);
+
+
+    print("Minimum donation amount: ", '\0');
+
+    while(!checkInput(minAmount)) {
+        print("Invalid Input! Please try again: ", '\0');
+    }
+
+
+    print("Maximum donation amount: ", '\0');
+
+    while(!checkInput(maxAmount)) {
+        print("Invalid Input! Please try again: ", '\0');
+    }
+
+
+
+    streamZ->getSearchM()->listDonations(donations,streamerNicks,minAmount,maxAmount,evaluations);
+
+    print();
+    if(donations.empty()) {
+        print("There are no donations for the parameters selected.");
+        waitForKey();
+        return;
+    }
+
+
+    print("Here are all the donations: ");
+    print();
+    printPagedList(donations, std::function<std::string(Donation*)> ( [](Donation* donation){
+        return donation->getShortDescription();
+    }));
+
+    print();
+    waitForKey();
+
 }
