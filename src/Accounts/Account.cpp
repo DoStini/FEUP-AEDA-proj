@@ -172,7 +172,7 @@ void Account::deleteAccount() {
             return;
         }
 
-        streamZ->getUserM()->removeUser(user->getNickName());
+        streamZ->getUserM()->removeUser(user->getNickName(),true);
         print();
         print("User deleted. We hope you enjoyed your stay.");
 
