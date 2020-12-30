@@ -33,7 +33,7 @@ bool PrivateStream::isValidUser(const std::string& userNick) {
 
 void PrivateStream::addValidUser(const std::string& userNick) {
 
-    if(!streamZ->getSearchM()->userExists(userNick))
+    if(!streamZ->getSearchM()->viewerExists(userNick))
         throw DoesNotExist<std::string>(userNick);
     if( isValidUser(userNick) )
         throw AlreadyInWhiteListException(userNick,this->getStreamId()) ;

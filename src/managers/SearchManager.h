@@ -48,6 +48,16 @@ public:
      */
     bool userExists(std::string nick) const;
     /**
+     * @param nick - Nickname of the viewer
+     * @return If a viewer with that nickname exists
+     */
+    bool viewerExists(std::string nick) const;
+    /**
+     * @param nick - Nickname of the streamer
+     * @return If a streamer with that nickname exists
+     */
+    bool streamerExists(std::string nick) const;
+    /**
      * @param streamID - The id of the stream
      * @return If a stream with that ID exists
      */

@@ -105,16 +105,17 @@ void StreamZ::run() {
     print("Welcome to StreamZ!");
 
     print();
-    while (option!=3) {
+    while (option!=4) {
         print("Available Options:");
         print("1. Login");
         print("2. Register");
-        print("3. Exit");
+        print("3. Recover Account");
+        print("4. Exit");
 
         print();
         print("Choose an option: ", '\0');
 
-        while (!checkInput(option) || option < 1 || option > 3) {
+        while (!checkInput(option) || option < 1 || option > 4) {
             print("Invalid Option! Please try again: " , '\0');
         }
 
@@ -122,6 +123,7 @@ void StreamZ::run() {
 
         if(option == 1) login();
         else if(option == 2) registerUser();
+        else if(option == 3) recoverAccount();
         else break;
 
         print(LINE_BREAK);
@@ -149,6 +151,12 @@ void StreamZ::login() {
 
     try {
         user = searchManager->getUser(name);
+        if(user->getUserType() == streamer && !dynamic_cast<Streamer *>(user)->isActive())
+        {
+            print("That streamer's account is disabled. Please reactive it in the appropriate menu.");
+            waitForKey();
+            return;
+        }
     } catch (DoesNotExist<std::string> &ex) {
         print();
         print("That user does not exist.");
@@ -290,6 +298,63 @@ void StreamZ::registerUser() {
     waitForKey();
 }
 
+void StreamZ::recoverAccount() {
+    std::string name;
+    std::string password;
+    print("Nick Name: ", '\0');
+
+    while(!checkInput(name)) {
+        print("Invalid Input! Please try again: " , '\0');
+    }
+
+    User * user = nullptr;
+
+    try {
+        user = searchManager->getUser(name);
+        if(user->getUserType() != streamer || dynamic_cast<Streamer *>(user)->isActive())
+        {
+            print("That streamer's account is not disabled. Login in the appropriate menu.");
+            waitForKey();
+            return;
+        }
+    } catch (DoesNotExist<std::string> &ex) {
+        print();
+        print("That user does not exist.");
+
+        waitForKey();
+
+        return;
+    }
+
+    std::string realPassword = user->getPassword();
+
+    print("Password: ", '\0');
+
+    getString(password);
+
+    if(realPassword != password) {
+        print();
+        print("Wrong password! Login failed.");
+        print();
+
+        waitForKey();
+
+        return;
+    }
+
+    auto * str = dynamic_cast<Streamer *>(user);
+
+    str->reenableAccount();
+
+    print("Your account was reactivated successfully!");
+
+    if(str->getStatus() == 1)
+        print("You will receive 50 likes on your next stream as a welcome back gift...");
+
+    print(LINE_BREAK);
+    waitForKey();
+}
+
 void StreamZ::backupData(std::string fileName) {
 
     std::ofstream ff("../users_" + fileName, std::ofstream::trunc);
@@ -303,11 +368,14 @@ void StreamZ::backupData(std::string fileName) {
         ff << userPair.second->getUserType() << " : ";
         userPair.second->writeToFile(ff);
     }
+    for (const auto & streamer : getDatabase().getStreamers()){
+        ff << streamer->getUserType() << " : ";
+        streamer->writeToFile(ff);
+    }
     ff.close();
 
 
     ff.open("../streams_" + fileName, std::ofstream::trunc);
-    // TODO EXCEPTION
     if (!ff.is_open()){
         ff.open("streams_" + fileName, std::ofstream::trunc);
         if(!ff.is_open()) throw "No file";
@@ -359,7 +427,14 @@ void StreamZ::readFromFile(std::string fileName) {
 
         newUser->readFromFile(ff);
         newUser->setStreamZ(this);
-        dataBase.getUsers().insert(std::pair<std::string, User *>( newUser->getNickName(), newUser ));
+
+        if(newUser->getUserType() == streamer){
+            dataBase.getStreamers().insert(newUser);
+            //((Streamer*)newUser)->reenableAccount();
+            //((Streamer*)newUser)->status = 0;
+        }
+        else
+            dataBase.getUsers().insert(std::pair<std::string, User *>( newUser->getNickName(), newUser ));
     }
 
     ff.close();
@@ -405,8 +480,4 @@ void StreamZ::readFromFile(std::string fileName) {
     ff.close();
 }
 
-void StreamZ::resetDatabase() {
-
-
-
-}
+void StreamZ::resetDatabase() {}

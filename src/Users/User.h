@@ -40,17 +40,7 @@ public:
      */
     User(std::string name, std::string nickName,std::string password ,const Date &birthDate);
 
-    /**
-     * Constructor when loading user from a file database
-     * TEMPORARY - IF WE READ FROM BINARY WE DONT NEED THIS
-     *
-     * @param name - Name
-     * @param nickName - Nickname
-     * @param birthDate - Date of birth
-     * @param joinedPlatDate - Date when user joined Streamz
-     */
-
-    User(std::string name, std::string nickName, const Date &birthDate, const Date &joinedPlatDate);
+    User(const std::string & nick);
     virtual ~User(){};
 
     /// @return Name

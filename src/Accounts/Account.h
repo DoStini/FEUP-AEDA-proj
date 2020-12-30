@@ -50,7 +50,9 @@ protected:
      * Prompts the user to delete their account.
      */
     void deleteAccount();
-
+    /** Promps the user to deactivate their account
+     */
+    void disableAccount();
     /**
      * Displays the user's info.
      */

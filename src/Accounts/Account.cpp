@@ -172,9 +172,59 @@ void Account::deleteAccount() {
             return;
         }
 
-        streamZ->getUserM()->removeUser(user->getNickName());
+        streamZ->getUserM()->removeUser(user->getNickName(),true);
         print();
         print("User deleted. We hope you enjoyed your stay.");
+
+        user = nullptr;
+
+        waitForKey();
+    }
+}
+
+void Account::disableAccount(){
+    char action;
+    std::string nickName, password;
+
+    print("Are you sure you want to deactivate your account? (Y/N) ", '\0');
+
+    getChar(action);
+    action = toupper(action);
+
+    print();
+
+    if(action == 'Y') {
+        print("Please write your password to disable your account: ", '\0');
+
+        getString(password);
+
+        if(password != user->getPassword()) {
+            print();
+            print("Wrong Password!");
+
+            waitForKey();
+
+            return;
+        }
+
+        print("Please write your nickname to confirm disabling your account : ", '\0');
+
+        while (!checkInput(nickName)) {
+            print("Invalid Input! Please try again: ", '\0');
+        }
+
+        if(nickName != user->getNickName()) {
+            print();
+            print("Nick name did not match.");
+
+            waitForKey();
+
+            return;
+        }
+
+        dynamic_cast<Streamer*>(user)->disableAccount();
+        print();
+        print("Your account has been disabled... We hope you come back!");
 
         user = nullptr;
 
@@ -326,16 +376,19 @@ void Account::accountOptions() {
     print("ACCOUNT OPTIONS: ");
     print();
 
+    userType us = user->getUserType();
+
     print("0. Exit options panel");
     print("1. View account info.");
     print("2. Change your name.");
     print("3. Change your password.");
-    print("4. Delete account.");
-    print();
+    print("4. Delete account. (PERMANENTLY)");
+    if(us == streamer)
+        print("5. Deactivate your account.");
 
     print("Choose an option: ", '\0');
 
-    while (!checkInput(option) || option < 0 || option > 4) {
+    while (!checkInput(option) || option < 0 || option > (us != streamer ? 4 : 5)) {
         print("Invalid Option! Please try again: " , '\0');
     }
 
@@ -345,6 +398,7 @@ void Account::accountOptions() {
     else if(option==2) changeName();
     else if(option==3) changePassword();
     else if(option==4) deleteAccount();
+    else if(option==5) disableAccount();
 }
 
 void Account::listUsers() {
@@ -439,9 +493,9 @@ void Account::top10StreamsLikes() {
     for(size_t i = 0; i < streams.size(); i++) {
         ss.str("");
         ss << i+1 << ". " << streams[i]->getShortDescription() << " | Likes: " <<
-        std::setw(5) << std::left << streams[i]->getLikes() << " | Dislikes: " <<
-        std::setw(5) << std::left << streams[i]->getDislikes() << " | Total: " <<
-        std::setw(5) << std::left << ((long long)streams[i]->getLikes() - streams[i]->getDislikes());
+           std::setw(5) << std::left << streams[i]->getLikes() << " | Dislikes: " <<
+           std::setw(5) << std::left << streams[i]->getDislikes() << " | Total: " <<
+           std::setw(5) << std::left << ((long long)streams[i]->getLikes() - streams[i]->getDislikes());
 
         print(ss.str());
     }
@@ -575,4 +629,3 @@ void Account::displaySelfInfo() {
     print();
     waitForKey();
 }
-
