@@ -68,7 +68,10 @@ public:
      * Asks the user to register.
      */
     void registerUser();
-
+    /**
+     * Asks user to recover a streamer account
+     */
+    void recoverAccount();
     /**
      * Backup data to file
      * File will be stored as users_fileName and streams_fileName

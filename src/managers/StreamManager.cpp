@@ -19,7 +19,7 @@ void StreamManager::removeStream(ID streamID) const{
 }
 
 void StreamManager::removeStreamByStreamer(std::string streamerNick) const{
-    if(!streamZ->getSearchM()->userExists(streamerNick)) throw DoesNotExist<std::string>(streamerNick);
+    if(!streamZ->getSearchM()->streamerExists(streamerNick)) throw DoesNotExist<std::string>(streamerNick);
     std::unordered_map<ID, Stream *> mapRef = streamZ->getDatabase().getStreams();
     /*
     mapRef.erase(std::remove_if(

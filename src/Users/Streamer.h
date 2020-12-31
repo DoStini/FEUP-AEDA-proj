@@ -43,14 +43,25 @@ public:
     */
     Streamer(const std::string& name, std::string nickName,std::string password, const Date &birthDate);
 
-
     Streamer();
+    explicit Streamer(const std::string & nick);
 
     ~Streamer() override;
     /// Returns the user type
     ///@return - user type = streamer
     userType getUserType() const override;
-
+    /**
+     * Disables the account
+     */
+    void disableAccount();
+    /**
+     * Reactivates the account
+     * Updates account status
+     */
+    void reenableAccount();
+    /// @return If the account is activated or disabled
+    bool isActive() const;
+    char getStatus() const;
     /**
      * Add viewer to the followers vector
      * @param viewerNick - nick of the viewer
@@ -192,6 +203,7 @@ public:
      * @param ff Current file streamer
     */
     void readFromFile(std::ifstream &ff) override;
+
 private:
     ///Age of the user
     static const unsigned minimumAge = STREAMER_MIN_AGE;
@@ -199,10 +211,29 @@ private:
     std::vector<std::string> followedBy;
     ///Stream that streamer is streaming
     ID currStreaming = NULL_STREAM;
+    /// Active account or disabled
+    bool active;
+    /**
+     * Prevents abuse to get likes
+     * 0 - Nothing
+     * 1 - Should receive likes in the next stream
+     * 2 - Already received likes for reactivating his account
+     */
+    char status;
     ///Streams that the streamer have ended
     std::vector<ID> finishedStreams;
     std::priority_queue<MerchandisingOrder> orders;
 };
 
+struct streamerHash{
+    int operator()(const void * ptr) const{
+        int sum = 1;
+        for (int i = 0; i < (int)((Streamer*) ptr)->getNickName().size(); ++i) sum += sum*37*((Streamer*) ptr)->getNickName()[i];
+        return sum;
+    }
+    bool operator()(const void * ptr1, const void * ptr2) const{
+        return ((Streamer*) ptr1)->getNickName() == ((Streamer*) ptr2)->getNickName();
+    }
+};
 
 #endif //FEUP_AEDA_PROJ_STREAMER_H

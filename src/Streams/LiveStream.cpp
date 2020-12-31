@@ -115,5 +115,9 @@ LiveStream::LiveStream() : Stream() {
 
 }
 
+void LiveStream::addBonusLikes(int likes) {
+    nLikes_Dislikes.first += likes;
+}
+
 
 

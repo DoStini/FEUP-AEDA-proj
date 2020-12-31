@@ -16,8 +16,11 @@ Streamer::Streamer(const std::string& name, std::string nickName,std::string pas
         User(name, std::move(nickName),std::move(password), birthDate) {
     if(age() <= minimumAge)
         throw RestrictedAgeException(name, (int) age(), minimumAge);
+    status = 0;
+    active = true;
 }
 
+Streamer::Streamer(const std::string & nick) : User(nick) {}
 
 Streamer::~Streamer() {
     if(streaming()){
@@ -102,13 +105,25 @@ void Streamer::startPublicStream(std::string title, language streamLanguage, gen
     if(streaming()) throw AlreadyInStreamException(nickName, currStreaming);
     ID streamID = streamZ->getStreamManager()->createPublicStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
 
+    if(status == 1){
+        auto * str = dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(streamID));
+        str->addBonusLikes(50);
+        status++;
+    }
+
     currStreaming = streamID;
 }
 
 void Streamer::startPrivateStream(std::string title, language streamLanguage, genre streamGenre, unsigned int minAge,
                                   unsigned int maxNumberViewers) {
     if(streaming()) throw AlreadyInStreamException(nickName, currStreaming);
+
     ID streamID = streamZ->getStreamManager()->createPrivateStream(std::move(title), nickName, streamLanguage, streamGenre, minAge);
+    if(status == 1){
+        auto * str = dynamic_cast<LiveStream *>(streamZ->getSearchM()->getStream(streamID));
+        str->addBonusLikes(50);
+        status++;
+    }
 
     currStreaming = streamID;
 }
@@ -117,7 +132,7 @@ void Streamer::kickUser(std::string viewerNick) {
     if(!streaming())
         throw NotInStreamException(nickName);
 
-    if(!streamZ->getSearchM()->userExists(viewerNick))
+    if(!streamZ->getSearchM()->viewerExists(viewerNick))
         throw DoesNotExist<std::string>(viewerNick);
 
     auto viewer = (Viewer*) streamZ->getSearchM()->getUser(viewerNick);
@@ -192,7 +207,7 @@ void Streamer::writeToFile(std::ofstream &ff) {
     while (temp >> counter) numNames ++;
 
 
-    ff << numNames << " , " << name << " , " << nickName << " , " << password << " , "
+    ff << numNames << " , " << name << " , " << nickName << " , " << password << " , " << active << " , " << (int)status << " , "
        << birthDate.getStringDate() << " , " << joinedPlatformDate.getStringDateTime()
        << " , " << currStreaming << " , "
        << followedBy.size() << " , ";
@@ -224,8 +239,10 @@ void Streamer::readFromFile(std::ifstream &ff) {
     }
 
     name = ss.str();
+    int st;
+    ff >> sep >> nickName >> sep >> password >> sep >> active >> sep >> st >> sep;
 
-    ff >> sep >> nickName >> sep >> password >> sep;
+    status = (char) st;
 
     ff >> temp;
     birthDate = Date(temp, true);
@@ -308,6 +325,28 @@ MerchandisingOrder Streamer::getOrder() {
     return orders.top();
 }
 
+void Streamer::disableAccount() {
+    if(streaming()){
+        closeStream();
+    }
+    active = false;
+}
+
+void Streamer::reenableAccount() {
+    active = true;
+    // Should receive bonus likes next time he starts a stream
+    if(status == 0)
+        status ++;
+}
+
+bool Streamer::isActive() const {
+    return active;
+}
+
+char Streamer::getStatus() const {
+    return status;
+}
+
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
     if(pci.numMerch < numMerch) return true;
     else if(pci.numMerch == numMerch) {
@@ -332,3 +371,5 @@ std::ostream &operator<<(std::ostream &os, const MerchandisingOrder &order) {
        << " products and of availability of " << order.availability;
     return os;
 }
+
+

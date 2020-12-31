@@ -27,7 +27,7 @@ void UserManager::createStreamer(std::string name, std::string nickName,const st
     Streamer * ptr = new Streamer(name, nickName,password, birthDate);
     ptr->setStreamZ(streamZ);
 
-    streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
+    streamZ->getDatabase().getStreamers().insert(ptr);
 }
 
 void UserManager::createAdmin(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const {
@@ -41,14 +41,19 @@ void UserManager::createAdmin(std::string name, std::string nickName,const std::
     streamZ->getDatabase().getUsers().insert(std::pair<std::string, User*>(nickName,dynamic_cast<User *>(ptr)));
 }
 
-void UserManager::removeUser(std::string nickName) const{
+void UserManager::removeUser(std::string nickName,  bool permanent) const{
     if(!streamZ->getSearchM()->userExists(nickName)) throw DoesNotExist<std::string>(nickName);
 
     User * ptr = streamZ->getSearchM()->getUser(nickName);
 
-    delete ptr;
-
-    streamZ->getDatabase().getUsers().erase(nickName);
+    if(ptr->getUserType() != streamer)
+        streamZ->getDatabase().getUsers().erase(nickName);
+    else{
+        if(permanent){
+            streamZ->getDatabase().getStreamers().erase(ptr);
+            delete ptr;
+        }
+    }
 }
 
 void UserManager::removeHistoryElemFromUser(ID id) const {
@@ -62,10 +67,12 @@ void UserManager::removeHistoryElemFromUser(ID id) const {
             auto * viewer = dynamic_cast<Viewer*>(user.second);
             if(viewer->isInStreamHistory(id)) viewer->removeStreamHistory(id);
         }
-        else if(ptr->getUserType() == streamer){
-            auto * streamer = dynamic_cast<Streamer*>(user.second);
-            if(streamer->isInStreamHistory(id)) streamer->removeStreamHistory(id);
-        }
+    }
+
+    // TODO - NO LONGER EFFICIENT!!!
+    for (User * ptr : streamZ->getDatabase().getStreamers()){
+        auto * streamer = dynamic_cast<Streamer*>(ptr);
+        if(streamer->isInStreamHistory(id)) streamer->removeStreamHistory(id);
     }
 }
 

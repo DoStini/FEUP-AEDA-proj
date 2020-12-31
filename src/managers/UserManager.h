@@ -31,11 +31,17 @@ public:
     void createStreamer(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const;
     /// Creates an admin
     void createAdmin(std::string name, std::string nickName,const std::string& password, const Date &birthDate) const;
-    /// Removes a user
-    void removeUser(std::string nickName) const;
+
+    /**
+     * Removes a user from the database
+     * @param nickName Nickname of the user
+     * @param permanent Only applies to streamers. If set to false, leaves the option of restoring the account
+     */
+    void removeUser(std::string nickName, bool permanent = false) const;
+
     /**
      * @brief Gets the maximum size of orders per streamer
-     */
+     */  
     size_t getOrdersSize() const;
     /**
      * @brief Sets the maximum size of orders per streamer
