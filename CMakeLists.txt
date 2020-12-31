@@ -69,7 +69,7 @@ add_executable(FEUP_AEDA_proj
         src/managers/AdminOps.cpp src/managers/AdminOps.h 
         src/managers/StreamManager.cpp
         src/managers/StreamManager.h
-        src/Utils/BST.h src/Users/Donation.cpp src/Users/Donation.h)
+        src/Utils/BST.h src/Users/Donation.cpp src/Users/Donation.h src/managers/Database.cpp src/managers/DonationManager.cpp src/managers/DonationManager.h src/Exceptions/NotInRangeValue.h)
 
 
 target_link_libraries(FEUP_AEDA_proj gtest gtest_main)

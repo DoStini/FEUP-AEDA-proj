@@ -5,10 +5,12 @@
 #ifndef FEUP_AEDA_PROJ_SEARCHMANAGER_H
 #define FEUP_AEDA_PROJ_SEARCHMANAGER_H
 
+#include <climits>
 #include "User.h"
 #include "Stream.h"
 #include "PrivateStream.h"
 #include "DoesNotExist.h"
+#include "Donation.h"
 
 class StreamZ;
 
@@ -111,6 +113,19 @@ public:
      * @param streams
      */
     void listPrivateLiveStreams(std::vector<PrivateStream *> & streams) const;
+
+    /**
+     * List donation corresponding to certain parameters
+     * @param donations - Returns by reference the vector of donations - Will be cleared if not empty
+     * @param streamersNicks - Optional param specifying the name of the streams to search
+     * @param minAmount - Optional param specifying the min amount to search
+     * @param maxAmount - Optional param specifying the max amount to search
+     * @param evaluations - Optional param specifying the evaluations to search
+     */
+    void listDonations(std::vector<Donation*> & donations,
+                       const std::vector<std::string> streamersNicks =  std::vector<std::string>(),
+                       const unsigned minAmount = 0 , const unsigned maxAmount = UINT_MAX ,
+                       const std::vector<unsigned> & evaluations = std::vector<unsigned>()) const;
 
 private:
     StreamZ * streamZ;

@@ -71,6 +71,9 @@ public:
      */
     void unfollowStreamer();
 
+    /**
+     * Displays Streams history of the viewer
+     */
     void displayHistory();
 
     /**
@@ -82,6 +85,10 @@ public:
      * @brief Prompts the viewer to remove merch from a streamer.
      */
     void removeOrder();
+    /**
+     * Makes a donation to a chosen streamer
+     */
+    void makeDonation();
 };
 
 

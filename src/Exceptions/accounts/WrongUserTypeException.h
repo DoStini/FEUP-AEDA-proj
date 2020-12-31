@@ -22,7 +22,7 @@ public:
     const char * what () const noexcept override;
     friend std::ostream &operator<<(std::ostream &os, const WrongUserTypeException &exception);
 private:
-    userType userType;
+    userType type;
 };
 
 

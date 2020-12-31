@@ -215,6 +215,42 @@ void SearchManager::listAllowedLiveStreams(std::vector<LiveStream *> &streams, s
     }
 }
 
+void SearchManager::listDonations(vector<Donation *> &donations, const std::vector<std::string> streamersNicks,
+                                  const unsigned int minAmount, const unsigned int maxAmount,
+                                  const vector<unsigned int> &evaluations) const {
+
+    // Empties the vector if not empty
+    if(!donations.empty()) donations.clear();
+
+
+    bool checkStreamerNick = !streamersNicks.empty(),
+            checkEvaluation = !evaluations.empty();
+
+    // Iterator to the database BST
+    BSTItrIn<DonationItem> it1(streamZ->getDatabase().donations);
+
+    // Loop to iterate over the BST
+    while(!it1.isAtEnd()){
+        DonationItem ptr = it1.retrieve(); // Getting the current streamer pointer
+            if(ptr.getAmount() > maxAmount ){
+                return;
+            }
+            // Checks if the current streamer verifies all 4 requests (or those asked)
+            if(// Verifies amount restriction
+                ptr.getAmount() >= minAmount && ptr.getAmount() <= maxAmount &&
+                // Only verifies the vector if it is not empty (if the user wants to specify streamerNick)
+                (!checkStreamerNick || checkParam<std::string>( streamersNicks,ptr.getStreamerNick())) &&
+                // Only verifies the vector if it is not empty (if the user wants to specify evaluations)
+                (!checkEvaluation || checkParam<unsigned int>( evaluations,ptr.getEvaluation())))
+            {
+                donations.push_back(ptr.getDonation());
+            }
+
+        it1.advance();
+    }
+
+}
+
 
 
 

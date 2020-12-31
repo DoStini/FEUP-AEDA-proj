@@ -81,6 +81,11 @@ public:
     void removeStream();
 
     /**
+     * Removes a donation from the database
+     */
+    void removeDonation();
+
+    /**
      * Displays the statistics panel.
      */
     void statistics();
@@ -89,6 +94,10 @@ public:
      * @brief Prompts the admin to change orders size
      */
     void changeMaxOrders();
+    /**
+     * Displays a list of the chosen donations parameters
+     */
+    void listDonations();
 };
 
 

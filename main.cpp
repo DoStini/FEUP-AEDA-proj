@@ -428,8 +428,10 @@ TEST(test, likeSystem){
 
 
 }
+
 TEST(test, testDestructs){
     StreamZ streamZ;
+    streamZ.run();
     streamZ.init();
     //streamZ.run();
 
@@ -495,7 +497,7 @@ TEST(test, testDestructs){
 
 
 }
-
+/*
 TEST(test, files1){
     StreamZ streamZ;
     streamZ.init();
@@ -565,7 +567,7 @@ TEST(test, files1){
 
 
     streamZ.init();
-    //streamZ.run();
+    streamZ.run();
 
 
 
@@ -601,6 +603,7 @@ TEST(test, files1){
     ASSERT_EQ(dynamic_cast<Streamer *>(streamZ.getSearchM()->getUser("streamer1"))->getNumFollowers(), 1);
 
 }
+*/
 
 TEST(test, run) {
     StreamZ streamZ = StreamZ();
@@ -721,12 +724,87 @@ TEST(test, run) {
     //streamZ.run();
 }
 
-int main(int argc, char* argv[]) {
+TEST(test, bst_donation) {
+    StreamZ streamZ = StreamZ();
+    streamZ.init();
+    streamZ.getUserM()->createStreamer("falca","falca","123",Date(2001,1,3));
+    streamZ.getUserM()->createStreamer("boas","boas","456",Date(2001,1,3));
+
+    streamZ.getDonationManager()->creatDonation("falca",120,4);
+    DonationItem found = streamZ.getDatabase().donations.findMax();
+    EXPECT_EQ(found.getStreamerNick(), "falca");
+    EXPECT_EQ(found.getAmount(), 120);
+    EXPECT_EQ(found.getEvaluation(), 4);
+
+    found = streamZ.getDatabase().donations.findMin();
+    EXPECT_EQ(found.getStreamerNick(), "falca");
+    EXPECT_EQ(found.getAmount(), 120);
+    EXPECT_EQ(found.getEvaluation(), 4);
+
+
+    streamZ.getDonationManager()->creatDonation("boas",250,3);
+
+    found = streamZ.getDatabase().donations.findMax();
+    EXPECT_EQ(found.getStreamerNick(), "boas");
+    EXPECT_EQ(found.getAmount(), 250);
+    EXPECT_EQ(found.getEvaluation(), 3);
+
+    streamZ.getDonationManager()->creatDonation("boas",250,4);
+    found = streamZ.getDatabase().donations.findMax();
+    EXPECT_EQ(found.getStreamerNick(), "boas");
+    EXPECT_EQ(found.getAmount(), 250);
+    EXPECT_EQ(found.getEvaluation(), 4);
+
+    vector<Donation*> vec;
+
+    streamZ.getSearchM()->listDonations(vec);
+    EXPECT_EQ(vec.size(), 3);
+
+    streamZ.getSearchM()->listDonations(vec,vector<std::string>(),130);
+    EXPECT_EQ(vec.size(), 2);
+
+    streamZ.getSearchM()->listDonations(vec,vector<std::string>(),130,200);
+    EXPECT_EQ(vec.size(), 0);
+
+    vector<unsigned > eval;
+    eval.push_back(4);
+    streamZ.getSearchM()->listDonations(vec,vector<std::string>(),0,1000,eval);
+    EXPECT_EQ(vec.size(), 2);
+
+    vector<unsigned> eval2;
+    eval2.push_back(1);
+    streamZ.getSearchM()->listDonations(vec,vector<std::string>(),0,1000,eval2);
+    EXPECT_EQ(vec.size(), 0);
+
+    eval2.push_back(3);
+    streamZ.getSearchM()->listDonations(vec,vector<std::string>(),0,1000,eval2);
+    EXPECT_EQ(vec.size(), 1);
+
+    streamZ.getDonationManager()->creatDonation("falca",130,4);
+    streamZ.getDonationManager()->creatDonation("falca",135,4);
+    streamZ.getDonationManager()->deleteAllDonationsByNick("boas");
+    streamZ.getSearchM()->listDonations(vec);
+    EXPECT_EQ(vec.size(), 3);
+
+    streamZ.getDonationManager()->deleteAllDonationsByNick("falca");
+    streamZ.getSearchM()->listDonations(vec);
+    EXPECT_EQ(vec.size(), 0);
+
+}
+
+int mainTests(){
+    testing::InitGoogleTest();
+    return RUN_ALL_TESTS();
+}
+
+
+int main() {
+    return mainTests();
+    /**
     StreamZ streamZ;
     streamZ.init("final_data.txt");
     streamZ.run();
 
     streamZ.shutdown("final_data.txt");
-
-    return 0;
+*/
 }

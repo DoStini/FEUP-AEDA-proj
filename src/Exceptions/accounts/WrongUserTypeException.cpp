@@ -4,7 +4,7 @@
 
 #include "WrongUserTypeException.h"
 
-WrongUserTypeException::WrongUserTypeException(enum::userType type) : userType(type) {}
+WrongUserTypeException::WrongUserTypeException(enum::userType type) : type(type) {}
 
 const char *WrongUserTypeException::what() const throw() {
     return "Wrong User Class sent to account constructor.";
@@ -18,6 +18,6 @@ const char *WrongUserTypeException::what() const throw() {
  * @return Output stream reference
  */
 std::ostream &operator<<(std::ostream &os, const WrongUserTypeException &exception) {
-    os << exception.userType << " is the wrong class.";
+    os << exception.type << " is the wrong class.";
     return os;
 }
