@@ -4,9 +4,10 @@
 
 #include "UserManager.h"
 #include "Viewer.h"
+#include "NoSuchOrderException.h"
 #include "StreamZ.h"
 
-UserManager::UserManager(StreamZ *streamZ) : streamZ(streamZ) {}
+UserManager::UserManager(StreamZ *streamZ) : streamZ(streamZ), maxOrdersSize(10){}
 
 void UserManager::createViewer(const std::string& name, std::string nickName,const std::string& password, const Date &birthDate) const {
     if(streamZ->getSearchM()->userExists(nickName)) throw AlreadyExists<std::string>(nickName);
@@ -72,5 +73,35 @@ void UserManager::removeHistoryElemFromUser(ID id) const {
     for (User * ptr : streamZ->getDatabase().getStreamers()){
         auto * streamer = dynamic_cast<Streamer*>(ptr);
         if(streamer->isInStreamHistory(id)) streamer->removeStreamHistory(id);
+    }
+}
+
+void UserManager::setOrdersSize(size_t size) {
+    maxOrdersSize = size;
+}
+
+size_t UserManager::getOrdersSize() const {
+    return maxOrdersSize;
+}
+
+void UserManager::removeMerchFromStreamers(const std::string viewerNick) const {
+    auto it1 = streamZ->getDatabase().getUsers().begin(),
+    it2 = streamZ->getDatabase().getUsers().end();
+    Streamer * streamer;
+
+    while(it1 != it2) {
+        if(it1->second->getUserType() == userType::streamer) {
+            streamer = reinterpret_cast<Streamer *>(it1->second);
+
+            try {
+                while(true) {
+                    streamer->removeOrder(viewerNick);
+                }
+            } catch (NoSuchOrderException & ex) {
+
+            }
+        }
+
+        it1++;
     }
 }

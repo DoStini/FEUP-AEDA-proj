@@ -13,11 +13,17 @@
 class MerchandisingOrder {
 private:
     std::string viewerName;
+    std::string streamerName;
     unsigned numMerch;
     unsigned availability;
 public:
-    MerchandisingOrder(const std::string & userName, unsigned num, unsigned avail);
+    MerchandisingOrder(std::string userName, std::string streamerName, unsigned num, unsigned avail);
+    std::string getViewerName() const {return viewerName;};
+    unsigned getNumMerch() const {return numMerch;};
+    unsigned getAvailability() const {return availability;};
     bool operator<(const MerchandisingOrder& merchandisingOrder) const;
+    bool operator==(const MerchandisingOrder& merchandisingOrder) const;
+    friend std::ostream &operator<<(std::ostream &os, const MerchandisingOrder &order);
 };
 
 /**
@@ -35,7 +41,7 @@ public:
     * @param password - User password
     * @param birthDate - Date of Birth
     */
-    Streamer(std::string name, std::string nickName,std::string password, const Date &birthDate);
+    Streamer(const std::string& name, std::string nickName,std::string password, const Date &birthDate);
 
     Streamer();
     explicit Streamer(const std::string & nick);
@@ -72,7 +78,7 @@ public:
     unsigned int getNumFollowers() const;
 
     /// @return - If the streamer is currently streaming or not
-    bool streaming();
+    bool streaming() const;
 
     /// @return - The current streamer, or 0 if none
     ID getStreamID();
@@ -143,7 +149,39 @@ public:
      * @param streamID - streamer to be removed from the history
      */
     void removeStreamHistory(ID streamID);
-    void dispatchOrder();
+
+    /**
+     * @brief Dispatches an order and returns (top of queue)
+     * @return the order that was dispatched
+     *
+     * @throws OrdersEmptyException if orders queue is empty
+     */
+    MerchandisingOrder dispatchOrder();
+    /**
+     * @brief Adds an order to the orders queue
+     * @param viewerNick nickname of the viewer buying
+     * @param num number of merch queued
+     * @param availability purchase availability of viewer
+     *
+     * @throws OrdersFullException if orders has reached full size
+     */
+    void addOrder(const std::string& viewerNick, unsigned num, unsigned availability);
+    /**
+     * @brief Removes an order from a certain viewer
+     * @param viewerNick nickname of the viewer
+     * @return the order removed
+     *
+     * @throws NoSuchOrderException if no order with the nickname given exists.
+     */
+    MerchandisingOrder removeOrder(const std::string & viewerNick);
+
+    /**
+     * @brief Gets the top order from the priority queue.
+     * @return the order
+     *
+     * @throws OrdersEmptyException if there are no orders in the queue
+     */
+    MerchandisingOrder getOrder();
 
     /**
      * Checks if a streamer is in the streamer history

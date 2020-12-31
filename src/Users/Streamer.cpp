@@ -3,14 +3,16 @@
 //
 
 #include "Streamer.h"
-
+#include "OrdersEmptyException.h"
+#include "OrdersFullException.h"
+#include "NoSuchOrderException.h"
 #include <utility>
 #include "StreamZ.h"
 #include <iomanip>
 #include <iostream>
 
 
-Streamer::Streamer(std::string name, std::string nickName,std::string password, const Date &birthDate) :
+Streamer::Streamer(const std::string& name, std::string nickName,std::string password, const Date &birthDate) :
         User(name, std::move(nickName),std::move(password), birthDate) {
     if(age() <= minimumAge)
         throw RestrictedAgeException(name, (int) age(), minimumAge);
@@ -21,8 +23,6 @@ Streamer::Streamer(std::string name, std::string nickName,std::string password, 
 Streamer::Streamer(const std::string & nick) : User(nick) {}
 
 Streamer::~Streamer() {
-
-
     if(streaming()){
         closeStream();
         // This moves the stream to finished stream, so it doesnt have problems in recursive deletion
@@ -45,7 +45,7 @@ bool Streamer::operator==(const Streamer &str) {
     return nickName == str.nickName;
 }
 
-bool Streamer::streaming() {
+bool Streamer::streaming() const {
     return currStreaming != NULL_STREAM;
 }
 
@@ -275,8 +275,54 @@ void Streamer::readFromFile(std::ifstream &ff) {
     }
 }
 
-Streamer::Streamer() {
+Streamer::Streamer() = default;
 
+MerchandisingOrder Streamer::dispatchOrder() {
+    if(orders.empty()) throw OrdersEmptyException();
+    MerchandisingOrder merchandisingOrder = orders.top();
+    orders.pop();
+
+    return merchandisingOrder;
+}
+
+void Streamer::addOrder(const std::string &viewerNick, unsigned int num, unsigned int availability) {
+    if(streamZ->getUserM()->getOrdersSize() == orders.size()) throw OrdersFullException();
+
+    MerchandisingOrder merchandisingOrder(viewerNick, nickName, num, availability);
+    orders.push(merchandisingOrder);
+}
+
+MerchandisingOrder Streamer::removeOrder(const std::string &viewerNick) {
+    std::priority_queue<MerchandisingOrder> copy;
+    MerchandisingOrder merchandisingOrder("","",0,0);
+    bool found = false;
+
+    if(orders.empty()) throw NoSuchOrderException(viewerNick);
+
+    while(!orders.empty()) {
+        merchandisingOrder = orders.top();
+        orders.pop();
+        if(merchandisingOrder.getViewerName() == viewerNick) {
+            found = true;
+            break;
+        }
+        copy.push(merchandisingOrder);
+    }
+
+    while(!copy.empty()) {
+        orders.push(copy.top());
+        copy.pop();
+    }
+
+    if(!found) throw NoSuchOrderException(viewerNick);
+
+    return merchandisingOrder;
+}
+
+MerchandisingOrder Streamer::getOrder() {
+    if(orders.empty()) throw OrdersEmptyException();
+
+    return orders.top();
 }
 
 void Streamer::disableAccount() {
@@ -302,12 +348,28 @@ char Streamer::getStatus() const {
 }
 
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
+    if(pci.numMerch < numMerch) return true;
+    else if(pci.numMerch == numMerch) {
+        return(availability < pci.availability);
+    }
     return false;
 }
 
-MerchandisingOrder::MerchandisingOrder(const std::string &userName, unsigned int num, unsigned int avail) :
-        viewerName(userName), numMerch(num), availability(avail){
+MerchandisingOrder::MerchandisingOrder(std::string userName, std::string streamerName, unsigned int num, unsigned int avail) :
+        viewerName(std::move(userName)), streamerName(std::move(streamerName)), numMerch(num), availability(avail){
+    if(availability > 5) availability = 5;
+    else if(availability < 1) availability = 1;
 
+}
+
+bool MerchandisingOrder::operator==(const MerchandisingOrder& merchandisingOrder) const {
+    return viewerName == merchandisingOrder.viewerName;
+}
+
+std::ostream &operator<<(std::ostream &os, const MerchandisingOrder &order) {
+    os << "Order from viewer " << order.viewerName << " to streamer "<< order.streamerName << " with " << order.numMerch
+       << " products and of availability of " << order.availability;
+    return os;
 }
 
 

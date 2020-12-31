@@ -142,6 +142,7 @@ Viewer::~Viewer() {
         ptr->leaveFollower(nickName);
     }
     streamZ->getStreamManager()->removeViewerFromWhitelists(nickName);
+    streamZ->getUserM()->removeMerchFromStreamers(nickName);
 }
 
 bool Viewer::isFollowing(std::string &streamer) {
@@ -282,4 +283,22 @@ void Viewer::writeToFile(std::ofstream &ff) {
         ff << id << " , ";
     }
     ff << std::endl;
+}
+
+void Viewer::orderMerch(const std::string &streamerNick, unsigned int num, unsigned int availability) {
+    User * user = streamZ->getSearchM()->getUser(streamerNick);
+    if(user->getUserType() == userType::streamer) {
+        auto streamer = dynamic_cast<Streamer*>(user);
+
+        streamer->addOrder(nickName, num, availability);
+    } else throw DoesNotExist<std::string>(streamerNick);
+}
+
+MerchandisingOrder Viewer::removeOrder(const std::string &streamerNick) {
+    User * user = streamZ->getSearchM()->getUser(streamerNick);
+    if(user->getUserType() == userType::streamer) {
+        auto streamer = dynamic_cast<Streamer*>(user);
+
+        return streamer->removeOrder(nickName);
+    } else throw DoesNotExist<std::string>(streamerNick);
 }
