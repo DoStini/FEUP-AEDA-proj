@@ -799,12 +799,11 @@ int mainTests(){
 
 
 int main() {
-    return mainTests();
-    /**
+    //return mainTests();
+
     StreamZ streamZ;
     streamZ.init("final_data.txt");
     streamZ.run();
 
     streamZ.shutdown("final_data.txt");
-*/
 }
