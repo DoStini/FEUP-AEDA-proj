@@ -408,7 +408,7 @@ void StreamZ::backupData(std::string fileName) {
     BSTItrPre<DonationItem> it(getDatabase().donations);
     while (!it.isAtEnd())
     {
-        ff << it.retrieve().getStreamerNick() << " : " << it.retrieve().getAmount() << " : " << it.retrieve().getEvaluation();
+        ff << it.retrieve().getStreamerNick() << " : " << it.retrieve().getAmount() << " : " << it.retrieve().getEvaluation() << std::endl;
         it.advance();
     }
     ff.close();

@@ -69,7 +69,7 @@ bool DonationItem::operator==(const DonationItem &comp) const {
 }
 
 std::ostream &operator<<(std::ostream &os, const DonationItem &p) {
-    os << "Donation is to " << p.getStreamerNick() << " whit the amount: " << p.getAmount() << " and evaluation: " << p.getEvaluation();
+    os << "Donation is to " << p.getStreamerNick() << "amount: " << p.getAmount() << " | evaluation: " << p.getEvaluation();
     return os;
 }
 

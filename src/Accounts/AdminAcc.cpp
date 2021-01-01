@@ -26,7 +26,7 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
         "Display the statistics panel.",
         "Delete a user from the platform.",
         "Delete a stream from the platform.",
-        "Change the maximum number of orders per streamer."
+        "Change the maximum number of orders per streamer.",
         "Delete a donation from the platform.",
         "List donations of platform."
     });
