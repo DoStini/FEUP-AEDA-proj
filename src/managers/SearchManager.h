@@ -123,8 +123,8 @@ public:
      * @param evaluations - Optional param specifying the evaluations to search
      */
     void listDonations(std::vector<Donation*> & donations,
-                       const std::vector<std::string> streamersNicks =  std::vector<std::string>(),
-                       const unsigned minAmount = 0 , const unsigned maxAmount = UINT_MAX ,
+                       std::vector<std::string> streamersNicks =  std::vector<std::string>(),
+                       unsigned minAmount = 0 , unsigned maxAmount = UINT_MAX ,
                        const std::vector<unsigned> & evaluations = std::vector<unsigned>()) const;
 
 private:

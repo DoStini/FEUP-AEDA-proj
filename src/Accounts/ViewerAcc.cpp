@@ -52,7 +52,7 @@ ViewerAcc::ViewerAcc(User *user, StreamZ * streamZ) : Account(user, streamZ){
         "Display your watch history.",
         "Order Merch.",
         "Remove a placed order.",
-        "Make new donation"
+        "Make donation"
     });
     nOptions = options.size();
 }
