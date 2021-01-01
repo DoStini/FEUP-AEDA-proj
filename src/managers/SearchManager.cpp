@@ -231,11 +231,11 @@ void SearchManager::listDonations(vector<Donation *> &donations, const std::vect
 
     // Loop to iterate over the BST
     while(!it1.isAtEnd()){
-        DonationItem ptr = it1.retrieve(); // Getting the current streamer pointer
+        DonationItem ptr = it1.retrieve(); // Getting the current Donation pointer
             if(ptr.getAmount() > maxAmount ){
                 return;
             }
-            // Checks if the current streamer verifies all 4 requests (or those asked)
+            // Checks if the current donation verifies all 4 requests (or those asked)
             if(// Verifies amount restriction
                 ptr.getAmount() >= minAmount && ptr.getAmount() <= maxAmount &&
                 // Only verifies the vector if it is not empty (if the user wants to specify streamerNick)
