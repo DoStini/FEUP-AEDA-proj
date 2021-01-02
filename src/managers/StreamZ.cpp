@@ -413,6 +413,20 @@ void StreamZ::backupData(std::string fileName) {
     }
     ff.close();
 
+    ff.open("../orders_" + fileName, std::ofstream::trunc);
+    if(!ff.is_open()) {
+        ff.open("orders_" + fileName, std::ofstream::trunc);
+        if(!ff.is_open()) throw "No file";
+    }
+
+    ff << getUserM()->getOrdersSize() << std::endl;
+
+    for (const auto & streamer : getDatabase().getStreamers()) {
+        dynamic_cast<Streamer*>(streamer)->writeOrders(ff);
+    }
+
+
+    ff.close();
 }
 
 void StreamZ::readFromFile(std::string fileName) {

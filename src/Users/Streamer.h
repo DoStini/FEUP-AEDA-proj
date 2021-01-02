@@ -198,6 +198,8 @@ public:
      * @param ff Current file streamer
      */
     void writeToFile(std::ofstream &ff) override;
+
+    void writeOrders(std::ofstream &ff);
     /**
      * Reading user info from file
      * @param ff Current file streamer

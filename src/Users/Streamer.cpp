@@ -347,6 +347,22 @@ char Streamer::getStatus() const {
     return status;
 }
 
+void Streamer::writeOrders(ofstream &ff) {
+    bool empty = true;
+    if(!orders.empty())  {
+        ff << nickName << " : ";
+        empty = false;
+    }
+
+    while(!orders.empty()) {
+        auto order = orders.top();
+        ff << order.getViewerName() << " , " << order.getNumMerch() << " , " << order.getAvailability() << " ; ";
+        orders.pop();
+    }
+
+    if(!empty) ff << std::endl;
+}
+
 bool MerchandisingOrder::operator<(const MerchandisingOrder &pci) const {
     if(pci.numMerch < numMerch) return true;
     else if(pci.numMerch == numMerch) {
