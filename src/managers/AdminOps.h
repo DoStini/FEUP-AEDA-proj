@@ -101,6 +101,12 @@ public:
      */
     void changeMaxOrdersSize(size_t size);
 
+    /**
+     * @brief gets the max size of orders each streamer can have
+     * @return the size
+     */
+    unsigned getMaxOrdersSize();
+
 private:
     StreamZ * streamZ;
 };

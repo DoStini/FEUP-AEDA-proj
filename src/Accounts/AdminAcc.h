@@ -94,6 +94,11 @@ public:
      * @brief Prompts the admin to change orders size
      */
     void changeMaxOrders();
+
+    /**
+     * @brief Displays order size.
+     */
+    void displayMaxOrders();
     /**
      * Displays a list of the chosen donations parameters
      */

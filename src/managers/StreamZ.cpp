@@ -21,6 +21,8 @@ void StreamZ::init() {
     leaderboard = new LeaderBoard(this);
     donationManager = new DonationManager(this);
     dataBase = Database();
+    userManager->setOrdersSize(10);
+
 }
 
 void StreamZ::init(std::string fileName) {
@@ -33,6 +35,7 @@ void StreamZ::init(std::string fileName) {
     leaderboard = new LeaderBoard(this);
     donationManager = new DonationManager(this);
     dataBase = Database();
+
 
     try{
         readFromFile(fileName);
@@ -534,6 +537,39 @@ void StreamZ::readFromFile(std::string fileName) {
         DonationItem newDonation(nick,amount,evaluation);
 
         dataBase.donations.insert(newDonation);
+    }
+
+    ff.close();
+
+    ff.open("../orders_" + fileName);
+
+    if (!ff.is_open()){
+        ff.open("orders_" + fileName);
+        if(!ff.is_open()) throw "No file";
+    }
+
+    unsigned max;
+
+    ff >> max;
+    std::cout << max << std::endl;
+
+    getUserM()->setOrdersSize(max);
+
+    Streamer * streamer;
+    while (ff.peek() != EOF){
+        if(ff.eof()) break;
+        std::string  streamerNick, viewerNick;
+        unsigned amount, availability;
+        char trash;
+        ff >> streamerNick >> trash;
+
+        if(ff.eof()) break;
+
+        streamer = dynamic_cast<Streamer *>(getSearchM()->getUser(streamerNick));
+        while(trash != '/') {
+            ff >> viewerNick >> trash >> amount >> trash >> availability >> trash;
+            streamer->addOrder(viewerNick, amount, availability);
+        }
     }
 
     ff.close();

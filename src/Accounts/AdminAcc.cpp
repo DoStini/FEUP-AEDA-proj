@@ -19,6 +19,7 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
         [this] { removeUser(); },
         [this] { removeStream(); },
         [this] { changeMaxOrders();},
+        [this] { displayMaxOrders(); },
         [this] { removeDonation(); },
         [this] { listDonations(); }
     });
@@ -27,6 +28,7 @@ AdminAcc::AdminAcc(User *admin, StreamZ * streamZ) : Account(admin, streamZ){
         "Delete a user from the platform.",
         "Delete a stream from the platform.",
         "Change the maximum number of orders per streamer.",
+        "Display the maximum number of orders per streamer.",
         "Delete a donation from the platform.",
         "List donations of platform."
     });
@@ -485,4 +487,12 @@ void AdminAcc::listDonations() {
     print();
     waitForKey();
 
+}
+
+void AdminAcc::displayMaxOrders() {
+    print("The max size of orders per streamer is ", '\0');
+    print(streamZ->getAdminOps()->getMaxOrdersSize());
+
+    print();
+    waitForKey();
 }

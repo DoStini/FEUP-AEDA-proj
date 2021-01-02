@@ -434,7 +434,7 @@ void ViewerAcc::removeOrder() {
     std::string nickName;
     std::stringstream  ss;
 
-    print("What is the nickname of the streamer you wish to buy merch from? (empty to cancel) ", '\0');
+    print("What is the nickname of the streamer you wish to remove an order from? (empty to cancel) ", '\0');
 
     getTruncatedString(nickName);
 

@@ -299,3 +299,8 @@ void AdminOps::removeStream(ID streamID) {
 void AdminOps::changeMaxOrdersSize(size_t size) {
     streamZ->getUserM()->setOrdersSize(size);
 }
+
+unsigned AdminOps::getMaxOrdersSize() {
+    return streamZ->getUserM()->getOrdersSize();
+}
+
