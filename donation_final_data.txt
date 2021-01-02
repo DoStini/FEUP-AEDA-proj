@@ -3,6 +3,7 @@ osvaldo1 : 10 : 1
 streamer4 : 2 : 3
 ramiro11 : 1 : 2
 osvaldo28 : 104 : 5
+streamer2 : 20 : 3
 streamer3 : 1005 : 4
 ramiro5 : 121212 : 5
 osvaldo22 : 10000 : 5
