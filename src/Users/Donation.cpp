@@ -26,7 +26,7 @@ unsigned Donation::getEvaluation() const {
 }
 
 std::ostream &operator<<(std::ostream &os, const Donation &p) {
-    os << "Donation is to " << p.getStreamerNick() << " whit the amount: " << p.getAmount() << " and evaluation: " << p.getEvaluation();
+    os << "Donation is to " << p.getStreamerNick() << " with the amount: " << p.getAmount() << " and evaluation: " << p.getEvaluation();
     return os;
 }
 
