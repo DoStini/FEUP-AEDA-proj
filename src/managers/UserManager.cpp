@@ -51,6 +51,7 @@ void UserManager::removeUser(std::string nickName,  bool permanent) const{
     else{
         if(permanent){
             streamZ->getDatabase().getStreamers().erase(ptr);
+            streamZ->getDonationManager()->deleteAllDonationsByNick(nickName);
             delete ptr;
         }
     }

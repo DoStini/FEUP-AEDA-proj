@@ -282,7 +282,7 @@ float AdminOps::medianViewsStream(Date d1, Date d2) {
 
 void AdminOps::removeUser(std::string nickName) {
     try{
-        streamZ->getUserM()->removeUser(std::move(nickName));
+        streamZ->getUserM()->removeUser(std::move(nickName), true);
     } catch (const DoesNotExist<std::string> &e) {
         throw e;
     }
