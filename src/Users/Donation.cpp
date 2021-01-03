@@ -6,7 +6,8 @@
 #include "iostream"
 #include <sstream>
 
-Donation::Donation(const std::string &streamerNick, unsigned amount, unsigned evaluation_p) : streamerNick(streamerNick),amount(amount) {
+Donation::Donation(const std::string &streamerNick, unsigned amount, unsigned evaluation_p)
+    :streamerNick(streamerNick),amount(amount) {
     if(evaluation_p == 0 || evaluation_p > 5){
         throw NotInRangeValue("Donation evaluation", evaluation_p );
     }
