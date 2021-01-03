@@ -20,12 +20,21 @@ public:
 
     /**
      * Create a new donation in the BST
-     * throw DoesNotExsit if user does not exist, AlreadyExist if equal donation exists, NotInRangeValue if evaluation is not valid
+     * @throw AlreadyExist if equal donation exists, NotInRangeValue if evaluation is not valid
      * @param streamerNick - streamer nick
      * @param amount - donation value
-     * @param avaliation - avaliation of the donation from 1 to 5
+     * @param evaluation - evaluation of the donation from 1 to 5
      */
     void creatDonation(const std::string &streamerNick, int amount, int evaluation);
+
+    /**
+     * Finds a donation in the BST
+     * @param streamerNick
+     * @param amount
+     * @param evaluation
+     * @return DonationItem copy
+     */
+    DonationItem findDonation(const std::string &streamerNick, int amount, int evaluation);
 
     /**
      * delete a donation from the BST

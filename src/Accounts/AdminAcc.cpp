@@ -409,8 +409,7 @@ void AdminAcc::removeDonation() {
         print(e);
     } catch (DoesNotExist<std::string> &e) {
         print("Operation failed: ");
-        print("No such streamer with nickname: ", '\0');
-        print(nickName);
+        print("No such donation.");
     } catch (NotInRangeValue &e) {
         print("Operation failed: ");
         print(e);
