@@ -407,7 +407,7 @@ void AdminAcc::removeDonation() {
     } catch (AlreadyExists<DonationItem> &e) {
         print("Operation failed: ");
         print(e);
-    } catch (DoesNotExist<std::string> &e) {
+    } catch (DoesNotExist<DonationItem> &e) {
         print("Operation failed: ");
         print("No such donation.");
     } catch (NotInRangeValue &e) {

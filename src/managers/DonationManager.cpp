@@ -10,22 +10,21 @@
 void DonationManager::creatDonation(const string &streamerNick, int amount, int evaluation) {
 
     streamZ->getSearchM()->getUser(streamerNick);
-    DonationItem newDonation(streamerNick,amount,evaluation);
-    DonationItem fDonation = findDonation(newDonation);
+    DonationItem fDonation = findDonation(streamerNick, amount,evaluation);
 
 
     if((fDonation.getStreamerNick() == "") && (fDonation.getEvaluation() == 1) && (fDonation.getAmount() == 0)) {
         streamZ->getDatabase().donations.insert(DonationItem(streamerNick, amount, evaluation));
     }
     else {
-        throw AlreadyExists<DonationItem>(newDonation);
+        throw AlreadyExists<DonationItem>(DonationItem(streamerNick,amount,evaluation));
     }
 }
 
 void DonationManager::deleteDonation(const string &streamerNick, int amount, int evaluation) {
     DonationItem donation = findDonation(streamerNick, amount,evaluation);
     if(donation.getStreamerNick().empty())
-        throw DoesNotExist<DonationItem>(donation);
+        throw DoesNotExist<DonationItem>(DonationItem(streamerNick,amount,evaluation));
     streamZ->getDatabase().donations.remove(donation);
 }
 
