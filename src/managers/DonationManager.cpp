@@ -8,12 +8,11 @@
 
 
 void DonationManager::creatDonation(const string &streamerNick, int amount, int evaluation) {
-
     streamZ->getSearchM()->getUser(streamerNick);
     DonationItem fDonation = findDonation(streamerNick, amount,evaluation);
 
-
-    if((fDonation.getStreamerNick() == "") && (fDonation.getEvaluation() == 1) && (fDonation.getAmount() == 0)) {
+    //checks if the find method return the end of the BST
+    if((fDonation.getStreamerNick().empty()) && (fDonation.getEvaluation() == 1) && (fDonation.getAmount() == 0)) {
         streamZ->getDatabase().donations.insert(DonationItem(streamerNick, amount, evaluation));
     }
     else {

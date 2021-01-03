@@ -65,7 +65,8 @@ bool DonationItem::operator<(const DonationItem &comp) const {
 }
 
 bool DonationItem::operator==(const DonationItem &comp) const {
-    return ((this->getStreamerNick() == comp.getStreamerNick()) && (this->getDonation() == comp.getDonation())
+    return ((this->getStreamerNick() == comp.getStreamerNick())
+        && (this->getDonation() == comp.getDonation())
         && (this->getEvaluation() == comp.getEvaluation()));
 }
 
